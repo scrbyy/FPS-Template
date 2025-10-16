@@ -7,6 +7,7 @@ public class NewInputProvider : InputProvider
     private InputAction jumpAction;
     private InputAction lookAction;
     private InputAction interactAction;
+    private InputAction sprintAction;
 
     private void Start()
     {
@@ -14,10 +15,11 @@ public class NewInputProvider : InputProvider
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");
         interactAction = InputSystem.actions.FindAction("Interact");
+        sprintAction = InputSystem.actions.FindAction("Sprint");
     }
-    public override bool isJumpButtonPressed()
+    public override bool isJumpButtonDown()
     {
-        return jumpAction.IsPressed(); 
+        return jumpAction.triggered; 
     }
 
     public override Vector2 GetKeyboardInput()
@@ -30,8 +32,12 @@ public class NewInputProvider : InputProvider
         return lookAction.ReadValue<Vector2>();
     }
 
-    public override bool isInteractButtonPressed()
+    public override bool isInteractButtonDown()
     {
         return interactAction.triggered;
+    }
+    public override bool isSprintButtonPressed()
+    {
+        return sprintAction.IsPressed();
     }
 }

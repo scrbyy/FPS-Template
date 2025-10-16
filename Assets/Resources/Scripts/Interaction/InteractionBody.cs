@@ -13,7 +13,7 @@ public class InteractionBody : MonoBehaviour
     {
         if(Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, maxDistance, mask))
         {
-            if (selectedInputProvider.isInteractButtonPressed())
+            if (selectedInputProvider.isInteractButtonDown())
             {
                 IInteractionObject _interactionObject = hit.collider.gameObject.GetComponent<IInteractionObject>();
                 _interactionObject.Use();

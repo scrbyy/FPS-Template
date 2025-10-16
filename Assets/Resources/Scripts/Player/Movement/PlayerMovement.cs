@@ -1,11 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class CharacterControllerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private InputProvider selectedInputProvider;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float jumpForce;
+    [SerializeField] private float airControl;
+    [SerializeField] private InputProvider selectedInputProvider;
 
     private CharacterController _characterController;
     private Vector3 horizontalVelocityBuffer;
@@ -18,6 +19,18 @@ public class CharacterControllerMovement : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
     }
 
+    public void SetMoveSpeed(float newSpeed)
+    {
+        if(newSpeed > 0)
+        {
+            moveSpeed = newSpeed;
+        }
+    }
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+
     private void Update()
     {
         UpdateVerticalVelocity();
@@ -26,28 +39,30 @@ public class CharacterControllerMovement : MonoBehaviour
 
     private void MovePlayer(Vector2 keyboardInput)
     {
-        Vector3 desiredMovement;
-        Vector3 desiredDirection = new Vector3(keyboardInput.x, 0, keyboardInput.y);
+        Vector3 inputDirection = new Vector3(keyboardInput.x, 0, keyboardInput.y);
 
-        if (desiredDirection != Vector3.zero)
+        if (inputDirection != Vector3.zero)
         {
-            desiredMovement = transform.TransformDirection(desiredDirection) * moveSpeed;
-            horizontalVelocityBuffer = desiredMovement;
-            
+            Vector3 desiredDirection = transform.TransformDirection(inputDirection.normalized);
+
+            float controlMultiplier = _characterController.isGrounded ? 1f : airControl;
+
+            Vector3 desiredVelocity = desiredDirection * moveSpeed;
+
+            horizontalVelocityBuffer = Vector3.Lerp(
+                horizontalVelocityBuffer,
+                desiredVelocity,
+                controlMultiplier * Time.deltaTime * 10f
+            );
         }
-        else
+        else if (_characterController.isGrounded)
         {
-            desiredMovement = horizontalVelocityBuffer;
-
-            if (_characterController.isGrounded)
-            {
-                horizontalVelocityBuffer = Vector3.Lerp(horizontalVelocityBuffer, Vector3.zero, Time.deltaTime * 10f);
-            }
+            horizontalVelocityBuffer = Vector3.Lerp(horizontalVelocityBuffer, Vector3.zero, Time.deltaTime * 10f);
         }
-
-        moveVector = new Vector3(desiredMovement.x, verticalVector, desiredMovement.z);
+        moveVector = new Vector3(horizontalVelocityBuffer.x, verticalVector, horizontalVelocityBuffer.z);
         _characterController.Move(moveVector * Time.deltaTime);
     }
+
 
     private void UpdateVerticalVelocity()
     {
@@ -55,7 +70,7 @@ public class CharacterControllerMovement : MonoBehaviour
         {
             verticalVector = -2f;
 
-            if (selectedInputProvider.isJumpButtonPressed())
+            if (selectedInputProvider.isJumpButtonDown())
             {
                 verticalVector = Mathf.Sqrt(jumpForce * -2f * Physics.gravity.y);
 

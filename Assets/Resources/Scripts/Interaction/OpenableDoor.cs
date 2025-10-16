@@ -47,10 +47,11 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (isOpen)
+            if (RotateCourutine != null)
             {
-                isOpen = false;
-                RotateCourutine = StartCoroutine(RotateDoor(closedAngleY, openTime));
+                isOpen = true;
+                StopCoroutine(RotateCourutine);
+                RotateCourutine = null;
             }
         }
     }
