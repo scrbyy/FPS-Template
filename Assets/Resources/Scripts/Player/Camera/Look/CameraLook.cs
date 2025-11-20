@@ -17,8 +17,8 @@ public class CameraLook : MonoBehaviour
     private float _xRotation;
     private void Update()
     {
-        float mouseY = selectedInputProvider.GetMouseInput().x * sensetivity;
-        float mouseX = selectedInputProvider.GetMouseInput().y * sensetivity;
+        float mouseY = selectedInputProvider.GetLookInput().x * sensetivity;
+        float mouseX = selectedInputProvider.GetLookInput().y * sensetivity;
 
         _yRotation -= mouseX;
         _yRotation = Mathf.Clamp(_yRotation, minCameraAngle, maxCameraAngle);

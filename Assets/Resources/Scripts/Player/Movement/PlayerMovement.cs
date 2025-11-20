@@ -1,89 +1,84 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerVerticalPhysics))]
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float jumpForce;
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float accelerationRate;
+    [SerializeField] private float decelerationRate;
     [SerializeField] private float airControl;
     [SerializeField] private InputProvider selectedInputProvider;
 
-    private CharacterController _characterController;
-    private Vector3 horizontalVelocityBuffer;
-    private float verticalVector;
+    private Vector3 _horizontalVelocityBuffer;
+    private Vector3 _moveVector;
 
-    private Vector3 moveVector;
+    private float _walkSpeed;
+    private float _targetMaxSpeed;
+
+    private CharacterController _characterController;
+    private PlayerVerticalPhysics _playerVerticalPhysics;
 
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _playerVerticalPhysics = GetComponent<PlayerVerticalPhysics>();
+
+        _walkSpeed = maxSpeed;
+        _targetMaxSpeed = maxSpeed;
     }
 
-    public void SetMoveSpeed(float newSpeed)
+    public void SetMaxSpeed(float newMaxSpeed)
     {
-        if(newSpeed > 0)
-        {
-            moveSpeed = newSpeed;
-        }
+        if (newMaxSpeed > 0 && _characterController.isGrounded)
+            _targetMaxSpeed = newMaxSpeed;
     }
-    public float GetMoveSpeed()
+
+    public void ResetMaxSpeed()
     {
-        return moveSpeed;
+        if(_characterController.isGrounded)
+            _targetMaxSpeed = _walkSpeed;
     }
 
     private void Update()
     {
-        UpdateVerticalVelocity();
-        MovePlayer(selectedInputProvider.GetKeyboardInput());
+        maxSpeed = Mathf.MoveTowards(maxSpeed, _targetMaxSpeed, decelerationRate * Time.deltaTime);
+
+        _playerVerticalPhysics.ApplyVerticalMovement();
+
+        MovePlayer(selectedInputProvider.GetMoveVector());
     }
 
     private void MovePlayer(Vector2 keyboardInput)
     {
         Vector3 inputDirection = new Vector3(keyboardInput.x, 0, keyboardInput.y);
 
+        Vector3 desiredDirection = transform.TransformDirection(inputDirection.normalized);
+        Vector3 desiredVelocity = desiredDirection * maxSpeed;
+
         if (inputDirection != Vector3.zero)
         {
-            Vector3 desiredDirection = transform.TransformDirection(inputDirection.normalized);
+            float controlRate = _characterController.isGrounded ? accelerationRate : airControl * accelerationRate;
 
-            float controlMultiplier = _characterController.isGrounded ? 1f : airControl;
-
-            Vector3 desiredVelocity = desiredDirection * moveSpeed;
-
-            horizontalVelocityBuffer = Vector3.Lerp(
-                horizontalVelocityBuffer,
+            _horizontalVelocityBuffer = Vector3.Lerp(
+                _horizontalVelocityBuffer,
                 desiredVelocity,
-                controlMultiplier * Time.deltaTime * 10f
-            );
-        }
-        else if (_characterController.isGrounded)
-        {
-            horizontalVelocityBuffer = Vector3.Lerp(horizontalVelocityBuffer, Vector3.zero, Time.deltaTime * 10f);
-        }
-        moveVector = new Vector3(horizontalVelocityBuffer.x, verticalVector, horizontalVelocityBuffer.z);
-        _characterController.Move(moveVector * Time.deltaTime);
-    }
-
-
-    private void UpdateVerticalVelocity()
-    {
-        if (_characterController.isGrounded)
-        {
-            verticalVector = -2f;
-
-            if (selectedInputProvider.isJumpButtonDown())
-            {
-                verticalVector = Mathf.Sqrt(jumpForce * -2f * Physics.gravity.y);
-
-                if (selectedInputProvider.GetKeyboardInput() != Vector2.zero)
-                {
-                    Vector3 currentInputDirection = new Vector3(selectedInputProvider.GetKeyboardInput().x, 0, selectedInputProvider.GetKeyboardInput().y);
-                    horizontalVelocityBuffer = transform.TransformDirection(currentInputDirection) * moveSpeed;
-                }
-            }
+                controlRate * Time.deltaTime);
         }
         else
         {
-            verticalVector += Physics.gravity.y * Time.deltaTime;
+            if (_characterController.isGrounded)
+            {
+                _horizontalVelocityBuffer = Vector3.Lerp(_horizontalVelocityBuffer, Vector3.zero, Time.deltaTime * decelerationRate);
+            }
         }
+
+        if (_horizontalVelocityBuffer.magnitude > maxSpeed)
+        {
+            _horizontalVelocityBuffer = _horizontalVelocityBuffer.normalized * maxSpeed;
+        }
+
+        _moveVector = new Vector3(_horizontalVelocityBuffer.x, _playerVerticalPhysics.GetVerticalVelocity(), _horizontalVelocityBuffer.z);
+        _characterController.Move(_moveVector * Time.deltaTime);
     }
 }

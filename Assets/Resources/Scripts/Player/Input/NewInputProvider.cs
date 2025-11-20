@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,36 +9,50 @@ public class NewInputProvider : InputProvider
     private InputAction lookAction;
     private InputAction interactAction;
     private InputAction sprintAction;
+    private InputAction fireAction;
+    private InputAction reloadAction;
 
-    private void Start()
+    public override event Action OnJumpPerformed;
+    public override event Action OnInteractPerformed;
+    public override event Action OnReloadPerformed;
+    public override event Action OnSprintStarted;
+    public override event Action OnSprintCanceled;
+    public override event Action OnShootTriggered;
+    public override event Action OnShootPressed;
+
+    public override Vector2 GetLookInput()
+    {
+        return lookAction.ReadValue<Vector2>();
+    }
+
+    public override Vector2 GetMoveVector()
+    {
+        return moveAction.ReadValue<Vector2>();
+    }
+
+    private void Awake()
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         lookAction = InputSystem.actions.FindAction("Look");
         interactAction = InputSystem.actions.FindAction("Interact");
         sprintAction = InputSystem.actions.FindAction("Sprint");
-    }
-    public override bool isJumpButtonDown()
-    {
-        return jumpAction.triggered; 
-    }
+        fireAction = InputSystem.actions.FindAction("Fire");
+        reloadAction = InputSystem.actions.FindAction("Reload");
 
-    public override Vector2 GetKeyboardInput()
-    {
-        return moveAction.ReadValue<Vector2>();
-    }
+        jumpAction.performed += ctx => OnJumpPerformed?.Invoke();
+        interactAction.performed += ctx => OnInteractPerformed?.Invoke();
+        fireAction.performed += ctx => OnShootTriggered?.Invoke();
+        reloadAction.performed += ctx => OnReloadPerformed?.Invoke();
 
-    public override Vector2 GetMouseInput()
-    {
-        return lookAction.ReadValue<Vector2>();
+        sprintAction.started += ctx => OnSprintStarted?.Invoke();
+        sprintAction.canceled += ctx => OnSprintCanceled?.Invoke();
     }
-
-    public override bool isInteractButtonDown()
+    private void Update()
     {
-        return interactAction.triggered;
-    }
-    public override bool isSprintButtonPressed()
-    {
-        return sprintAction.IsPressed();
+        if (fireAction.IsPressed())
+        {
+            OnShootPressed?.Invoke();
+        }
     }
 }

@@ -9,15 +9,17 @@ public class InteractionBody : MonoBehaviour
 
     private RaycastHit hit;
 
-    private void Update()
+    private void OnEnable()
     {
-        if(Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, maxDistance, mask))
+        selectedInputProvider.OnInteractPerformed += CheckInteraction;
+    }
+
+    private void CheckInteraction()
+    {
+        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, maxDistance, mask))
         {
-            if (selectedInputProvider.isInteractButtonDown())
-            {
-                IInteractionObject _interactionObject = hit.collider.gameObject.GetComponent<IInteractionObject>();
-                _interactionObject.Use();
-            }
+            IInteractionObject _interactionObject = hit.collider.gameObject.GetComponent<IInteractionObject>();
+            _interactionObject.Use();
         }
     }
 }

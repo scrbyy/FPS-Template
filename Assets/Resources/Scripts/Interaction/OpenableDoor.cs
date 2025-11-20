@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class OpenableDoor : MonoBehaviour, IInteractionObject
 {
+    [SerializeField] private Transform doorTransform;
     [SerializeField] private float openAngle; 
     [SerializeField] private float openTime;   
 
@@ -14,7 +15,7 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
 
     private void Awake()
     {
-        closedAngleY = transform.eulerAngles.y;
+        closedAngleY = doorTransform.localEulerAngles.y;
         openedAngleY = closedAngleY + openAngle;
     }
 
@@ -28,18 +29,18 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
 
     private IEnumerator RotateDoor(float targetY, float duration)
     {
-        float startY = transform.eulerAngles.y;
+        float startY = doorTransform.localEulerAngles.y;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float newY = Mathf.LerpAngle(startY, targetY, elapsed / duration);
-            transform.eulerAngles = new Vector3(transform.eulerAngles.x, newY, transform.eulerAngles.z);
+            doorTransform.localEulerAngles = new Vector3(doorTransform.localEulerAngles.x, newY, doorTransform.localEulerAngles.z);
             yield return null;
         }
 
-        transform.eulerAngles = new Vector3(transform.eulerAngles.x, targetY, transform.eulerAngles.z);
+        doorTransform.localEulerAngles = new Vector3(doorTransform.localEulerAngles.x, targetY, doorTransform.localEulerAngles.z);
         RotateCourutine = null;
     }
 
