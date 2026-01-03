@@ -8,62 +8,97 @@ public class WeaponSelector : MonoBehaviour
     [SerializeField] private Weapon[] weaponsInventory;
     [SerializeField] private List<Weapon> selectedWeapons;
     [SerializeField] private InputProvider inputProvider;
-    private int currentWeaponIndex;
-    
+    [SerializeField] private int currentWeaponIndex;
+
     private void Start()
     {
-        currentWeaponIndex = 0;
-
-         UpdateAmmoEvent?.Invoke(selectedWeapons[currentWeaponIndex].GetCurrentAmmo(), selectedWeapons[currentWeaponIndex].GetReserveAmmo());
-
-        selectedWeapons[currentWeaponIndex].EndReloadEvent += UpdateAmmoEvent;
-
-        SetNewShootType(selectedWeapons[currentWeaponIndex].shootType);
+        InitializeWeapon(currentWeaponIndex);
     }
 
     private void OnEnable()
     {
         inputProvider.OnReloadPerformed += selectedWeapons[currentWeaponIndex].Reload;
+        inputProvider.OnNextWeaponSelect += SetNextWeapon;
+        inputProvider.OnPreviousWeaponSelect += SetPreviousWeapon;
     }
 
     private void OnDisable()
     {
         inputProvider.OnReloadPerformed -= selectedWeapons[currentWeaponIndex].Reload;
+        inputProvider.OnNextWeaponSelect -= SetNextWeapon;
+        inputProvider.OnPreviousWeaponSelect -= SetPreviousWeapon;
+    }
+
+    private void InitializeWeapon(int initializeWeaponID)
+    {
+        for (int i = 0; i < selectedWeapons.Count; i++)
+        {
+            selectedWeapons[i].gameObject.SetActive(false);
+        }
+
+        selectedWeapons[initializeWeaponID].gameObject.SetActive(true);
+        selectedWeapons[initializeWeaponID].EndReloadEvent += UpdateAmmoEvent;
+        inputProvider.OnReloadPerformed += selectedWeapons[initializeWeaponID].Reload;
+        SetNewShootType(selectedWeapons[initializeWeaponID].shootType);
+        UpdateAmmo();
+        currentWeaponIndex = initializeWeaponID;
+    }
+
+    private void UnsubscribeOldShootEvents(Weapon oldWeapon)
+    {
+        if (oldWeapon.shootType == ShootType.Single)
+        {
+            inputProvider.OnShootTriggered -= oldWeapon.Shoot;
+            inputProvider.OnShootTriggered -= UpdateAmmo;
+        }
+        else
+        {
+            inputProvider.OnShootPressed -= oldWeapon.Shoot;
+            inputProvider.OnShootPressed -= UpdateAmmo;
+        }
     }
 
     private void SelectNewWeapon(int newWeaponID)
     {
-        selectedWeapons[currentWeaponIndex].EndReloadEvent -= UpdateAmmoEvent;
+        Weapon oldWeapon = selectedWeapons[currentWeaponIndex];
 
-        inputProvider.OnReloadPerformed -= selectedWeapons[currentWeaponIndex].Reload;
+        oldWeapon.EndReloadEvent -= UpdateAmmoEvent;
+        inputProvider.OnReloadPerformed -= oldWeapon.Reload;
+        Debug.Log("Reload !switched to weapon: " + oldWeapon.name);
+        oldWeapon.Disable();
+        oldWeapon.gameObject.SetActive(false);
+
+        UnsubscribeOldShootEvents(oldWeapon);
 
         currentWeaponIndex = newWeaponID;
+        Weapon newWeapon = selectedWeapons[currentWeaponIndex];
 
-        selectedWeapons[newWeaponID].EndReloadEvent += UpdateAmmoEvent;
-
-        UpdateAmmoEvent?.Invoke(selectedWeapons[newWeaponID].GetCurrentAmmo(), selectedWeapons[newWeaponID].GetReserveAmmo());
-
-        inputProvider.OnReloadPerformed += selectedWeapons[newWeaponID].Reload;
-
-        SetNewShootType(selectedWeapons[newWeaponID].shootType);
+        newWeapon.gameObject.SetActive(true);
+        newWeapon.EndReloadEvent += UpdateAmmoEvent;
+        inputProvider.OnReloadPerformed += newWeapon.Reload;
+        Debug.Log("Reload switched to weapon: " + newWeapon.name);
+        SetNewShootType(newWeapon.shootType);
+        UpdateAmmo();
     }
 
     private void SetNewShootType(ShootType newType)
     {
-        if(newType != ShootType.Automatic)
+        Weapon currentWeapon = selectedWeapons[currentWeaponIndex];
+
+        if (newType == ShootType.Single)
         {
-            inputProvider.OnShootPressed -= selectedWeapons[currentWeaponIndex].Shoot;
+            inputProvider.OnShootPressed -= currentWeapon.Shoot;
             inputProvider.OnShootPressed -= UpdateAmmo;
 
-            inputProvider.OnShootTriggered += selectedWeapons[currentWeaponIndex].Shoot;
+            inputProvider.OnShootTriggered += currentWeapon.Shoot;
             inputProvider.OnShootTriggered += UpdateAmmo;
         }
         else
         {
-            inputProvider.OnShootTriggered -= selectedWeapons[currentWeaponIndex].Shoot;
+            inputProvider.OnShootTriggered -= currentWeapon.Shoot;
             inputProvider.OnShootTriggered -= UpdateAmmo;
 
-            inputProvider.OnShootPressed += selectedWeapons[currentWeaponIndex].Shoot;
+            inputProvider.OnShootPressed += currentWeapon.Shoot;
             inputProvider.OnShootPressed += UpdateAmmo;
         }
     }
@@ -71,5 +106,24 @@ public class WeaponSelector : MonoBehaviour
     private void UpdateAmmo()
     {
         UpdateAmmoEvent?.Invoke(selectedWeapons[currentWeaponIndex].GetCurrentAmmo(), selectedWeapons[currentWeaponIndex].GetReserveAmmo());
+    }
+
+    private void SetPreviousWeapon()
+    {
+        int newWeaponID;
+        if (currentWeaponIndex - 1 <= -1)
+            newWeaponID = selectedWeapons.Count - 1;
+        else
+            newWeaponID = currentWeaponIndex - 1;
+        SelectNewWeapon(newWeaponID);
+    }
+    private void SetNextWeapon()
+    {
+        int newWeaponID;
+        if (currentWeaponIndex + 1 >= selectedWeapons.Count)
+            newWeaponID = 0;
+        else
+            newWeaponID = currentWeaponIndex + 1;
+        SelectNewWeapon(newWeaponID);
     }
 }

@@ -15,4 +15,7 @@ public abstract class InputProvider : MonoBehaviour
 
     public abstract event Action OnShootTriggered;
     public abstract event Action OnShootPressed;
+    
+    public abstract event Action OnNextWeaponSelect;
+    public abstract event Action OnPreviousWeaponSelect;
 }

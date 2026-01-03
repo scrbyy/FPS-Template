@@ -36,8 +36,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetMaxSpeed()
     {
-        if(_characterController.isGrounded)
+        _playerVerticalPhysics.OnLanded -= ResetMaxSpeed;
+        if (_characterController.isGrounded)
             _targetMaxSpeed = _walkSpeed;
+        else
+        {
+            _playerVerticalPhysics.OnLanded += ResetMaxSpeed;
+        }
     }
 
     private void Update()
@@ -51,33 +56,42 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer(Vector2 keyboardInput)
     {
-        Vector3 inputDirection = new Vector3(keyboardInput.x, 0, keyboardInput.y);
+        Vector3 inputDir = new Vector3(keyboardInput.x, 0, keyboardInput.y).normalized;
+        Vector3 wishDir = transform.TransformDirection(inputDir);
 
-        Vector3 desiredDirection = transform.TransformDirection(inputDirection.normalized);
-        Vector3 desiredVelocity = desiredDirection * maxSpeed;
-
-        if (inputDirection != Vector3.zero)
+        if (_characterController.isGrounded)
         {
-            float controlRate = _characterController.isGrounded ? accelerationRate : airControl * accelerationRate;
-
-            _horizontalVelocityBuffer = Vector3.Lerp(
-                _horizontalVelocityBuffer,
-                desiredVelocity,
-                controlRate * Time.deltaTime);
+            if (inputDir.magnitude > 0)
+            {
+                _horizontalVelocityBuffer = Vector3.MoveTowards(
+                    _horizontalVelocityBuffer,
+                    wishDir * maxSpeed,
+                    accelerationRate * Time.deltaTime);
+            }
+            else
+            {
+                _horizontalVelocityBuffer = Vector3.MoveTowards(
+                    _horizontalVelocityBuffer,
+                    Vector3.zero,
+                    decelerationRate * Time.deltaTime);
+            }
         }
         else
         {
-            if (_characterController.isGrounded)
+            if (inputDir.magnitude > 0)
             {
-                _horizontalVelocityBuffer = Vector3.Lerp(_horizontalVelocityBuffer, Vector3.zero, Time.deltaTime * decelerationRate);
+                float currentSpeedInWishDir = Vector3.Dot(_horizontalVelocityBuffer, wishDir);
+                float addSpeed = maxSpeed - currentSpeedInWishDir;
+
+                if (addSpeed > 0)
+                {
+                    float accelSpeed = airControl * accelerationRate * Time.deltaTime;
+                    accelSpeed = Mathf.Min(accelSpeed, addSpeed);
+
+                    _horizontalVelocityBuffer += wishDir * accelSpeed;
+                }
             }
         }
-
-        if (_horizontalVelocityBuffer.magnitude > maxSpeed)
-        {
-            _horizontalVelocityBuffer = _horizontalVelocityBuffer.normalized * maxSpeed;
-        }
-
         _moveVector = new Vector3(_horizontalVelocityBuffer.x, _playerVerticalPhysics.GetVerticalVelocity(), _horizontalVelocityBuffer.z);
         _characterController.Move(_moveVector * Time.deltaTime);
     }

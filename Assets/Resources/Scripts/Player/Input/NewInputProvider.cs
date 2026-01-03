@@ -12,6 +12,9 @@ public class NewInputProvider : InputProvider
     private InputAction fireAction;
     private InputAction reloadAction;
 
+    private InputAction selectNextWeaponAction;
+    private InputAction selectPreviousWeaponAction;
+
     public override event Action OnJumpPerformed;
     public override event Action OnInteractPerformed;
     public override event Action OnReloadPerformed;
@@ -19,6 +22,8 @@ public class NewInputProvider : InputProvider
     public override event Action OnSprintCanceled;
     public override event Action OnShootTriggered;
     public override event Action OnShootPressed;
+    public override event Action OnNextWeaponSelect;
+    public override event Action OnPreviousWeaponSelect;
 
     public override Vector2 GetLookInput()
     {
@@ -40,6 +45,9 @@ public class NewInputProvider : InputProvider
         fireAction = InputSystem.actions.FindAction("Fire");
         reloadAction = InputSystem.actions.FindAction("Reload");
 
+        selectNextWeaponAction = InputSystem.actions.FindAction("SelectNextWeapon");
+        selectPreviousWeaponAction = InputSystem.actions.FindAction("SelectPreviousWeapon");
+
         jumpAction.performed += ctx => OnJumpPerformed?.Invoke();
         interactAction.performed += ctx => OnInteractPerformed?.Invoke();
         fireAction.performed += ctx => OnShootTriggered?.Invoke();
@@ -47,6 +55,9 @@ public class NewInputProvider : InputProvider
 
         sprintAction.started += ctx => OnSprintStarted?.Invoke();
         sprintAction.canceled += ctx => OnSprintCanceled?.Invoke();
+
+        selectNextWeaponAction.performed += ctx => OnNextWeaponSelect?.Invoke();
+        selectPreviousWeaponAction.performed += ctx => OnPreviousWeaponSelect?.Invoke();
     }
     private void Update()
     {
