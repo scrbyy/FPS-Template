@@ -8,7 +8,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float cooldown;
 
     [Header("Link Components")]
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerEngine playerMovement;
     [SerializeField] private PlayerStamina playerStamina;
     [SerializeField] private InputProvider inputProvider;
 

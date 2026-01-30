@@ -9,6 +9,7 @@ public class PlayerJump : MonoBehaviour
     [Header("Main")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravityScale;
+    [SerializeField] private float groundedGravity;
 
     [Header("Stamina")]
     [SerializeField] private float staminaCost;
@@ -58,7 +59,7 @@ public class PlayerJump : MonoBehaviour
     private void ApplyGravity()
     {
         if (_characterController.isGrounded && _verticalVelocity < 0f)
-            _verticalVelocity = -2f;
+            _verticalVelocity = groundedGravity;
         else
             _verticalVelocity += Physics.gravity.y * gravityScale * Time.deltaTime;
     }
@@ -75,7 +76,7 @@ public class PlayerJump : MonoBehaviour
     {
         if (_characterController.isGrounded && playerStamina.IsEnoughStamina(staminaCost))
         {
-            _verticalVelocity = Mathf.Sqrt(jumpForce * -2f * Physics.gravity.y);
+            _verticalVelocity = Mathf.Sqrt(jumpForce * groundedGravity * Physics.gravity.y);
             playerStamina.ReduceStamina(staminaCost);
         }
     }
@@ -90,6 +91,6 @@ public class PlayerJump : MonoBehaviour
 
     internal void ResetVerticalVelocity()
     {
-        _verticalVelocity = -2f;
+        _verticalVelocity = groundedGravity;
     }
 }

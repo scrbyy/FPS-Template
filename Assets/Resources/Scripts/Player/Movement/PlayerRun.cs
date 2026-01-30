@@ -40,12 +40,12 @@ public class PlayerRun : MonoBehaviour
     {
         if (_characterController.isGrounded && _playerStamina.IsEnoughStamina(staminaCost))
         {
-            _playerMovement.SetMaxSpeed(runSpeed);
+            _playerMovement.SetTargetSpeed(runSpeed);
             _playerStamina.ReduceStamina(staminaCost);
         }
     }
     private void CancelRun() 
     {
-        _playerMovement.ResetMaxSpeed(); 
+        _playerMovement.ResetSpeed(); 
     }
 }

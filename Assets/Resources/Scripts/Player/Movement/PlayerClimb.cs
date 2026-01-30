@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerClimb : MonoBehaviour
 {
@@ -16,14 +17,18 @@ public class PlayerClimb : MonoBehaviour
     [SerializeField] private float exitImpulse;
 
     [Header("Link Components")]
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerEngine playerEngine;
     [SerializeField] private PlayerJump playerJump;
     [SerializeField] private InputProvider inputProvider;
 
     private CharacterController _controller;
     private bool _isClimbing;
+    private Vector3 rayOrigin;
 
-    private void Start() => _controller = GetComponent<CharacterController>();
+    private void Start()
+    { 
+        _controller = GetComponent<CharacterController>();
+    }
 
     private void OnEnable() => inputProvider.OnJumpPerformed += HandleJumpInput;
     private void OnDisable() => inputProvider.OnJumpPerformed -= HandleJumpInput;
@@ -38,7 +43,7 @@ public class PlayerClimb : MonoBehaviour
 
     private void TryClimb()
     {
-        Vector3 rayOrigin = transform.position + Vector3.up * 1.0f;
+        rayOrigin = transform.position;
         if (Physics.Raycast(rayOrigin, transform.forward, out RaycastHit wallHit, detectionDistance, climbLayer))
         {
             Vector3 topCheckOrigin = wallHit.point + (transform.forward * 0.15f) + (Vector3.up * maxClimbHeight);
@@ -59,7 +64,7 @@ public class PlayerClimb : MonoBehaviour
     private IEnumerator PerformClimbRoutine(Vector3 targetSurfacePos, float height)
     {
         _isClimbing = true;
-        playerMovement.enabled = false;
+        playerEngine.enabled = false;
         playerJump.enabled = false;
 
         float bottomOffset = _controller.center.y - (_controller.height / 2f) - 0.04f;
@@ -80,11 +85,11 @@ public class PlayerClimb : MonoBehaviour
             yield return null;
         }
 
-        playerMovement.enabled = true;
+        playerEngine.enabled = true;
         playerJump.enabled = true;
         playerJump.ResetVerticalVelocity();
 
-        playerMovement.AddForce(transform.forward * exitImpulse);
+        playerEngine.AddForce(transform.forward * exitImpulse);
 
         _isClimbing = false;
     }

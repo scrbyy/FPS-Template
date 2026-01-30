@@ -1648,8 +1648,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 75
+  far clip plane: 300
+  field of view: 68
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2278,6 +2278,7 @@ GameObject:
   - component: {fileID: 755122322}
   - component: {fileID: 755122321}
   - component: {fileID: 755122327}
+  - component: {fileID: 755122330}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -2315,13 +2316,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6f4d606daa50a44a5ac84a30f2207b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterControllerMovement
-  maxSpeed: 7
-  accelerationRate: 50
+  walkSpeed: 6
+  speedChangeRate: 10
   decelerationRate: 60
-  speedChangeRate: 8
-  airAcceleration: 150
-  airCap: 1.2
-  selectedInputProvider: {fileID: 151862759}
+  inputProvider: {fileID: 151862759}
 --- !u!143 &755122321
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2378,7 +2376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
   runSpeed: 10
-  staminaCost: 1
+  staminaCost: 0.5
   inputProvider: {fileID: 151862759}
 --- !u!114 &755122324
 MonoBehaviour:
@@ -2392,12 +2390,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be61cee0b4dd2f4eaf53f357f2a41e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  jumpForce: 0.75
+  jumpForce: 1.25
   gravityScale: 1.5
-  airSpeedLimit: 0
-  airControlForce: 0
-  staminaCost: 3
-  bufferDuration: 0.1
+  groundedGravity: -2
+  staminaCost: 5
+  bufferDuration: 0.05
   playerStamina: {fileID: 755122326}
   inputProvider: {fileID: 151862759}
 --- !u!114 &755122325
@@ -2427,8 +2424,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStamina
   currentStamina: 100
   maxStamina: 100
-  recoveryDelay: 0.75
-  recoverySpeed: 50
+  recoveryDelay: 1
+  recoverySpeed: 75
   ticksPerSecond: 60
 --- !u!114 &755122327
 MonoBehaviour:
@@ -2442,10 +2439,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98622a8955036d5479f4ff05ca5101a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDashPhysical
-  dashImpulse: 7
+  dashImpulse: 6
   dashStaminaCost: 10
-  cooldown: 0.7
-  playerMovement: {fileID: 755122320}
+  cooldown: 0.75
+  playerMovement: {fileID: 755122330}
   playerStamina: {fileID: 755122326}
   inputProvider: {fileID: 151862759}
 --- !u!114 &755122328
@@ -2460,13 +2457,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f8be53e1dad3c40a9f90b8e4da8805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
-  detectionDistance: 1
-  maxClimbHeight: 15
-  minClimbHeight: 0
+  detectionDistance: 0.75
+  maxClimbHeight: 4
+  minClimbHeight: 0.1
   climbLayer:
     serializedVersion: 2
     m_Bits: 1
-  unitsPerSecond: 5
+  unitsPerSecond: 8
   verticalCurve:
     serializedVersion: 2
     m_Curve:
@@ -2493,9 +2490,25 @@ MonoBehaviour:
     m_RotationOrder: 4
   horizontalDuration: 0.2
   exitImpulse: 1
-  playerMovement: {fileID: 755122320}
+  playerEngine: {fileID: 755122330}
   playerJump: {fileID: 755122324}
   inputProvider: {fileID: 151862759}
+--- !u!114 &755122330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755122318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65cfd4d3007eed4697bece9596058c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerEngine
+  accelerationRate: 50
+  decelerationRate: 40
+  airAcceleration: 30
+  airCap: 2
 --- !u!1 &815915170
 GameObject:
   m_ObjectHideFlags: 0
@@ -2949,7 +2962,7 @@ MonoBehaviour:
   maxValue: 100
   smoothSpeed: 8
   autoHide: 1
-  idleTimeBeforeHide: 1
+  idleTimeBeforeHide: 1.5
   fadeDuration: 0.75
   _playerStamina: {fileID: 755122326}
 --- !u!225 &1002398860
@@ -7036,7 +7049,6 @@ Transform:
   - {fileID: 1044228720}
   - {fileID: 1476076124}
   - {fileID: 435225213}
-  - {fileID: 1908309367}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1281396677
@@ -7914,7 +7926,7 @@ MonoBehaviour:
     m_Bits: 256
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -7967,8 +7979,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 75
+  far clip plane: 50
+  field of view: 70
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -12570,10 +12582,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0, y: 0.04, z: 0}
 --- !u!23 &1900707016
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12657,11 +12669,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!4 &1908309367 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-  m_PrefabInstance: {fileID: 3753518166584716754}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2018914445
 GameObject:
   m_ObjectHideFlags: 0
@@ -14423,63 +14430,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5444888314268869640}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &3753518166584716754
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1206486988}
-    m_Modifications:
-    - target: {fileID: 928955619481427350, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_Name
-      value: DeathZone
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 43
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4807109512821936728, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 29c6da8066fc23248b8b5c3a0a51bd14, type: 3}
 --- !u!1 &3786692509497971583
 GameObject:
   m_ObjectHideFlags: 0
@@ -15059,7 +15009,7 @@ Transform:
   m_GameObject: {fileID: 4673594838000320178}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.56, y: 0.13, z: -0.44}
+  m_LocalPosition: {x: 0.47, y: 0.13, z: -0.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
