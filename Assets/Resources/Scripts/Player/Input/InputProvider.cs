@@ -10,12 +10,15 @@ public abstract class InputProvider : MonoBehaviour
     public abstract event Action OnInteractPerformed;
     public abstract event Action OnReloadPerformed;
 
-    public abstract event Action OnSprintStarted;
     public abstract event Action OnSprintCanceled;
+    public abstract event Action OnSprintPressed;
 
     public abstract event Action OnShootTriggered;
     public abstract event Action OnShootPressed;
     
     public abstract event Action OnNextWeaponSelect;
     public abstract event Action OnPreviousWeaponSelect;
+
+    public abstract event Action OnDashCanceled;
+    public abstract event Action OnDashPressed;
 }

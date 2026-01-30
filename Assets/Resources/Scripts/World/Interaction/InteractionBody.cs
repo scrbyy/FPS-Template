@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class InteractionBody : MonoBehaviour
 {
-    [SerializeField] private Transform rayOrigin;
+    [Header("Main")]
     [SerializeField] private float maxDistance;
+
     [SerializeField] private LayerMask mask;
+    [SerializeField] private Transform rayOrigin;
+
+    [Header("Link Components")]
     [SerializeField] private InputProvider selectedInputProvider;
 
     private RaycastHit hit;
-
-    private void OnEnable()
-    {
-        selectedInputProvider.OnInteractPerformed += CheckInteraction;
-    }
 
     private void CheckInteraction()
     {
@@ -21,5 +20,15 @@ public class InteractionBody : MonoBehaviour
             IInteractionObject _interactionObject = hit.collider.gameObject.GetComponent<IInteractionObject>();
             _interactionObject.Use();
         }
+    }
+
+    private void OnEnable()
+    {
+        selectedInputProvider.OnInteractPerformed += CheckInteraction;
+    }
+
+    private void OnDisable()
+    {
+        selectedInputProvider.OnInteractPerformed -= CheckInteraction;
     }
 }

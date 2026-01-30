@@ -2,16 +2,12 @@ using UnityEngine;
 
 public class CursorVisibility : MonoBehaviour
 {
-    private void Start()
-    {
-        Unshow();
-    }
-    public void Unshow()
+    public static void Hide()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-    public void Show()
+    public static void Show()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

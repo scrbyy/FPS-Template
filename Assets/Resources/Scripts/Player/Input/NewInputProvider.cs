@@ -11,19 +11,29 @@ public class NewInputProvider : InputProvider
     private InputAction sprintAction;
     private InputAction fireAction;
     private InputAction reloadAction;
+    private InputAction dashAction;
 
     private InputAction selectNextWeaponAction;
     private InputAction selectPreviousWeaponAction;
 
     public override event Action OnJumpPerformed;
+
     public override event Action OnInteractPerformed;
+
     public override event Action OnReloadPerformed;
-    public override event Action OnSprintStarted;
+
     public override event Action OnSprintCanceled;
+    public override event Action OnSprintPressed;
+
+
     public override event Action OnShootTriggered;
     public override event Action OnShootPressed;
+
     public override event Action OnNextWeaponSelect;
     public override event Action OnPreviousWeaponSelect;
+
+    public override event Action OnDashCanceled;
+    public override event Action OnDashPressed;
 
     public override Vector2 GetLookInput()
     {
@@ -44,6 +54,8 @@ public class NewInputProvider : InputProvider
         sprintAction = InputSystem.actions.FindAction("Sprint");
         fireAction = InputSystem.actions.FindAction("Fire");
         reloadAction = InputSystem.actions.FindAction("Reload");
+        dashAction = InputSystem.actions.FindAction("Dash");
+
 
         selectNextWeaponAction = InputSystem.actions.FindAction("SelectNextWeapon");
         selectPreviousWeaponAction = InputSystem.actions.FindAction("SelectPreviousWeapon");
@@ -53,8 +65,8 @@ public class NewInputProvider : InputProvider
         fireAction.performed += ctx => OnShootTriggered?.Invoke();
         reloadAction.performed += ctx => OnReloadPerformed?.Invoke();
 
-        sprintAction.started += ctx => OnSprintStarted?.Invoke();
         sprintAction.canceled += ctx => OnSprintCanceled?.Invoke();
+        dashAction.canceled += ctx => OnDashCanceled?.Invoke();
 
         selectNextWeaponAction.performed += ctx => OnNextWeaponSelect?.Invoke();
         selectPreviousWeaponAction.performed += ctx => OnPreviousWeaponSelect?.Invoke();
@@ -64,6 +76,15 @@ public class NewInputProvider : InputProvider
         if (fireAction.IsPressed())
         {
             OnShootPressed?.Invoke();
+        }
+
+        if (sprintAction.IsPressed())
+        {
+            OnSprintPressed?.Invoke();
+        }
+        if (dashAction.IsPressed())
+        {
+            OnDashPressed?.Invoke();
         }
     }
 }
