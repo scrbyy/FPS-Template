@@ -25,18 +25,37 @@ public class PlayerStamina : MonoBehaviour
         OnPlayerStaminaChanged?.Invoke(currentStamina);
     }
 
+    private bool _isExhausted;
+
+    public float GetMaxStamina()
+    {
+        return maxStamina;
+    }
     public void ReduceStamina(float amount)
     {
-        if (Time.time - _lastTickTime < (1f / ticksPerSecond)) return;
+        if (_isExhausted) return;
 
-        if (amount <= 0 || currentStamina <= 0) return;
+        if (amount > 0)
+        {
+            if (Time.time - _lastTickTime > (1f / ticksPerSecond))
+            {
+                _lastTickTime = Time.time;
 
-        _lastTickTime = Time.time;
+                currentStamina = Mathf.Max(currentStamina - amount, 0);
+                OnPlayerStaminaChanged?.Invoke(currentStamina);
 
-        currentStamina = Mathf.Max(currentStamina - amount, 0);
+                if (currentStamina <= 0)
+                {
+                    _isExhausted = true;
+                }
+                if (_recoveryCoroutine != null) StopCoroutine(_recoveryCoroutine);
+                _recoveryCoroutine = StartCoroutine(RecoveryRoutine());
+            }
+        }
+    }
 
-        OnPlayerStaminaChanged?.Invoke(currentStamina);
-
+    public void StayExhausted()
+    {
         if (_recoveryCoroutine != null) StopCoroutine(_recoveryCoroutine);
         _recoveryCoroutine = StartCoroutine(RecoveryRoutine());
     }
@@ -51,12 +70,12 @@ public class PlayerStamina : MonoBehaviour
             OnPlayerStaminaChanged?.Invoke(currentStamina);
             yield return null;
         }
-
+        _isExhausted = false;
         _recoveryCoroutine = null;
     }
 
     public bool IsEnoughStamina(float amount)
     {
-        return currentStamina >= amount;
+        return !_isExhausted || currentStamina >= amount;
     }
 }

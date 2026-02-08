@@ -13,4 +13,9 @@ public class HealthBar : ProgressBar
     {
         _playerHealth.OnPlayerHealthChanged -= SetValue;
     }
+
+    protected override float GetMaxValue()
+    {
+       return _playerHealth.GetMaxHealth();
+    }
 }

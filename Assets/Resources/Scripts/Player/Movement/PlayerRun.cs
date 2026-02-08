@@ -2,9 +2,14 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerStamina))]
+[RequireComponent(typeof(PlayerEngine))]
 
 public class PlayerRun : MonoBehaviour
 {
+    public event System.Action OnStartRunning;
+    public event System.Action OnEndRunning;
+
     [Header("Main")]
     [SerializeField] private float runSpeed;
     [SerializeField] private float staminaCost;
@@ -14,6 +19,7 @@ public class PlayerRun : MonoBehaviour
 
     private PlayerStamina _playerStamina;
     private PlayerMovement _playerMovement;
+    private PlayerEngine _playerEngine;
     private CharacterController _characterController;
 
 
@@ -22,6 +28,7 @@ public class PlayerRun : MonoBehaviour
         _playerStamina = GetComponent<PlayerStamina>();
         _playerMovement = GetComponent<PlayerMovement>();
         _characterController = GetComponent<CharacterController>();
+        _playerEngine = GetComponent<PlayerEngine>();
     }
 
     private void OnEnable()
@@ -38,14 +45,24 @@ public class PlayerRun : MonoBehaviour
 
     private void TryRun()
     {
-        if (_characterController.isGrounded && _playerStamina.IsEnoughStamina(staminaCost))
+        if (_characterController.isGrounded)
         {
-            _playerMovement.SetTargetSpeed(runSpeed);
-            _playerStamina.ReduceStamina(staminaCost);
+            if (_playerStamina.IsEnoughStamina(staminaCost) == false)
+            {
+                _playerStamina.StayExhausted();
+                CancelRun();
+            }
+            else if (_playerEngine.IsMoving())
+            {
+                _playerMovement.SetTargetSpeed(runSpeed);
+                _playerStamina.ReduceStamina(staminaCost);
+                OnStartRunning?.Invoke();
+            }
         }
     }
     private void CancelRun() 
     {
         _playerMovement.ResetSpeed(); 
+        OnEndRunning?.Invoke();
     }
 }

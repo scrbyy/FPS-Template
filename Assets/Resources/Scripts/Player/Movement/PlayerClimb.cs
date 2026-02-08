@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerClimb : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class PlayerClimb : MonoBehaviour
 
     [Header("Procedural Timings")]
     [SerializeField] private float unitsPerSecond;
-    [SerializeField] private AnimationCurve verticalCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private AnimationCurve verticalCurve;
     [SerializeField] private float horizontalDuration;
     [SerializeField] private float exitImpulse;
 

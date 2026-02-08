@@ -1,26 +1,25 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerEngine))]
-[RequireComponent(typeof(PlayerJump))]
+
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Speeds")]
+    [Header("Main")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float speedChangeRate;
     [SerializeField] private float decelerationRate;
 
     [Header("References")]
     [SerializeField] private InputProvider inputProvider;
+    [SerializeField] private PlayerJump playerJump;
 
-    private PlayerEngine _motor;
-    private PlayerJump _jump;
+    private PlayerEngine _playerEngine;
     private float _currentMaxSpeed;
     private float _targetMaxSpeed;
 
     private void Awake()
     {
-        _motor = GetComponent<PlayerEngine>();
-        _jump = GetComponent<PlayerJump>();
+        _playerEngine = GetComponent<PlayerEngine>();
         _currentMaxSpeed = walkSpeed;
         _targetMaxSpeed = walkSpeed;
     }
@@ -32,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 input = inputProvider.GetMoveVector();
         Vector3 wishDir = transform.TransformDirection(new Vector3(input.x, 0, input.y)).normalized;
 
-        _motor.Move(wishDir, _currentMaxSpeed, _jump.GetVerticalVelocity());
+        _playerEngine.Move(wishDir, _currentMaxSpeed, playerJump.GetVerticalVelocity());
     }
 
     private void HandleSpeedTransition()
@@ -47,13 +46,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (GetComponent<CharacterController>().isGrounded)
             _targetMaxSpeed = walkSpeed;
-        else
-            _jump.OnLanded += OnLandedReset;
+        else if (playerJump != null)
+            playerJump.OnLanded += OnLandedReset;
     }
+    public float GetCurrentMaxSpeed() => _currentMaxSpeed;
+    public float GetTargetMaxSpeed() => _targetMaxSpeed;
 
     private void OnLandedReset()
     {
-        _jump.OnLanded -= OnLandedReset;
+        playerJump.OnLanded -= OnLandedReset;
         _targetMaxSpeed = walkSpeed;
     }
 }

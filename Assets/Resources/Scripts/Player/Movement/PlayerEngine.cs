@@ -4,10 +4,10 @@
 public class PlayerEngine : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private float accelerationRate = 50f;
-    [SerializeField] private float decelerationRate = 40f;
-    [SerializeField] private float airAcceleration = 30f;
-    [SerializeField] private float airCap = 2f;
+    [SerializeField] private float accelerationRate;
+    [SerializeField] private float decelerationRate;
+    [SerializeField] private float airAcceleration;
+    [SerializeField] private float airCap;
 
     private CharacterController _controller;
     private Vector3 _velocity;
@@ -28,6 +28,22 @@ public class PlayerEngine : MonoBehaviour
         _controller.Move(finalMotion * Time.deltaTime);
     }
 
+    public bool IsMoving(float threshold = 0.1f)
+    {
+        Vector3 horizontalVelocity = new Vector3(_velocity.x, 0, _velocity.z);
+        return horizontalVelocity.magnitude > threshold;
+    }
+
+    public void AddForce(Vector3 force)
+    {
+        _velocity += force;
+        _isImpulseActive = true;
+    }
+
+    public Vector3 GetVelocity() => _velocity;
+
+    public bool IsImpulseActive() => _isImpulseActive;
+
     private void ApplyGroundMovement(Vector3 wishDir, float maxSpeed)
     {
         float targetSpeed = wishDir.magnitude * maxSpeed;
@@ -45,7 +61,7 @@ public class PlayerEngine : MonoBehaviour
         _velocity = Vector3.MoveTowards(_velocity, wishDir * targetSpeed, accel * Time.deltaTime);
     }
 
-    private void ApplyAirMovement(Vector3 wishDir)
+    private void ApplyAirMovement(Vector3 wishDir) 
     {
         if (wishDir.magnitude <= 0) return;
 
@@ -59,11 +75,5 @@ public class PlayerEngine : MonoBehaviour
         }
     }
 
-    public void AddForce(Vector3 force)
-    {
-        _velocity += force;
-        _isImpulseActive = true;
-    }
 
-    public Vector3 GetVelocity() => _velocity;
 }

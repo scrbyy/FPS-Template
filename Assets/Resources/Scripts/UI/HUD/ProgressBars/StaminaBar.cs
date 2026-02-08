@@ -13,4 +13,10 @@ public class StaminaBar : ProgressBar
     {
         _playerStamina.OnPlayerStaminaChanged -= SetValue;
     }
+    
+    protected override float GetMaxValue()
+    {
+        return _playerStamina.GetMaxStamina();
+    }
+    
 }

@@ -8,7 +8,7 @@ public abstract class ProgressBar : MonoBehaviour
     [Header("Visual Settings")]
     [SerializeField] protected Image fillImage;
     [SerializeField] protected float maxValue = 100f;
-    [SerializeField] private float smoothSpeed = 8f; // Скорость "догонки"
+    [SerializeField] private float smoothSpeed;
 
     [Header("Visibility")]
     [SerializeField] private bool autoHide = false;
@@ -17,6 +17,7 @@ public abstract class ProgressBar : MonoBehaviour
 
     private CanvasGroup _canvasGroup;
     private Coroutine _hideCoroutine;
+    private float _defaultAlpha;
     private float _targetFill;
 
     protected virtual void Awake()
@@ -25,22 +26,20 @@ public abstract class ProgressBar : MonoBehaviour
         if (fillImage == null) fillImage = GetComponent<Image>();
 
         _targetFill = fillImage.fillAmount;
+        _defaultAlpha = _canvasGroup.alpha;
     }
 
     protected virtual void Update()
     {
-        // Плавно интерполируем fillAmount к _targetFill
         if (!Mathf.Approximately(fillImage.fillAmount, _targetFill))
         {
-            // Lerp дает приятное замедление в конце пути
             fillImage.fillAmount = Mathf.Lerp(fillImage.fillAmount, _targetFill, Time.deltaTime * smoothSpeed);
         }
     }
 
     public virtual void SetValue(float currentValue)
     {
-        // Устанавливаем цель. Update сам дотянет картинку до этого значения.
-        _targetFill = Mathf.Clamp01(currentValue / maxValue);
+        _targetFill = Mathf.Clamp01(currentValue / GetMaxValue());
 
         if (autoHide)
         {
@@ -48,7 +47,7 @@ public abstract class ProgressBar : MonoBehaviour
             ResetHideTimer();
         }
     }
-
+    protected abstract float GetMaxValue();
     private void ShowBar()
     {
         if (_hideCoroutine != null) StopCoroutine(_hideCoroutine);
@@ -71,7 +70,7 @@ public abstract class ProgressBar : MonoBehaviour
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
-            _canvasGroup.alpha = Mathf.Lerp(startAlpha, 0, elapsed / fadeDuration);
+            _canvasGroup.alpha = Mathf.Lerp(startAlpha, _defaultAlpha, elapsed / fadeDuration);
             yield return null;
         }
 

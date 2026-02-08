@@ -8,7 +8,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float cooldown;
 
     [Header("Link Components")]
-    [SerializeField] private PlayerEngine playerMovement;
+    [SerializeField] private PlayerEngine playerEngine;
     [SerializeField] private PlayerStamina playerStamina;
     [SerializeField] private InputProvider inputProvider;
 
@@ -52,7 +52,7 @@ public class PlayerDash : MonoBehaviour
             dashDir = transform.forward;
         }
 
-        playerMovement.AddForce(dashDir * dashImpulse);
+        playerEngine.AddForce(dashDir * dashImpulse);
 
         playerStamina.ReduceStamina(dashStaminaCost);
         _cooldownTimer = cooldown;

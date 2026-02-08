@@ -6,22 +6,23 @@ class PlayerHealth : MonoBehaviour
     public event Action OnPlayerDeath;
     public event Action<float> OnPlayerHealthChanged;
 
-    [SerializeField] private float health;
+    [SerializeField] private float _currentHealth;
+    [SerializeField] private float _maxHealth;
 
     public void TakeDamage(float damage)
     {
         if(damage <= 0) return;
 
-        if (health - damage <= 0)
+        if (_currentHealth - damage <= 0)
         {
-            health = 0;
-            OnPlayerHealthChanged?.Invoke(health);
+            _currentHealth = 0;
+            OnPlayerHealthChanged?.Invoke(_currentHealth);
             InstantDie();
         }
         else
         {
-            health -= damage;
-            OnPlayerHealthChanged?.Invoke(health);
+            _currentHealth -= damage;
+            OnPlayerHealthChanged?.Invoke(_currentHealth);
         }
     }
 
@@ -29,5 +30,9 @@ class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player has died.");
         OnPlayerDeath?.Invoke();
+    }
+    public float GetMaxHealth()
+    {
+        return _maxHealth;
     }
 }
