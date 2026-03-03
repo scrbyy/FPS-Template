@@ -1,7 +1,6 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
-[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerStamina))]
 [RequireComponent(typeof(PlayerEngine))]
 
@@ -11,51 +10,49 @@ public class PlayerRun : MonoBehaviour
     public event System.Action OnEndRunning;
 
     [Header("Main")]
-    [SerializeField] private float runSpeed;
-    [SerializeField] private float staminaCost;
+    [SerializeField] private float _runSpeed;
+    [SerializeField] private float _staminaCost;
 
-    [Header("Link Components")]
-    [SerializeField] private InputProvider inputProvider;
+    [Header("References")]
+    [SerializeField] private InputProvider _inputProvider;
 
     private PlayerStamina _playerStamina;
     private PlayerMovement _playerMovement;
     private PlayerEngine _playerEngine;
-    private CharacterController _characterController;
 
 
     private void Start()
     {
         _playerStamina = GetComponent<PlayerStamina>();
         _playerMovement = GetComponent<PlayerMovement>();
-        _characterController = GetComponent<CharacterController>();
         _playerEngine = GetComponent<PlayerEngine>();
     }
 
     private void OnEnable()
     {
-        inputProvider.OnSprintPressed += () => TryRun();
-        inputProvider.OnSprintCanceled += () => CancelRun();
+        _inputProvider.OnSprintPressed += () => TryRun();
+        _inputProvider.OnSprintCanceled += () => CancelRun();
     }
 
     private void OnDisable()
     {
-        inputProvider.OnSprintPressed -= () => TryRun();
-        inputProvider.OnSprintCanceled -= () => CancelRun();
+        _inputProvider.OnSprintPressed -= () => TryRun();
+        _inputProvider.OnSprintCanceled -= () => CancelRun();
     }
 
     private void TryRun()
     {
-        if (_characterController.isGrounded)
+        if (_playerEngine.isGrounded())
         {
-            if (_playerStamina.IsEnoughStamina(staminaCost) == false)
+            if (_playerStamina.IsEnoughStamina(_staminaCost) == false)
             {
                 _playerStamina.StayExhausted();
                 CancelRun();
             }
             else if (_playerEngine.IsMoving())
             {
-                _playerMovement.SetTargetSpeed(runSpeed);
-                _playerStamina.ReduceStamina(staminaCost);
+                _playerMovement.SetTargetSpeed(_runSpeed);
+                _playerStamina.ReduceStamina(_staminaCost);
                 OnStartRunning?.Invoke();
             }
         }

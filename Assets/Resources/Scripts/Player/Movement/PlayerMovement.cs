@@ -5,38 +5,40 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Main")]
-    [SerializeField] private float walkSpeed;
-    [SerializeField] private float speedChangeRate;
-    [SerializeField] private float decelerationRate;
+    [SerializeField] private float _walkSpeed;
+
+    [SerializeField] private float _acceleration;
+    [SerializeField] private float _deceleration;
 
     [Header("References")]
-    [SerializeField] private InputProvider inputProvider;
-    [SerializeField] private PlayerJump playerJump;
+    [SerializeField] private InputProvider _inputProvider;
+
+    private float _targetMaxSpeed;
+    private float _currentMaxSpeed;
 
     private PlayerEngine _playerEngine;
-    private float _currentMaxSpeed;
-    private float _targetMaxSpeed;
 
     private void Awake()
     {
         _playerEngine = GetComponent<PlayerEngine>();
-        _currentMaxSpeed = walkSpeed;
-        _targetMaxSpeed = walkSpeed;
+
+        _currentMaxSpeed = _walkSpeed;
+        _targetMaxSpeed = _walkSpeed;
     }
 
     private void Update()
     {
         HandleSpeedTransition();
 
-        Vector2 input = inputProvider.GetMoveVector();
+        Vector2 input = _inputProvider.GetMoveVector();
         Vector3 wishDir = transform.TransformDirection(new Vector3(input.x, 0, input.y)).normalized;
 
-        _playerEngine.Move(wishDir, _currentMaxSpeed, playerJump.GetVerticalVelocity());
+        _playerEngine.Move(wishDir, _currentMaxSpeed);
     }
 
     private void HandleSpeedTransition()
     {
-        float rate = (_currentMaxSpeed < _targetMaxSpeed) ? speedChangeRate : decelerationRate;
+        float rate = (_currentMaxSpeed < _targetMaxSpeed) ? _acceleration : _deceleration;
         _currentMaxSpeed = Mathf.MoveTowards(_currentMaxSpeed, _targetMaxSpeed, rate * Time.deltaTime);
     }
 
@@ -44,17 +46,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetSpeed()
     {
-        if (GetComponent<CharacterController>().isGrounded)
-            _targetMaxSpeed = walkSpeed;
-        else if (playerJump != null)
-            playerJump.OnLanded += OnLandedReset;
+        if (_playerEngine.isGrounded())
+            _targetMaxSpeed = _walkSpeed;
+        else _playerEngine.OnLanded += OnLandedReset;
     }
     public float GetCurrentMaxSpeed() => _currentMaxSpeed;
     public float GetTargetMaxSpeed() => _targetMaxSpeed;
 
     private void OnLandedReset()
     {
-        playerJump.OnLanded -= OnLandedReset;
-        _targetMaxSpeed = walkSpeed;
+        _playerEngine.OnLanded -= OnLandedReset;
+        _targetMaxSpeed = _walkSpeed;
     }
 }

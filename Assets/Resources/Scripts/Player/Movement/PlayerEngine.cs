@@ -3,29 +3,38 @@
 [RequireComponent(typeof(CharacterController))]
 public class PlayerEngine : MonoBehaviour
 {
+    public event System.Action OnLanded;
+    public event System.Action OnLeftGround;
+
     [Header("Settings")]
     [SerializeField] private float accelerationRate;
     [SerializeField] private float decelerationRate;
     [SerializeField] private float airAcceleration;
     [SerializeField] private float airCap;
 
-    private CharacterController _controller;
+    [Header("Physics")]
+    [SerializeField] private float _gravityScale;
+    [SerializeField] private float _groundedGravity;
+
+    private CharacterController _characterController;
     private Vector3 _velocity;
     private bool _isImpulseActive;
 
-    private void Awake() => _controller = GetComponent<CharacterController>();
+    private bool _wasGrounded;
 
-    public void Move(Vector3 wishDir, float maxSpeed, float verticalVelocity)
+    private void Awake() => _characterController = GetComponent<CharacterController>();
+
+    public void Move(Vector3 wishDir, float maxSpeed)
     {
-        if (_controller.isGrounded)
+        if (_characterController.isGrounded)
             ApplyGroundMovement(wishDir, maxSpeed);
         else
             ApplyAirMovement(wishDir);
 
         Vector3 finalMotion = _velocity;
-        finalMotion.y = verticalVelocity;
+        finalMotion.y = _velocity.y;
 
-        _controller.Move(finalMotion * Time.deltaTime);
+        _characterController.Move(finalMotion * Time.deltaTime);
     }
 
     public bool IsMoving(float threshold = 0.1f)
@@ -34,15 +43,54 @@ public class PlayerEngine : MonoBehaviour
         return horizontalVelocity.magnitude > threshold;
     }
 
-    public void AddForce(Vector3 force)
+    public void AddForce(Vector3 force, ForceType type)
     {
-        _velocity += force;
-        _isImpulseActive = true;
+        if (type == ForceType.Jump)
+        {
+            _velocity.y = Mathf.Sqrt(force.y * _groundedGravity * Physics.gravity.y);
+        }
+        else if (type == ForceType.Impulse)
+        {
+            _velocity += force;
+            _isImpulseActive = true;
+        }
     }
 
     public Vector3 GetVelocity() => _velocity;
 
+    public bool isGrounded() => _characterController.isGrounded;
     public bool IsImpulseActive() => _isImpulseActive;
+
+    private void Update()
+    {
+        DetectGroundTransitions();
+        ApplyGravity();
+        HandleHeadHit();
+    }
+
+    private void DetectGroundTransitions()
+    {
+        bool grounded = _characterController.isGrounded;
+        if (grounded && !_wasGrounded) OnLanded?.Invoke();
+        else if (!grounded && _wasGrounded) OnLeftGround?.Invoke();
+        _wasGrounded = grounded;
+    }
+
+    private void ApplyGravity()
+    {
+        if (_characterController.isGrounded && _velocity.y < 0f)
+            _velocity.y = _groundedGravity;
+        else
+            _velocity.y += Physics.gravity.y * _gravityScale * Time.deltaTime;
+    }
+
+    private void HandleHeadHit()
+    {
+        if ((_characterController.collisionFlags & CollisionFlags.Above) != 0 && _velocity.y > 0f)
+        {
+            _velocity.y = 0f;
+        }
+    }
 
     private void ApplyGroundMovement(Vector3 wishDir, float maxSpeed)
     {
@@ -74,6 +122,4 @@ public class PlayerEngine : MonoBehaviour
             _velocity += wishDir * accelSpeed;
         }
     }
-
-
 }

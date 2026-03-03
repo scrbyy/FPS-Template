@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
-public class InputBuffer
+public class Buffer
 {
 
     private float bufferDuration;
     private float lastInputTime = float.NegativeInfinity;
 
-    public InputBuffer(float duration)
+    public Buffer(float duration)
     {
         bufferDuration = duration;
     }
 
-    public void SetBuffer()
+    public void Set()
     {
         lastInputTime = Time.time;
     }
 
-    public bool HasBuffer()
+    public bool Has()
     {
         return Time.time < lastInputTime + bufferDuration;
     }
 
-    public void ConsumeBuffer()
+    public void Reset()
     {
         lastInputTime = float.NegativeInfinity;
     }

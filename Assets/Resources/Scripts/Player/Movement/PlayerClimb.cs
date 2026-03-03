@@ -15,9 +15,8 @@ public class PlayerClimb : MonoBehaviour
     [SerializeField] private float horizontalDuration;
     [SerializeField] private float exitImpulse;
 
-    [Header("Link Components")]
+    [Header("References")]
     [SerializeField] private PlayerEngine playerEngine;
-    [SerializeField] private PlayerJump playerJump;
     [SerializeField] private InputProvider inputProvider;
 
     private CharacterController _controller;
@@ -64,7 +63,6 @@ public class PlayerClimb : MonoBehaviour
     {
         _isClimbing = true;
         playerEngine.enabled = false;
-        playerJump.enabled = false;
 
         float bottomOffset = _controller.center.y - (_controller.height / 2f) - 0.04f;
         Vector3 startPos = transform.position;
@@ -85,10 +83,8 @@ public class PlayerClimb : MonoBehaviour
         }
 
         playerEngine.enabled = true;
-        playerJump.enabled = true;
-        playerJump.ResetVerticalVelocity();
 
-        playerEngine.AddForce(transform.forward * exitImpulse);
+        playerEngine.AddForce(transform.forward * exitImpulse, ForceType.Impulse);
 
         _isClimbing = false;
     }

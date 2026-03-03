@@ -2,26 +2,29 @@
 
 public class PlayerDash : MonoBehaviour
 {
-    [Header("Dash Settings")]
-    [SerializeField] private float dashImpulse;
-    [SerializeField] private float dashStaminaCost;
-    [SerializeField] private float cooldown;
+    [Header("Impulse Force")]
+    [SerializeField] private float _groundImpulse;
+    [SerializeField] private float _airImpulse;
 
-    [Header("Link Components")]
-    [SerializeField] private PlayerEngine playerEngine;
-    [SerializeField] private PlayerStamina playerStamina;
-    [SerializeField] private InputProvider inputProvider;
+    [Header("Settings")]
+    [SerializeField] private float _dashStaminaCost;
+    [SerializeField] private float _cooldown;
+
+    [Header("References")]
+    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private PlayerStamina _playerStamina;
+    [SerializeField] private InputProvider _inputProvider;
 
     private float _cooldownTimer;
 
     private void OnEnable()
     {
-        inputProvider.OnDashPressed += TryPerformDash;
+        _inputProvider.OnDashPressed += TryPerformDash;
     }
 
     private void OnDisable()
     {
-        inputProvider.OnDashPressed -= TryPerformDash;
+        _inputProvider.OnDashPressed -= TryPerformDash;
     }
 
     private void Update()
@@ -32,7 +35,7 @@ public class PlayerDash : MonoBehaviour
 
     private void TryPerformDash()
     {
-        if (_cooldownTimer <= 0 && playerStamina.IsEnoughStamina(dashStaminaCost))
+        if (_cooldownTimer <= 0 && _playerStamina.IsEnoughStamina(_dashStaminaCost))
         {
             ExecuteDash();
         }
@@ -40,8 +43,9 @@ public class PlayerDash : MonoBehaviour
 
     private void ExecuteDash()
     {
-        Vector2 moveInput = inputProvider.GetMoveVector();
+        Vector2 moveInput = _inputProvider.GetMoveVector();
         Vector3 dashDir;
+        float impulse = _playerEngine.isGrounded() ? _groundImpulse : _airImpulse;
 
         if (moveInput.sqrMagnitude > 0.01f)
         {
@@ -52,9 +56,9 @@ public class PlayerDash : MonoBehaviour
             dashDir = transform.forward;
         }
 
-        playerEngine.AddForce(dashDir * dashImpulse);
+        _playerEngine.AddForce(dashDir * impulse, ForceType.Impulse);
 
-        playerStamina.ReduceStamina(dashStaminaCost);
-        _cooldownTimer = cooldown;
+        _playerStamina.ReduceStamina(_dashStaminaCost);
+        _cooldownTimer = _cooldown;
     }
 }
