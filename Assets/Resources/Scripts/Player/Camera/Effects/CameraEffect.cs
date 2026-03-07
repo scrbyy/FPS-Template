@@ -1,6 +1,5 @@
-﻿public interface CameraEffect
+﻿public abstract class CameraEffect
 {
-
 
 }
 

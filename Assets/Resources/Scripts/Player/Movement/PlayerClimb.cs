@@ -33,7 +33,7 @@ public class PlayerClimb : MonoBehaviour
 
     private void HandleJumpInput()
     {
-        if (!_controller.isGrounded && !_isClimbing)
+        if (!playerEngine.isGrounded() && !_isClimbing)
         {
             TryClimb();
         }

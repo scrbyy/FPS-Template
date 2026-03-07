@@ -8,7 +8,7 @@ public class InteractionBody : MonoBehaviour
     [SerializeField] private LayerMask mask;
     [SerializeField] private Transform rayOrigin;
 
-    [Header("Link Components")]
+    [Header("References")]
     [SerializeField] private InputProvider selectedInputProvider;
 
     private RaycastHit hit;

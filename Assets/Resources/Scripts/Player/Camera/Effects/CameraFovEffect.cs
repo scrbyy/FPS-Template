@@ -3,50 +3,49 @@
 [RequireComponent(typeof(Camera))]
 public class CameraFovEffect : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private PlayerEngine playerEngine;
-    [SerializeField] private PlayerMovement playerMovement;
-
     [Header("FOV Limits")]
-    [SerializeField] private float minSpeedThreshold = 5f;  
-    [SerializeField] private float maxSpeedThreshold = 20f;
+    [SerializeField] private float _minSpeedThreshold;  
+    [SerializeField] private float _maxSpeedThreshold;
 
     [Space]
-    [SerializeField] private float maxFovAdd = 12f;      
-    [SerializeField] private float lerpSpeed = 7f;         
-    [SerializeField] private float surgeSpeed = 15f;       
+    [SerializeField] private float _maxFovAdd;  
+    [SerializeField] private float _decreaseSpeed;         
+    [SerializeField] private float _increaseSpeed;
 
-    private Camera _camera;
+    [Header("References")]
+    [SerializeField] private Camera _camera;
+    [SerializeField] private Transform _bodyTransform;
+    [SerializeField] private PlayerEngine _playerEngine;
+
     private float _defaultFov;
-    private float _currentFovVelocity;
+    private Vector3 _lastFramePosition;
 
     private void Awake()
     {
-        _camera = GetComponent<Camera>();
         _defaultFov = _camera.fieldOfView;
+        _lastFramePosition = new Vector2(_bodyTransform.position.x, _bodyTransform.position.z);
     }
 
     private void LateUpdate()
     {
-        if (playerEngine == null) return;
+        Vector3 direction = (_lastFramePosition - _bodyTransform.position).normalized;
 
-        // 1. Получаем реальную горизонтальную скорость из Engine
-        Vector3 velocity = playerEngine.GetVelocity();
+        Vector3 velocity = _playerEngine.GetVelocity();
+
         float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
 
-        // 2. Рассчитываем фактор скорости (от 0 до 1)
-        // 0 = идем медленнее порога, 1 = летим на максималках
-        float speedFactor = Mathf.InverseLerp(minSpeedThreshold, maxSpeedThreshold, horizontalSpeed);
+        float dot = Vector3.Dot(transform.TransformDirection(direction), -(transform.TransformDirection(transform.forward)));
 
-        // 3. Вычисляем целевой FOV
-        float targetFov = _defaultFov + (speedFactor * maxFovAdd);
+        float directionModifier = Mathf.Max(0, dot);
 
-        // 4. Логика выбора скорости сглаживания
-        // Если целевой FOV больше текущего — мы ускоряемся (нужна резкость)
-        // Если меньше — замедляемся (нужна мягкость)
-        float currentLerp = (targetFov > _camera.fieldOfView) ? surgeSpeed : lerpSpeed;
+        float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
 
-        // 5. Применяем изменения
+        float targetFov = _defaultFov + (modifier * _maxFovAdd) * directionModifier;
+
+        float currentLerp = (targetFov > _camera.fieldOfView) ? _increaseSpeed : _decreaseSpeed;
+
         _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, targetFov, Time.deltaTime * currentLerp);
+
+        _lastFramePosition = _bodyTransform.position;
     }
 }

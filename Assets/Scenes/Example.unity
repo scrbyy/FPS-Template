@@ -1371,12 +1371,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201232944}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 45, y: 3, z: 83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1206486988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &273453662
 Mesh:
@@ -2047,12 +2047,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fac49dca8627641b84278d9119fb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraLook
-  sensetivity: 0.08
-  maxCameraAngle: 90
-  minCameraAngle: -90
-  head: {fileID: 1915844012}
-  player: {fileID: 755122319}
-  selectedInputProvider: {fileID: 151862759}
+  sensitivity: 0.08
+  maxAngle: 90
+  minAngle: -90
+  _headTransform: {fileID: 1915844012}
+  _playerTransform: {fileID: 755122319}
+  _inputProvider: {fileID: 151862759}
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,13 +2065,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d430a416a66bf349aad7303d15ed108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFovEffect
-  playerEngine: {fileID: 755122330}
-  playerMovement: {fileID: 755122320}
-  minSpeedThreshold: 5
-  maxSpeedThreshold: 20
-  maxFovAdd: 12
-  lerpSpeed: 4
-  surgeSpeed: 20
+  _minSpeedThreshold: 3
+  _maxSpeedThreshold: 14
+  _maxFovAdd: 12
+  _decreaseSpeed: 20
+  _increaseSpeed: 5
+  _camera: {fileID: 330585545}
+  _bodyTransform: {fileID: 755122319}
+  _playerEngine: {fileID: 755122330}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -2101,7 +2102,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -2565,15 +2566,15 @@ GameObject:
   m_Component:
   - component: {fileID: 755122319}
   - component: {fileID: 755122325}
-  - component: {fileID: 755122320}
-  - component: {fileID: 755122323}
-  - component: {fileID: 755122324}
   - component: {fileID: 755122326}
+  - component: {fileID: 755122330}
+  - component: {fileID: 755122320}
+  - component: {fileID: 755122324}
   - component: {fileID: 755122328}
+  - component: {fileID: 755122327}
+  - component: {fileID: 755122323}
   - component: {fileID: 755122322}
   - component: {fileID: 755122321}
-  - component: {fileID: 755122327}
-  - component: {fileID: 755122330}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -2670,7 +2671,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
   _runSpeed: 10
-  _staminaCost: 1
+  _staminaCost: 0.5
   _inputProvider: {fileID: 151862759}
 --- !u!114 &755122324
 MonoBehaviour:
@@ -2686,7 +2687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
   jumpForce: 1.25
   staminaCost: 5
-  bufferDuration: 0.05
+  bufferDuration: 0
   playerStamina: {fileID: 755122326}
   inputProvider: {fileID: 151862759}
 --- !u!114 &755122325
@@ -2718,8 +2719,7 @@ MonoBehaviour:
   currentStamina: 100
   maxStamina: 200
   recoveryDelay: 1
-  recoverySpeed: 100
-  ticksPerSecond: 60
+  recoverySpeed: 175
 --- !u!114 &755122327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2733,8 +2733,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDashPhysical
   _groundImpulse: 12
-  _airImpulse: 6
-  _dashStaminaCost: 15
+  _airImpulse: 7
+  _dashStaminaCost: 10
   _cooldown: 0.5
   _playerEngine: {fileID: 755122330}
   _playerStamina: {fileID: 755122326}
@@ -3189,7 +3189,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -450}
-  m_SizeDelta: {x: 300, y: 8}
+  m_SizeDelta: {x: 300, y: 3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1002398857
 MonoBehaviour:
@@ -3204,10 +3204,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 1}
+  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.39215687}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3337,7 +3337,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -7272,6 +7272,7 @@ Transform:
   - {fileID: 2143418241}
   - {fileID: 1044228720}
   - {fileID: 1476076124}
+  - {fileID: 201232950}
   - {fileID: 435225213}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8381,6 +8382,55 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1464845728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1464845730}
+  - component: {fileID: 1464845729}
+  m_Layer: 0
+  m_Name: Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1464845729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464845728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 56142eb0bc7906e47a2983d4701f9eba, type: 2}
+--- !u!4 &1464845730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464845728}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.973494, y: 8.490178, z: 32.56099}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1476076118
 GameObject:
   m_ObjectHideFlags: 0
@@ -12938,13 +12988,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b41427ca150734ba03c1f995871396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LandingImpact
-  playerJump: {fileID: 755122324}
-  playerEngine: {fileID: 755122330}
   stiffness: 50
   damping: 10
   mass: 0.5
   forceMultiplier: 0.2
   maxForce: 5
+  _head: {fileID: 1833730443}
+  _playerEngine: {fileID: 755122330}
 --- !u!1 &1900707013
 GameObject:
   m_ObjectHideFlags: 0
@@ -13206,8 +13256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  playerEngine: {fileID: 755122330}
-  inputProvider: {fileID: 151862759}
   bobCurve:
     serializedVersion: 2
     m_Curve:
@@ -13236,9 +13284,11 @@ MonoBehaviour:
   horizontalAmplitude: 0.03
   baseFrequency: 4
   frequencyStiffness: 4.5
-  tiltAmplitude: 0.4
-  dashTiltMultiplier: 2.5
+  tiltAmplitude: 0.15
+  dashTiltMultiplier: 2
   tiltSmoothSpeed: 10
+  playerEngine: {fileID: 755122330}
+  inputProvider: {fileID: 151862759}
 --- !u!1 &2018914445
 GameObject:
   m_ObjectHideFlags: 0
@@ -13274,7 +13324,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 7, y: 7}
+  m_SizeDelta: {x: 5, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2018914447
 MonoBehaviour:
@@ -16644,10 +16694,10 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 815915171}
   - {fileID: 1027977331}
+  - {fileID: 815915171}
   - {fileID: 755122319}
   - {fileID: 1206486988}
   - {fileID: 151862758}
   - {fileID: 32322477}
-  - {fileID: 201232950}
+  - {fileID: 1464845730}

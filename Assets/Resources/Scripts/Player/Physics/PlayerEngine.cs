@@ -6,30 +6,29 @@ public class PlayerEngine : MonoBehaviour
     public event System.Action OnLanded;
     public event System.Action OnLeftGround;
 
-    [Header("Settings")]
+    [Header("Movement")]
     [SerializeField] private float accelerationRate;
     [SerializeField] private float decelerationRate;
+
+    [Header("Air Movement")]
     [SerializeField] private float airAcceleration;
     [SerializeField] private float airCap;
-
-    [Header("Physics")]
     [SerializeField] private float _gravityScale;
     [SerializeField] private float _groundedGravity;
 
     private CharacterController _characterController;
     private Vector3 _velocity;
     private bool _isImpulseActive;
-
     private bool _wasGrounded;
 
     private void Awake() => _characterController = GetComponent<CharacterController>();
 
-    public void Move(Vector3 wishDir, float maxSpeed)
+    public void Move(Vector3 inputVector, float maxSpeed)
     {
         if (_characterController.isGrounded)
-            ApplyGroundMovement(wishDir, maxSpeed);
+            ApplyGroundMovement(inputVector, maxSpeed);
         else
-            ApplyAirMovement(wishDir);
+            ApplyAirMovement(inputVector);
 
         Vector3 finalMotion = _velocity;
         finalMotion.y = _velocity.y;
@@ -59,6 +58,7 @@ public class PlayerEngine : MonoBehaviour
     public Vector3 GetVelocity() => _velocity;
 
     public bool isGrounded() => _characterController.isGrounded;
+
     public bool IsImpulseActive() => _isImpulseActive;
 
     private void Update()
