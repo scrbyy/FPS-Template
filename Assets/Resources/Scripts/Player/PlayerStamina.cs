@@ -1,81 +1,54 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerStamina : MonoBehaviour
+public class PlayerStamina : PlayerStat
 {
-    public event System.Action<float> OnPlayerStaminaChanged;
-
-    [Header("Main")]
-    [SerializeField] private float currentStamina;
-    [SerializeField] private float maxStamina;
-
     [Header("Recovery Settings")]
-    [SerializeField] private float recoveryDelay = 2f;
-    [SerializeField] private float recoverySpeed = 15f;
-
-    [Header("Tick Settings")]
-    [SerializeField] private float ticksPerSecond = 60f;
-    private float _lastTickTime;
+    [SerializeField] private float recoveryCooldown;
+    [SerializeField] private float recoverySpeed;
 
     private Coroutine _recoveryCoroutine;
-
-    private void Start()
-    {
-        currentStamina = maxStamina;
-        OnPlayerStaminaChanged?.Invoke(currentStamina);
-    }
-
     private bool _isExhausted;
 
-    public float GetMaxStamina()
-    {
-        return maxStamina;
-    }
-    public void ReduceStamina(float amount)
+    public override void Decrease(float reducingValue)
     {
         if (_isExhausted) return;
 
-        if (amount > 0)
+        if (reducingValue > 0)
         {
-            if (Time.time - _lastTickTime > (1f / ticksPerSecond))
-            {
-                _lastTickTime = Time.time;
+            _currentValue = Mathf.Max(_currentValue - reducingValue, 0);
 
-                currentStamina = Mathf.Max(currentStamina - amount, 0);
-                OnPlayerStaminaChanged?.Invoke(currentStamina);
+            NotifyValueChanged(_currentValue);
 
-                if (currentStamina <= 0)
-                {
-                    _isExhausted = true;
-                }
-                if (_recoveryCoroutine != null) StopCoroutine(_recoveryCoroutine);
-                _recoveryCoroutine = StartCoroutine(RecoveryRoutine());
-            }
+            if (_currentValue <= 0) _isExhausted = true;
+
+            if (_recoveryCoroutine != null) StopCoroutine(_recoveryCoroutine);
+
+            _recoveryCoroutine = StartCoroutine(RecoveryRoutine());
         }
-    }
-
-    public void StayExhausted()
-    {
-        if (_recoveryCoroutine != null) StopCoroutine(_recoveryCoroutine);
-        _recoveryCoroutine = StartCoroutine(RecoveryRoutine());
-    }
-
-    private IEnumerator RecoveryRoutine()
-    {
-        yield return new WaitForSeconds(recoveryDelay);
-
-        while (currentStamina < maxStamina)
-        {
-            currentStamina = Mathf.MoveTowards(currentStamina, maxStamina, recoverySpeed * Time.deltaTime);
-            OnPlayerStaminaChanged?.Invoke(currentStamina);
-            yield return null;
-        }
-        _isExhausted = false;
-        _recoveryCoroutine = null;
     }
 
     public bool IsEnoughStamina(float amount)
     {
-        return !_isExhausted || currentStamina >= amount;
+        return !_isExhausted || _currentValue >= amount;
+    }
+
+    private void Start()
+    {
+        NotifyValueChanged(_currentValue);
+    }
+    
+    private IEnumerator RecoveryRoutine()
+    {
+        yield return new WaitForSeconds(recoveryCooldown);
+
+        while (_currentValue < GetMaxValue())
+        {
+            _currentValue = Mathf.MoveTowards(_currentValue, GetMaxValue(), recoverySpeed * Time.deltaTime);
+            NotifyValueChanged(_currentValue);
+            yield return null;
+        }
+        _isExhausted = false;
+        _recoveryCoroutine = null;
     }
 }

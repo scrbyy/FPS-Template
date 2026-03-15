@@ -58,7 +58,7 @@ public class PlayerDash : MonoBehaviour
 
         _playerEngine.AddForce(dashDir * impulse, ForceType.Impulse);
 
-        _playerStamina.ReduceStamina(_dashStaminaCost);
+        _playerStamina.Decrease(_dashStaminaCost);
         _cooldownTimer = _cooldown;
     }
 }

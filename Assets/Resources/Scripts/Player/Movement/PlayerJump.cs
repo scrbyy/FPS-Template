@@ -40,7 +40,7 @@ public class PlayerJump : MonoBehaviour
         if (_playerEngine.isGrounded() && playerStamina.IsEnoughStamina(staminaCost))
         {
             _playerEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
-            playerStamina.ReduceStamina(staminaCost);
+            playerStamina.Decrease(staminaCost);
         }
     }
 

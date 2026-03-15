@@ -7,12 +7,12 @@ public class DeathPanel : MonoBehaviour
 
     private void OnEnable()
     {
-        playerHealth.OnPlayerDeath += ShowDeathPanel;
+        playerHealth.OnValueExhausted += ShowDeathPanel;
     }
 
     private void OnDisable()
     {
-        playerHealth.OnPlayerDeath -= ShowDeathPanel;
+        playerHealth.OnValueExhausted -= ShowDeathPanel;
     }
 
     private void ShowDeathPanel()

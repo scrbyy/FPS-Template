@@ -3,24 +3,38 @@ using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(CanvasGroup))]
-public abstract class ProgressBar : MonoBehaviour
+public class StatProgressBar : MonoBehaviour
 {
     [Header("Visual Settings")]
     [SerializeField] protected Image fillImage;
-    [SerializeField] protected float maxValue = 100f;
+    [SerializeField] protected float maxValue;
     [SerializeField] private float smoothSpeed;
 
     [Header("Visibility")]
-    [SerializeField] private bool autoHide = false;
-    [SerializeField] private float idleTimeBeforeHide = 2f;
-    [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private bool autoHide;
+    [SerializeField] private float hideCooldown;
+    [SerializeField] private float hideDuration;
+
+    [Header("References")]
+    [SerializeField] private PlayerStat _playerStat;
 
     private CanvasGroup _canvasGroup;
     private Coroutine _hideCoroutine;
     private float _defaultAlpha;
     private float _targetFill;
 
-    protected virtual void Awake()
+    private void OnEnable()
+    {
+        _playerStat.OnValueChanged += SetValue;
+    }
+
+    private void OnDisable()
+    {
+        _playerStat.OnValueChanged -= SetValue;
+    }
+
+
+    private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         if (fillImage == null) fillImage = GetComponent<Image>();
@@ -29,7 +43,7 @@ public abstract class ProgressBar : MonoBehaviour
         _defaultAlpha = _canvasGroup.alpha;
     }
 
-    protected virtual void Update()
+    private void Update()
     {
         if (!Mathf.Approximately(fillImage.fillAmount, _targetFill))
         {
@@ -37,9 +51,9 @@ public abstract class ProgressBar : MonoBehaviour
         }
     }
 
-    public virtual void SetValue(float currentValue)
+    private void SetValue(float currentValue)
     {
-        _targetFill = Mathf.Clamp01(currentValue / GetMaxValue());
+        _targetFill = Mathf.Clamp01(currentValue / _playerStat.GetMaxValue());
 
         if (autoHide)
         {
@@ -47,7 +61,7 @@ public abstract class ProgressBar : MonoBehaviour
             ResetHideTimer();
         }
     }
-    protected abstract float GetMaxValue();
+
     private void ShowBar()
     {
         if (_hideCoroutine != null) StopCoroutine(_hideCoroutine);
@@ -62,15 +76,15 @@ public abstract class ProgressBar : MonoBehaviour
 
     private IEnumerator HideRoutine()
     {
-        yield return new WaitForSeconds(idleTimeBeforeHide);
+        yield return new WaitForSeconds(hideCooldown);
 
         float startAlpha = _canvasGroup.alpha;
         float elapsed = 0;
 
-        while (elapsed < fadeDuration)
+        while (elapsed < hideDuration)
         {
             elapsed += Time.deltaTime;
-            _canvasGroup.alpha = Mathf.Lerp(startAlpha, _defaultAlpha, elapsed / fadeDuration);
+            _canvasGroup.alpha = Mathf.Lerp(startAlpha, _defaultAlpha, elapsed / hideDuration);
             yield return null;
         }
 

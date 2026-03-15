@@ -10,7 +10,7 @@ public class DeathZone : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.GetComponent<PlayerHealth>()?.TakeDamage(damageAmount);
+            other.GetComponent<PlayerHealth>()?.Decrease(damageAmount);
         }
     }
 }
