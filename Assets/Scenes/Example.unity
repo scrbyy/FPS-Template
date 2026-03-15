@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fac49dca8627641b84278d9119fb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraLook
-  sensitivity: 0.08
+  _sensitivity: 0.08
   maxAngle: 90
   minAngle: -90
   _headTransform: {fileID: 1915844012}
@@ -2596,7 +2596,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1900707014}
-  - {fileID: 1833730443}
+  - {fileID: 1915844012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &755122320
@@ -2720,6 +2720,7 @@ MonoBehaviour:
   maxStamina: 200
   recoveryDelay: 1
   recoverySpeed: 175
+  ticksPerSecond: 60
 --- !u!114 &755122327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3204,7 +3205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 0.39215687}
+  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -12943,58 +12944,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1833730442
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1833730443}
-  - component: {fileID: 1833730444}
-  m_Layer: 9
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1833730443
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1833730442}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1915844012}
-  m_Father: {fileID: 755122319}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1833730444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1833730442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1b41427ca150734ba03c1f995871396, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LandingImpact
-  stiffness: 50
-  damping: 10
-  mass: 0.5
-  forceMultiplier: 0.2
-  maxForce: 5
-  _head: {fileID: 1833730443}
-  _playerEngine: {fileID: 755122330}
 --- !u!1 &1900707013
 GameObject:
   m_ObjectHideFlags: 0
@@ -13145,6 +13094,8 @@ GameObject:
   - component: {fileID: 1915844015}
   - component: {fileID: 1915844014}
   - component: {fileID: 1915844013}
+  - component: {fileID: 1915844018}
+  - component: {fileID: 1915844017}
   - component: {fileID: 1915844016}
   m_Layer: 9
   m_Name: Head
@@ -13162,13 +13113,13 @@ Transform:
   m_GameObject: {fileID: 1915844011}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1438296291}
   - {fileID: 330585546}
-  m_Father: {fileID: 1833730443}
+  m_Father: {fileID: 755122319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1915844013
 SphereCollider:
@@ -13253,6 +13204,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1915844011}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b41427ca150734ba03c1f995871396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stiffness: 100
+  damping: 10
+  mass: 1
+  forceMultiplier: 0.2
+  maxForce: 2
+  _playerEngine: {fileID: 755122330}
+--- !u!114 &1915844017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915844011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
@@ -13285,10 +13254,22 @@ MonoBehaviour:
   baseFrequency: 4
   frequencyStiffness: 4.5
   tiltAmplitude: 0.15
-  dashTiltMultiplier: 2
   tiltSmoothSpeed: 10
   playerEngine: {fileID: 755122330}
-  inputProvider: {fileID: 151862759}
+--- !u!114 &1915844018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915844011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53809f2422952b241818b774829de4fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _useSmoothing: 1
+  _smoothSpeed: 10
 --- !u!1 &2018914445
 GameObject:
   m_ObjectHideFlags: 0

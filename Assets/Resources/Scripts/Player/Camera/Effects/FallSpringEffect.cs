@@ -1,36 +1,27 @@
 using UnityEngine;
 
-public class LandingPhysics : MonoBehaviour
+public class FallSpringEffect : MonoBehaviour, IHeadEffect
 {
     [Header("Spring Settings")]
-    [SerializeField] private float stiffness;
-    [SerializeField] private float damping;
-    [SerializeField] private float mass;
+    [SerializeField] private float stiffness = 100f;
+    [SerializeField] private float damping = 10f;
+    [SerializeField] private float mass = 1f;
 
     [Header("Impact Force")]
-    [SerializeField] private float forceMultiplier;
-    [SerializeField] private float maxForce;
+    [SerializeField] private float forceMultiplier = 0.2f;
+    [SerializeField] private float maxForce = 2f;
 
     [Header("References")]
-    [SerializeField] private Transform _head;
     [SerializeField] private PlayerEngine _playerEngine;
 
     private Vector3 _currentPosition;
     private Vector3 _velocity;
-    private Vector3 _initialLocalPosition;
     private float _lastVerticalVelocity;
 
-    private void Awake() => _initialLocalPosition = _head.localPosition;
+    public Vector3 GetLocalOffset() => _currentPosition;
 
-    private void OnEnable()
-    {
-        _playerEngine.OnLanded += ApplyLandingForce;
-    }
-
-    private void OnDisable()
-    {
-        _playerEngine.OnLanded -= ApplyLandingForce;
-    }
+    private void OnEnable() => _playerEngine.OnLanded += ApplyLandingForce;
+    private void OnDisable() => _playerEngine.OnLanded -= ApplyLandingForce;
 
     private void Update()
     {
@@ -46,20 +37,15 @@ public class LandingPhysics : MonoBehaviour
 
         _velocity += acceleration * Time.deltaTime;
         _currentPosition += _velocity * Time.deltaTime;
-
-        _head.localPosition = _initialLocalPosition + _currentPosition;
     }
 
     private void ApplyLandingForce()
     {
         float fallSpeed = Mathf.Abs(_lastVerticalVelocity);
-
         if (fallSpeed < 1.5f) return;
 
         float impactPower = Mathf.Min(fallSpeed * forceMultiplier, maxForce);
-
-        _velocity.y -= impactPower;
-
+        _velocity.y -= impactPower; 
         _lastVerticalVelocity = 0;
     }
 }

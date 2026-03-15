@@ -4,30 +4,33 @@ using UnityEngine;
 public class CameraLook : MonoBehaviour
 {
     [Header("Sensitivity")]
-    [SerializeField] private float sensitivity;
+    [SerializeField] private float _sensitivity;
 
     [Header("Clamping")]
     [SerializeField] private float maxAngle;
     [SerializeField] private float minAngle;
 
     [Header("References")]
-    [SerializeField] private Transform _headTransform;
+    [SerializeField] private Transform _headTransform;  
     [SerializeField] private Transform _playerTransform;
     [SerializeField] private InputProvider _inputProvider;
 
-    private float _yRotation;
-    private float _xRotation;
+    private float _yRotation; 
+    private float _xRotation; 
 
     private void Update()
     {
-        float mouseY = _inputProvider.GetLookInput().x * sensitivity;
-        float mouseX = _inputProvider.GetLookInput().y * sensitivity;
+        Vector2 lookInput = _inputProvider.GetLookInput();
 
-        _yRotation -= mouseX;
+        float mouseX = lookInput.x * _sensitivity;
+        float mouseY = lookInput.y * _sensitivity;
+
+        _xRotation += mouseX;
+        _playerTransform.localRotation = Quaternion.Euler(0, _xRotation, 0);
+
+        _yRotation -= mouseY;
         _yRotation = Mathf.Clamp(_yRotation, minAngle, maxAngle);
 
-        _xRotation += mouseY;
-        _playerTransform.localRotation = Quaternion.Euler(0, _xRotation, 0);
-        _headTransform.localRotation = Quaternion.Euler(_yRotation, 0, 0);
+        _headTransform.localRotation = Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
     }
 }
