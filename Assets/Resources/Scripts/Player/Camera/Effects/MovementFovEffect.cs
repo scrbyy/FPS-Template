@@ -12,17 +12,19 @@ public class MovementFovEffect : MonoBehaviour
     [SerializeField] private float _decreaseSpeed = 2f;
     [SerializeField] private float _increaseSpeed = 5f;
 
+    [SerializeField] private bool _addFov;
+
     [Header("References")]
-    [SerializeField] private Camera _camera;
     [SerializeField] private Transform _bodyTransform;
     [SerializeField] private PlayerEngine _playerEngine;
 
+    private Camera _camera;
     private float _defaultFov;
     private Vector3 _lastFramePosition;
 
     private void Awake()
     {
-        if (_camera == null) _camera = GetComponent<Camera>();
+        _camera = GetComponent<Camera>();
         _defaultFov = _camera.fieldOfView;
         _lastFramePosition = _bodyTransform.position;
     }
@@ -39,7 +41,7 @@ public class MovementFovEffect : MonoBehaviour
         float directionModifier = Mathf.Max(0, dot);
 
         float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
-        float targetFov = _defaultFov + (modifier * _maxFovAdd) * directionModifier;
+        float targetFov = _addFov ? _defaultFov + (modifier * _maxFovAdd) * directionModifier : _defaultFov - (modifier * _maxFovAdd) * directionModifier;
 
         float currentLerp = (targetFov > _camera.fieldOfView) ? _increaseSpeed : _decreaseSpeed;
         _camera.fieldOfView = Mathf.Lerp(_camera.fieldOfView, targetFov, Time.deltaTime * currentLerp);

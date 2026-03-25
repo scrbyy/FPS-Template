@@ -1,19 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Rifle : Weapon
 {
+    public override event Action OnWeaponShoot;
+
     public override void Shoot()
     {
         if (canShoot == true && currentAmmo > 0)
         {
+            OnWeaponShoot?.Invoke();
             currentAmmo--;
             if (Physics.Raycast(origin.position, origin.forward, out hit, distance))
             {
                 GameObject hitObject = hit.transform.gameObject;
                 Debug.Log("Hit object: " + hitObject.name);
             }
-            afterShootDelay = StartCoroutine(ShootCooldown(shootCooldown));
+            afterShootDelay = StartCoroutine(ShootCooldown(afterShootCooldown));
         }
     }
 

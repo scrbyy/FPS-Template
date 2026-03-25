@@ -3,16 +3,22 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public System.Action<int, int> EndReloadEvent;
+    public event System.Action<int, int> OnEndReloadEvent;
+    public abstract event System.Action OnWeaponShoot;
 
+    [Header("Damage")]
     [SerializeField] protected float damage;
-    [SerializeField] protected Transform origin;
+    [SerializeField] protected float afterShootCooldown;
+    [SerializeField] public ShootType shootType;
+
+    [Header("Ammo")]
     [SerializeField] protected int currentAmmo;
     [SerializeField] protected int reserveAmmo;
     [SerializeField] protected int magazineSize;
     [SerializeField] protected float reloadDuration;
-    [SerializeField] public ShootType shootType;
-    [SerializeField] protected float shootCooldown;
+
+    [Header("Ray")]
+    [SerializeField] protected Transform origin;
     [SerializeField] protected float distance;
 
     protected bool canShoot = true;
@@ -76,7 +82,7 @@ public abstract class Weapon : MonoBehaviour
                 currentAmmo = Mathf.Clamp(currentAmmo += magazineSize, 0, magazineSize);
             }
         }
-        EndReloadEvent?.Invoke(currentAmmo, reserveAmmo);
+        OnEndReloadEvent?.Invoke(currentAmmo, reserveAmmo);
         canShoot = true;
         reloadCoroutine = null;
     }

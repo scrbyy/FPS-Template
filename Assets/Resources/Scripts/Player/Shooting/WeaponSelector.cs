@@ -37,7 +37,7 @@ public class WeaponSelector : MonoBehaviour
         }
 
         selectedWeapons[initializeWeaponID].gameObject.SetActive(true);
-        selectedWeapons[initializeWeaponID].EndReloadEvent += UpdateAmmoEvent;
+        selectedWeapons[initializeWeaponID].OnEndReloadEvent += UpdateAmmoEvent;
         inputProvider.OnReloadPerformed += selectedWeapons[initializeWeaponID].Reload;
         SetNewShootType(selectedWeapons[initializeWeaponID].shootType);
         UpdateAmmo();
@@ -62,9 +62,8 @@ public class WeaponSelector : MonoBehaviour
     {
         Weapon oldWeapon = selectedWeapons[currentWeaponIndex];
 
-        oldWeapon.EndReloadEvent -= UpdateAmmoEvent;
+        oldWeapon.OnEndReloadEvent -= UpdateAmmoEvent;
         inputProvider.OnReloadPerformed -= oldWeapon.Reload;
-        Debug.Log("Reload !switched to weapon: " + oldWeapon.name);
         oldWeapon.Disable();
         oldWeapon.gameObject.SetActive(false);
 
@@ -74,9 +73,8 @@ public class WeaponSelector : MonoBehaviour
         Weapon newWeapon = selectedWeapons[currentWeaponIndex];
 
         newWeapon.gameObject.SetActive(true);
-        newWeapon.EndReloadEvent += UpdateAmmoEvent;
+        newWeapon.OnEndReloadEvent += UpdateAmmoEvent;
         inputProvider.OnReloadPerformed += newWeapon.Reload;
-        Debug.Log("Reload switched to weapon: " + newWeapon.name);
         SetNewShootType(newWeapon.shootType);
         UpdateAmmo();
     }
