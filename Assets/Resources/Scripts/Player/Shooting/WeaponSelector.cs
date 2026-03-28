@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Zenject;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class WeaponSelector : MonoBehaviour
@@ -7,8 +8,9 @@ public class WeaponSelector : MonoBehaviour
 
     [SerializeField] private Weapon[] weaponsInventory;
     [SerializeField] private List<Weapon> selectedWeapons;
-    [SerializeField] private InputProvider inputProvider;
     [SerializeField] private int currentWeaponIndex;
+
+    [Inject] private IInputProvider inputProvider;
 
     private void Start()
     {

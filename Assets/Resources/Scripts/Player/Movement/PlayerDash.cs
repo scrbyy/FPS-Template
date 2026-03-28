@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Zenject;
 public class PlayerDash : MonoBehaviour
 {
     [Header("Impulse Force")]
@@ -13,7 +13,7 @@ public class PlayerDash : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerEngine _playerEngine;
     [SerializeField] private PlayerStamina _playerStamina;
-    [SerializeField] private InputProvider _inputProvider;
+    [Inject] private IInputProvider _inputProvider;
 
     private float _cooldownTimer;
 

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class TransformSway : MonoBehaviour
 {
@@ -13,13 +14,12 @@ public class TransformSway : MonoBehaviour
     [SerializeField] private Vector2 minMaxY;
 
     [Header("References")]
-    [SerializeField] private InputProvider _inputProvider;
+    [Inject] private IInputProvider _inputProvider;
 
     protected float AdditionalX;
     protected float AdditionalY;
 
     private float _mouseX, _mouseY;
-    private float _velocityY;
 
     private void LateUpdate()
     {

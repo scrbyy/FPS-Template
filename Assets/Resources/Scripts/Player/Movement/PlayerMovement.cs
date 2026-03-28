@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(PlayerEngine))]
 
@@ -11,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _deceleration;
 
     [Header("References")]
-    [SerializeField] private InputProvider _inputProvider;
+    [Inject] private IInputProvider _inputProvider;
 
     private float _targetMaxSpeed;
     private float _currentMaxSpeed;

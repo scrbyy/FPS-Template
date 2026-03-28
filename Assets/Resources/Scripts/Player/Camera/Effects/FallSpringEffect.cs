@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FallSpringEffect : MonoBehaviour, IHeadEffect
+public class FallSpringEffect : MonoBehaviour, IMotionEffect
 {
     [Header("Spring Settings")]
     [SerializeField] private float stiffness = 100f;

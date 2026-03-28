@@ -1,3 +1,4 @@
+using Zenject;
 using UnityEngine;
 using System.Collections;
 
@@ -14,7 +15,7 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private float _staminaCost;
 
     [Header("References")]
-    [SerializeField] private InputProvider _inputProvider;
+    [Inject] private IInputProvider _inputProvider;
     [SerializeField] private PlayerStamina _playerStamina;
 
     private PlayerEngine _playerEngine;

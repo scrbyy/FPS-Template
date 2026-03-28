@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 public class PlayerClimb : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class PlayerClimb : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerEngine playerEngine;
-    [SerializeField] private InputProvider inputProvider;
+    [Inject] private IInputProvider _inputProvider;
 
     private CharacterController _controller;
     private bool _isClimbing;
@@ -28,8 +29,8 @@ public class PlayerClimb : MonoBehaviour
         _controller = GetComponent<CharacterController>();
     }
 
-    private void OnEnable() => inputProvider.OnJumpPerformed += HandleJumpInput;
-    private void OnDisable() => inputProvider.OnJumpPerformed -= HandleJumpInput;
+    private void OnEnable() => _inputProvider.OnJumpPerformed += HandleJumpInput;
+    private void OnDisable() => _inputProvider.OnJumpPerformed -= HandleJumpInput;
 
     private void HandleJumpInput()
     {

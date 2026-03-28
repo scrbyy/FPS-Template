@@ -1,6 +1,7 @@
 using UnityEngine;
+using Zenject;
 
-public class BobbingEffect : MonoBehaviour, IHeadEffect
+public class BobbingEffect : MonoBehaviour, IMotionEffect
 {
     [Header("Bobbing Settings")]
     [SerializeField] private AnimationCurve bobCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
@@ -15,6 +16,7 @@ public class BobbingEffect : MonoBehaviour, IHeadEffect
 
     [Header("References")]
     [SerializeField] private PlayerEngine playerEngine;
+    [Inject] private IInputProvider _inputProvider;
 
     private float _timer;
     private Vector3 _bobOffset;
@@ -26,23 +28,26 @@ public class BobbingEffect : MonoBehaviour, IHeadEffect
     {
         if (playerEngine == null) return;
 
-        Vector3 velocity = playerEngine.GetVelocity();
-        float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-        bool isDashing = playerEngine.IsImpulseActive();
-
-        if (horizontalSpeed > 0.2f && !isDashing)
+        if (_inputProvider.GetMoveVector() != Vector2.zero && playerEngine.isGrounded())
         {
-            float dynamicFrequency = baseFrequency + (Mathf.Sqrt(horizontalSpeed) * frequencyStiffness);
-            _timer += Time.deltaTime * dynamicFrequency;
+            Vector3 velocity = playerEngine.GetVelocity();
+            float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
+            bool isDashing = playerEngine.IsImpulseActive();
 
-            UpdateBobbingValues(horizontalSpeed);
-        }
-        else
-        {
-            _bobOffset = Vector3.MoveTowards(_bobOffset, Vector3.zero, Time.deltaTime * 0.5f);
-        }
+            if (horizontalSpeed > 0.2f && !isDashing)
+            {
+                float dynamicFrequency = baseFrequency + (Mathf.Sqrt(horizontalSpeed) * frequencyStiffness);
+                _timer += Time.deltaTime * dynamicFrequency;
 
-        HandleTilt(velocity);
+                UpdateBobbingValues(horizontalSpeed);
+            }
+            else
+            {
+                _bobOffset = Vector3.MoveTowards(_bobOffset, Vector3.zero, Time.deltaTime * 0.5f);
+            }
+
+            HandleTilt(velocity);
+        }
     }
 
     private void UpdateBobbingValues(float speed)

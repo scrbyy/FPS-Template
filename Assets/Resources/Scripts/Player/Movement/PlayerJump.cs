@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerJump : MonoBehaviour
@@ -12,7 +13,7 @@ public class PlayerJump : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private PlayerStamina playerStamina;
-    [SerializeField] private InputProvider inputProvider;
+    [Inject] private IInputProvider inputProvider;
 
     private PlayerEngine _playerEngine;
     private Buffer _inputBuffer;

@@ -4,13 +4,13 @@
 public class MovementFovEffect : MonoBehaviour
 {
     [Header("FOV Limits")]
-    [SerializeField] private float _minSpeedThreshold = 5f;
-    [SerializeField] private float _maxSpeedThreshold = 20f;
+    [SerializeField] private float _minSpeedThreshold;
+    [SerializeField] private float _maxSpeedThreshold;
 
     [Space]
-    [SerializeField] private float _maxFovAdd = 15f;
-    [SerializeField] private float _decreaseSpeed = 2f;
-    [SerializeField] private float _increaseSpeed = 5f;
+    [SerializeField] private float _maxFovAdd;
+    [SerializeField] private float _decreaseSpeed;
+    [SerializeField] private float _increaseSpeed;
 
     [SerializeField] private bool _addFov;
 

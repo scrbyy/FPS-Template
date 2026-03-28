@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using Zenject;
 public class InteractionBody : MonoBehaviour
 {
     [Header("Main")]
@@ -9,7 +9,7 @@ public class InteractionBody : MonoBehaviour
     [SerializeField] private Transform rayOrigin;
 
     [Header("References")]
-    [SerializeField] private InputProvider selectedInputProvider;
+    [Inject] private IInputProvider selectedInputProvider;
 
     private RaycastHit hit;
 

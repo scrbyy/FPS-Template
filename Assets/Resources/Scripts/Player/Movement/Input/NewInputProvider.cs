@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class NewInputProvider : InputProvider
+public class NewInputProvider : MonoBehaviour, IInputProvider
 {
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -16,31 +16,31 @@ public class NewInputProvider : InputProvider
     private InputAction selectNextWeaponAction;
     private InputAction selectPreviousWeaponAction;
 
-    public override event Action OnJumpPerformed;
+    public event Action OnJumpPerformed;
 
-    public override event Action OnInteractPerformed;
+    public event Action OnInteractPerformed;
 
-    public override event Action OnReloadPerformed;
+    public event Action OnReloadPerformed;
 
-    public override event Action OnSprintCanceled;
-    public override event Action OnSprintPressed;
+    public event Action OnSprintCanceled;
+    public event Action OnSprintPressed;
 
 
-    public override event Action OnShootTriggered;
-    public override event Action OnShootPressed;
+    public event Action OnShootTriggered;
+    public event Action OnShootPressed;
 
-    public override event Action OnNextWeaponSelect;
-    public override event Action OnPreviousWeaponSelect;
+    public event Action OnNextWeaponSelect;
+    public event Action OnPreviousWeaponSelect;
 
-    public override event Action OnDashCanceled;
-    public override event Action OnDashPressed;
+    public event Action OnDashCanceled;
+    public event Action OnDashPressed;
 
-    public override Vector2 GetLookInput()
+    public Vector2 GetLookInput()
     {
         return lookAction.ReadValue<Vector2>();
     }
 
-    public override Vector2 GetMoveVector()
+    public Vector2 GetMoveVector()
     {
         return moveAction.ReadValue<Vector2>();
     }

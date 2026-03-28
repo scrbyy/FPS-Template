@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(Camera))]
 public class CameraLook : MonoBehaviour
@@ -13,7 +14,7 @@ public class CameraLook : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _headTransform;  
     [SerializeField] private Transform _playerTransform;
-    [SerializeField] private InputProvider _inputProvider;
+    [Inject] private IInputProvider _inputProvider;
 
     private float _yRotation; 
     private float _xRotation; 
