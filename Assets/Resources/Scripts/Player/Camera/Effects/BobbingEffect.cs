@@ -9,6 +9,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float horizontalAmplitude = 0.03f;
     [SerializeField] private float baseFrequency = 5f;
     [SerializeField] private float frequencyStiffness = 2f;
+    [SerializeField] private float returnSpeed = 5f;
 
     [Header("Tilt Settings")]
     [SerializeField] private float tiltAmplitude = 2f;
@@ -28,25 +29,24 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
     {
         if (playerEngine == null) return;
 
-        if (_inputProvider.GetMoveVector() != Vector2.zero && playerEngine.isGrounded())
+        Vector2 moveInput = _inputProvider.GetMoveVector();
+        Vector3 velocity = playerEngine.GetVelocity();
+        float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
+
+        bool isWalking = moveInput != Vector2.zero && horizontalSpeed > 0.2f && playerEngine.isGrounded();
+
+        if (isWalking && !playerEngine.IsImpulseActive())
         {
-            Vector3 velocity = playerEngine.GetVelocity();
-            float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-            bool isDashing = playerEngine.IsImpulseActive();
+            float dynamicFrequency = baseFrequency + (Mathf.Sqrt(horizontalSpeed) * frequencyStiffness);
+            _timer += Time.deltaTime * dynamicFrequency;
 
-            if (horizontalSpeed > 0.2f && !isDashing)
-            {
-                float dynamicFrequency = baseFrequency + (Mathf.Sqrt(horizontalSpeed) * frequencyStiffness);
-                _timer += Time.deltaTime * dynamicFrequency;
+            UpdateBobbingValues(horizontalSpeed);
 
-                UpdateBobbingValues(horizontalSpeed);
-            }
-            else
-            {
-                _bobOffset = Vector3.MoveTowards(_bobOffset, Vector3.zero, Time.deltaTime * 0.5f);
-            }
-
-            HandleTilt(velocity);
+            ApplyTilt(velocity);
+        }
+        else
+        {
+            ResetEffects();
         }
     }
 
@@ -67,13 +67,28 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
         );
     }
 
-    private void HandleTilt(Vector3 velocity)
+    private void ApplyTilt(Vector3 velocity)
     {
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
         float targetTilt = -localVelocity.x * (tiltAmplitude / 5f);
         _currentTiltZ = Mathf.Lerp(_currentTiltZ, targetTilt, Time.deltaTime * tiltSmoothSpeed);
 
+        ApplyRotation(_currentTiltZ);
+    }
+
+    private void ResetEffects()
+    {
+        _timer = Mathf.Lerp(_timer, 0, Time.deltaTime * returnSpeed);
+
+        _bobOffset = Vector3.Lerp(_bobOffset, Vector3.zero, Time.deltaTime * returnSpeed);
+
+        _currentTiltZ = Mathf.Lerp(_currentTiltZ, 0, Time.deltaTime * tiltSmoothSpeed);
+        ApplyRotation(_currentTiltZ);
+    }
+
+    private void ApplyRotation(float zTilt)
+    {
         Vector3 rot = transform.localEulerAngles;
-        transform.localRotation = Quaternion.Euler(rot.x, rot.y, _currentTiltZ);
+        transform.localRotation = Quaternion.Euler(rot.x, rot.y, zTilt);
     }
 }

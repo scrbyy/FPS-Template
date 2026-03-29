@@ -12760,6 +12760,7 @@ MonoBehaviour:
   horizontalAmplitude: 0.02
   baseFrequency: 7
   frequencyStiffness: 4.5
+  returnSpeed: 10
   tiltAmplitude: 0.2
   tiltSmoothSpeed: 25
   playerEngine: {fileID: 755122330}
@@ -13971,6 +13972,7 @@ MonoBehaviour:
   horizontalAmplitude: 0.03
   baseFrequency: 4
   frequencyStiffness: 4.5
+  returnSpeed: 5
   tiltAmplitude: 0.15
   tiltSmoothSpeed: 10
   playerEngine: {fileID: 755122330}
@@ -16358,7 +16360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Rifle
   _damage: 15
   _afterShootCooldown: 0.07
-  _shootType: 0
+  _recoilType: 0
   _currentAmmo: 30
   _reserveAmmo: 90
   _magazineSize: 30
@@ -16612,7 +16614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Pistol
   _damage: 8
   _afterShootCooldown: 0.1
-  _shootType: 1
+  _recoilType: 0
   _currentAmmo: 12
   _reserveAmmo: 36
   _magazineSize: 12

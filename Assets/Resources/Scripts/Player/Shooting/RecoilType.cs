@@ -1,4 +1,4 @@
-﻿public enum ShootType
+﻿public enum RecoilType
 {
     Automatic,
     Single

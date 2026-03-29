@@ -42,7 +42,7 @@ public class WeaponSelector : MonoBehaviour
         selectedWeapons[initializeWeaponID].gameObject.SetActive(true);
         selectedWeapons[initializeWeaponID].OnEndReloadEvent += UpdateAmmoEvent;
         inputProvider.OnReloadPerformed += selectedWeapons[initializeWeaponID].Reload;
-        SetNewShootType(selectedWeapons[initializeWeaponID]._shootType);
+        SetNewShootType(selectedWeapons[initializeWeaponID]._recoilType);
         UpdateAmmo();
         selectedWeapons[initializeWeaponID].SetShootingMethod(new RaycastShoot(selectedWeapons[initializeWeaponID].GetShootOrigin(), selectedWeapons[initializeWeaponID].GetShootDistance()));
         currentWeaponIndex = initializeWeaponID;
@@ -50,7 +50,7 @@ public class WeaponSelector : MonoBehaviour
 
     private void UnsubscribeOldShootEvents(Weapon oldWeapon)
     {
-        if (oldWeapon._shootType == ShootType.Single)
+        if (oldWeapon._recoilType == RecoilType.Single)
         {
             inputProvider.OnShootTriggered -= oldWeapon.Shoot;
             inputProvider.OnShootTriggered -= UpdateAmmo;
@@ -79,15 +79,15 @@ public class WeaponSelector : MonoBehaviour
         newWeapon.gameObject.SetActive(true);
         newWeapon.OnEndReloadEvent += UpdateAmmoEvent;
         inputProvider.OnReloadPerformed += newWeapon.Reload;
-        SetNewShootType(newWeapon._shootType);
+        SetNewShootType(newWeapon._recoilType);
         UpdateAmmo();
     }
 
-    private void SetNewShootType(ShootType newType)
+    private void SetNewShootType(RecoilType newType)
     {
         Weapon currentWeapon = selectedWeapons[currentWeaponIndex];
 
-        if (newType == ShootType.Single)
+        if (newType == RecoilType.Single)
         {
             inputProvider.OnShootPressed -= currentWeapon.Shoot;
             inputProvider.OnShootPressed -= UpdateAmmo;

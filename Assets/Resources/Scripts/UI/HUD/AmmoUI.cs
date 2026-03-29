@@ -12,7 +12,7 @@ public class AmmoUI : MonoBehaviour
 
     private void OnEnable()
     {
-        weaponInventory.UpdateAmmoEvent += UpdateAllAmmo;
+        weaponInventory. UpdateAmmoEvent += UpdateAllAmmo;
     }
 
     private void OnDisable()

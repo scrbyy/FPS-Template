@@ -9,7 +9,7 @@ public abstract class Weapon : MonoBehaviour
     [Header("Damage")]
     [SerializeField] protected float _damage;
     [SerializeField] protected float _afterShootCooldown;
-    [SerializeField] public ShootType _shootType;
+    [SerializeField] public RecoilType _recoilType;
 
     [Header("Ammo")]
     [SerializeField] protected int _currentAmmo;

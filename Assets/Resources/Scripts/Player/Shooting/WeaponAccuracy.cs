@@ -9,7 +9,7 @@ public class WeaponAccuracy : MonoBehaviour, IAccurcacy
 
     public float GetHorizontalAccuracyAngle()
     {
-        throw new System.NotImplementedException();
+        return Random.Range(_horizonatalAccuracyAngle.x, _horizonatalAccuracyAngle.y) * _accuracyModifier;
     }
 
     public float GetVerticalAccuracyAngle()
