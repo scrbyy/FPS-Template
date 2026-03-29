@@ -2416,7 +2416,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1656204896}
   m_Father: {fileID: 6280009468913851115}
@@ -2674,13 +2674,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716872634}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.28349954, y: 0.71149766, z: -0.59423625, w: -0.24552473}
-  m_LocalPosition: {x: 0.33099934, y: -0.06100011, z: 0.004000731}
+  m_LocalRotation: {x: -0.23736952, y: 0.7280822, z: -0.6146403, w: -0.18912801}
+  m_LocalPosition: {x: 0.205, y: -0.063, z: -0.153}
   m_LocalScale: {x: 0.24999994, y: 0.58011746, z: 0.24999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1939864243}
-  m_LocalEulerAnglesHint: {x: 80, y: 184.111, z: -40}
+  m_LocalEulerAnglesHint: {x: 79.999, y: 174.584, z: -40.66}
 --- !u!136 &716872636
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3739,7 +3739,7 @@ Transform:
   m_GameObject: {fileID: 1031427988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.014, y: 0.24, z: -1.201}
+  m_LocalPosition: {x: -0.015, y: 0.14, z: -0.999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8770,7 +8770,7 @@ MonoBehaviour:
   fillImage: {fileID: 1435164042}
   maxValue: 100
   smoothSpeed: 5
-  autoHide: 0
+  autoHide: 1
   hideCooldown: 1
   hideDuration: 0.25
   _playerStat: {fileID: 755122331}
@@ -8817,7 +8817,7 @@ Transform:
   m_GameObject: {fileID: 1464845728}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.973494, y: 8.490178, z: 32.56099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12719,7 +12719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useSmoothing: 1
-  _smoothSpeed: 10
+  _smoothSpeed: 15
 --- !u!114 &1688748529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12756,12 +12756,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  verticalAmplitude: 0.03
-  horizontalAmplitude: 0.03
-  baseFrequency: 4
+  verticalAmplitude: 0.025
+  horizontalAmplitude: 0.02
+  baseFrequency: 7
   frequencyStiffness: 4.5
-  tiltAmplitude: 0.15
-  tiltSmoothSpeed: 10
+  tiltAmplitude: 0.2
+  tiltSmoothSpeed: 25
   playerEngine: {fileID: 755122330}
 --- !u!114 &1688748530
 MonoBehaviour:
@@ -12776,7 +12776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 1, y: 1}
-  multiplier: 5
+  multiplier: 7
   inverseX: 1
   inverseY: 0
   minMaxX: {x: -7, y: 7}
@@ -14015,7 +14015,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 716872635}
   - {fileID: 862919021}
@@ -16029,6 +16029,7 @@ GameObject:
   - component: {fileID: 5444888314268869641}
   - component: {fileID: 5444888314268869642}
   - component: {fileID: 5444888314268869643}
+  - component: {fileID: 5444888314268869644}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -16333,8 +16334,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4673594838000320178}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00028167985, y: -0.99902743, z: 0.006451526, w: -0.0436185}
-  m_LocalPosition: {x: 0.38, y: 0.13, z: -0.35}
+  m_LocalRotation: {x: -0.00026645523, y: -0.9990296, z: 0.0061028255, w: -0.043618597}
+  m_LocalPosition: {x: 0.45, y: 0.1, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16342,7 +16343,7 @@ Transform:
   - {fileID: 1939864243}
   - {fileID: 1031427989}
   m_Father: {fileID: 1688748526}
-  m_LocalEulerAnglesHint: {x: 0.74, y: -185, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.7, y: -185, z: 0}
 --- !u!114 &5444888314268869641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16355,15 +16356,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63055a31ab55e41a97edcdf0fcba60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rifle
-  damage: 20
-  afterShootCooldown: 0.085
-  shootType: 0
-  currentAmmo: 30
-  reserveAmmo: 90
-  magazineSize: 30
-  reloadDuration: 1
-  origin: {fileID: 330585546}
-  distance: 12
+  _damage: 15
+  _afterShootCooldown: 0.07
+  _shootType: 0
+  _currentAmmo: 30
+  _reserveAmmo: 90
+  _magazineSize: 30
+  _reloadDuration: 1
+  _origin: {fileID: 330585546}
+  _distance: 30
 --- !u!114 &5444888314268869642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16392,6 +16393,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _light: {fileID: 1031427991}
   _lightDuration: 0.08
+--- !u!114 &5444888314268869644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924892ba58463934e846a1ca627bbd77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _verticalAccuracyAngle: {x: 0, y: 0}
+  _horizonatalAccuracyAngle: {x: 0, y: 0}
 --- !u!1 &5655786767174231778
 GameObject:
   m_ObjectHideFlags: 0
@@ -16595,15 +16610,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973d52413f84682419c56dbb9a74d22d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pistol
-  damage: 12
-  afterShootCooldown: 0
-  shootType: 1
-  currentAmmo: 12
-  reserveAmmo: 48
-  magazineSize: 12
-  reloadDuration: 0.5
-  origin: {fileID: 330585546}
-  distance: 100
+  _damage: 8
+  _afterShootCooldown: 0.1
+  _shootType: 1
+  _currentAmmo: 12
+  _reserveAmmo: 36
+  _magazineSize: 12
+  _reloadDuration: 1
+  _origin: {fileID: 330585546}
+  _distance: 40
 --- !u!23 &6971379462052155929
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -7,83 +7,99 @@ public abstract class Weapon : MonoBehaviour
     public abstract event System.Action OnWeaponShoot;
 
     [Header("Damage")]
-    [SerializeField] protected float damage;
-    [SerializeField] protected float afterShootCooldown;
-    [SerializeField] public ShootType shootType;
+    [SerializeField] protected float _damage;
+    [SerializeField] protected float _afterShootCooldown;
+    [SerializeField] public ShootType _shootType;
 
     [Header("Ammo")]
-    [SerializeField] protected int currentAmmo;
-    [SerializeField] protected int reserveAmmo;
-    [SerializeField] protected int magazineSize;
-    [SerializeField] protected float reloadDuration;
+    [SerializeField] protected int _currentAmmo;
+    [SerializeField] protected int _reserveAmmo;
+    [SerializeField] protected int _magazineSize;
+    [SerializeField] protected float _reloadDuration;
 
     [Header("Ray")]
-    [SerializeField] protected Transform origin;
-    [SerializeField] protected float distance;
+    [SerializeField] protected Transform _origin;
+    [SerializeField] protected float _distance;
 
-    protected bool canShoot = true;
-    protected Coroutine afterShootDelay;
-    protected Coroutine reloadCoroutine;
-    protected RaycastHit hit;
+    protected IShootingMethod _shootingMethod;
+    protected bool _canShoot = true;
+    protected Coroutine _afterShootCoroutine;
+    protected Coroutine _reloadCoroutine;
+    protected RaycastHit _hit;
 
     public abstract void Shoot();
 
     public int GetCurrentAmmo()
     {
-        return currentAmmo;
+        return _currentAmmo;
+    }
+
+    public void SetShootingMethod(IShootingMethod shootingMethod)
+    {
+        _shootingMethod = shootingMethod;
     }
 
     public int GetReserveAmmo()
     {
-        return reserveAmmo;
+        return _reserveAmmo;
+    }
+
+    public Transform GetShootOrigin()
+    {
+        return _origin;
+    }
+
+    public float GetShootDistance()
+    {
+        return _distance;
     }
 
     public void Reload()
     {
-        if (canShoot == true && reserveAmmo > 0 && currentAmmo != magazineSize)
+        if (_canShoot == true && _reserveAmmo > 0 && _currentAmmo != _magazineSize)
         {
-            reloadCoroutine = StartCoroutine(ReloadCooldown(reloadDuration));
+            _reloadCoroutine = StartCoroutine(ReloadCooldown(_reloadDuration));
         }
     }
 
     public virtual void Disable()
     {
-        if(afterShootDelay != null) StopCoroutine(afterShootDelay);
-        afterShootDelay = null;
+        if(_afterShootCoroutine != null) StopCoroutine(_afterShootCoroutine);
+        _afterShootCoroutine = null;
 
-        if (reloadCoroutine != null) StopCoroutine(reloadCoroutine);
-        reloadCoroutine = null;
+        if (_reloadCoroutine != null) StopCoroutine(_reloadCoroutine);
+        _reloadCoroutine = null;
     }
 
     protected IEnumerator ReloadCooldown(float duration)
     {
-        canShoot = false;
+        _canShoot = false;
         yield return new WaitForSeconds(duration);
-        if (currentAmmo < magazineSize)
+        if (_currentAmmo < _magazineSize)
         {
-            if (reserveAmmo < magazineSize)
+            if (_reserveAmmo < _magazineSize)
             {
-                if (reserveAmmo > 0)
+                if (_reserveAmmo > 0)
                 {
-                    currentAmmo = Mathf.Clamp(currentAmmo += reserveAmmo, 0, magazineSize);
-                    reserveAmmo = 0;
+                    _currentAmmo = Mathf.Clamp(_currentAmmo += _reserveAmmo, 0, _magazineSize);
+                    _reserveAmmo = 0;
                 }
             }
-            else if (reserveAmmo >= magazineSize)
+            else if (_reserveAmmo >= _magazineSize)
             {
-                reserveAmmo -= magazineSize - currentAmmo;
-                currentAmmo = Mathf.Clamp(currentAmmo += magazineSize, 0, magazineSize);
+                _reserveAmmo -= _magazineSize - _currentAmmo;
+                _currentAmmo = Mathf.Clamp(_currentAmmo += _magazineSize, 0, _magazineSize);
             }
         }
-        else if (reserveAmmo < magazineSize)
+        else if (_reserveAmmo < _magazineSize)
         {
-            if (reserveAmmo > 0)
+            if (_reserveAmmo > 0)
             {
-                currentAmmo = Mathf.Clamp(currentAmmo += magazineSize, 0, magazineSize);
+                _currentAmmo = Mathf.Clamp(_currentAmmo += _magazineSize, 0, _magazineSize);
             }
         }
-        OnEndReloadEvent?.Invoke(currentAmmo, reserveAmmo);
-        canShoot = true;
-        reloadCoroutine = null;
+        OnEndReloadEvent?.Invoke(_currentAmmo, _reserveAmmo);
+        _canShoot = true;
+        _reloadCoroutine = null;
     }
 }
