@@ -1,15 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
     public event System.Action<int, int> OnEndReloadEvent;
-    public abstract event System.Action OnWeaponShoot;
+    public event System.Action OnWeaponShoot;
 
     [Header("Damage")]
     [SerializeField] protected float _damage;
     [SerializeField] protected float _afterShootCooldown;
-    [SerializeField] public RecoilType _recoilType;
+    [SerializeField] private RecoilType _recoilType;
 
     [Header("Ammo")]
     [SerializeField] protected int _currentAmmo;
@@ -27,8 +27,20 @@ public abstract class Weapon : MonoBehaviour
     protected Coroutine _reloadCoroutine;
     protected RaycastHit _hit;
 
-    public abstract void Shoot();
-
+    public void Shoot()
+    {
+        if (_canShoot == true && _currentAmmo > 0)
+        {
+            OnWeaponShoot?.Invoke();
+            _currentAmmo--;
+            _shootingMethod.ExecuteShoot();
+            _afterShootCoroutine = StartCoroutine(ShootCooldown(_afterShootCooldown));
+        }
+    }
+    public RecoilType GetRecoilType() 
+    {
+        return _recoilType;
+    }
     public int GetCurrentAmmo()
     {
         return _currentAmmo;
@@ -62,7 +74,7 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    public virtual void Disable()
+    public void Disable()
     {
         if(_afterShootCoroutine != null) StopCoroutine(_afterShootCoroutine);
         _afterShootCoroutine = null;
@@ -71,7 +83,7 @@ public abstract class Weapon : MonoBehaviour
         _reloadCoroutine = null;
     }
 
-    protected IEnumerator ReloadCooldown(float duration)
+    private IEnumerator ReloadCooldown(float duration)
     {
         _canShoot = false;
         yield return new WaitForSeconds(duration);
@@ -101,5 +113,13 @@ public abstract class Weapon : MonoBehaviour
         OnEndReloadEvent?.Invoke(_currentAmmo, _reserveAmmo);
         _canShoot = true;
         _reloadCoroutine = null;
+    }
+
+    private IEnumerator ShootCooldown(float duration)
+    {
+        _canShoot = false;
+        yield return new WaitForSeconds(duration);
+        _afterShootCoroutine = null;
+        _canShoot = true;
     }
 }

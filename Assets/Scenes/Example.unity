@@ -12659,6 +12659,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1688748526}
+  - component: {fileID: 1688748531}
   - component: {fileID: 1688748527}
   - component: {fileID: 1688748529}
   - component: {fileID: 1688748528}
@@ -12699,13 +12700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72bfa6337c5b590459800ed19b21eedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSelector
-  weaponsInventory:
-  - {fileID: 5444888314268869641}
-  - {fileID: 6659913428926414930}
-  selectedWeapons:
-  - {fileID: 5444888314268869641}
-  - {fileID: 6659913428926414930}
-  currentWeaponIndex: 0
+  _weaponContainer: {fileID: 1688748531}
 --- !u!114 &1688748528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12782,6 +12777,25 @@ MonoBehaviour:
   inverseY: 0
   minMaxX: {x: -7, y: 7}
   minMaxY: {x: -7, y: 7}
+--- !u!114 &1688748531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688748525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06bc7e99e8d663a42a246515c4125e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weaponsInventory:
+  - {fileID: 5444888314268869645}
+  - {fileID: 6659913428926414930}
+  _selectedWeapons:
+  - {fileID: 5444888314268869645}
+  - {fileID: 6659913428926414930}
+  _currentWeaponID: 0
 --- !u!1 &1696200657
 GameObject:
   m_ObjectHideFlags: 0
@@ -16028,10 +16042,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5444888314268869640}
-  - component: {fileID: 5444888314268869641}
+  - component: {fileID: 5444888314268869645}
+  - component: {fileID: 5444888314268869644}
   - component: {fileID: 5444888314268869642}
   - component: {fileID: 5444888314268869643}
-  - component: {fileID: 5444888314268869644}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -16346,27 +16360,6 @@ Transform:
   - {fileID: 1031427989}
   m_Father: {fileID: 1688748526}
   m_LocalEulerAnglesHint: {x: 0.7, y: -185, z: 0}
---- !u!114 &5444888314268869641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4673594838000320178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c63055a31ab55e41a97edcdf0fcba60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Rifle
-  _damage: 15
-  _afterShootCooldown: 0.07
-  _recoilType: 0
-  _currentAmmo: 30
-  _reserveAmmo: 90
-  _magazineSize: 30
-  _reloadDuration: 1
-  _origin: {fileID: 330585546}
-  _distance: 30
 --- !u!114 &5444888314268869642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16407,8 +16400,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924892ba58463934e846a1ca627bbd77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _verticalAccuracyAngle: {x: 0, y: 0}
-  _horizonatalAccuracyAngle: {x: 0, y: 0}
+  _maxVerticalAccuracy: 1
+  _minVerticalAccuracy: -1
+  _maxHorizonatalAccuracy: 1
+  _minHorizonatalAccuracy: -1
+  _accuracyModifier: 0.1
+--- !u!114 &5444888314268869645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7718fde1902e6724b9add216d8b4f838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 20
+  _afterShootCooldown: 0.085
+  _recoilType: 0
+  _currentAmmo: 30
+  _reserveAmmo: 90
+  _magazineSize: 30
+  _reloadDuration: 0.75
+  _origin: {fileID: 330585546}
+  _distance: 40
 --- !u!1 &5655786767174231778
 GameObject:
   m_ObjectHideFlags: 0
@@ -16593,6 +16610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6280009468913851115}
   - component: {fileID: 6659913428926414930}
+  - component: {fileID: 6659913428926414931}
   m_Layer: 8
   m_Name: Pistol
   m_TagString: Untagged
@@ -16609,18 +16627,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 6659913428926414929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 973d52413f84682419c56dbb9a74d22d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7718fde1902e6724b9add216d8b4f838, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Pistol
-  _damage: 8
+  m_EditorClassIdentifier: 
+  _damage: 10
   _afterShootCooldown: 0.1
   _recoilType: 0
   _currentAmmo: 12
-  _reserveAmmo: 36
+  _reserveAmmo: 48
   _magazineSize: 12
   _reloadDuration: 1
   _origin: {fileID: 330585546}
-  _distance: 40
+  _distance: 50
+--- !u!114 &6659913428926414931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6659913428926414929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924892ba58463934e846a1ca627bbd77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxVerticalAccuracy: 1
+  _minVerticalAccuracy: -1
+  _maxHorizonatalAccuracy: 1
+  _minHorizonatalAccuracy: -1
+  _accuracyModifier: 0.1
 --- !u!23 &6971379462052155929
 MeshRenderer:
   m_ObjectHideFlags: 0

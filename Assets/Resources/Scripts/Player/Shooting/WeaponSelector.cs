@@ -1,131 +1,124 @@
 ﻿using Zenject;
 using UnityEngine;
-using System.Collections.Generic;
 
 public class WeaponSelector : MonoBehaviour
 {
     public event System.Action<int, int> UpdateAmmoEvent;
 
-    [SerializeField] private Weapon[] weaponsInventory;
-    [SerializeField] private List<Weapon> selectedWeapons;
-    [SerializeField] private int currentWeaponIndex;
+    [SerializeField] private WeaponContainer _weaponContainer;
 
-    [Inject] private IInputProvider inputProvider;
-
-    private void Start()
-    {
-        InitializeWeapon(currentWeaponIndex);
-    }
+    [Inject] private IInputProvider _inputProvider;
 
     private void OnEnable()
     {
-        inputProvider.OnReloadPerformed += selectedWeapons[currentWeaponIndex].Reload;
-        inputProvider.OnNextWeaponSelect += SetNextWeapon;
-        inputProvider.OnPreviousWeaponSelect += SetPreviousWeapon;
+        _inputProvider.OnReloadPerformed += _weaponContainer.GetCurrent().Reload;
+
+        _inputProvider.OnNextWeaponSelect += SetNextWeapon;
+        _inputProvider.OnPreviousWeaponSelect += SetPreviousWeapon;
     }
 
     private void OnDisable()
     {
-        inputProvider.OnReloadPerformed -= selectedWeapons[currentWeaponIndex].Reload;
-        inputProvider.OnNextWeaponSelect -= SetNextWeapon;
-        inputProvider.OnPreviousWeaponSelect -= SetPreviousWeapon;
-    }
-
-    private void InitializeWeapon(int initializeWeaponID)
-    {
-        for (int i = 0; i < selectedWeapons.Count; i++)
-        {
-            selectedWeapons[i].SetShootingMethod(new RaycastShoot(selectedWeapons[i].GetShootOrigin(), selectedWeapons[i].GetShootDistance()));
-            selectedWeapons[i].gameObject.SetActive(false);
-        }
-
-        selectedWeapons[initializeWeaponID].gameObject.SetActive(true);
-        selectedWeapons[initializeWeaponID].OnEndReloadEvent += UpdateAmmoEvent;
-        inputProvider.OnReloadPerformed += selectedWeapons[initializeWeaponID].Reload;
-        SetNewShootType(selectedWeapons[initializeWeaponID]._recoilType);
-        UpdateAmmo();
-        selectedWeapons[initializeWeaponID].SetShootingMethod(new RaycastShoot(selectedWeapons[initializeWeaponID].GetShootOrigin(), selectedWeapons[initializeWeaponID].GetShootDistance()));
-        currentWeaponIndex = initializeWeaponID;
+        _inputProvider.OnReloadPerformed -= _weaponContainer.GetCurrent().Reload;
+        _weaponContainer.GetCurrent().OnEndReloadEvent -= UpdateAmmoEvent;
+        _inputProvider.OnNextWeaponSelect -= SetNextWeapon;
+        _inputProvider.OnPreviousWeaponSelect -= SetPreviousWeapon;
     }
 
     private void UnsubscribeOldShootEvents(Weapon oldWeapon)
     {
-        if (oldWeapon._recoilType == RecoilType.Single)
+        if (oldWeapon.GetRecoilType() == RecoilType.Single)
         {
-            inputProvider.OnShootTriggered -= oldWeapon.Shoot;
-            inputProvider.OnShootTriggered -= UpdateAmmo;
+            _inputProvider.OnShootTriggered -= oldWeapon.Shoot;
+            _inputProvider.OnShootTriggered -= UpdateAmmo;
         }
         else
         {
-            inputProvider.OnShootPressed -= oldWeapon.Shoot;
-            inputProvider.OnShootPressed -= UpdateAmmo;
+            _inputProvider.OnShootPressed -= oldWeapon.Shoot;
+            _inputProvider.OnShootPressed -= UpdateAmmo;
         }
+    }
+
+    private void Start()
+    {
+        _weaponContainer.GetCurrent().OnEndReloadEvent += UpdateAmmoEvent;
+        SetNewShootType(_weaponContainer.GetCurrent().GetRecoilType());
+        UpdateAmmo();
     }
 
     private void SelectNewWeapon(int newWeaponID)
     {
-        Weapon oldWeapon = selectedWeapons[currentWeaponIndex];
+        Weapon oldWeapon = _weaponContainer.GetCurrent();
 
-        oldWeapon.OnEndReloadEvent -= UpdateAmmoEvent;
-        inputProvider.OnReloadPerformed -= oldWeapon.Reload;
         oldWeapon.Disable();
         oldWeapon.gameObject.SetActive(false);
-
+        _weaponContainer.GetCurrent().OnEndReloadEvent -= UpdateAmmoEvent;
+        oldWeapon.OnEndReloadEvent -= UpdateAmmoEvent;
+        _inputProvider.OnReloadPerformed -= oldWeapon.Reload;
         UnsubscribeOldShootEvents(oldWeapon);
 
-        currentWeaponIndex = newWeaponID;
-        Weapon newWeapon = selectedWeapons[currentWeaponIndex];
+        _weaponContainer.SelectNew(newWeaponID);
+        Weapon newWeapon = _weaponContainer.GetCurrent();
 
         newWeapon.gameObject.SetActive(true);
         newWeapon.OnEndReloadEvent += UpdateAmmoEvent;
-        inputProvider.OnReloadPerformed += newWeapon.Reload;
-        SetNewShootType(newWeapon._recoilType);
+        _weaponContainer.GetCurrent().OnEndReloadEvent += UpdateAmmoEvent;
+        _inputProvider.OnReloadPerformed += newWeapon.Reload;
+        SetNewShootType(newWeapon.GetRecoilType());
         UpdateAmmo();
     }
 
     private void SetNewShootType(RecoilType newType)
     {
-        Weapon currentWeapon = selectedWeapons[currentWeaponIndex];
+        Weapon currentWeapon = _weaponContainer.GetCurrent();
 
         if (newType == RecoilType.Single)
         {
-            inputProvider.OnShootPressed -= currentWeapon.Shoot;
-            inputProvider.OnShootPressed -= UpdateAmmo;
+            _inputProvider.OnShootPressed -= currentWeapon.Shoot;
+            _inputProvider.OnShootPressed -= UpdateAmmo;
 
-            inputProvider.OnShootTriggered += currentWeapon.Shoot;
-            inputProvider.OnShootTriggered += UpdateAmmo;
+            _inputProvider.OnShootTriggered += currentWeapon.Shoot;
+            _inputProvider.OnShootTriggered += UpdateAmmo;
         }
-        else
+        else if (newType == RecoilType.Automatic) 
         {
-            inputProvider.OnShootTriggered -= currentWeapon.Shoot;
-            inputProvider.OnShootTriggered -= UpdateAmmo;
+            _inputProvider.OnShootTriggered -= currentWeapon.Shoot;
+            _inputProvider.OnShootTriggered -= UpdateAmmo;
 
-            inputProvider.OnShootPressed += currentWeapon.Shoot;
-            inputProvider.OnShootPressed += UpdateAmmo;
+            _inputProvider.OnShootPressed += currentWeapon.Shoot;
+            _inputProvider.OnShootPressed += UpdateAmmo;
         }
     }
 
     private void UpdateAmmo()
     {
-        UpdateAmmoEvent?.Invoke(selectedWeapons[currentWeaponIndex].GetCurrentAmmo(), selectedWeapons[currentWeaponIndex].GetReserveAmmo());
+        UpdateAmmoEvent?.Invoke(_weaponContainer.GetCurrent().GetCurrentAmmo(), _weaponContainer.GetCurrent().GetReserveAmmo());
     }
 
     private void SetPreviousWeapon()
     {
-        int newWeaponID;
-        if (currentWeaponIndex - 1 <= -1)
-            newWeaponID = selectedWeapons.Count - 1;
+        int newWeaponId;
+        if (_weaponContainer.GetCurrentWeaponID() - 1 <= -1)
+        {
+            newWeaponId = _weaponContainer.GetSelectedWeaponCount() - 1;
+        }
         else
-            newWeaponID = currentWeaponIndex - 1;
-        SelectNewWeapon(newWeaponID);
+        {
+            newWeaponId = _weaponContainer.GetCurrentWeaponID() - 1;
+        }
+        SelectNewWeapon(newWeaponId);
     }
     private void SetNextWeapon()
     {
-        int newWeaponID;
-        if (currentWeaponIndex + 1 >= selectedWeapons.Count)
-            newWeaponID = 0;
+        int newWeaponId;
+        if (_weaponContainer.GetCurrentWeaponID() + 1 >= _weaponContainer.GetSelectedWeaponCount())
+        {
+            newWeaponId = 0;
+        }
         else
-            newWeaponID = currentWeaponIndex + 1;
-        SelectNewWeapon(newWeaponID);
+        {
+            newWeaponId = _weaponContainer.GetCurrentWeaponID() + 1;
+        }
+        SelectNewWeapon(newWeaponId);
     }
 }

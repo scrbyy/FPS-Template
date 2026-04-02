@@ -1,19 +1,20 @@
 using UnityEngine;
 
-public class WeaponAccuracy : MonoBehaviour, IAccurcacy
+public class WeaponAccuracy : MonoBehaviour
 {
-    [SerializeField] private Vector2 _verticalAccuracyAngle;
-    [SerializeField] private Vector2 _horizonatalAccuracyAngle;
+    [Header("Vertical Clamping")]
+    [SerializeField] private float _maxVerticalAccuracy;
+    [SerializeField] private float _minVerticalAccuracy;
 
-    private float _accuracyModifier = 1;
+    [Header("Horizontal Clamping")]
+    [SerializeField] private float _maxHorizonatalAccuracy;
+    [SerializeField] private float _minHorizonatalAccuracy;
 
-    public float GetHorizontalAccuracyAngle()
+    [Space]
+    [SerializeField] private float _accuracyModifier;
+
+    public Vector2 GetAccurcacyVector()
     {
-        return Random.Range(_horizonatalAccuracyAngle.x, _horizonatalAccuracyAngle.y) * _accuracyModifier;
-    }
-
-    public float GetVerticalAccuracyAngle()
-    {
-        return Random.Range(_verticalAccuracyAngle.x, _verticalAccuracyAngle.y) * _accuracyModifier;
+        return new Vector2(Random.Range(_minHorizonatalAccuracy, _maxHorizonatalAccuracy), Random.Range(_minVerticalAccuracy, _maxVerticalAccuracy));
     }
 }
