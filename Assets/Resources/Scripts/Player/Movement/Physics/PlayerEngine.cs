@@ -13,15 +13,21 @@ public class PlayerEngine : MonoBehaviour
     [Header("Air Movement")]
     [SerializeField] private float airAcceleration;
     [SerializeField] private float airCap;
+
+    [Header("Gravity")]
     [SerializeField] private float _gravityScale;
-    [SerializeField] private float _groundedGravity;
+    [SerializeField] private float _downforce;
 
-    private CharacterController _characterController;
     private Vector3 _velocity;
-    private bool _isImpulseActive;
-    private bool _wasGrounded;
+    private CharacterController _characterController;
 
-    private void Awake() => _characterController = GetComponent<CharacterController>();
+    private bool _wasGrounded;
+    private bool _isImpulseActive;
+
+    private void Awake()
+    {
+        _characterController = GetComponent<CharacterController>();
+    }
 
     public void Move(Vector3 inputVector, float maxSpeed)
     {
@@ -46,7 +52,7 @@ public class PlayerEngine : MonoBehaviour
     {
         if (type == ForceType.Jump)
         {
-            _velocity.y = Mathf.Sqrt(force.y * _groundedGravity * Physics.gravity.y);
+            _velocity.y = Mathf.Sqrt(force.y * _downforce * Physics.gravity.y);
         }
         else if (type == ForceType.Impulse)
         {
@@ -79,7 +85,7 @@ public class PlayerEngine : MonoBehaviour
     private void ApplyGravity()
     {
         if (_characterController.isGrounded && _velocity.y < 0f)
-            _velocity.y = _groundedGravity;
+            _velocity.y = _downforce;
         else
             _velocity.y += Physics.gravity.y * _gravityScale * Time.deltaTime;
     }

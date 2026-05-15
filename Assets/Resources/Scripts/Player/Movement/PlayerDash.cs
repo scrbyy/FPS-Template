@@ -3,43 +3,20 @@ using Zenject;
 public class PlayerDash : MonoBehaviour
 {
     [Header("Impulse Force")]
-    [SerializeField] private float _groundImpulse;
     [SerializeField] private float _airImpulse;
+    [SerializeField] private float _groundImpulse;
 
     [Header("Settings")]
-    [SerializeField] private float _dashStaminaCost;
     [SerializeField] private float _cooldown;
+    [SerializeField] private float _dashStaminaCost;
 
     [Header("References")]
     [SerializeField] private PlayerEngine _playerEngine;
     [SerializeField] private PlayerStamina _playerStamina;
+
     [Inject] private IInputProvider _inputProvider;
 
     private float _cooldownTimer;
-
-    private void OnEnable()
-    {
-        _inputProvider.OnDashPressed += TryPerformDash;
-    }
-
-    private void OnDisable()
-    {
-        _inputProvider.OnDashPressed -= TryPerformDash;
-    }
-
-    private void Update()
-    {
-        if (_cooldownTimer > 0)
-            _cooldownTimer -= Time.deltaTime;
-    }
-
-    private void TryPerformDash()
-    {
-        if (_cooldownTimer <= 0 && _playerStamina.IsEnoughStamina(_dashStaminaCost))
-        {
-            ExecuteDash();
-        }
-    }
 
     private void ExecuteDash()
     {
@@ -50,15 +27,36 @@ public class PlayerDash : MonoBehaviour
         if (moveInput.sqrMagnitude > 0.01f)
         {
             dashDir = transform.TransformDirection(new Vector3(moveInput.x, 0, moveInput.y)).normalized;
-        }
-        else
-        {
-            dashDir = transform.forward;
-        }
+        } 
+        else return;
 
         _playerEngine.AddForce(dashDir * impulse, ForceType.Impulse);
 
         _playerStamina.Decrease(_dashStaminaCost);
         _cooldownTimer = _cooldown;
+    }
+
+    private void TryPerformDash()
+    {
+        if (_cooldownTimer <= 0 && _playerStamina.IsEnoughStamina(_dashStaminaCost))
+        {
+            ExecuteDash();
+        }
+    }
+
+    private void Update()
+    {
+        if (_cooldownTimer > 0)
+            _cooldownTimer -= Time.deltaTime;
+    }
+
+    private void OnEnable()
+    {
+        _inputProvider.OnDashPressed += TryPerformDash;
+    }
+
+    private void OnDisable()
+    {
+        _inputProvider.OnDashPressed -= TryPerformDash;
     }
 }

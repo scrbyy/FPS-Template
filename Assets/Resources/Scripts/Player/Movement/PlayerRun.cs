@@ -2,26 +2,22 @@ using Zenject;
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(PlayerEngine))]
-[RequireComponent(typeof(PlayerMovement))]
-
 public class PlayerRun : MonoBehaviour
 {
     public event System.Action OnStartRunning;
     public event System.Action OnEndRunning;
 
-    [Header("Main")]
     [SerializeField] private float _runSpeed;
     [SerializeField] private float _staminaCost;
 
     [Header("References")]
-    [Inject] private IInputProvider _inputProvider;
+    [SerializeField] private PlayerEngine _playerEngine;
     [SerializeField] private PlayerStamina _playerStamina;
-
-    private PlayerEngine _playerEngine;
-    private PlayerMovement _playerMovement;
+    [SerializeField] private PlayerMovement _playerMovement;
 
     private Coroutine _cooldownCoroutine;
+
+    [Inject] private IInputProvider _inputProvider;
 
     private void TryRun()
     {
@@ -39,6 +35,7 @@ public class PlayerRun : MonoBehaviour
             else CancelRun();
         }
     }
+
     private void CancelRun() 
     {
         _playerMovement.ResetSpeed(); 
@@ -52,12 +49,6 @@ public class PlayerRun : MonoBehaviour
         yield return new WaitForFixedUpdate();
         _playerStamina.Decrease(_staminaCost);
         _cooldownCoroutine = null;
-    }
-
-    private void Start()
-    {
-        _playerMovement = GetComponent<PlayerMovement>();
-        _playerEngine = GetComponent<PlayerEngine>();
     }
 
     private void OnEnable()

@@ -2063,13 +2063,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d430a416a66bf349aad7303d15ed108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFovEffect
-  _minSpeedThreshold: 3
-  _maxSpeedThreshold: 14
-  _maxFovAdd: 15
+  _maxFov: 15
   _decreaseSpeed: 2
   _increaseSpeed: 5
-  _addFov: 1
-  _bodyTransform: {fileID: 755122319}
+  _minSpeedThreshold: 3
+  _maxSpeedThreshold: 15
   _playerEngine: {fileID: 755122330}
 --- !u!1 &410087039
 GameObject:
@@ -2812,8 +2810,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterControllerMovement
   _walkSpeed: 6
-  _acceleration: 15
-  _deceleration: 20
+  _accelerationRate: 20
+  _decelerationRate: 25
+  _playerEngine: {fileID: 755122330}
 --- !u!143 &755122321
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2870,7 +2869,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
   _runSpeed: 10
   _staminaCost: 0.5
+  _playerEngine: {fileID: 755122330}
   _playerStamina: {fileID: 1900707018}
+  _playerMovement: {fileID: 755122320}
 --- !u!114 &755122324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2886,6 +2887,7 @@ MonoBehaviour:
   jumpForce: 1.25
   staminaCost: 5
   bufferDuration: 0.1
+  _playerEngine: {fileID: 755122330}
   playerStamina: {fileID: 1900707018}
 --- !u!114 &755122327
 MonoBehaviour:
@@ -2899,9 +2901,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98622a8955036d5479f4ff05ca5101a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDashPhysical
-  _groundImpulse: 12
-  _airImpulse: 7
-  _dashStaminaCost: 10
+  _groundImpulse: 15
+  _airImpulse: 8
+  _dashStaminaCost: 5
   _cooldown: 0.5
   _playerEngine: {fileID: 755122330}
   _playerStamina: {fileID: 1900707018}
@@ -2968,7 +2970,7 @@ MonoBehaviour:
   airAcceleration: 30
   airCap: 2
   _gravityScale: 2
-  _groundedGravity: -2
+  _downforce: -2
 --- !u!114 &755122331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3542,7 +3544,7 @@ MonoBehaviour:
   m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8751,7 +8753,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1435164037}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

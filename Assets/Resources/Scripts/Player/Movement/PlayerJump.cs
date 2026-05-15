@@ -1,31 +1,31 @@
-using UnityEngine;
 using Zenject;
+using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerJump : MonoBehaviour
 {
-    [Header("Main")]
     [SerializeField] private float jumpForce;
     [SerializeField] private float staminaCost;
 
-    [Header("Buffers")]
+    [Header("Buffer")]
     [SerializeField] private float bufferDuration;
 
     [Header("References")]
+    [SerializeField] private PlayerEngine _playerEngine;
     [SerializeField] private PlayerStamina playerStamina;
+
     [Inject] private IInputProvider inputProvider;
 
-    private PlayerEngine _playerEngine;
     private Buffer _inputBuffer;
 
-    private void Start()
+    public void Jump(float jumpForce)
     {
-        _playerEngine = GetComponent<PlayerEngine>();   
-        _inputBuffer = new Buffer(bufferDuration);
+        _inputBuffer.Set();
+        if (_playerEngine.isGrounded() && playerStamina.IsEnoughStamina(staminaCost))
+        {
+            _playerEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
+            playerStamina.Decrease(staminaCost);
+        }
     }
-
-    private void OnEnable() => inputProvider.OnJumpPerformed += JumpWithBuffer;
-    private void OnDisable() => inputProvider.OnJumpPerformed -= JumpWithBuffer;
 
     private void Update()
     {
@@ -36,18 +36,16 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
-    public void Jump(float jumpForce)
+    private void Start()
     {
-        if (_playerEngine.isGrounded() && playerStamina.IsEnoughStamina(staminaCost))
-        {
-            _playerEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
-            playerStamina.Decrease(staminaCost);
-        }
+        _inputBuffer = new Buffer(bufferDuration);
     }
 
     private void JumpWithBuffer()
     {
-        _inputBuffer.Set();
         Jump(jumpForce);
     }
+
+    private void OnEnable() => inputProvider.OnJumpPerformed += JumpWithBuffer;
+    private void OnDisable() => inputProvider.OnJumpPerformed -= JumpWithBuffer;
 }

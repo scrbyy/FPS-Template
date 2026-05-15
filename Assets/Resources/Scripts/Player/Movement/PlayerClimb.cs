@@ -4,25 +4,31 @@ using Zenject;
 
 public class PlayerClimb : MonoBehaviour
 {
-    [Header("Detection Settings")]
-    [SerializeField] private float detectionDistance;
+    [Header("Limits")]
     [SerializeField] private float maxClimbHeight;
     [SerializeField] private float minClimbHeight;
+
+    [Header("Detection Settings")]
+    [SerializeField] private float detectionDistance;
     [SerializeField] private LayerMask climbLayer;
 
     [Header("Procedural Timings")]
     [SerializeField] private float unitsPerSecond;
     [SerializeField] private AnimationCurve verticalCurve;
+
+    [Space]
     [SerializeField] private float horizontalDuration;
     [SerializeField] private float exitImpulse;
 
     [Header("References")]
     [SerializeField] private PlayerEngine playerEngine;
+
+    private bool _isClimbing;
+    private Vector3 rayOrigin;
+
     [Inject] private IInputProvider _inputProvider;
 
     private CharacterController _controller;
-    private bool _isClimbing;
-    private Vector3 rayOrigin;
 
     private void Start()
     { 
