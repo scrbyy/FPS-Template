@@ -911,7 +911,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2018914446}
+  - {fileID: 1745224175}
   m_Father: {fileID: 815915171}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2672,13 +2672,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716872634}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.23736952, y: 0.7280822, z: -0.6146403, w: -0.18912801}
-  m_LocalPosition: {x: 0.205, y: -0.063, z: -0.153}
-  m_LocalScale: {x: 0.24999994, y: 0.58011746, z: 0.24999999}
+  m_LocalRotation: {x: -0.23959936, y: 0.727383, z: -0.61378187, w: -0.19177595}
+  m_LocalPosition: {x: 0.224, y: -0.062, z: -0.077}
+  m_LocalScale: {x: 0.2, y: 0.58, z: 0.24999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1939864243}
-  m_LocalEulerAnglesHint: {x: 79.999, y: 174.584, z: -40.66}
+  m_LocalEulerAnglesHint: {x: 80, y: 175, z: -40.66}
 --- !u!136 &716872636
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2867,8 +2867,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da85873a7909874a8ac7ff277249f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
-  _runSpeed: 10
-  _staminaCost: 0.5
+  _runSpeed: 11
+  _staminaCost: 0.1
   _playerEngine: {fileID: 755122330}
   _playerStamina: {fileID: 1900707018}
   _playerMovement: {fileID: 755122320}
@@ -2884,7 +2884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be61cee0b4dd2f4eaf53f357f2a41e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  jumpForce: 1.25
+  jumpForce: 2
   staminaCost: 5
   bufferDuration: 0.1
   _playerEngine: {fileID: 755122330}
@@ -2901,10 +2901,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98622a8955036d5479f4ff05ca5101a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDashPhysical
-  _groundImpulse: 15
   _airImpulse: 8
-  _dashStaminaCost: 5
+  _groundImpulse: 15
   _cooldown: 0.5
+  _dashStaminaCost: 5
   _playerEngine: {fileID: 755122330}
   _playerStamina: {fileID: 1900707018}
 --- !u!114 &755122328
@@ -2919,9 +2919,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f8be53e1dad3c40a9f90b8e4da8805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
-  detectionDistance: 0.75
-  maxClimbHeight: 4
   minClimbHeight: 0.1
+  maxClimbHeight: 4
+  detectionDistance: 0.75
   climbLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -3523,10 +3523,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1551875170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -450}
-  m_SizeDelta: {x: 300, y: 2}
+  m_AnchorMin: {x: 0.4214792, y: 0.0822963}
+  m_AnchorMax: {x: 0.5774792, y: 0.083000004}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1002398857
 MonoBehaviour:
@@ -8858,10 +8858,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1551875170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 740, y: 480}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.93200004, y: 0.94000006}
+  m_AnchorMax: {x: 0.984, y: 0.98700005}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1472561874
 MonoBehaviour:
@@ -8922,8 +8922,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12666,6 +12666,8 @@ GameObject:
   - component: {fileID: 1688748529}
   - component: {fileID: 1688748528}
   - component: {fileID: 1688748530}
+  - component: {fileID: 1688748532}
+  - component: {fileID: 1688748533}
   m_Layer: 8
   m_Name: Weapons
   m_TagString: Untagged
@@ -12716,7 +12718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _useSmoothing: 1
-  _smoothSpeed: 15
+  _smoothSpeed: 12
 --- !u!114 &1688748529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12729,7 +12731,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  bobCurve:
+  minEffectScale: 0.1
+  maxEffectScale: 0.8
+  verticalAmplitude: 0.025
+  horizontalAmplitude: 0.02
+  motionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -12753,14 +12759,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  verticalAmplitude: 0.025
-  horizontalAmplitude: 0.02
-  baseFrequency: 7
-  frequencyStiffness: 4.5
-  returnSpeed: 10
-  tiltAmplitude: 0.2
-  tiltSmoothSpeed: 25
-  playerEngine: {fileID: 755122330}
+  baseStepFrequency: 2
+  frequencySensitivity: 6
+  speedThreshold: 0.1
+  speedSensitivity: 1
+  returnToZeroSpeed: 2
+  _playerEngine: {fileID: 755122330}
 --- !u!114 &1688748530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12773,12 +12777,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 1, y: 1}
-  multiplier: 7
-  inverseX: 1
-  inverseY: 0
-  minMaxX: {x: -7, y: 7}
-  minMaxY: {x: -7, y: 7}
+  force: {x: 2, y: 2}
+  multiplier: 4
+  inverseX: 0
+  inverseY: 1
+  minMaxX: {x: -4, y: 4}
+  minMaxY: {x: -4, y: 4}
 --- !u!114 &1688748531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12798,6 +12802,43 @@ MonoBehaviour:
   - {fileID: 5444888314268869645}
   - {fileID: 6659913428926414930}
   _currentWeaponID: 0
+--- !u!114 &1688748532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688748525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b41427ca150734ba03c1f995871396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _returnSpeed: 75
+  _shakeDamping: 15
+  _effectWeight: 0.5
+  _maxForce: 5
+  _fallSpeedThreshold: 1
+  _forceMultiplier: 0.5
+  _playerEngine: {fileID: 755122330}
+--- !u!114 &1688748533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1688748525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f393aa298c25e4a90423823753f5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxZOffsetChange: -0.12
+  _increaseSpeed: 12
+  _decreaseSpeed: 20
+  _minSpeedThreshold: 1
+  _maxSpeedThreshold: 7
+  _playerEngine: {fileID: 755122330}
 --- !u!1 &1696200657
 GameObject:
   m_ObjectHideFlags: 0
@@ -12831,10 +12872,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1551875170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 750, y: -440}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0.8655209, y: 0.032}
+  m_AnchorMax: {x: 0.96900004, y: 0.07859258}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1696200659
 MonoBehaviour:
@@ -12883,13 +12924,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -13096,6 +13137,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d92b488cfc314a478ca0e39d9bb1fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RestarButton
+--- !u!1 &1745224174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1745224175}
+  m_Layer: 0
+  m_Name: Crosshair
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1745224175
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745224174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2018914446}
+  m_Father: {fileID: 103281894}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1773365557
 GameObject:
   m_ObjectHideFlags: 0
@@ -13942,11 +14019,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b41427ca150734ba03c1f995871396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stiffness: 100
-  damping: 10
-  mass: 1
-  forceMultiplier: 0.2
-  maxForce: 2
+  _returnSpeed: 100
+  _shakeDamping: 10
+  _effectWeight: 2
+  _maxForce: 5
+  _fallSpeedThreshold: 1.5
+  _forceMultiplier: 0.2
   _playerEngine: {fileID: 755122330}
 --- !u!114 &1915844017
 MonoBehaviour:
@@ -13960,7 +14038,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  bobCurve:
+  minEffectScale: 0.5
+  maxEffectScale: 1.2
+  verticalAmplitude: 0.04
+  horizontalAmplitude: 0.02
+  motionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -13984,14 +14066,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  verticalAmplitude: 0.03
-  horizontalAmplitude: 0.03
-  baseFrequency: 4
-  frequencyStiffness: 4.5
-  returnSpeed: 5
-  tiltAmplitude: 0.15
-  tiltSmoothSpeed: 10
-  playerEngine: {fileID: 755122330}
+  baseStepFrequency: 7
+  frequencySensitivity: 3
+  speedThreshold: 0.1
+  speedSensitivity: 5
+  returnToZeroSpeed: 5
+  _playerEngine: {fileID: 755122330}
 --- !u!114 &1915844018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14051,7 +14131,7 @@ GameObject:
   - component: {fileID: 2018914448}
   - component: {fileID: 2018914447}
   m_Layer: 0
-  m_Name: Crosshair
+  m_Name: Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14064,12 +14144,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018914445}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 103281894}
+  m_Father: {fileID: 1745224175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16352,8 +16432,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4673594838000320178}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00026645523, y: -0.9990296, z: 0.0061028255, w: -0.043618597}
-  m_LocalPosition: {x: 0.45, y: 0.1, z: -0.3}
+  m_LocalRotation: {x: 0, y: -0.99998134, z: 0.0061086393, w: 0}
+  m_LocalPosition: {x: 0.459, y: 0.088, z: -0.295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16361,7 +16441,7 @@ Transform:
   - {fileID: 1939864243}
   - {fileID: 1031427989}
   m_Father: {fileID: 1688748526}
-  m_LocalEulerAnglesHint: {x: 0.7, y: -185, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.7, y: -180, z: 0}
 --- !u!114 &5444888314268869642
 MonoBehaviour:
   m_ObjectHideFlags: 0

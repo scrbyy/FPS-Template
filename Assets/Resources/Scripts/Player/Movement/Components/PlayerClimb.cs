@@ -1,12 +1,12 @@
-using System.Collections;
-using UnityEngine;
 using Zenject;
+using UnityEngine;
+using System.Collections;
 
 public class PlayerClimb : MonoBehaviour
 {
     [Header("Limits")]
-    [SerializeField] private float maxClimbHeight;
     [SerializeField] private float minClimbHeight;
+    [SerializeField] private float maxClimbHeight;
 
     [Header("Detection Settings")]
     [SerializeField] private float detectionDistance;
@@ -34,9 +34,6 @@ public class PlayerClimb : MonoBehaviour
     { 
         _controller = GetComponent<CharacterController>();
     }
-
-    private void OnEnable() => _inputProvider.OnJumpPerformed += HandleJumpInput;
-    private void OnDisable() => _inputProvider.OnJumpPerformed -= HandleJumpInput;
 
     private void HandleJumpInput()
     {
@@ -95,4 +92,6 @@ public class PlayerClimb : MonoBehaviour
 
         _isClimbing = false;
     }
+    private void OnEnable() => _inputProvider.OnJumpPerformed += HandleJumpInput;
+    private void OnDisable() => _inputProvider.OnJumpPerformed -= HandleJumpInput;
 }

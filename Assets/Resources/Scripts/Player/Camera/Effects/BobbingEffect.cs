@@ -3,92 +3,82 @@ using Zenject;
 
 public class BobbingEffect : MonoBehaviour, IMotionEffect
 {
-    [Header("Bobbing Settings")]
-    [SerializeField] private AnimationCurve bobCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    [SerializeField] private float verticalAmplitude = 0.05f;
-    [SerializeField] private float horizontalAmplitude = 0.03f;
-    [SerializeField] private float baseFrequency = 5f;
-    [SerializeField] private float frequencyStiffness = 2f;
-    [SerializeField] private float returnSpeed = 5f;
+    [Header("Scale Limitations")]
+    [SerializeField] private float minEffectScale;
+    [SerializeField] private float maxEffectScale;
 
-    [Header("Tilt Settings")]
-    [SerializeField] private float tiltAmplitude = 2f;
-    [SerializeField] private float tiltSmoothSpeed = 10f;
+    [Header("Settings")]
+    [SerializeField] private float verticalAmplitude;
+    [SerializeField] private float horizontalAmplitude;
+
+    [Space]
+    [SerializeField] private AnimationCurve motionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Dynamic Scaling")]
+    [SerializeField] private float baseStepFrequency;
+    [SerializeField] private float frequencySensitivity;
+    [SerializeField] private float speedThreshold;
+    [SerializeField] private float speedSensitivity;
+    [SerializeField] private float returnToZeroSpeed;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine playerEngine;
+    [SerializeField] private PlayerEngine _playerEngine;
     [Inject] private IInputProvider _inputProvider;
 
-    private float _timer;
-    private Vector3 _bobOffset;
-    private float _currentTiltZ;
+    private float _cycleTimer;
+    private Vector3 _currentCalculatedOffset;
 
-    public Vector3 GetLocalOffset() => _bobOffset;
+    private const float HalfCycleMultiplier = 0.5f;
+    private const float CurveNormalizationOffset = 0.5f;
+    private const float CurveNormalizationScale = 2f;
+
+    public Vector3 GetLocalOffset() => _currentCalculatedOffset;
 
     private void LateUpdate()
     {
-        if (playerEngine == null) return;
-
-        Vector2 moveInput = _inputProvider.GetMoveVector();
-        Vector3 velocity = playerEngine.GetVelocity();
-        float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
-
-        bool isWalking = moveInput != Vector2.zero && horizontalSpeed > 0.2f && playerEngine.isGrounded();
-
-        if (isWalking && !playerEngine.IsImpulseActive())
+        if (!_playerEngine.IsImpulseActive())
         {
-            float dynamicFrequency = baseFrequency + (Mathf.Sqrt(horizontalSpeed) * frequencyStiffness);
-            _timer += Time.deltaTime * dynamicFrequency;
+            Vector2 inputMove = _inputProvider.GetMoveVector();
+            Vector3 worldVelocity = _playerEngine.GetVelocity();
+            float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
-            UpdateBobbingValues(horizontalSpeed);
+            bool isMoving = inputMove != Vector2.zero && horizontalSpeed > speedThreshold;
+            bool canApplyEffect = isMoving && _playerEngine.isGrounded() && !_playerEngine.IsImpulseActive();
 
-            ApplyTilt(velocity);
-        }
-        else
-        {
-            ResetEffects();
+            if (canApplyEffect)
+            {
+                float stepSpeedMultiplier = baseStepFrequency + (Mathf.Sqrt(horizontalSpeed) * frequencySensitivity);
+                _cycleTimer += Time.deltaTime * stepSpeedMultiplier;
+
+                UpdateBobbingOffset(horizontalSpeed);
+            }
+            else
+            {
+                ResetToNeutralState();
+            }
         }
     }
 
-    private void UpdateBobbingValues(float speed)
+    private void UpdateBobbingOffset(float speed)
     {
-        float waveX = Mathf.Sin(_timer * 0.5f);
-        float waveY = Mathf.Sin(_timer);
+        float waveX = Mathf.Sin(_cycleTimer * HalfCycleMultiplier);
+        float waveY = Mathf.Sin(_cycleTimer);
 
-        float curveX = bobCurve.Evaluate((waveX + 1f) * 0.5f) * 2f - 1f;
-        float curveY = bobCurve.Evaluate((waveY + 1f) * 0.5f) * 2f - 1f;
+        float normalizedCurveX = motionCurve.Evaluate((waveX + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
+        float normalizedCurveY = motionCurve.Evaluate((waveY + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
 
-        float ampFactor = Mathf.Clamp(speed / 7f, 0.5f, 1.2f);
+        float speedFactor = Mathf.Clamp(speed * speedSensitivity, minEffectScale, maxEffectScale);
 
-        _bobOffset = new Vector3(
-            curveX * horizontalAmplitude * ampFactor,
-            curveY * verticalAmplitude * ampFactor,
+        _currentCalculatedOffset = new Vector3(
+            normalizedCurveX * horizontalAmplitude * speedFactor,
+            normalizedCurveY * verticalAmplitude * speedFactor,
             0
         );
     }
 
-    private void ApplyTilt(Vector3 velocity)
+    private void ResetToNeutralState()
     {
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-        float targetTilt = -localVelocity.x * (tiltAmplitude / 5f);
-        _currentTiltZ = Mathf.Lerp(_currentTiltZ, targetTilt, Time.deltaTime * tiltSmoothSpeed);
-
-        ApplyRotation(_currentTiltZ);
-    }
-
-    private void ResetEffects()
-    {
-        _timer = Mathf.Lerp(_timer, 0, Time.deltaTime * returnSpeed);
-
-        _bobOffset = Vector3.Lerp(_bobOffset, Vector3.zero, Time.deltaTime * returnSpeed);
-
-        _currentTiltZ = Mathf.Lerp(_currentTiltZ, 0, Time.deltaTime * tiltSmoothSpeed);
-        ApplyRotation(_currentTiltZ);
-    }
-
-    private void ApplyRotation(float zTilt)
-    {
-        Vector3 rot = transform.localEulerAngles;
-        transform.localRotation = Quaternion.Euler(rot.x, rot.y, zTilt);
+        _cycleTimer = Mathf.Lerp(_cycleTimer, 0, Time.deltaTime * returnToZeroSpeed);
+        _currentCalculatedOffset = Vector3.Lerp(_currentCalculatedOffset, Vector3.zero, Time.deltaTime * returnToZeroSpeed);
     }
 }

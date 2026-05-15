@@ -3,49 +3,54 @@ using UnityEngine;
 public class FallSpringEffect : MonoBehaviour, IMotionEffect
 {
     [Header("Spring Settings")]
-    [SerializeField] private float stiffness = 100f;
-    [SerializeField] private float damping = 10f;
-    [SerializeField] private float mass = 1f;
+    [SerializeField] private float _returnSpeed;
+    [SerializeField] private float _shakeDamping;
+    [SerializeField] private float _effectWeight;   
 
-    [Header("Impact Force")]
-    [SerializeField] private float forceMultiplier = 0.2f;
-    [SerializeField] private float maxForce = 2f;
+    [Header("Dynamic Scaling")]
+    [SerializeField] private float _maxForce;
+    [SerializeField] private float _fallSpeedThreshold;
+    [SerializeField] private float _forceMultiplier;
 
     [Header("References")]
     [SerializeField] private PlayerEngine _playerEngine;
 
-    private Vector3 _currentPosition;
-    private Vector3 _velocity;
-    private float _lastVerticalVelocity;
-
-    public Vector3 GetLocalOffset() => _currentPosition;
+    private Vector3 _calculatedCameraOffset;
+    private Vector3 _shakeVelocity;
+    private float _capturedFallSpeed;
+    
+    public Vector3 GetLocalOffset() => _calculatedCameraOffset;
 
     private void OnEnable() => _playerEngine.OnLanded += ApplyLandingForce;
     private void OnDisable() => _playerEngine.OnLanded -= ApplyLandingForce;
 
     private void Update()
     {
-        float currentYVel = _playerEngine.GetVelocity().y;
-        if (currentYVel < -0.1f)
-            _lastVerticalVelocity = currentYVel;
+        float currentVerticalSpeed = _playerEngine.GetVelocity().y;
+
+        if (currentVerticalSpeed < 0)
+        {
+            _capturedFallSpeed = currentVerticalSpeed;
+        }
     }
 
     private void LateUpdate()
     {
-        Vector3 force = -stiffness * _currentPosition - damping * _velocity;
-        Vector3 acceleration = force / mass;
+        Vector3 returnForce = -_returnSpeed * _calculatedCameraOffset - _shakeDamping * _shakeVelocity;
+        Vector3 acceleration = returnForce / _effectWeight;
 
-        _velocity += acceleration * Time.deltaTime;
-        _currentPosition += _velocity * Time.deltaTime;
+        _shakeVelocity += acceleration * Time.deltaTime;
+        _calculatedCameraOffset += _shakeVelocity * Time.deltaTime;
     }
 
     private void ApplyLandingForce()
     {
-        float fallSpeed = Mathf.Abs(_lastVerticalVelocity);
-        if (fallSpeed < 1.5f) return;
+        float absoluteFallSpeed = Mathf.Abs(_capturedFallSpeed);
+        if (absoluteFallSpeed < _fallSpeedThreshold) return;
 
-        float impactPower = Mathf.Min(fallSpeed * forceMultiplier, maxForce);
-        _velocity.y -= impactPower; 
-        _lastVerticalVelocity = 0;
+        float finalImpactForce = Mathf.Min(absoluteFallSpeed * _forceMultiplier, _maxForce);
+
+        _shakeVelocity.y -= finalImpactForce;
+        _capturedFallSpeed = 0f;
     }
 }

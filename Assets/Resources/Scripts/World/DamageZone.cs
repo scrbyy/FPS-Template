@@ -2,9 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
 
-public class DeathZone : MonoBehaviour
+public class DamageZone : MonoBehaviour
 {
-    [SerializeField] private float damageAmount = 20f;
+    [SerializeField] private float damageAmount;
 
     private void OnTriggerEnter(Collider other)
     {

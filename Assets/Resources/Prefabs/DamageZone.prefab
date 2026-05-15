@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5939271586289588348}
   - component: {fileID: 3845831323531760151}
   m_Layer: 0
-  m_Name: DeathZone
+  m_Name: DamageZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

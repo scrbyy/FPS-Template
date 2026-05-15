@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class ProceduralMotionHander : MonoBehaviour
+public class EffectHander : MonoBehaviour
 {
     [SerializeField] private bool _useSmoothing;
     [SerializeField] private float _smoothSpeed;
 
-    private Vector3 _initialLocalPosition;
-
     private List<IMotionEffect> _effects = new List<IMotionEffect>();
+
     private Vector3 _targetOffset;
+
+    private Vector3 _initialLocalPosition;
 
     private void Awake()
     {

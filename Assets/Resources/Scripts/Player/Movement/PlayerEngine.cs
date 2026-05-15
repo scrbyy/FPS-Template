@@ -31,10 +31,8 @@ public class PlayerEngine : MonoBehaviour
 
     public void Move(Vector3 inputVector, float maxSpeed)
     {
-        if (_characterController.isGrounded)
-            ApplyGroundMovement(inputVector, maxSpeed);
-        else
-            ApplyAirMovement(inputVector);
+        if (_characterController.isGrounded) ApplyGroundMovement(inputVector, maxSpeed);
+        else ApplyAirMovement(inputVector);
 
         Vector3 finalMotion = _velocity;
         finalMotion.y = _velocity.y;
