@@ -12839,6 +12839,7 @@ MonoBehaviour:
   _minSpeedThreshold: 1
   _maxSpeedThreshold: 7
   _playerEngine: {fileID: 755122330}
+  _defualtZOffset: 0
 --- !u!1 &1696200657
 GameObject:
   m_ObjectHideFlags: 0

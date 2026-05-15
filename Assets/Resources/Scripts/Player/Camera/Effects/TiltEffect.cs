@@ -4,17 +4,17 @@ using Zenject;
 public class TiltEffect : MonoBehaviour, IMotionEffect
 {
     [Header("Tilt Settings")]
-    [SerializeField] private float sideTiltIntensity = 2f;
-    [SerializeField] private float tiltSmoothing = 10f;
+    [SerializeField] private float sideTiltIntensity;
+    [SerializeField] private float tiltSmoothing;
 
-    [SerializeField] private float minSpeedFactor = 0.5f;
-    [SerializeField] private float maxSpeedFactor = 1.2f;
+    [SerializeField] private float minSpeedFactor;
+    [SerializeField] private float maxSpeedFactor;
 
     [Header("Dynamic Scaling")]
-    [SerializeField] private float speedThreshold = 0.2f;
-    [SerializeField] private float referenceSpeed = 7f;
+    [SerializeField] private float speedThreshold;
+    [SerializeField] private float referenceSpeed;
 
-    [SerializeField] private float baseTiltDivider = 5f;
+    [SerializeField] private float baseTiltDivider;
 
     [Header("References")]
     [SerializeField] private PlayerEngine playerEngine;
