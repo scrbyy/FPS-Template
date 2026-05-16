@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 17193819}
   - component: {fileID: 17193818}
   - component: {fileID: 17193817}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1040,7 +1040,7 @@ GameObject:
   - component: {fileID: 201232947}
   - component: {fileID: 201232946}
   - component: {fileID: 201232945}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1557,7 +1557,7 @@ GameObject:
   - component: {fileID: 311096134}
   - component: {fileID: 311096133}
   - component: {fileID: 311096132}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1963,7 +1963,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1335
+    m_Bits: 5431
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2080,7 +2080,7 @@ GameObject:
   - component: {fileID: 410087041}
   - component: {fileID: 410087040}
   - component: {fileID: 410087042}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2364,7 +2364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 435225213}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2755,6 +2755,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716872634}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &748745579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748745580}
+  - component: {fileID: 748745581}
+  m_Layer: 9
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &748745580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748745579}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.03, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 755122319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &748745581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748745579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55e07e1cee3fecc49b75ce3276a3e2f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _checkPoint: {fileID: 748745580}
+  _radius: 0.5
+  _castDistance: 0.1
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!1 &755122318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,6 +2845,7 @@ Transform:
   m_Children:
   - {fileID: 1900707014}
   - {fileID: 1915844012}
+  - {fileID: 748745580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &755122320
@@ -3725,7 +3776,7 @@ GameObject:
   - component: {fileID: 1031427989}
   - component: {fileID: 1031427991}
   - component: {fileID: 1031427990}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3914,7 +3965,7 @@ GameObject:
   - component: {fileID: 1044228717}
   - component: {fileID: 1044228716}
   - component: {fileID: 1044228715}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7538,7 +7589,7 @@ GameObject:
   - component: {fileID: 1089396638}
   - component: {fileID: 1089396637}
   - component: {fileID: 1089396636}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7766,7 +7817,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1206486988}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: World
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7813,7 +7864,7 @@ GameObject:
   - component: {fileID: 1281396680}
   - component: {fileID: 1281396679}
   - component: {fileID: 1281396678}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8165,7 +8216,7 @@ GameObject:
   - component: {fileID: 1290628281}
   - component: {fileID: 1290628280}
   - component: {fileID: 1290628279}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8989,7 +9040,7 @@ GameObject:
   - component: {fileID: 1476076121}
   - component: {fileID: 1476076120}
   - component: {fileID: 1476076119}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Stairs (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13187,7 +13238,7 @@ GameObject:
   - component: {fileID: 1773365560}
   - component: {fileID: 1773365559}
   - component: {fileID: 1773365558}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14205,7 +14256,7 @@ GameObject:
   - component: {fileID: 2143418238}
   - component: {fileID: 2143418237}
   - component: {fileID: 2143418236}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16433,7 +16484,7 @@ Transform:
   m_GameObject: {fileID: 4673594838000320178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.99998134, z: 0.0061086393, w: 0}
-  m_LocalPosition: {x: 0.459, y: 0.088, z: -0.295}
+  m_LocalPosition: {x: 0.45, y: 0.08, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
