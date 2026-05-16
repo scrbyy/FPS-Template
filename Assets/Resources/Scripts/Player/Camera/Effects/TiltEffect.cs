@@ -1,24 +1,26 @@
-using UnityEngine;
 using Zenject;
+using UnityEngine;
 
 public class TiltEffect : MonoBehaviour, IMotionEffect
 {
     [Header("Tilt Settings")]
-    [SerializeField] private float sideTiltIntensity;
-    [SerializeField] private float tiltSmoothing;
+    [SerializeField] private float _sideTiltIntensity;
+    [SerializeField] private float _tiltSmoothing;
 
-    [SerializeField] private float minSpeedFactor;
-    [SerializeField] private float maxSpeedFactor;
+    [SerializeField] private float _minSpeedFactor;
+    [SerializeField] private float _maxSpeedFactor;
 
     [Header("Dynamic Scaling")]
-    [SerializeField] private float speedThreshold;
-    [SerializeField] private float referenceSpeed;
+    [SerializeField] private float _speedThreshold;
+    [SerializeField] private float _referenceSpeed;
 
-    [SerializeField] private float baseTiltDivider;
+    [SerializeField] private float _baseTiltDivider;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine playerEngine;
+    [SerializeField] private PlayerEngine _playerEngine;
+
     [Inject] private IInputProvider _inputProvider;
+    [Inject] private IGroundChecker _groundCheck;
 
     private float _targetZRotation;
 
@@ -26,15 +28,13 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
 
     private void LateUpdate()
     {
-        if (playerEngine == null) return;
-
         Vector2 inputMove = _inputProvider.GetMoveVector();
-        Vector3 worldVelocity = playerEngine.GetVelocity();
+        Vector3 worldVelocity = _playerEngine.GetVelocity();
         float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
-        bool isMoving = inputMove != Vector2.zero && horizontalSpeed > speedThreshold;
-        bool canApplyEffect = isMoving && playerEngine.isGrounded() && !playerEngine.IsImpulseActive();
-
+        bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;
+        bool canApplyEffect = isMoving && _groundCheck.IsGrounded && !_playerEngine.IsImpulseActive();
+        
         if (canApplyEffect)
         {
             UpdateSideTilt(worldVelocity, horizontalSpeed);
@@ -49,18 +49,18 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
     {
         Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 
-        float speedFactor = Mathf.Clamp(speed / referenceSpeed, minSpeedFactor, maxSpeedFactor);
+        float speedFactor = Mathf.Clamp(speed / _referenceSpeed, _minSpeedFactor, _maxSpeedFactor);
 
-        float targetTilt = -localVelocity.x * (sideTiltIntensity / baseTiltDivider) * speedFactor;
+        float targetTilt = -localVelocity.x * (_sideTiltIntensity / _baseTiltDivider) * speedFactor;
 
-        _targetZRotation = Mathf.Lerp(_targetZRotation, targetTilt, Time.deltaTime * tiltSmoothing);
+        _targetZRotation = Mathf.Lerp(_targetZRotation, targetTilt, Time.deltaTime * _tiltSmoothing);
 
         ApplyZRotation(_targetZRotation);
     }
 
     private void ResetTilt()
     {
-        _targetZRotation = Mathf.Lerp(_targetZRotation, 0, Time.deltaTime * tiltSmoothing);
+        _targetZRotation = Mathf.Lerp(_targetZRotation, 0, Time.deltaTime * _tiltSmoothing);
         ApplyZRotation(_targetZRotation);
     }
 

@@ -11,7 +11,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float verticalAmplitude;
     [SerializeField] private float horizontalAmplitude;
 
-    [Space]
+    [Header("Bobbing Curve")]
     [SerializeField] private AnimationCurve motionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Dynamic Scaling")]
@@ -23,6 +23,8 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
 
     [Header("References")]
     [SerializeField] private PlayerEngine _playerEngine;
+
+    [Inject] private IGroundChecker _groundChecker;
     [Inject] private IInputProvider _inputProvider;
 
     private float _cycleTimer;
@@ -43,7 +45,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
             float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
             bool isMoving = inputMove != Vector2.zero && horizontalSpeed > speedThreshold;
-            bool canApplyEffect = isMoving && _playerEngine.isGrounded() && !_playerEngine.IsImpulseActive();
+            bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_playerEngine.IsImpulseActive();
 
             if (canApplyEffect)
             {

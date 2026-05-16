@@ -61,8 +61,6 @@ public class PlayerEngine : MonoBehaviour
 
     public Vector3 GetVelocity() => _velocity;
 
-    public bool isGrounded() => _characterController.isGrounded;
-
     public bool IsImpulseActive() => _isImpulseActive;
 
     private void Update()

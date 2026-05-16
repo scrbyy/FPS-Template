@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerEngine _playerEngine;
 
     [Inject] private IInputProvider _inputProvider;
+    [Inject] private IGroundChecker _groundCheck;
+
 
     private float _targetSpeed;
 
@@ -19,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetSpeed()
     {
-        if (_playerEngine.isGrounded())
+        if (_groundCheck.IsGrounded)
             _targetSpeed = _walkSpeed;
         else _playerEngine.OnLanded += OnLandedReset;
     }

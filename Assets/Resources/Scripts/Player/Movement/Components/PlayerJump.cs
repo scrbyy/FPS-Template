@@ -3,49 +3,50 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float staminaCost;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _staminaCost;
 
     [Header("Buffer")]
-    [SerializeField] private float bufferDuration;
+    [SerializeField] private float _bufferDuration;
 
     [Header("References")]
     [SerializeField] private PlayerEngine _playerEngine;
     [SerializeField] private PlayerStamina playerStamina;
 
-    [Inject] private IInputProvider inputProvider;
+    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IGroundChecker _groundCheck;
 
     private Buffer _inputBuffer;
 
     public void Jump(float jumpForce)
     {
         _inputBuffer.Set();
-        if (_playerEngine.isGrounded() && playerStamina.IsEnoughStamina(staminaCost))
+        if (_groundCheck.IsGrounded && playerStamina.IsEnoughStamina(_staminaCost))
         {
             _playerEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
-            playerStamina.Decrease(staminaCost);
+            playerStamina.Decrease(_staminaCost);
         }
     }
 
     private void Update()
     {
-        if (_inputBuffer.Has() && _playerEngine.isGrounded())
+        if (_inputBuffer.Has() && _groundCheck.IsGrounded)
         {
-            Jump(jumpForce);
+            Jump(_jumpForce);
             _inputBuffer.Reset();
         }
     }
 
     private void Start()
     {
-        _inputBuffer = new Buffer(bufferDuration);
+        _inputBuffer = new Buffer(_bufferDuration);
     }
 
     private void JumpWithBuffer()
     {
-        Jump(jumpForce);
+        Jump(_jumpForce);
     }
 
-    private void OnEnable() => inputProvider.OnJumpPerformed += JumpWithBuffer;
-    private void OnDisable() => inputProvider.OnJumpPerformed -= JumpWithBuffer;
+    private void OnEnable() => _inputProvider.OnJumpPerformed += JumpWithBuffer;
+    private void OnDisable() => _inputProvider.OnJumpPerformed -= JumpWithBuffer;
 }

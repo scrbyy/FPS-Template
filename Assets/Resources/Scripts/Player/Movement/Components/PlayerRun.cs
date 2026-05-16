@@ -18,10 +18,11 @@ public class PlayerRun : MonoBehaviour
     private Coroutine _cooldownCoroutine;
 
     [Inject] private IInputProvider _inputProvider;
+    [Inject] private IGroundChecker _groundChecker;
 
     private void TryRun()
     {
-        if (_playerEngine.isGrounded())
+        if (_groundChecker.IsGrounded)
         {
             if (_playerStamina.IsEnoughStamina(_staminaCost))
             {

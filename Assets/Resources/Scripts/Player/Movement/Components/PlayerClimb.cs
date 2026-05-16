@@ -21,12 +21,13 @@ public class PlayerClimb : MonoBehaviour
     [SerializeField] private float exitImpulse;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine playerEngine;
+    [SerializeField] private PlayerEngine _playerEngine;
+
+    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private IInputProvider _inputProvider;
 
     private bool _isClimbing;
-    private Vector3 rayOrigin;
-
-    [Inject] private IInputProvider _inputProvider;
+    private Vector3 _rayOrigin;
 
     private CharacterController _controller;
 
@@ -37,7 +38,7 @@ public class PlayerClimb : MonoBehaviour
 
     private void HandleJumpInput()
     {
-        if (!playerEngine.isGrounded() && !_isClimbing)
+        if (!_groundCheck.IsGrounded && !_isClimbing)
         {
             TryClimb();
         }
@@ -45,8 +46,8 @@ public class PlayerClimb : MonoBehaviour
 
     private void TryClimb()
     {
-        rayOrigin = transform.position;
-        if (Physics.Raycast(rayOrigin, transform.forward, out RaycastHit wallHit, detectionDistance, climbLayer))
+        _rayOrigin = transform.position;
+        if (Physics.Raycast(_rayOrigin, transform.forward, out RaycastHit wallHit, detectionDistance, climbLayer))
         {
             Vector3 topCheckOrigin = wallHit.point + (transform.forward * 0.15f) + (Vector3.up * maxClimbHeight);
 
@@ -66,7 +67,7 @@ public class PlayerClimb : MonoBehaviour
     private IEnumerator PerformClimbRoutine(Vector3 targetSurfacePos, float height)
     {
         _isClimbing = true;
-        playerEngine.enabled = false;
+        _playerEngine.enabled = false;
 
         float bottomOffset = _controller.center.y - (_controller.height / 2f) - 0.04f;
         Vector3 startPos = transform.position;
@@ -86,9 +87,9 @@ public class PlayerClimb : MonoBehaviour
             yield return null;
         }
 
-        playerEngine.enabled = true;
+        _playerEngine.enabled = true;
 
-        playerEngine.AddForce(transform.forward * exitImpulse, ForceType.Impulse);
+        _playerEngine.AddForce(transform.forward * exitImpulse, ForceType.Impulse);
 
         _isClimbing = false;
     }

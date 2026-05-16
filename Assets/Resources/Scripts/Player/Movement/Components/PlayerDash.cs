@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
+using UnityEngine;
+
 public class PlayerDash : MonoBehaviour
 {
     [Header("Impulse Force")]
@@ -15,6 +16,7 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private PlayerStamina _playerStamina;
 
     [Inject] private IInputProvider _inputProvider;
+    [Inject] private IGroundChecker _groundCheck;
 
     private float _cooldownTimer;
 
@@ -22,7 +24,7 @@ public class PlayerDash : MonoBehaviour
     {
         Vector2 moveInput = _inputProvider.GetMoveVector();
         Vector3 dashDir;
-        float impulse = _playerEngine.isGrounded() ? _groundImpulse : _airImpulse;
+        float impulse = _groundCheck.IsGrounded ? _groundImpulse : _airImpulse;
 
         if (moveInput.sqrMagnitude > 0.01f)
         {
@@ -47,7 +49,9 @@ public class PlayerDash : MonoBehaviour
     private void Update()
     {
         if (_cooldownTimer > 0)
+        {
             _cooldownTimer -= Time.deltaTime;
+        }
     }
 
     private void OnEnable()
