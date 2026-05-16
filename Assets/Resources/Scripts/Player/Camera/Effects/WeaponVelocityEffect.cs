@@ -4,7 +4,7 @@ using Zenject;
 public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 {
     [Header("Limits (Z Offset)")]
-    [SerializeField] private float _maxZOffsetChange;
+    [SerializeField] private float _maxZOffset;
 
     [Header("Changing Rate")]
     [SerializeField] private float _increaseSpeed;
@@ -20,12 +20,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 
     private float _currentZOffset;
     private float targetZOffset;
-    [SerializeField] private float _defualtZOffset;
 
-    private void Awake()
-    {
-        _defualtZOffset = transform.localPosition.z;
-    }
     public Vector3 GetLocalOffset()
     {
         return new Vector3(0, 0, _currentZOffset);
@@ -45,7 +40,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 
         float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
 
-        targetZOffset = (modifier * _maxZOffsetChange) * directionModifier;
+        targetZOffset = (modifier * _maxZOffset) * directionModifier;
 
         float currentLerp = (Mathf.Abs(targetZOffset) > Mathf.Abs(_currentZOffset)) ? _increaseSpeed : _decreaseSpeed;
         _currentZOffset = Mathf.Lerp(_currentZOffset, targetZOffset, Time.deltaTime * currentLerp);

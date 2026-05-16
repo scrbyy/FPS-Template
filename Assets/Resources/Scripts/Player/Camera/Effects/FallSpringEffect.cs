@@ -9,7 +9,7 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
 
     [Header("Dynamic Scaling")]
     [SerializeField] private float _maxForce;
-    [SerializeField] private float _fallSpeedThreshold;
+    [SerializeField] private float _minFallSpeedThreshold;
     [SerializeField] private float _forceMultiplier;
 
     [Header("References")]
@@ -21,17 +21,15 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
     
     public Vector3 GetLocalOffset() => _calculatedCameraOffset;
 
-    private void OnEnable() => _playerEngine.OnLanded += ApplyLandingForce;
-    private void OnDisable() => _playerEngine.OnLanded -= ApplyLandingForce;
-
-    private void Update()
+    private void ApplyLandingForce()
     {
-        float currentVerticalSpeed = _playerEngine.GetVelocity().y;
+        float absoluteFallSpeed = Mathf.Abs(_capturedFallSpeed);
+        if (absoluteFallSpeed < _minFallSpeedThreshold) return;
 
-        if (currentVerticalSpeed < 0)
-        {
-            _capturedFallSpeed = currentVerticalSpeed;
-        }
+        float finalImpactForce = Mathf.Min(absoluteFallSpeed * _forceMultiplier, _maxForce);
+
+        _shakeVelocity.y -= finalImpactForce;
+        _capturedFallSpeed = 0f;
     }
 
     private void LateUpdate()
@@ -43,14 +41,17 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
         _calculatedCameraOffset += _shakeVelocity * Time.deltaTime;
     }
 
-    private void ApplyLandingForce()
+    private void Update()
     {
-        float absoluteFallSpeed = Mathf.Abs(_capturedFallSpeed);
-        if (absoluteFallSpeed < _fallSpeedThreshold) return;
+        float currentVerticalSpeed = _playerEngine.GetVelocity().y;
 
-        float finalImpactForce = Mathf.Min(absoluteFallSpeed * _forceMultiplier, _maxForce);
-
-        _shakeVelocity.y -= finalImpactForce;
-        _capturedFallSpeed = 0f;
+        if (currentVerticalSpeed < 0)
+        {
+            _capturedFallSpeed = currentVerticalSpeed;
+        }
     }
+
+    private void OnEnable() => _playerEngine.OnLanded += ApplyLandingForce;
+    
+    private void OnDisable() => _playerEngine.OnLanded -= ApplyLandingForce;
 }

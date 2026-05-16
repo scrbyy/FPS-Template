@@ -12818,7 +12818,7 @@ MonoBehaviour:
   _shakeDamping: 15
   _effectWeight: 0.5
   _maxForce: 5
-  _fallSpeedThreshold: 1
+  _minFallSpeedThreshold: -1
   _forceMultiplier: 0.5
   _playerEngine: {fileID: 755122330}
 --- !u!114 &1688748533
@@ -12833,13 +12833,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f393aa298c25e4a90423823753f5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxZOffsetChange: -0.12
+  _maxZOffset: -0.1
   _increaseSpeed: 12
   _decreaseSpeed: 20
   _minSpeedThreshold: 1
   _maxSpeedThreshold: 7
   _playerEngine: {fileID: 755122330}
-  _defualtZOffset: 0
 --- !u!1 &1696200657
 GameObject:
   m_ObjectHideFlags: 0
@@ -14024,7 +14023,7 @@ MonoBehaviour:
   _shakeDamping: 10
   _effectWeight: 2
   _maxForce: 5
-  _fallSpeedThreshold: 1.5
+  _minFallSpeedThreshold: -1
   _forceMultiplier: 0.2
   _playerEngine: {fileID: 755122330}
 --- !u!114 &1915844017
