@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_groundCheck.IsGrounded)
             _targetSpeed = _walkSpeed;
-        else _playerEngine.OnLanded += OnLandedReset;
+        else _groundCheck.OnGrounded += OnLandedReset;
     }
 
     private void Start()
@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnLandedReset()
     {
-        _playerEngine.OnLanded -= OnLandedReset;
+        _groundCheck.OnGrounded -= OnLandedReset;
         _targetSpeed = _walkSpeed;
     }
 }

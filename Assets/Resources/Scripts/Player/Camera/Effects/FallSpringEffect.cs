@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class FallSpringEffect : MonoBehaviour, IMotionEffect
 {
@@ -14,6 +15,8 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
 
     [Header("References")]
     [SerializeField] private PlayerEngine _playerEngine;
+
+    [Inject] private IGroundChecker _groundCheck;
 
     private Vector3 _calculatedCameraOffset;
     private Vector3 _shakeVelocity;
@@ -51,7 +54,7 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
         }
     }
 
-    private void OnEnable() => _playerEngine.OnLanded += ApplyLandingForce;
+    private void OnEnable() => _groundCheck.OnGrounded += ApplyLandingForce;
     
-    private void OnDisable() => _playerEngine.OnLanded -= ApplyLandingForce;
+    private void OnDisable() => _groundCheck.OnGrounded -= ApplyLandingForce;
 }

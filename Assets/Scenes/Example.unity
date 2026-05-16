@@ -2805,7 +2805,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 4096
-  _isGrounded: 0
 --- !u!1 &755122318
 GameObject:
   m_ObjectHideFlags: 0
@@ -3017,10 +3016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65cfd4d3007eed4697bece9596058c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEngine
-  accelerationRate: 50
-  decelerationRate: 40
-  airAcceleration: 30
-  airCap: 2
+  _accelerationRate: 40
+  _decelerationRate: 50
+  _airAcceleration: 30
+  _airCap: 2
   _gravityScale: 2
   _downforce: -2
 --- !u!114 &755122331
