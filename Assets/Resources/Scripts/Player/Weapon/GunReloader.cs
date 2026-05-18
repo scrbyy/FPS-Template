@@ -9,9 +9,9 @@ public class GunReloader : MonoBehaviour
 
     public bool IsReloading => _isReloading;
 
-    public bool CanShoot => _currentAmmo > 0;
 
-    private int _currentAmmo;
+
+    [SerializeField] private int _currentAmmo;
     private int _magazineSize;
     private int _reserveAmmo;
     private float _reloadDuration;
@@ -36,6 +36,14 @@ public class GunReloader : MonoBehaviour
     public void UseBullet()
     {
         _currentAmmo--;
+    }
+    public bool CanShoot()
+    {
+        if (_currentAmmo == 0)
+        {
+            return false;
+        }
+        return true;
     }
 
     private IEnumerator ReloadCooldown()

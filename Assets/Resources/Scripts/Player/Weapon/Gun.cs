@@ -11,7 +11,7 @@ public class Gun : Weapon
     
     public override void Attack()
     {
-        if (_reloader.IsReloading == false && _reloader.CanShoot)
+        if (_reloader.IsReloading == false && _reloader.CanShoot() && _shooter.IsShooting == false)
         {
             _reloader.UseBullet();
             _shooter.Shoot();

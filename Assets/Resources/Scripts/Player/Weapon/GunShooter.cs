@@ -19,12 +19,9 @@ public class GunShooter : MonoBehaviour
 
     public void Shoot()
     {
-        if (_isShooting == false)
-        {
-            OnShoot?.Invoke();
-            _shootingMethod.ExecuteShoot();
-            _shootDelayCoroutine = StartCoroutine(ShootDelay(_afterShotDelay));
-        }
+        OnShoot?.Invoke();
+        _shootingMethod.ExecuteShoot();
+        _shootDelayCoroutine = StartCoroutine(ShootDelay(_afterShotDelay));
     }
 
     private IEnumerator ShootDelay(float duration)
