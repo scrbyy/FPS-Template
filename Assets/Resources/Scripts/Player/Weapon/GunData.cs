@@ -16,6 +16,8 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 
     public float Distance => _distance;
 
+    public ShootingMethod ShootingMethod => _shootingMethod;
+
     [SerializeField] private int _startAmmo;
     [SerializeField] private int _magazineSize;
     [SerializeField] private int _reserveAmmo;
@@ -25,4 +27,6 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
     [SerializeField] private RecoilType _recoilType;
 
     [SerializeField] private float _distance;
+
+    [SerializeField] private ShootingMethod _shootingMethod;
 }

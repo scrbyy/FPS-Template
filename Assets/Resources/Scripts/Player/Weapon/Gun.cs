@@ -8,7 +8,8 @@ public class Gun : Weapon
     [SerializeField] private GunShooter _shooter;
 
     public RecoilType RecoilType => _gunData.RecoilType;
-    
+
+
     public override void Attack()
     {
         if (_reloader.IsReloading == false && _reloader.CanShoot() && _shooter.IsShooting == false)

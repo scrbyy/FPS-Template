@@ -1,6 +1,6 @@
 ﻿using System;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class GunShooter : MonoBehaviour
 {
@@ -39,6 +39,6 @@ public class GunShooter : MonoBehaviour
         _distance = shootingData.Distance;
         _isShooting = false;
 
-        _shootingMethod = new RaycastShoot(_origin, _distance);
+        _shootingMethod = new ShootingMethodFactory(_origin, _distance).CreateShootingMethod(shootingData.ShootingMethod);
     }
 }
