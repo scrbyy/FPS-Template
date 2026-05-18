@@ -1,11 +1,10 @@
 using UnityEngine;
 
-[RequireComponent(typeof(WeaponT))]
 public class WeaponSound : MonoBehaviour
 {
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private Transform _soundPoint;
-    private WeaponT _weapon;
+    [SerializeField] private Weapon _weapon;
 
     private void PlayShootSound()
     {
@@ -13,14 +12,10 @@ public class WeaponSound : MonoBehaviour
     }
     private void OnEnable()
     {
-        _weapon.OnWeaponShoot += PlayShootSound;
+        _weapon.OnAttack += PlayShootSound;
     }
     private void OnDisable()
     {
-        _weapon.OnWeaponShoot -= PlayShootSound;
-    }
-    private void Awake()
-    {
-        _weapon = GetComponent<WeaponT>();
+        _weapon.OnAttack -= PlayShootSound;
     }
 }

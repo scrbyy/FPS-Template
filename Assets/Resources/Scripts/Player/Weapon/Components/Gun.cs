@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class Gun : Weapon
+public class Gun : Weapon, IShootable
 {
     [SerializeField] private GunData _gunData;
 
@@ -9,6 +10,11 @@ public class Gun : Weapon
 
     public RecoilType RecoilType => _gunData.RecoilType;
 
+    public int CurrentAmmo => _reloader.CurrentAmmo;
+
+    public int ReserveAmmo => _reloader.CurrentAmmo;
+
+    public event Action<int, int> OnAmmoChanged;
 
     public override void Attack()
     {
@@ -16,6 +22,8 @@ public class Gun : Weapon
         {
             _reloader.UseBullet();
             _shooter.Shoot();
+            NotifyUpdateAmmo();
+            OnAttack?.Invoke();
         }
     }
 
@@ -31,5 +39,21 @@ public class Gun : Weapon
     {
         _reloader.Initialize(_gunData);
         _shooter.Initialize(_gunData);
+        NotifyUpdateAmmo();
+    }
+
+    private void NotifyUpdateAmmo()
+    {
+        OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
+    }
+
+    private void OnEnable()
+    {
+        _reloader.OnReloadEnd += NotifyUpdateAmmo;
+    }
+
+    private void OnDisable()
+    {
+        _reloader.OnReloadEnd -= NotifyUpdateAmmo;
     }
 }

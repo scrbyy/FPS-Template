@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public event Action OnAttack;
+    public Action OnAttack;
 
     protected float _damage;
 

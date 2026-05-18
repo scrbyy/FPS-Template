@@ -9,9 +9,10 @@ public class GunReloader : MonoBehaviour
 
     public bool IsReloading => _isReloading;
 
+    public int CurrentAmmo => _currentAmmo;
+    public int ReserveAmmo => _reserveAmmo;
 
-
-    [SerializeField] private int _currentAmmo;
+    private int _currentAmmo;
     private int _magazineSize;
     private int _reserveAmmo;
     private float _reloadDuration;

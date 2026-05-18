@@ -1,14 +1,21 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System;
 using Zenject;
+using UnityEngine;
+using System.Collections.Generic;
 
 public class WeaponInventory : MonoBehaviour
 {
+    public event Action OnNewWeaponSelected;
+
+    public Weapon SelectedWeapon => _selectedWeapon;
+
     [SerializeField] private List<Weapon> _weaponList = new List<Weapon>();
+
     private List<Gun> _gunList = new List<Gun>();
 
-    private Weapon _selectedWeapon;
     private Dictionary<Weapon, IWeaponInitializer> _initializersRegistry = new Dictionary<Weapon, IWeaponInitializer>();
+
+    private Weapon _selectedWeapon;
 
     [Inject]
     private void Construct(GunInitializer gunInitializer)
@@ -26,7 +33,7 @@ public class WeaponInventory : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         if (_weaponList.Count > 0)
         {
@@ -43,6 +50,7 @@ public class WeaponInventory : MonoBehaviour
     {
         if (_initializersRegistry.TryGetValue(newWeapon, out IWeaponInitializer initializer))
         {
+            OnNewWeaponSelected?.Invoke();
             initializer.Select(newWeapon, _selectedWeapon);
 
             _selectedWeapon.gameObject.SetActive(false);

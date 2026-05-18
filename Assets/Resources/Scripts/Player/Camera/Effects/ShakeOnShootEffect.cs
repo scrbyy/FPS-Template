@@ -10,7 +10,7 @@ public class ShakeOnShootEffect : MonoBehaviour
     [SerializeField] private float _randomness;
 
     [Header("References")]
-    [SerializeField] private WeaponContainer _weaponContainer;
+    [SerializeField] private WeaponInventory _weaponInventory;
 
     private Vector3 _originalPosition;
 
@@ -30,11 +30,11 @@ public class ShakeOnShootEffect : MonoBehaviour
 
     private void OnEnable()
     {
-        _weaponContainer.GetCurrent().OnWeaponShoot += Shake;
+        _weaponInventory.SelectedWeapon.OnAttack += Shake;
     }
 
     private void OnDisable()
     {
-        _weaponContainer.GetCurrent().OnWeaponShoot -= Shake;
+        _weaponInventory.SelectedWeapon.OnAttack -= Shake;
     }
 }
