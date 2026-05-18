@@ -1,12 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(WeaponT))]
 public class WeaponLight : MonoBehaviour
 {
     [SerializeField] private Light _light;
     [SerializeField] private float _lightDuration;
-    private Weapon _weapon;
+    private WeaponT _weapon;
 
     private Coroutine _coroutine;
 
@@ -30,7 +30,7 @@ public class WeaponLight : MonoBehaviour
     }
     private void Awake()
     {
-        _weapon = GetComponent<Weapon>();
+        _weapon = GetComponent<WeaponT>();
     }
 
     private IEnumerator LightDelay()

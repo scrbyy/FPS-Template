@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class WeaponT : MonoBehaviour
 {
     public event System.Action<int, int> OnEndReloadEvent;
     public event System.Action OnWeaponShoot;
@@ -37,6 +37,7 @@ public class Weapon : MonoBehaviour
             _afterShootCoroutine = StartCoroutine(ShootCooldown(_afterShootCooldown));
         }
     }
+
     public RecoilType GetRecoilType() 
     {
         return _recoilType;

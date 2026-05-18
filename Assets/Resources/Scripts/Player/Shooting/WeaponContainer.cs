@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 public class WeaponContainer : MonoBehaviour 
 {
-    [SerializeField] private Weapon[] _weaponsInventory;
-    [SerializeField] private List<Weapon> _selectedWeapons;
+    [SerializeField] private WeaponT[] _weaponsInventory;
+    [SerializeField] private List<WeaponT> _selectedWeapons;
 
     [SerializeField] private int _currentWeaponID;
 
@@ -23,21 +23,21 @@ public class WeaponContainer : MonoBehaviour
         return _selectedWeapons.Count;
     }
 
-    public Weapon GetCurrent()
+    public WeaponT GetCurrent()
     {
         return _selectedWeapons[_currentWeaponID];
     }
 
     private void Start()
     {
-        foreach (Weapon weapon in _weaponsInventory)
+        foreach (WeaponT weapon in _weaponsInventory)
         {
             InitializeWeapon(weapon);
         }
         _selectedWeapons[_currentWeaponID].gameObject.SetActive(true);
     }
 
-    private void InitializeWeapon(Weapon initializingWeapon)
+    private void InitializeWeapon(WeaponT initializingWeapon)
     {
         initializingWeapon.SetShootingMethod(new RaycastShoot(initializingWeapon.GetShootOrigin(), initializingWeapon.GetShootDistance()));
         initializingWeapon.gameObject.SetActive(false);

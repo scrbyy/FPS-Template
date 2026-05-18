@@ -28,7 +28,7 @@ public class WeaponRecoil : MonoBehaviour
     [SerializeField] private float resetTime = 0.25f;
 
     [Header("References")]
-    [SerializeField] private Weapon _weapon;
+    [SerializeField] private WeaponT _weapon;
 
     private int shotCount = 0;
     private float lastShotTime;

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(WeaponT))]
 public class WeaponSound : MonoBehaviour
 {
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private Transform _soundPoint;
-    private Weapon _weapon;
+    private WeaponT _weapon;
 
     private void PlayShootSound()
     {
@@ -21,6 +21,6 @@ public class WeaponSound : MonoBehaviour
     }
     private void Awake()
     {
-        _weapon = GetComponent<Weapon>();
+        _weapon = GetComponent<WeaponT>();
     }
 }

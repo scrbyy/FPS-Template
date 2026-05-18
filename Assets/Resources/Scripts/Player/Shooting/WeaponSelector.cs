@@ -25,7 +25,7 @@ public class WeaponSelector : MonoBehaviour
         _inputProvider.OnPreviousWeaponSelect -= SetPreviousWeapon;
     }
 
-    private void UnsubscribeOldShootEvents(Weapon oldWeapon)
+    private void UnsubscribeOldShootEvents(WeaponT oldWeapon)
     {
         if (oldWeapon.GetRecoilType() == RecoilType.Single)
         {
@@ -48,7 +48,7 @@ public class WeaponSelector : MonoBehaviour
 
     private void SelectNewWeapon(int newWeaponID)
     {
-        Weapon oldWeapon = _weaponContainer.GetCurrent();
+        WeaponT oldWeapon = _weaponContainer.GetCurrent();
 
         oldWeapon.Disable();
         oldWeapon.gameObject.SetActive(false);
@@ -58,7 +58,7 @@ public class WeaponSelector : MonoBehaviour
         UnsubscribeOldShootEvents(oldWeapon);
 
         _weaponContainer.SelectNew(newWeaponID);
-        Weapon newWeapon = _weaponContainer.GetCurrent();
+        WeaponT newWeapon = _weaponContainer.GetCurrent();
 
         newWeapon.gameObject.SetActive(true);
         newWeapon.OnEndReloadEvent += UpdateAmmoEvent;
@@ -70,7 +70,7 @@ public class WeaponSelector : MonoBehaviour
 
     private void SetNewShootType(RecoilType newType)
     {
-        Weapon currentWeapon = _weaponContainer.GetCurrent();
+        WeaponT currentWeapon = _weaponContainer.GetCurrent();
 
         if (newType == RecoilType.Single)
         {
