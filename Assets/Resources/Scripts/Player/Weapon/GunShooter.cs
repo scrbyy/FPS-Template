@@ -8,17 +8,13 @@ public class GunShooter : MonoBehaviour
 
     public bool IsShooting => _isShooting;
 
-    [SerializeField] private float _afterShootDelay;
-    [SerializeField] private RecoilType _recoilType;
-
     [SerializeField] private Transform _origin;
-    [SerializeField] private float _distance;
 
+    private float _afterShotDelay;
+    private float _distance;
     private IShootingMethod _shootingMethod;
-
     private Coroutine _shootDelayCoroutine;
-
-    private bool _isShooting = false;
+    private bool _isShooting;
 
 
     public void Shoot()
@@ -27,7 +23,7 @@ public class GunShooter : MonoBehaviour
         {
             OnShoot?.Invoke();
             _shootingMethod.ExecuteShoot();
-            _shootDelayCoroutine = StartCoroutine(ShootDelay(_afterShootDelay));
+            _shootDelayCoroutine = StartCoroutine(ShootDelay(_afterShotDelay));
         }
     }
 
@@ -38,5 +34,14 @@ public class GunShooter : MonoBehaviour
 
         _isShooting = false;
         _shootDelayCoroutine = null;
+    }
+
+    public void Initialize(IShootingData shootingData)
+    {
+        _afterShotDelay = shootingData.AfterShotDelay;
+        _distance = shootingData.Distance;
+        _isShooting = false;
+
+        _shootingMethod = new RaycastShoot(_origin, _distance);
     }
 }

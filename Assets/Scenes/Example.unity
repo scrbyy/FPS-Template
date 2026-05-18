@@ -16694,10 +16694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee081b6d32d30bd4889bc44db050b55d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _afterShootDelay: 0.9
-  _recoilType: 0
   _origin: {fileID: 330585546}
-  _distance: 2000
 --- !u!114 &5444888314268869642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16710,10 +16707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60c42cc749c1d6f40a225e7ea9559fd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentAmmo: 30
-  _magazineSize: 30
-  _reserveAmmo: 90
-  _reloadDuration: 1
 --- !u!114 &5444888314268869643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16726,6 +16719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d938c91978a1d274199b9920be95746e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gunData: {fileID: 11400000, guid: eb902cd4769b70a468a621e48db74f09, type: 2}
   _reloader: {fileID: 5444888314268869642}
   _shooter: {fileID: 5444888314268869641}
 --- !u!1 &5655786767174231778

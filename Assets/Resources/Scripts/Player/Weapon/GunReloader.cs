@@ -9,16 +9,28 @@ public class GunReloader : MonoBehaviour
 
     public bool IsReloading => _isReloading;
 
-    [SerializeField] private int _currentAmmo;
-    [SerializeField] private int _magazineSize;
-    [SerializeField] private int _reserveAmmo;
-    [SerializeField] private float _reloadDuration;
+    public bool CanShoot => _currentAmmo > 0;
 
-    private bool _isReloading = false;
+    private int _currentAmmo;
+    private int _magazineSize;
+    private int _reserveAmmo;
+    private float _reloadDuration;
+
+    private bool _isReloading;
 
     public void Reload()
     {
         StartCoroutine(ReloadCooldown());
+    }
+
+    public void Initialize(IAmmoData ammoData)
+    {
+        _currentAmmo = ammoData.StartAmmo;
+        _magazineSize = ammoData.MagazineSize;
+        _reserveAmmo = ammoData.ReserveAmmo;
+        _reloadDuration = ammoData.ReloadDuration;
+
+        _isReloading = false;
     }
 
     public void UseBullet()
