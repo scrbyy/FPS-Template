@@ -1987,8 +1987,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1557150729}
+  m_Children: []
   m_Father: {fileID: 1915844012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
@@ -3801,8 +3800,8 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.9433962, g: 0.6852073, b: 0.11124954, a: 1}
-  m_Intensity: 0.05
-  m_Range: 1
+  m_Intensity: 1
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -12691,7 +12690,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5444888314268869640}
-  m_Father: {fileID: 330585546}
+  m_Father: {fileID: 1915844012}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1557150730
 MonoBehaviour:
@@ -13889,8 +13888,8 @@ GameObject:
   - component: {fileID: 1915844015}
   - component: {fileID: 1915844014}
   - component: {fileID: 1915844013}
-  - component: {fileID: 1915844016}
   - component: {fileID: 1915844018}
+  - component: {fileID: 1915844016}
   - component: {fileID: 1915844017}
   m_Layer: 9
   m_Name: Head
@@ -13913,6 +13912,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 330585546}
+  - {fileID: 1557150729}
   m_Father: {fileID: 755122319}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1915844013
@@ -15987,6 +15987,7 @@ GameObject:
   - component: {fileID: 5444888314268869645}
   - component: {fileID: 5444888314268869644}
   - component: {fileID: 5444888314268869647}
+  - component: {fileID: 5444888314268869648}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -16373,6 +16374,24 @@ MonoBehaviour:
   inverseY: 0
   minMaxX: {x: -7, y: 7}
   minMaxY: {x: -7, y: 7}
+--- !u!114 &5444888314268869648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc49d081f3a590048a9ab8d415779dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _duration: 0.1
+  _strength: 0.015
+  _vibrato: 25
+  _randomness: 3
+  _gun: {fileID: 5444888314268869643}
+  _cameraTransform: {fileID: 330585546}
 --- !u!1 &5655786767174231778
 GameObject:
   m_ObjectHideFlags: 0
