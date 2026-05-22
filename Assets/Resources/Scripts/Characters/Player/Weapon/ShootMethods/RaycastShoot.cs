@@ -18,7 +18,6 @@ public class RaycastShoot : IShootingMethod
         if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance))
         {
             GameObject hitObject = _hit.transform.gameObject;
-            Debug.Log(hitObject.name);
             _hitData.isHit = true;
             _hitData.originPoint = _origin.position;
             _hitData.hitPoint = _hit.point;
