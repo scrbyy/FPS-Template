@@ -16,7 +16,7 @@ public class StatProgressBar : MonoBehaviour
     [SerializeField] private float hideDuration;
 
     [Header("References")]
-    [SerializeField] private PlayerStat _playerStat;
+    [SerializeField] private ObjectStat _playerStat;
 
     private CanvasGroup _canvasGroup;
     private Coroutine _hideCoroutine;

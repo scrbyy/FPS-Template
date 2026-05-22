@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class PlayerStat : MonoBehaviour
+public abstract class ObjectStat : MonoBehaviour
 {
     public event System.Action<float> OnValueChanged;
     public event System.Action OnValueExhausted;

@@ -10,7 +10,7 @@ public class DamageZone : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            other.GetComponent<PlayerHealth>()?.Decrease(damageAmount);
+            other.GetComponent<ObjectHealth>()?.Decrease(damageAmount);
         }
     }
 }

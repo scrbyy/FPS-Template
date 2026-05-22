@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30369b66674defd45bb95eb9f24b0d83, type: 3}
   m_Name: GunData
   m_EditorClassIdentifier: 
+  _damage: 20
   _startAmmo: 30
   _magazineSize: 30
   _reserveAmmo: 90
@@ -19,3 +20,5 @@ MonoBehaviour:
   _afterShootDelay: 0.1
   _recoilType: 0
   _distance: 200
+  _distanceModifier: 0.91
+  _shootingMethod: 0

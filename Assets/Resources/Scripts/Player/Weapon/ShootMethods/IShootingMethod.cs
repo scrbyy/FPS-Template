@@ -1,5 +1,4 @@
 ﻿public interface IShootingMethod
 {
-    public void ExecuteShoot();
+    public HitData ExecuteShoot();
 }
-
