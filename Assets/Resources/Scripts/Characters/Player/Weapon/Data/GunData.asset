@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: GunData
   m_EditorClassIdentifier: 
   _damage: 20
+  _distance: 30
+  _distanceModifier: 0.91
+  _damageDecreasingStep: 10
   _startAmmo: 30
   _magazineSize: 30
   _reserveAmmo: 90
   _reloadDuration: 1
   _afterShootDelay: 0.1
   _recoilType: 0
-  _distance: 30
-  _distanceModifier: 0.91
   _shootingMethod: 0

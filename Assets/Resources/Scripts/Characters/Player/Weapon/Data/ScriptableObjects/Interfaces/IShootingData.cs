@@ -9,4 +9,6 @@
     public ShootingMethod ShootingMethod { get; }
 
     public float DistanceModifier { get; }
+
+    public float DamageDecreasingStep { get; }
 }

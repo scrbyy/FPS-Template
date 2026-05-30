@@ -35,7 +35,7 @@ public class Gun : Weapon, IShootable
         }
     }
 
-    public void Start()
+    public void Awake()
     {
         _reloader.Initialize(_gunData);
         _shooter.Initialize(_gunData);

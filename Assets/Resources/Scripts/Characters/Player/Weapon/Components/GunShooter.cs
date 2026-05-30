@@ -17,6 +17,7 @@ public class GunShooter : MonoBehaviour
 
     private bool _isShooting;
     private float _afterShotDelay;
+    private float _decreasingStep;
 
     private HitHandler _hitHandler;
     private IShootingMethod _shootingMethod;
@@ -41,7 +42,7 @@ public class GunShooter : MonoBehaviour
 
     public float CalculateDamageAtDistance(float distance)
     {
-        float damageExponent = distance / 10f;
+        float damageExponent = distance / _decreasingStep;
         float finalDamage = _damage * Mathf.Pow(_distanceModifier, damageExponent);
         return finalDamage;
     }
@@ -53,6 +54,7 @@ public class GunShooter : MonoBehaviour
         _damage = shootingData.Damage;
         _isShooting = false;
         _distanceModifier = shootingData.DistanceModifier;
+        _decreasingStep = shootingData.DamageDecreasingStep;
 
         _hitHandler = new HitHandler();
         _shootingMethod = new ShootingMethodFactory(_origin, _distance).CreateShootingMethod(shootingData.ShootingMethod);
