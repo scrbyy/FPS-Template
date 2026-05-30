@@ -43,7 +43,6 @@ public class GunShooter : MonoBehaviour
     {
         float damageExponent = distance / 10f;
         float finalDamage = _damage * Mathf.Pow(_distanceModifier, damageExponent);
-        Debug.Log(finalDamage);
         return finalDamage;
     }
 

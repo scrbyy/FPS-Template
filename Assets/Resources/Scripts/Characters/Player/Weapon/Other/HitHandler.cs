@@ -6,7 +6,7 @@ public class HitHandler
     {
         if (hitObject.TryGetComponent(out IDamagable damagable) )
         {
-            damagable.TakeDamage(damage);
+            damagable.TakeDamage(Mathf.RoundToInt(damage));
         }
         else
         {

@@ -19,6 +19,6 @@ MonoBehaviour:
   _reloadDuration: 1
   _afterShootDelay: 0.1
   _recoilType: 0
-  _distance: 200
+  _distance: 30
   _distanceModifier: 0.91
   _shootingMethod: 0

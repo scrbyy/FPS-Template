@@ -1,6 +1,6 @@
 ﻿public class CharacterHealth : CharacterStat, IDamagable
 {
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(int damage)
     {
         Decrease(damage);
     }
