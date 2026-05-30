@@ -3277,14 +3277,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60f8be53e1dad3c40a9f90b8e4da8805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerClimb
-  minClimbHeight: 2
-  maxClimbHeight: 5
-  detectionDistance: 0.75
-  climbLayer:
+  _minClimbHeight: 0.1
+  _maxClimbHeight: 5
+  _minimalClimbTime: 0.1
+  _wallDepthOffset: 0.15
+  _detectionDistance: 0.75
+  _climbLayer:
     serializedVersion: 2
     m_Bits: 4096
-  unitsPerSecond: 8
-  verticalCurve:
+  _climbSpeed: 8
+  _verticalCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -3308,9 +3310,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  horizontalDuration: 0.2
-  exitImpulse: 1
+  _exitImpulseModifier: 0.1
   _playerEngine: {fileID: 755122330}
+  _origin: {fileID: 330585546}
 --- !u!114 &755122330
 MonoBehaviour:
   m_ObjectHideFlags: 0

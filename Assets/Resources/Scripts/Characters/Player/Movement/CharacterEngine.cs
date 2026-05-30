@@ -16,9 +16,20 @@ public class CharacterEngine : MonoBehaviour
     [SerializeField] private float _downforce;
 
     private bool _isImpulseActive;
+    private bool _canMove;
 
     private Vector3 _velocity;
     private CharacterController _characterController;
+
+    public void DisableMovement()
+    {
+        _canMove = false;
+    }
+
+    public void EnableMovement()
+    {
+        _canMove = true;
+    }
 
     public Vector3 GetVelocity() => _velocity;
 
@@ -32,13 +43,16 @@ public class CharacterEngine : MonoBehaviour
 
     public void Move(Vector3 inputVector, float maxSpeed)
     {
-        if (_characterController.isGrounded) ApplyGroundMovement(inputVector, maxSpeed);
-        else ApplyAirMovement(inputVector);
+        if (_canMove)
+        {
+            if (_characterController.isGrounded) ApplyGroundMovement(inputVector, maxSpeed);
+            else ApplyAirMovement(inputVector);
 
-        Vector3 finalMotion = _velocity;
-        finalMotion.y = _velocity.y;
+            Vector3 finalMotion = _velocity;
+            finalMotion.y = _velocity.y;
 
-        _characterController.Move(finalMotion * Time.deltaTime);
+            _characterController.Move(finalMotion * Time.deltaTime);
+        }
     }
 
     public void AddForce(Vector3 force, ForceType type)
@@ -87,8 +101,11 @@ public class CharacterEngine : MonoBehaviour
 
     private void Update()
     {
-        ApplyGravity();
-        HandleHeadHit();
+        if (_canMove)
+        {
+            ApplyGravity();
+            HandleHeadHit();
+        }
     }
 
     private void ApplyGravity()
@@ -110,5 +127,6 @@ public class CharacterEngine : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
+        _canMove = true;
     }
 }
