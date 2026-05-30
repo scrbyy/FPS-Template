@@ -5,15 +5,11 @@ public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private float _walkSpeed;
 
-    [SerializeField] private float _accelerationRate;
-    [SerializeField] private float _decelerationRate;
-
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
-
 
     private float _targetSpeed;
 
