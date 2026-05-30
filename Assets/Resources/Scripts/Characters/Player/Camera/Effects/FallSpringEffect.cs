@@ -46,7 +46,7 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
 
     private void Update()
     {
-        float currentVerticalSpeed = _characterEngine.GetVelocity().y;
+        float currentVerticalSpeed = _characterEngine.Velocity.y;
 
         if (currentVerticalSpeed < 0)
         {

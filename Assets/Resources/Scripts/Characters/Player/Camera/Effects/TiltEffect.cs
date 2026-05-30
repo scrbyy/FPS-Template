@@ -29,7 +29,7 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
     private void LateUpdate()
     {
         Vector2 inputMove = _inputProvider.GetMoveVector();
-        Vector3 worldVelocity = _characterEngine.GetVelocity();
+        Vector3 worldVelocity = _characterEngine.Velocity;
         float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
         bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;

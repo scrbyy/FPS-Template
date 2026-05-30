@@ -28,7 +28,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 
     private void LateUpdate()
     {
-        Vector3 velocity = _characterEngine.GetVelocity();
+        Vector3 velocity = _characterEngine.Velocity;
         Vector3 direction = velocity.normalized;
 
         float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;

@@ -41,7 +41,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
         if (!_characterEngine.IsImpulseActive())
         {
             Vector2 inputMove = _inputProvider.GetMoveVector();
-            Vector3 worldVelocity = _characterEngine.GetVelocity();
+            Vector3 worldVelocity = _characterEngine.Velocity;
             float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
             bool isMoving = inputMove != Vector2.zero && horizontalSpeed > speedThreshold;

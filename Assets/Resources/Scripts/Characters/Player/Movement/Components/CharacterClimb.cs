@@ -48,7 +48,7 @@ public class CharacterClimb : MonoBehaviour
     {
         if (!_groundCheck.IsGrounded && !_isClimbing)
         {
-            _speedBeforeClimb = _characterEngine.GetVelocity().z;
+            _speedBeforeClimb = _characterEngine.Velocity.z;
             CalculateWallTop();
         }
     }

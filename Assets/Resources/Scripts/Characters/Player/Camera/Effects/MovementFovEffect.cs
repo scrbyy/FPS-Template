@@ -29,7 +29,7 @@ public class MovementFovEffect : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 velocity = _characterEngine.GetVelocity();
+        Vector3 velocity = _characterEngine.Velocity;
         Vector3 direction = velocity.normalized;
 
  

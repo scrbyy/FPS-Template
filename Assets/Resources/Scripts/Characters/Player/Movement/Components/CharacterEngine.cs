@@ -3,6 +3,8 @@
 [RequireComponent(typeof(CharacterController))]
 public class CharacterEngine : MonoBehaviour
 {
+    public Vector3 Velocity => _velocity;
+
     [Header("Movement")]
     [SerializeField] private float _accelerationRate;
     [SerializeField] private float _decelerationRate;
@@ -30,8 +32,6 @@ public class CharacterEngine : MonoBehaviour
     {
         _canMove = true;
     }
-
-    public Vector3 GetVelocity() => _velocity;
 
     public bool IsImpulseActive() => _isImpulseActive;
 
