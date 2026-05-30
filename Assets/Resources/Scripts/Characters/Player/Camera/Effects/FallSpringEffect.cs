@@ -14,7 +14,7 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _forceMultiplier;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IGroundChecker _groundCheck;
 
@@ -46,7 +46,7 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
 
     private void Update()
     {
-        float currentVerticalSpeed = _playerEngine.GetVelocity().y;
+        float currentVerticalSpeed = _characterEngine.GetVelocity().y;
 
         if (currentVerticalSpeed < 0)
         {

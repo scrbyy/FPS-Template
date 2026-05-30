@@ -12,7 +12,7 @@ public class CharacterDash : MonoBehaviour
     [SerializeField] private float _dashStaminaCost;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina _playerStamina;
 
     [Inject] private IInputProvider _inputProvider;
@@ -32,7 +32,7 @@ public class CharacterDash : MonoBehaviour
         } 
         else return;
 
-        _playerEngine.AddForce(dashDir * impulse, ForceType.Impulse);
+        _characterEngine.AddForce(dashDir * impulse, ForceType.Impulse);
 
         _playerStamina.Decrease(_dashStaminaCost);
         _cooldownTimer = _cooldown;

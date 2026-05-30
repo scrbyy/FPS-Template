@@ -10,7 +10,7 @@ public class CharacterJump : MonoBehaviour
     [SerializeField] private float _bufferDuration;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina playerStamina;
 
     [Inject] private IInputProvider _inputProvider;
@@ -23,7 +23,7 @@ public class CharacterJump : MonoBehaviour
         _inputBuffer.Set();
         if (_groundCheck.IsGrounded && playerStamina.IsEnoughStamina(_staminaCost))
         {
-            _playerEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
+            _characterEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
             playerStamina.Decrease(_staminaCost);
         }
     }

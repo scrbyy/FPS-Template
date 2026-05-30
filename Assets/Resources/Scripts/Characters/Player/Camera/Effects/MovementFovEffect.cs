@@ -15,7 +15,7 @@ public class MovementFovEffect : MonoBehaviour
     [SerializeField] private float _maxSpeedThreshold;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
 
     private Camera _camera;
     private float _defaultFov;
@@ -29,7 +29,7 @@ public class MovementFovEffect : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 velocity = _playerEngine.GetVelocity();
+        Vector3 velocity = _characterEngine.GetVelocity();
         Vector3 direction = velocity.normalized;
 
  

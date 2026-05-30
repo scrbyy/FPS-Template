@@ -11,7 +11,7 @@ public class CharacterRun : MonoBehaviour
     [SerializeField] private float _staminaCost;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina _playerStamina;
     [SerializeField] private CharacterMovement _playerMovement;
 
@@ -26,7 +26,7 @@ public class CharacterRun : MonoBehaviour
         {
             if (_playerStamina.IsEnoughStamina(_staminaCost))
             {
-                if (_playerEngine.IsMoving() && _cooldownCoroutine == null)
+                if (_characterEngine.IsMoving() && _cooldownCoroutine == null)
                 {
                     _cooldownCoroutine = StartCoroutine(ReducingDelay());
                     _playerMovement.SetTargetSpeed(_runSpeed);

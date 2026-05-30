@@ -26,7 +26,7 @@ public class CharacterClimb : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform _origin;
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IGroundChecker _groundCheck;
     [Inject] private IInputProvider _inputProvider;
@@ -48,7 +48,7 @@ public class CharacterClimb : MonoBehaviour
     {
         if (!_groundCheck.IsGrounded && !_isClimbing)
         {
-            _speedBeforeClimb = _playerEngine.GetVelocity().z;
+            _speedBeforeClimb = _characterEngine.GetVelocity().z;
             CalculateWallTop();
         }
     }
@@ -76,7 +76,7 @@ public class CharacterClimb : MonoBehaviour
     private IEnumerator PerformClimbRoutine(Vector3 targetSurfacePos, float height)
     {
         _isClimbing = true;
-        _playerEngine.DisableMovement();
+        _characterEngine.DisableMovement();
 
         float halfHeight = (_controller.height / 2f);
         float bottomOffset = _controller.center.y - halfHeight - _controller.skinWidth;
@@ -98,9 +98,9 @@ public class CharacterClimb : MonoBehaviour
             yield return null;
         }
 
-        _playerEngine.EnableMovement();
+        _characterEngine.EnableMovement();
 
-        _playerEngine.AddForce(transform.forward * (_speedBeforeClimb * _exitImpulseModifier), ForceType.Impulse);
+        _characterEngine.AddForce(transform.forward * (_speedBeforeClimb * _exitImpulseModifier), ForceType.Impulse);
 
         _isClimbing = false;
     }

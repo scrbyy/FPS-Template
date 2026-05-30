@@ -17,7 +17,7 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _baseTiltDivider;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
@@ -29,11 +29,11 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
     private void LateUpdate()
     {
         Vector2 inputMove = _inputProvider.GetMoveVector();
-        Vector3 worldVelocity = _playerEngine.GetVelocity();
+        Vector3 worldVelocity = _characterEngine.GetVelocity();
         float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
         bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;
-        bool canApplyEffect = isMoving && _groundCheck.IsGrounded && !_playerEngine.IsImpulseActive();
+        bool canApplyEffect = isMoving && _groundCheck.IsGrounded && !_characterEngine.IsImpulseActive();
         
         if (canApplyEffect)
         {

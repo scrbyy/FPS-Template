@@ -15,7 +15,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _maxSpeedThreshold;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
     [Inject] private IInputProvider _inputProvider;
 
     private float _currentZOffset;
@@ -28,12 +28,12 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 
     private void LateUpdate()
     {
-        Vector3 velocity = _playerEngine.GetVelocity();
+        Vector3 velocity = _characterEngine.GetVelocity();
         Vector3 direction = velocity.normalized;
 
         float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
 
-        Transform playerTransform = _playerEngine.transform;
+        Transform playerTransform = _characterEngine.transform;
 
         float dot = Vector3.Dot(new Vector3(0.5f, 0, 1), direction);
         float directionModifier = _inputProvider.GetMoveVector().y != 0 ? 1 : 0;

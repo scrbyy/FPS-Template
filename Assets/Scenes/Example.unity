@@ -2407,7 +2407,7 @@ MonoBehaviour:
   _increaseSpeed: 5
   _minSpeedThreshold: 3
   _maxSpeedThreshold: 15
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3151,8 +3151,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1915844012}
-  - {fileID: 748745580}
   - {fileID: 9949983}
+  - {fileID: 748745580}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &755122320
@@ -3170,7 +3170,7 @@ MonoBehaviour:
   _walkSpeed: 6
   _accelerationRate: 20
   _decelerationRate: 25
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!143 &755122321
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3227,7 +3227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
   _runSpeed: 11
   _staminaCost: 0.1
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
   _playerStamina: {fileID: 9949984}
   _playerMovement: {fileID: 755122320}
 --- !u!114 &755122324
@@ -3245,7 +3245,7 @@ MonoBehaviour:
   _jumpForce: 2
   _staminaCost: 1
   _bufferDuration: 0.08
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
   playerStamina: {fileID: 9949984}
 --- !u!114 &755122327
 MonoBehaviour:
@@ -3263,7 +3263,7 @@ MonoBehaviour:
   _groundImpulse: 15
   _cooldown: 0.5
   _dashStaminaCost: 5
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
   _playerStamina: {fileID: 9949984}
 --- !u!114 &755122328
 MonoBehaviour:
@@ -3312,7 +3312,7 @@ MonoBehaviour:
   _wallDepthOffset: 0.15
   _exitImpulseModifier: 0.1
   _origin: {fileID: 330585546}
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!114 &755122330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4262,6 +4262,7 @@ Transform:
   m_Children:
   - {fileID: 936000764}
   - {fileID: 1943569771}
+  - {fileID: 1103999101}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1044228714
@@ -8027,7 +8028,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1040894700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1113944699
 GameObject:
@@ -13093,7 +13094,7 @@ MonoBehaviour:
   speedThreshold: 0.1
   speedSensitivity: 1
   returnToZeroSpeed: 2
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13112,7 +13113,7 @@ MonoBehaviour:
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.5
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13144,7 +13145,7 @@ MonoBehaviour:
   _decreaseSpeed: 20
   _minSpeedThreshold: 1
   _maxSpeedThreshold: 7
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14222,7 +14223,7 @@ MonoBehaviour:
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.2
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!114 &1915844017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14268,7 +14269,7 @@ MonoBehaviour:
   speedThreshold: 0.1
   speedSensitivity: 5
   returnToZeroSpeed: 5
-  _playerEngine: {fileID: 755122330}
+  _characterEngine: {fileID: 755122330}
 --- !u!114 &1915844018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17514,4 +17515,3 @@ SceneRoots:
   - {fileID: 32322477}
   - {fileID: 1464845730}
   - {fileID: 1040894700}
-  - {fileID: 1103999101}

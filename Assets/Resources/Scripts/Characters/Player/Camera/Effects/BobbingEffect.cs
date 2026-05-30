@@ -22,7 +22,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float returnToZeroSpeed;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IGroundChecker _groundChecker;
     [Inject] private IInputProvider _inputProvider;
@@ -38,14 +38,14 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
 
     private void LateUpdate()
     {
-        if (!_playerEngine.IsImpulseActive())
+        if (!_characterEngine.IsImpulseActive())
         {
             Vector2 inputMove = _inputProvider.GetMoveVector();
-            Vector3 worldVelocity = _playerEngine.GetVelocity();
+            Vector3 worldVelocity = _characterEngine.GetVelocity();
             float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
             bool isMoving = inputMove != Vector2.zero && horizontalSpeed > speedThreshold;
-            bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_playerEngine.IsImpulseActive();
+            bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_characterEngine.IsImpulseActive();
 
             if (canApplyEffect)
             {

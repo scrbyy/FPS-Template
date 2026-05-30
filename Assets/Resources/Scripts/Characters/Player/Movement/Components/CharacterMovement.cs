@@ -9,7 +9,7 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float _decelerationRate;
 
     [Header("References")]
-    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
@@ -35,7 +35,7 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector2 input = _inputProvider.GetMoveVector();
         Vector3 wishDir = transform.TransformDirection(new Vector3(input.x, 0, input.y)).normalized;
-        _playerEngine.Move(wishDir, _targetSpeed);
+        _characterEngine.Move(wishDir, _targetSpeed);
     }
 
     private void OnLandedReset()
