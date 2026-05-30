@@ -2403,7 +2403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFovEffect
   _maxFov: 15
-  _decreaseSpeed: 2
+  _decreaseSpeed: 4
   _increaseSpeed: 5
   _minSpeedThreshold: 3
   _maxSpeedThreshold: 15
@@ -13060,7 +13060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
   _minEffectScale: 0.1
-  _maxEffectScale: 1.25
+  _maxEffectScale: 2
   _verticalAmplitude: 0.03
   _horizontalAmplitude: 0.025
   _motionCurve:
@@ -13090,7 +13090,7 @@ MonoBehaviour:
   _baseStepFrequency: 8
   _frequencySensitivity: 5
   _speedThreshold: 0.1
-  _speedSensitivity: 1
+  _speedSensitivity: 0.2
   _returnToZeroSpeed: 10
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
@@ -13107,7 +13107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _returnSpeed: 75
   _shakeDamping: 15
-  _effectWeight: 0.5
+  _effectWeight: 0.75
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.5
@@ -13157,7 +13157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: {x: 2, y: 2}
-  multiplier: 1
+  multiplier: 2
   inverseX: 1
   inverseY: 0
   minMaxX: {x: -5, y: 5}
@@ -14104,7 +14104,6 @@ GameObject:
   - component: {fileID: 1915844013}
   - component: {fileID: 1915844018}
   - component: {fileID: 1915844016}
-  - component: {fileID: 1915844017}
   m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
@@ -14221,52 +14220,6 @@ MonoBehaviour:
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.2
-  _characterEngine: {fileID: 755122330}
---- !u!114 &1915844017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1915844011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  _minEffectScale: 0
-  _maxEffectScale: 0
-  _verticalAmplitude: 0
-  _horizontalAmplitude: 0
-  _motionCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  _baseStepFrequency: 0
-  _frequencySensitivity: 0
-  _speedThreshold: 0
-  _speedSensitivity: 0
-  _returnToZeroSpeed: 20
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1915844018
 MonoBehaviour:
@@ -16582,7 +16535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 0.1
-  _strength: 0.015
+  _strength: 0.017
   _vibrato: 25
   _randomness: 3
   _gun: {fileID: 5444888314268869643}

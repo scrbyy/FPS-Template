@@ -104,7 +104,7 @@ public class CharacterEngine : MonoBehaviour
         if (_canMove)
         {
             ApplyGravity();
-            HandleHeadHit();
+            HandleCollisions();
         }
     }
 
@@ -116,11 +116,19 @@ public class CharacterEngine : MonoBehaviour
             _velocity.y += Physics.gravity.y * _gravityScale * Time.deltaTime;
     }
 
-    private void HandleHeadHit()
+    private void HandleCollisions()
     {
         if ((_characterController.collisionFlags & CollisionFlags.Above) != 0 && _velocity.y > 0f)
         {
             _velocity.y = 0f;
+        }
+
+        if (_isImpulseActive && (_characterController.collisionFlags & CollisionFlags.Sides) != 0)
+        {
+            _velocity.x = 0f;
+            _velocity.z = 0f;
+
+            _isImpulseActive = false;
         }
     }
 
