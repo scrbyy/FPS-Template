@@ -27,6 +27,7 @@ public class GunShooter : MonoBehaviour
         OnShoot?.Invoke();
         HitData hitData = _shootingMethod.ExecuteShoot();
 
+        if(hitData.isHit)
         _hitHandler.HadleShot(hitData.hitObject, CalculateDamageAtDistance(hitData.Distance));
 
         StartCoroutine(ShootDelay(_afterShotDelay));

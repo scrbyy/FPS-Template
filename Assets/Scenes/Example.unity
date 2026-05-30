@@ -3168,8 +3168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterControllerMovement
   _walkSpeed: 6
-  _accelerationRate: 20
-  _decelerationRate: 25
   _characterEngine: {fileID: 755122330}
 --- !u!143 &755122321
 CharacterController:
@@ -13061,11 +13059,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  minEffectScale: 0.1
-  maxEffectScale: 0.8
-  verticalAmplitude: 0.025
-  horizontalAmplitude: 0.02
-  motionCurve:
+  _minEffectScale: 0.1
+  _maxEffectScale: 1.25
+  _verticalAmplitude: 0.03
+  _horizontalAmplitude: 0.025
+  _motionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -13089,11 +13087,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  baseStepFrequency: 2
-  frequencySensitivity: 6
-  speedThreshold: 0.1
-  speedSensitivity: 1
-  returnToZeroSpeed: 2
+  _baseStepFrequency: 8
+  _frequencySensitivity: 5
+  _speedThreshold: 0.1
+  _speedSensitivity: 1
+  _returnToZeroSpeed: 10
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
 MonoBehaviour:
@@ -14236,11 +14234,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  minEffectScale: 0.5
-  maxEffectScale: 1.2
-  verticalAmplitude: 0.04
-  horizontalAmplitude: 0.02
-  motionCurve:
+  _minEffectScale: 0
+  _maxEffectScale: 0
+  _verticalAmplitude: 0
+  _horizontalAmplitude: 0
+  _motionCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -14264,11 +14262,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  baseStepFrequency: 7
-  frequencySensitivity: 3
-  speedThreshold: 0.1
-  speedSensitivity: 5
-  returnToZeroSpeed: 5
+  _baseStepFrequency: 0
+  _frequencySensitivity: 0
+  _speedThreshold: 0
+  _speedSensitivity: 0
+  _returnToZeroSpeed: 20
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1915844018
 MonoBehaviour:
