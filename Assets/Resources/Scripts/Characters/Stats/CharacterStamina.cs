@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerStamina : ObjectStat
+public class CharacterStamina : CharacterStat
 {
     [Header("Recovery Settings")]
     [SerializeField] private float recoveryCooldown;

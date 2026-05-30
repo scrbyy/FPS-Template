@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
     [SerializeField] private float _walkSpeed;
 
@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _decelerationRate;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;

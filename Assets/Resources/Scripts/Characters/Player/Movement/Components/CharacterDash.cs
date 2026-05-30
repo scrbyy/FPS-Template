@@ -1,7 +1,7 @@
 ﻿using Zenject;
 using UnityEngine;
 
-public class PlayerDash : MonoBehaviour
+public class CharacterDash : MonoBehaviour
 {
     [Header("Impulse Force")]
     [SerializeField] private float _airImpulse;
@@ -12,8 +12,8 @@ public class PlayerDash : MonoBehaviour
     [SerializeField] private float _dashStaminaCost;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
-    [SerializeField] private PlayerStamina _playerStamina;
+    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterStamina _playerStamina;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;

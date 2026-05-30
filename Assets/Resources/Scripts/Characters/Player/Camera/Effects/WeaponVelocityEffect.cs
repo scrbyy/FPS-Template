@@ -15,7 +15,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _maxSpeedThreshold;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
     [Inject] private IInputProvider _inputProvider;
 
     private float _currentZOffset;

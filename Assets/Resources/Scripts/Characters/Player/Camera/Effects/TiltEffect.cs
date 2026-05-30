@@ -17,7 +17,7 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _baseTiltDivider;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerEngine : MonoBehaviour
+public class CharacterEngine : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float _accelerationRate;

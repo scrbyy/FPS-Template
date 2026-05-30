@@ -15,7 +15,7 @@ public class MovementFovEffect : MonoBehaviour
     [SerializeField] private float _maxSpeedThreshold;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
 
     private Camera _camera;
     private float _defaultFov;

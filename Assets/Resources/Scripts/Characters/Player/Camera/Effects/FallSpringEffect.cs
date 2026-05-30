@@ -14,7 +14,7 @@ public class FallSpringEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _forceMultiplier;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
 
     [Inject] private IGroundChecker _groundCheck;
 

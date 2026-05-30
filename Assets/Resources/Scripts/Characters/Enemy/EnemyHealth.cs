@@ -1,4 +1,4 @@
-public class EnemyHealth : ObjectHealth
+public class EnemyHealth : CharacterHealth
 {
     protected override void HandleEmptyValue()
     {

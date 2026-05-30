@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public abstract class ObjectStat : MonoBehaviour
+public abstract class CharacterStat : MonoBehaviour
 {
     public event System.Action<float> OnValueChanged;
     public event System.Action OnValueExhausted;
 
     [Header("Main")]
     [SerializeField] protected float _currentValue;
-    [SerializeField] private float _maxValue;
+    [SerializeField] protected float _maxValue;
 
     public virtual void Decrease(float reducingValue)
     {

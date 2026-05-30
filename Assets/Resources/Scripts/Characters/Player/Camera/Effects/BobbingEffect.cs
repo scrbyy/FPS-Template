@@ -22,7 +22,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float returnToZeroSpeed;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
 
     [Inject] private IGroundChecker _groundChecker;
     [Inject] private IInputProvider _inputProvider;

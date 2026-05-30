@@ -2,7 +2,7 @@ using Zenject;
 using UnityEngine;
 using System.Collections;
 
-public class PlayerRun : MonoBehaviour
+public class CharacterRun : MonoBehaviour
 {
     public event System.Action OnStartRunning;
     public event System.Action OnEndRunning;
@@ -11,9 +11,9 @@ public class PlayerRun : MonoBehaviour
     [SerializeField] private float _staminaCost;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
-    [SerializeField] private PlayerStamina _playerStamina;
-    [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterStamina _playerStamina;
+    [SerializeField] private CharacterMovement _playerMovement;
 
     private Coroutine _cooldownCoroutine;
 

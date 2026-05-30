@@ -2,7 +2,7 @@ using Zenject;
 using UnityEngine;
 using System.Collections;
 
-public class PlayerClimb : MonoBehaviour
+public class CharacterClimb : MonoBehaviour
 {
     [Header("Limits")]
     [SerializeField] private float minClimbHeight;
@@ -21,7 +21,7 @@ public class PlayerClimb : MonoBehaviour
     [SerializeField] private float exitImpulse;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
+    [SerializeField] private CharacterEngine _playerEngine;
 
     [Inject] private IGroundChecker _groundCheck;
     [Inject] private IInputProvider _inputProvider;

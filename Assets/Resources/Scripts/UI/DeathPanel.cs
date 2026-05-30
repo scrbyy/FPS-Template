@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DeathPanel : MonoBehaviour
 {
-    [SerializeField] private ObjectHealth playerHealth;
+    [SerializeField] private CharacterHealth playerHealth;
     [SerializeField] private GameObject deathPanelUI;
 
     private void OnEnable()

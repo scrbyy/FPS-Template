@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class PlayerJump : MonoBehaviour
+public class CharacterJump : MonoBehaviour
 {
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _staminaCost;
@@ -10,8 +10,8 @@ public class PlayerJump : MonoBehaviour
     [SerializeField] private float _bufferDuration;
 
     [Header("References")]
-    [SerializeField] private PlayerEngine _playerEngine;
-    [SerializeField] private PlayerStamina playerStamina;
+    [SerializeField] private CharacterEngine _playerEngine;
+    [SerializeField] private CharacterStamina playerStamina;
 
     [Inject] private IInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
