@@ -25,7 +25,6 @@ public class NewInputProvider : MonoBehaviour, IInputProvider
     public event Action OnSprintCanceled;
     public event Action OnSprintPressed;
 
-
     public event Action OnShootTriggered;
     public event Action OnShootPressed;
 
