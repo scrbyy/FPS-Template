@@ -22,13 +22,17 @@ public class GunShooter : MonoBehaviour
     private HitHandler _hitHandler;
     private IShootingMethod _shootingMethod;
 
+    private GameObject _decal;
+
     public void Shoot()
     {
         OnShoot?.Invoke();
         HitData hitData = _shootingMethod.ExecuteShoot();
 
-        if(hitData.isHit)
-        _hitHandler.HadleShot(hitData.hitObject, CalculateDamageAtDistance(hitData.Distance));
+        if (hitData.isHit)
+        {
+            _hitHandler.HadleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
+        }
 
         StartCoroutine(ShootDelay(_afterShotDelay));
     }
@@ -56,6 +60,7 @@ public class GunShooter : MonoBehaviour
         _isShooting = false;
         _distanceModifier = shootingData.DistanceModifier;
         _decreasingStep = shootingData.DamageDecreasingStep;
+        _decal = shootingData.Decal;
 
         _hitHandler = new HitHandler();
         _shootingMethod = new ShootingMethodFactory(_origin, _distance).CreateShootingMethod(shootingData.ShootingMethod);

@@ -22,6 +22,8 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 
     public float DamageDecreasingStep => _damageDecreasingStep;
 
+    public GameObject Decal => _decal;
+
     [Header("Distance")]
     [SerializeField] private float _distance;
     [SerializeField] private float _distanceModifier;
@@ -39,4 +41,6 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
     [SerializeField] private float _afterShootDelay;
     [SerializeField] private RecoilType _recoilType;
     [SerializeField] private ShootingMethod _shootingMethod;
+
+    [SerializeField] private GameObject _decal;
 }

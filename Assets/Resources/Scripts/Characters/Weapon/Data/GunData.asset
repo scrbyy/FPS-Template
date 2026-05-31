@@ -23,3 +23,4 @@ MonoBehaviour:
   _afterShootDelay: 0.1
   _recoilType: 0
   _shootingMethod: 0
+  _decal: {fileID: 142568468007587749, guid: 6735bdf2daef1fd4cb7ac4c15454b200, type: 3}

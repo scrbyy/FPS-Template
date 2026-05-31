@@ -22,6 +22,7 @@ public class RaycastShoot : IShootingMethod
             _hitData.originPoint = _origin.position;
             _hitData.hitPoint = _hit.point;
             _hitData.hitObject = hitObject.transform.gameObject;
+            _hitData.normal= _hit.normal;
         }
 
         else _hitData.isHit = false;

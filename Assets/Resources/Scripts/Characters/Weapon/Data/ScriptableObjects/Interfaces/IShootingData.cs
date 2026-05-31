@@ -1,4 +1,6 @@
-﻿public interface IShootingData
+﻿using UnityEngine;
+
+public interface IShootingData
 {
     public float Damage { get; }
 
@@ -11,4 +13,6 @@
     public float DistanceModifier { get; }
 
     public float DamageDecreasingStep { get; }
+
+    public GameObject Decal {  get; }
 }
