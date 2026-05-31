@@ -15,10 +15,12 @@ public class CharacterRun : MonoBehaviour
     [SerializeField] private CharacterStamina _playerStamina;
     [SerializeField] private CharacterMovement _playerMovement;
 
+    [Inject] private IGroundChecker _groundChecker;
+    [Inject] private IMovementInputProvider _inputProvider;
+
     private Coroutine _cooldownCoroutine;
 
-    [Inject] private IMovementInputProvider _inputProvider;
-    [Inject] private IGroundChecker _groundChecker;
+    private bool _isRunning = false;
 
     private void TryRun()
     {
@@ -28,6 +30,7 @@ public class CharacterRun : MonoBehaviour
             {
                 if (_characterEngine.IsMoving() && _cooldownCoroutine == null)
                 {
+                    _isRunning = true;
                     _cooldownCoroutine = StartCoroutine(ReducingDelay());
                     _playerMovement.SetTargetSpeed(_runSpeed);
                     OnStartRunning?.Invoke();
@@ -39,6 +42,7 @@ public class CharacterRun : MonoBehaviour
 
     private void CancelRun() 
     {
+        _isRunning = false;
         _playerMovement.ResetSpeed(); 
         StopCoroutine(ReducingDelay());
         _cooldownCoroutine = null;
@@ -47,20 +51,22 @@ public class CharacterRun : MonoBehaviour
 
     private IEnumerator ReducingDelay()
     {
-        yield return new WaitForFixedUpdate();
-        _playerStamina.Decrease(_staminaCost);
-        _cooldownCoroutine = null;
+        while (_isRunning)
+        {
+            yield return new WaitForFixedUpdate();
+            _playerStamina.Decrease(_staminaCost);
+        }
     }
 
     private void OnEnable()
     {
-        _inputProvider.OnSprintStarted += () => TryRun();
-        _inputProvider.OnSprintReleased += () => CancelRun();
+        _inputProvider.OnSprintStarted += TryRun;
+        _inputProvider.OnSprintReleased += CancelRun;
     }
 
     private void OnDisable()
     {
-        _inputProvider.OnSprintStarted -= () => TryRun();
-        _inputProvider.OnSprintReleased -= () => CancelRun();
+        _inputProvider.OnSprintStarted -= TryRun;
+        _inputProvider.OnSprintReleased -= CancelRun;
     }
 }
