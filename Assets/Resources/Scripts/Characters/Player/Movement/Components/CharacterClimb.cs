@@ -29,7 +29,7 @@ public class CharacterClimb : MonoBehaviour
     [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IGroundChecker _groundCheck;
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
 
     private bool _isClimbing;
     private Vector3 _rayOrigin;
@@ -105,7 +105,7 @@ public class CharacterClimb : MonoBehaviour
         _isClimbing = false;
     }
 
-    private void OnEnable() => _inputProvider.OnJumpPerformed += HandleJumpInput;
+    private void OnEnable() => _inputProvider.OnJumpStarted += HandleJumpInput;
 
-    private void OnDisable() => _inputProvider.OnJumpPerformed -= HandleJumpInput;
+    private void OnDisable() => _inputProvider.OnJumpStarted -= HandleJumpInput;
 }

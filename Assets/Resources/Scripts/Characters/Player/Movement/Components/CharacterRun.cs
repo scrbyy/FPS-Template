@@ -17,7 +17,7 @@ public class CharacterRun : MonoBehaviour
 
     private Coroutine _cooldownCoroutine;
 
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundChecker;
 
     private void TryRun()
@@ -54,13 +54,13 @@ public class CharacterRun : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputProvider.OnSprintPressed += () => TryRun();
-        _inputProvider.OnSprintCanceled += () => CancelRun();
+        _inputProvider.OnSprintStarted += () => TryRun();
+        _inputProvider.OnSprintReleased += () => CancelRun();
     }
 
     private void OnDisable()
     {
-        _inputProvider.OnSprintPressed -= () => TryRun();
-        _inputProvider.OnSprintCanceled -= () => CancelRun();
+        _inputProvider.OnSprintStarted -= () => TryRun();
+        _inputProvider.OnSprintReleased -= () => CancelRun();
     }
 }

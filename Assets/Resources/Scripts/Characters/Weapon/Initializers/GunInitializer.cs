@@ -1,6 +1,6 @@
 ﻿public class GunInitializer : WeaponInitializer<Gun>
 {
-    public GunInitializer(IInputProvider inputProvider) : base(inputProvider) { }
+    public GunInitializer(IWeaponInputProvider inputProvider) : base(inputProvider) { }
 
     public override void Select(Gun selectableWeapon, Gun currentWeapon)
     {
@@ -20,22 +20,22 @@
     protected override void SubscribeToAttack(Gun weapon)
     {
         if (weapon.RecoilType == RecoilType.Automatic) _inputProvider.OnShootPressed += weapon.Attack;
-        else _inputProvider.OnShootTriggered += weapon.Attack;
+        else _inputProvider.OnShootStarted += weapon.Attack;
     }
 
     protected override void UnsubscribeFromAttack(Gun weapon)
     {
         if (weapon.RecoilType == RecoilType.Automatic) _inputProvider.OnShootPressed -= weapon.Attack;
-        else _inputProvider.OnShootTriggered -= weapon.Attack;
+        else _inputProvider.OnShootStarted -= weapon.Attack;
     }
 
     protected void SubscribeToReload(Gun gun)
     {
-        _inputProvider.OnReloadPerformed += gun.Reload;
+        _inputProvider.OnReloadStarted += gun.Reload;
     }
 
     protected void UnsubscribeFromReload(Gun gun)
     {
-        _inputProvider.OnReloadPerformed -= gun.Reload;
+        _inputProvider.OnReloadStarted -= gun.Reload;
     }
 }

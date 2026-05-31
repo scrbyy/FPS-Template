@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
 
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
 
     private float _targetSpeed;
@@ -29,7 +29,7 @@ public class CharacterMovement : MonoBehaviour
 
     private void Update()
     {
-        Vector2 input = _inputProvider.GetMoveVector();
+        Vector2 input = _inputProvider.MoveInput;
         Vector3 wishDir = transform.TransformDirection(new Vector3(input.x, 0, input.y)).normalized;
         _characterEngine.Move(wishDir, _targetSpeed);
     }

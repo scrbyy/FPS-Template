@@ -19,7 +19,7 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
 
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
 
     private float _targetZRotation;
@@ -28,7 +28,7 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
 
     private void LateUpdate()
     {
-        Vector2 inputMove = _inputProvider.GetMoveVector();
+        Vector2 inputMove = _inputProvider.MoveInput;
         Vector3 worldVelocity = _characterEngine.Velocity;
         float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 

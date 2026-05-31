@@ -1,6 +1,6 @@
 ﻿using System;
 
-internal interface IWeaponInputProvider
+public interface IWeaponInputProvider
 {
     public event Action OnShootStarted;
     public event Action OnShootPressed;

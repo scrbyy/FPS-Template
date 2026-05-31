@@ -9,7 +9,7 @@ public class InteractionBody : MonoBehaviour
     [SerializeField] private Transform rayOrigin;
 
     [Header("References")]
-    [Inject] private IInputProvider selectedInputProvider;
+    [Inject] private IInteractionInputProvider selectedInputProvider;
 
     private RaycastHit hit;
 
@@ -24,11 +24,11 @@ public class InteractionBody : MonoBehaviour
 
     private void OnEnable()
     {
-        selectedInputProvider.OnInteractPerformed += CheckInteraction;
+        selectedInputProvider.OnInteractStarted += CheckInteraction;
     }
 
     private void OnDisable()
     {
-        selectedInputProvider.OnInteractPerformed -= CheckInteraction;
+        selectedInputProvider.OnInteractStarted -= CheckInteraction;
     }
 }

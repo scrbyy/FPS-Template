@@ -16,7 +16,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
 
     private float _currentZOffset;
     private float targetZOffset;
@@ -36,7 +36,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
         Transform playerTransform = _characterEngine.transform;
 
         float dot = Vector3.Dot(new Vector3(0.5f, 0, 1), direction);
-        float directionModifier = _inputProvider.GetMoveVector().y != 0 ? 1 : 0;
+        float directionModifier = _inputProvider.MoveInput.y != 0 ? 1 : 0;
 
         float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
 

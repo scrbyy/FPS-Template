@@ -1362,9 +1362,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 151862757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa43350b963c25458e2a113fa7f27e6, type: 3}
+  m_Script: {fileID: 11500000, guid: 722d6c0650e5ec44497ab963b9f3253b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NewInputProvider
+  m_EditorClassIdentifier: 
 --- !u!1 &201232944
 GameObject:
   m_ObjectHideFlags: 0
@@ -13156,12 +13156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: {x: 2, y: 2}
-  multiplier: 2
-  inverseX: 1
-  inverseY: 0
-  minMaxX: {x: -5, y: 5}
-  minMaxY: {x: -5, y: 5}
+  _force: {x: 0, y: 0}
+  _multiplier: 0
+  _inverseX: 0
+  _inverseY: 0
+  _minMaxX: {x: 0, y: 0}
+  _minMaxY: {x: 0, y: 0}
 --- !u!1 &1696200657
 GameObject:
   m_ObjectHideFlags: 0

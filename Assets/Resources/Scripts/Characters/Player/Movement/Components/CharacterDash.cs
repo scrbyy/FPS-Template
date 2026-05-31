@@ -15,14 +15,14 @@ public class CharacterDash : MonoBehaviour
     [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina _playerStamina;
 
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
 
     private float _cooldownTimer;
 
     private void ExecuteDash()
     {
-        Vector2 moveInput = _inputProvider.GetMoveVector();
+        Vector2 moveInput = _inputProvider.MoveInput;
         Vector3 dashDir;
         float impulse = _groundCheck.IsGrounded ? _groundImpulse : _airImpulse;
 
@@ -56,11 +56,11 @@ public class CharacterDash : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputProvider.OnDashPressed += TryPerformDash;
+        _inputProvider.OnDashStarted += TryPerformDash;
     }
 
     private void OnDisable()
     {
-        _inputProvider.OnDashPressed -= TryPerformDash;
+        _inputProvider.OnDashStarted -= TryPerformDash;
     }
 }

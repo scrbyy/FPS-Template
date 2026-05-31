@@ -14,14 +14,14 @@ public class CameraLook : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform _headTransform;  
     [SerializeField] private Transform _playerTransform;
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private ILookInputProvider _inputProvider;
 
     private float _yRotation; 
     private float _xRotation; 
 
     private void Update()
     {
-        Vector2 lookInput = _inputProvider.GetLookInput();
+        Vector2 lookInput = _inputProvider.LookInput;
 
         float mouseX = lookInput.x * _sensitivity;
         float mouseY = lookInput.y * _sensitivity;

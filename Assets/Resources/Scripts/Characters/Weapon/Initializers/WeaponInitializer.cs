@@ -1,8 +1,8 @@
 ﻿public abstract class WeaponInitializer<T> : IWeaponInitializer where T : Weapon
 {
-    protected readonly IInputProvider _inputProvider;
+    protected readonly IWeaponInputProvider _inputProvider;
 
-    protected WeaponInitializer(IInputProvider inputProvider)
+    protected WeaponInitializer(IWeaponInputProvider inputProvider)
     {
         _inputProvider = inputProvider;
     }
@@ -28,6 +28,6 @@
         if (initializableWeapon != null) SubscribeToAttack(initializableWeapon);
     }
 
-    protected virtual void SubscribeToAttack(T weapon) => _inputProvider.OnShootTriggered += weapon.Attack;
-    protected virtual void UnsubscribeFromAttack(T weapon) => _inputProvider.OnShootTriggered -= weapon.Attack;
+    protected virtual void SubscribeToAttack(T weapon) => _inputProvider.OnShootStarted += weapon.Attack;
+    protected virtual void UnsubscribeFromAttack(T weapon) => _inputProvider.OnShootStarted -= weapon.Attack;
 }

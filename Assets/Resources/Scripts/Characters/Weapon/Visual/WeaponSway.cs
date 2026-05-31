@@ -4,17 +4,17 @@ using Zenject;
 public class TransformSway : MonoBehaviour
 {
     [Header("Common")]
-    [SerializeField] private Vector2 force = Vector2.one;
-    [SerializeField, Min(0f)] private float multiplier = 5f;
-    [SerializeField] private bool inverseX;
-    [SerializeField] private bool inverseY;
+    [SerializeField] private Vector2 _force;
+    [SerializeField, Min(0f)] private float _multiplier;
+    [SerializeField] private bool _inverseX;
+    [SerializeField] private bool _inverseY;
 
     [Header("Clamp")]
-    [SerializeField] private Vector2 minMaxX;
-    [SerializeField] private Vector2 minMaxY;
+    [SerializeField] private Vector2 _minMaxX;
+    [SerializeField] private Vector2 _minMaxY;
 
     [Header("References")]
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private ILookInputProvider _inputProvider;
 
     protected float AdditionalX;
     protected float AdditionalY;
@@ -29,21 +29,21 @@ public class TransformSway : MonoBehaviour
     private void PerformTransformSway()
     {
         var deltaTime = Time.deltaTime;
-        var inverseSwayX = inverseX ? -1f : 1f;
-        var inverseSwayY = inverseY ? -1f : 1f;
+        var inverseSwayX = _inverseX ? -1f : 1f;
+        var inverseSwayY = _inverseY ? -1f : 1f;
 
-        _mouseX = _inputProvider.GetLookInput().x * inverseSwayX;
-        _mouseY = _inputProvider.GetLookInput().y * inverseSwayY;
+        _mouseX = _inputProvider.LookInput.x * inverseSwayX;
+        _mouseY = _inputProvider.LookInput.y * inverseSwayY;
 
         OnSwayPerforming(deltaTime);
 
-        var currentX = _mouseY * force.y;
-        var currentY = _mouseX * force.x;
+        var currentX = _mouseY * _force.y;
+        var currentY = _mouseX * _force.x;
 
-        var endEulerAngleX = Mathf.Clamp(currentX + AdditionalX, minMaxX.x, minMaxX.y);
-        var endEulerAngleY = Mathf.Clamp(currentY + AdditionalY, minMaxY.x, minMaxY.y);
+        var endEulerAngleX = Mathf.Clamp(currentX + AdditionalX, _minMaxX.x, _minMaxX.y);
+        var endEulerAngleY = Mathf.Clamp(currentY + AdditionalY, _minMaxY.x, _minMaxY.y);
 
-        var moment = deltaTime * multiplier;
+        var moment = deltaTime * _multiplier;
         var localEulerAngles = transform.localEulerAngles;
 
         localEulerAngles.x = Mathf.LerpAngle(localEulerAngles.x, endEulerAngleX, moment);

@@ -13,7 +13,7 @@ public class CharacterJump : MonoBehaviour
     [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina playerStamina;
 
-    [Inject] private IInputProvider _inputProvider;
+    [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
 
     private Buffer _inputBuffer;
@@ -47,6 +47,7 @@ public class CharacterJump : MonoBehaviour
         Jump(_jumpForce);
     }
 
-    private void OnEnable() => _inputProvider.OnJumpPerformed += JumpWithBuffer;
-    private void OnDisable() => _inputProvider.OnJumpPerformed -= JumpWithBuffer;
+    private void OnEnable() => _inputProvider.OnJumpStarted += JumpWithBuffer;
+
+    private void OnDisable() => _inputProvider.OnJumpStarted -= JumpWithBuffer;
 }
