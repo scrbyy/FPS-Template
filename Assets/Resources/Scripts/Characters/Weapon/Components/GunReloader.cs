@@ -38,13 +38,15 @@ public class GunReloader : MonoBehaviour
     {
         _currentAmmo--;
     }
+
     public bool CanShoot()
     {
-        if (_currentAmmo == 0)
+        if (_currentAmmo > 0)
         {
-            return false;
+            return true;
         }
-        return true;
+
+        return false;
     }
 
     private IEnumerator ReloadCooldown()

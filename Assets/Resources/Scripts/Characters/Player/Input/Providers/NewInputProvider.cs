@@ -8,8 +8,8 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
 
     public Vector2 LookInput => lookAction.ReadValue<Vector2>();
 
+    public event Action OnShootReleased;
     public event Action OnShootStarted;
-    public event Action OnShootPressed;
     public event Action OnReloadStarted;
 
     public event Action OnJumpStarted;
@@ -58,7 +58,7 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
         dashAction.started += OnDashStart;
 
         fireAction.started += OnShootStart;
-        fireAction.performed += OnShootTrigger;
+        fireAction.canceled += OnShootCancel;
     }
 
     private void OnDestroy()
@@ -75,7 +75,7 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
         dashAction.started -= OnDashStart;
 
         fireAction.started -= OnShootStart;
-        fireAction.performed -= OnShootTrigger;
+        fireAction.canceled -= OnShootCancel;
     }
 
     private void OnJump(InputAction.CallbackContext ctx) => OnJumpStarted?.Invoke();
@@ -94,7 +94,7 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
 
     private void OnDashStart(InputAction.CallbackContext ctx) => OnDashStarted?.Invoke();
 
-    private void OnShootStart(InputAction.CallbackContext ctx) => OnShootPressed?.Invoke();
+    private void OnShootStart(InputAction.CallbackContext ctx) => OnShootStarted?.Invoke();
 
-    private void OnShootTrigger(InputAction.CallbackContext ctx) => OnShootStarted?.Invoke();
+    private void OnShootCancel(InputAction.CallbackContext ctx) => OnShootReleased?.Invoke();
 }

@@ -28,6 +28,6 @@
         if (initializableWeapon != null) SubscribeToAttack(initializableWeapon);
     }
 
-    protected virtual void SubscribeToAttack(T weapon) => _inputProvider.OnShootStarted += weapon.Attack;
-    protected virtual void UnsubscribeFromAttack(T weapon) => _inputProvider.OnShootStarted -= weapon.Attack;
+    protected virtual void SubscribeToAttack(T weapon) => _inputProvider.OnShootReleased += weapon.Attack;
+    protected virtual void UnsubscribeFromAttack(T weapon) => _inputProvider.OnShootReleased -= weapon.Attack;
 }

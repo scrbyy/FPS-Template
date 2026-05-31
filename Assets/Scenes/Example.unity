@@ -16149,7 +16149,6 @@ GameObject:
   - component: {fileID: 5444888314268869640}
   - component: {fileID: 5444888314268869643}
   - component: {fileID: 5444888314268869642}
-  - component: {fileID: 5444888314268869641}
   - component: {fileID: 5444888314268869646}
   - component: {fileID: 5444888314268869645}
   - component: {fileID: 5444888314268869644}
@@ -16430,19 +16429,6 @@ Transform:
   - {fileID: 1031427989}
   m_Father: {fileID: 1557150729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5444888314268869641
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4673594838000320178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee081b6d32d30bd4889bc44db050b55d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _origin: {fileID: 330585546}
 --- !u!114 &5444888314268869642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16467,9 +16453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d938c91978a1d274199b9920be95746e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _origin: {fileID: 330585546}
   _gunData: {fileID: 11400000, guid: eb902cd4769b70a468a621e48db74f09, type: 2}
   _reloader: {fileID: 5444888314268869642}
-  _shooter: {fileID: 5444888314268869641}
 --- !u!114 &5444888314268869644
 MonoBehaviour:
   m_ObjectHideFlags: 0

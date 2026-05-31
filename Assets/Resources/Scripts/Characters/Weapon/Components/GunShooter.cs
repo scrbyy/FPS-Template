@@ -1,22 +1,17 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 
-public class GunShooter : MonoBehaviour
+public class GunShooter
 {
     public event Action OnShoot;
 
-    public bool IsShooting => _isShooting;
-
-    [SerializeField] private Transform _origin;
+    Transform _origin;
 
     private float _damage;
 
     private float _distance;
     private float _distanceModifier;
 
-    private bool _isShooting;
-    private float _afterShotDelay;
     private float _decreasingStep;
 
     private HitHandler _hitHandler;
@@ -33,16 +28,6 @@ public class GunShooter : MonoBehaviour
         {
             _hitHandler.HadleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
         }
-
-        StartCoroutine(ShootDelay(_afterShotDelay));
-    }
-
-    private IEnumerator ShootDelay(float duration)
-    {
-        _isShooting = true;
-        yield return new WaitForSeconds(duration);
-
-        _isShooting = false;
     }
 
     public float CalculateDamageAtDistance(float distance)
@@ -52,12 +37,11 @@ public class GunShooter : MonoBehaviour
         return finalDamage;
     }
 
-    public void Initialize(IShootingData shootingData)
+    public void Initialize(IShootingData shootingData, Transform origin)
     {
-        _afterShotDelay = shootingData.AfterShotDelay;
+        _origin = origin;
         _distance = shootingData.Distance;
         _damage = shootingData.Damage;
-        _isShooting = false;
         _distanceModifier = shootingData.DistanceModifier;
         _decreasingStep = shootingData.DamageDecreasingStep;
         _decal = shootingData.Decal;
