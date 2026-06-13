@@ -8,4 +8,8 @@ public abstract class Weapon : MonoBehaviour
     protected float _damage;
 
     public abstract void Attack();
+
+    public abstract void Initialize();
+
+    public abstract void Deinitialize();
 }

@@ -43,8 +43,13 @@ public class CharacterRun : MonoBehaviour
     private void CancelRun() 
     {
         _isRunning = false;
-        _playerMovement.ResetSpeed(); 
-        StopCoroutine(ReducingDelay());
+        _playerMovement.ResetSpeed();
+
+        if (_cooldownCoroutine != null)
+        {
+            StopCoroutine(_cooldownCoroutine);
+        }
+
         _cooldownCoroutine = null;
         OnEndRunning?.Invoke();
     }
@@ -56,6 +61,7 @@ public class CharacterRun : MonoBehaviour
             yield return new WaitForFixedUpdate();
             _playerStamina.Decrease(_staminaCost);
         }
+        _cooldownCoroutine = null;
     }
 
     private void OnEnable()

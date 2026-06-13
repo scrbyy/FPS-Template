@@ -4,8 +4,8 @@ using System.Collections;
 public class CharacterStamina : CharacterStat
 {
     [Header("Recovery Settings")]
-    [SerializeField] private float recoveryCooldown;
-    [SerializeField] private float recoverySpeed;
+    [SerializeField] private float _recoveryCooldown;
+    [SerializeField] private float _recoverySpeed;
 
     private Coroutine _recoveryCoroutine;
     private bool _isExhausted;
@@ -40,11 +40,11 @@ public class CharacterStamina : CharacterStat
     
     private IEnumerator RecoveryRoutine()
     {
-        yield return new WaitForSeconds(recoveryCooldown);
+        yield return new WaitForSeconds(_recoveryCooldown);
 
-        while (_currentValue < GetMaxValue())
+        while (_currentValue < MaxValue())
         {
-            _currentValue = Mathf.MoveTowards(_currentValue, GetMaxValue(), recoverySpeed * Time.deltaTime);
+            _currentValue = Mathf.MoveTowards(_currentValue, MaxValue(), _recoverySpeed * Time.deltaTime);
             NotifyValueChanged(_currentValue);
             yield return null;
         }

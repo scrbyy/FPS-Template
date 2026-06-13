@@ -49,4 +49,9 @@ public class GunShooter
         _hitHandler = new HitHandler();
         _shootingMethod = new ShootingMethodFactory(_origin, _distance).CreateShootingMethod(shootingData.ShootingMethod);
     }
+
+    public void Deinitialize()
+    {
+
+    }
 }

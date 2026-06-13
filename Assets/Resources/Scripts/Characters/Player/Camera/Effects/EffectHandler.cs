@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class EffectHander : MonoBehaviour
+public class EffectHandler : MonoBehaviour
 {
     [SerializeField] private bool _useSmoothing;
     [SerializeField] private float _smoothSpeed;

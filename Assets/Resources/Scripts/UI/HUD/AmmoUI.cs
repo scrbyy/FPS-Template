@@ -13,8 +13,11 @@ public class AmmoUI : MonoBehaviour
         if (_weaponInventory.SelectedWeapon is IShootable ammoWeapon)
         {
             if (_currentAmmoWeapon != null) UnsubscribeFromAmmoEvent(_currentAmmoWeapon);
+
             _currentAmmoWeapon = ammoWeapon;
             SubscribeToAmmoEvents(_currentAmmoWeapon);
+
+            UpdateText(_currentAmmoWeapon.CurrentAmmo, _currentAmmoWeapon.ReserveAmmo);
         }
         else
         {
@@ -42,8 +45,8 @@ public class AmmoUI : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateWeaponEvent();
         _weaponInventory.OnNewWeaponSelected += UpdateWeaponEvent;
+        UpdateWeaponEvent();
     }
 
     private void OnDisable()

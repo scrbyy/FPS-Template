@@ -7,10 +7,9 @@ public class GunReloader : MonoBehaviour
     public event Action OnReload;
     public event Action OnReloadEnd;
 
-    public bool IsReloading => _isReloading;
-
     public int CurrentAmmo => _currentAmmo;
     public int ReserveAmmo => _reserveAmmo;
+    public bool IsReloading => _isReloading;
 
     private int _currentAmmo;
     private int _magazineSize;
@@ -19,10 +18,7 @@ public class GunReloader : MonoBehaviour
 
     private bool _isReloading;
 
-    public void Reload()
-    {
-        StartCoroutine(ReloadCooldown());
-    }
+    private Coroutine _reloadCoroutine;
 
     public void Initialize(IAmmoData ammoData)
     {
@@ -34,6 +30,30 @@ public class GunReloader : MonoBehaviour
         _isReloading = false;
     }
 
+    public void Deinitialize()
+    {
+        if (_reloadCoroutine != null)
+        {
+            StopCoroutine(_reloadCoroutine);
+            _reloadCoroutine = null;
+            _isReloading = false;
+        }
+    }
+
+    public void Reload()
+    {
+        if(_reloadCoroutine == null)
+        {
+            if (_reserveAmmo > 0)
+            {
+                if(_currentAmmo < _magazineSize)
+                {
+                    _reloadCoroutine = StartCoroutine(ReloadCooldown());
+                }
+            }
+        }
+    }
+
     public void UseBullet()
     {
         _currentAmmo--;
@@ -41,44 +61,30 @@ public class GunReloader : MonoBehaviour
 
     public bool CanShoot()
     {
-        if (_currentAmmo > 0)
-        {
-            return true;
-        }
-
-        return false;
+        return _currentAmmo > 0;
     }
 
     private IEnumerator ReloadCooldown()
     {
+        OnReload?.Invoke();
         _isReloading = true;
+
         yield return new WaitForSeconds(_reloadDuration);
-        if (_currentAmmo < _magazineSize)
+
+        int neededAmmo = _magazineSize - _currentAmmo;
+
+        if (_reserveAmmo > neededAmmo)
         {
-            OnReload?.Invoke();
-            if (_reserveAmmo < _magazineSize)
-            {
-                if (_reserveAmmo > 0)
-                {
-                    _currentAmmo = Mathf.Clamp(_currentAmmo += _reserveAmmo, 0, _magazineSize);
-                    _reserveAmmo = 0;
-                }
-            }
-            else if (_reserveAmmo >= _magazineSize)
-            {
-                _reserveAmmo -= _magazineSize - _currentAmmo;
-                _currentAmmo = Mathf.Clamp(_currentAmmo += _magazineSize, 0, _magazineSize);
-            }
+            _currentAmmo += neededAmmo;
+            _reserveAmmo -= neededAmmo;
         }
-        else if (_reserveAmmo < _magazineSize)
+        else
         {
-            OnReload?.Invoke();
-            if (_reserveAmmo > 0)
-            {
-                _currentAmmo = Mathf.Clamp(_currentAmmo += _magazineSize, 0, _magazineSize);
-            }
+            _currentAmmo += _reserveAmmo;
+            _reserveAmmo = 0;
         }
-        _isReloading = false;
         OnReloadEnd?.Invoke();
+        _isReloading = false;
+        _reloadCoroutine = null;
     }
 }

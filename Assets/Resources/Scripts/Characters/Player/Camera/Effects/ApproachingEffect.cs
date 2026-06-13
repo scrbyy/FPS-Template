@@ -1,9 +1,9 @@
 using UnityEngine;
 using Zenject;
 
-public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
+public class ApproachingEffect : MonoBehaviour, IMotionEffect
 {
-    [Header("Limits (Z Offset)")]
+    [Header("Limits")]
     [SerializeField] private float _maxZOffset;
 
     [Header("Changing Rate")]
@@ -19,7 +19,7 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
     [Inject] private IMovementInputProvider _inputProvider;
 
     private float _currentZOffset;
-    private float targetZOffset;
+    private float _targetZOffset;
 
     public Vector3 GetLocalOffset()
     {
@@ -40,9 +40,9 @@ public class WeaponVelocityEffect : MonoBehaviour, IMotionEffect
 
         float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
 
-        targetZOffset = (modifier * _maxZOffset) * directionModifier;
+        _targetZOffset = (modifier * _maxZOffset) * directionModifier;
 
-        float currentLerp = (Mathf.Abs(targetZOffset) > Mathf.Abs(_currentZOffset)) ? _increaseSpeed : _decreaseSpeed;
-        _currentZOffset = Mathf.Lerp(_currentZOffset, targetZOffset, Time.deltaTime * currentLerp);
+        float currentLerp = (Mathf.Abs(_targetZOffset) > Mathf.Abs(_currentZOffset)) ? _increaseSpeed : _decreaseSpeed;
+        _currentZOffset = Mathf.Lerp(_currentZOffset, _targetZOffset, Time.deltaTime * currentLerp);
     }
 }

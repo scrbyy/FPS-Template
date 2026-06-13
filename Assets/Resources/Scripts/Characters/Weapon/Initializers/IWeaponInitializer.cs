@@ -1,5 +1,6 @@
 ﻿public interface IWeaponInitializer
 {
-    public void Initialize(Weapon initializableWeapon);
-    public void Select(Weapon selectableWeapon, Weapon currentWeapon);
+    public void Select(Weapon selectableWeapon);
+
+    public void Unselect(Weapon unselectableWeapon);
 }

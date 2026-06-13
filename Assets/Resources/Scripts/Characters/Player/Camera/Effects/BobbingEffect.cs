@@ -12,10 +12,10 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
     [SerializeField] private float _horizontalAmplitude;
 
     [Header("Bobbing Curve")]
-    [SerializeField] private AnimationCurve _motionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private AnimationCurve _motionCurve;
 
     [Header("Dynamic Scaling")]
-    [SerializeField] private float _baseStepFrequency;
+    [SerializeField] private float _stepFrequency;
     [SerializeField] private float _frequencySensitivity;
     [SerializeField] private float _speedThreshold;
     [SerializeField] private float _speedSensitivity;
@@ -51,7 +51,7 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
 
             if (canApplyEffect)
             {
-                float stepSpeedMultiplier = _baseStepFrequency + (Mathf.Sqrt(horizontalSpeed) * _frequencySensitivity);
+                float stepSpeedMultiplier = _stepFrequency + (Mathf.Sqrt(horizontalSpeed) * _frequencySensitivity);
                 _cycleTimer += Time.deltaTime * stepSpeedMultiplier;
 
                _targetBobOffset = CalculateBobbingTarget(horizontalSpeed);

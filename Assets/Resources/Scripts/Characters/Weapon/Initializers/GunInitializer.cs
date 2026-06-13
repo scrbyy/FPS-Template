@@ -2,35 +2,35 @@
 {
     public GunInitializer(IWeaponInputProvider inputProvider) : base(inputProvider) { }
 
-    public override void Select(Gun selectableWeapon, Gun currentWeapon)
+    public override void Select(Gun selectableGun)
     {
-        UnsubscribeFromAttack(currentWeapon);
-        UnsubscribeFromReload(currentWeapon);
-        UnsubscribeToStopAttack(currentWeapon);
-
-        SubscribeToAttack(selectableWeapon);
-        SubscribeToReload(selectableWeapon);
-        SubscribeToStopAttack(selectableWeapon);
+        SubscribeToAttack(selectableGun);
+        SubscribeToReload(selectableGun);
+        SubscribeToStopAttack(selectableGun);
+        selectableGun.Initialize();
     }
 
-    public override void Initialize(Gun initializableWeapon)
+    public override void Unselect(Gun gun)
     {
-        SubscribeToAttack(initializableWeapon);
-        SubscribeToReload(initializableWeapon);
-        SubscribeToStopAttack(initializableWeapon);
+        UnsubscribeFromAttack(gun);
+        UnsubscribeToStopAttack(gun);
+        UnsubscribeFromReload(gun);
+
+        gun.Deinitialize();
     }
 
-    protected override void SubscribeToAttack(Gun weapon)
+    protected override void SubscribeToAttack(Gun gun)
     {
-        if (weapon.RecoilType == RecoilType.Automatic) _inputProvider.OnShootStarted += weapon.Attack;
-        else _inputProvider.OnShootReleased += weapon.Attack;
+        if (gun.RecoilType == RecoilType.Automatic) _inputProvider.OnShootStarted += gun.Attack;
+        else _inputProvider.OnShootReleased += gun.Attack;
     }
 
-    protected override void UnsubscribeFromAttack(Gun weapon)
+    protected override void UnsubscribeFromAttack(Gun gun)
     {
-        if (weapon.RecoilType == RecoilType.Automatic) _inputProvider.OnShootStarted -= weapon.Attack;
-        else _inputProvider.OnShootReleased -= weapon.Attack;
+        if (gun.RecoilType == RecoilType.Automatic) _inputProvider.OnShootStarted -= gun.Attack;
+        else _inputProvider.OnShootReleased -= gun.Attack;
     }
+
 
     protected void SubscribeToStopAttack(Gun weapon)
     {

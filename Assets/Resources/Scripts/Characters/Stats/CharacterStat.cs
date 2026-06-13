@@ -5,25 +5,14 @@ public abstract class CharacterStat : MonoBehaviour
     public event System.Action<float> OnValueChanged;
     public event System.Action OnValueExhausted;
 
+    public float CurrentValue() => _currentValue;
+    public float MaxValue() => _maxValue;
+
     [Header("Main")]
     [SerializeField] protected float _currentValue;
     [SerializeField] protected float _maxValue;
 
-    public virtual void Decrease(float reducingValue)
-    {
-        if(reducingValue > 0)
-        {
-            if(_currentValue > reducingValue)
-            {
-                _currentValue -= reducingValue;
-                OnValueChanged?.Invoke(_currentValue);
-            }
-            else
-            {
-                HandleEmptyValue();
-            }
-        }
-    }
+
 
     public virtual void Increase(float increasingValue)
     {
@@ -41,17 +30,29 @@ public abstract class CharacterStat : MonoBehaviour
         }
     }
 
-    protected virtual void HandleEmptyValue()
+    public virtual void Decrease(float reducingValue)
     {
-        OnValueExhausted?.Invoke();
+        if(reducingValue > 0)
+        {
+            if(_currentValue > reducingValue)
+            {
+                _currentValue -= reducingValue;
+                OnValueChanged?.Invoke(_currentValue);
+            }
+            else
+            {
+                HandleEmptyValue();
+            }
+        }
     }
-
-    public float GetCurrentValue() { return _currentValue; }
-
-    public float GetMaxValue() { return _maxValue; }
 
     public void NotifyValueChanged(float value)
     {
         OnValueChanged?.Invoke(value);
+    }
+
+    protected virtual void HandleEmptyValue()
+    {
+        OnValueExhausted?.Invoke();
     }
 }

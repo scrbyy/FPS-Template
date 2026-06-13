@@ -7,27 +7,27 @@
         _inputProvider = inputProvider;
     }
 
-    void IWeaponInitializer.Select(Weapon selectable, Weapon current)
+    void IWeaponInitializer.Select(Weapon selectableWeapon)
     {
-        Select(selectable as T, current as T);
+        Select(selectableWeapon as T);
     }
 
-    void IWeaponInitializer.Initialize(Weapon initializable)
+    void IWeaponInitializer.Unselect(Weapon unselectableWeapon)
     {
-        Initialize(initializable as T);
+        if (unselectableWeapon != null) UnsubscribeFromAttack(unselectableWeapon as T);
     }
 
-    public virtual void Select(T selectableWeapon, T currentWeapon)
+    public virtual void Unselect(T selectableWeapon)
     {
-        if (currentWeapon != null) UnsubscribeFromAttack(currentWeapon);
+        Unselect(selectableWeapon);
+    }
+
+    public virtual void Select(T selectableWeapon)
+    {
         if (selectableWeapon != null) SubscribeToAttack(selectableWeapon);
     }
-
-    public virtual void Initialize(T initializableWeapon)
-    {
-        if (initializableWeapon != null) SubscribeToAttack(initializableWeapon);
-    }
-
+    
     protected virtual void SubscribeToAttack(T weapon) => _inputProvider.OnShootReleased += weapon.Attack;
+
     protected virtual void UnsubscribeFromAttack(T weapon) => _inputProvider.OnShootReleased -= weapon.Attack;
 }

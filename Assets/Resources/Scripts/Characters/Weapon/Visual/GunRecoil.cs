@@ -82,6 +82,6 @@ public class GunRecoil : MonoBehaviour
 
     private void OnDisable()
     {
-        _gun.OnAttack += FireRecoil;
+        _gun.OnAttack -= FireRecoil;
     }
 }
