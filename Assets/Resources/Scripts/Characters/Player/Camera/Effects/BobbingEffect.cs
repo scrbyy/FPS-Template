@@ -40,14 +40,14 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
 
     private void LateUpdate()
     {
-        if (!_characterEngine.IsImpulseActive())
+        if (!_characterEngine.IsImpulseActive)
         {
             Vector2 inputMove = _inputProvider.MoveInput;
             Vector3 worldVelocity = _characterEngine.Velocity;
             float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
             bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;
-            bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_characterEngine.IsImpulseActive();
+            bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_characterEngine.IsImpulseActive;
 
             if (canApplyEffect)
             {

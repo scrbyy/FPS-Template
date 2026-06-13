@@ -19,7 +19,7 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
         openedAngleY = closedAngleY + openAngle;
     }
 
-    public void Use()
+    public void Interact()
     {
         if (RotateCourutine != null) return;
 

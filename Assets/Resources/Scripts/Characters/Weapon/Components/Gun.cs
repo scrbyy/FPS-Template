@@ -26,7 +26,6 @@ public class Gun : Weapon, IShootable
         _reloader.Initialize(_gunData);
         _shooter.Initialize(_gunData, _origin);
 
-
         NotifyUpdateAmmo();
     }
 
@@ -34,6 +33,7 @@ public class Gun : Weapon, IShootable
     {
         _reloader.Deinitialize();
         _shooter.Deinitialize();
+
         _isShooting = false;
         _shootingCoroutine = null;
     }

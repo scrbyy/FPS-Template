@@ -26,7 +26,7 @@ public class GunShooter
 
         if (hitData.isHit)
         {
-            _hitHandler.HadleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
+            _hitHandler.HandleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
         }
     }
 
