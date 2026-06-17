@@ -5,8 +5,6 @@ public class CharacterEngine : MonoBehaviour
 {
     public Vector3 Velocity => _velocity;
 
-    public bool IsImpulseActive => _isImpulseActive;
-
     [Header("Movement")]
     [SerializeField] private float _accelerationRate;
     [SerializeField] private float _decelerationRate;
@@ -25,8 +23,6 @@ public class CharacterEngine : MonoBehaviour
     private Vector3 _velocity;
     private CharacterController _characterController;
 
-    private const float MovementThreshold = 0.1f;
-
     public void DisableMovement()
     {
         _canMove = false;
@@ -37,18 +33,20 @@ public class CharacterEngine : MonoBehaviour
         _canMove = true;
     }
 
-    public bool IsMoving()
+    public bool IsImpulseActive() => _isImpulseActive;
+
+    public bool IsMoving(float threshold = 0.1f)
     {
         Vector3 horizontalVelocity = new Vector3(_velocity.x, 0, _velocity.z);
-        return horizontalVelocity.magnitude > MovementThreshold;
+        return horizontalVelocity.magnitude > threshold;
     }
 
-    public void Move(Vector3 inputDirection, float maxSpeed)
+    public void Move(Vector3 inputVector, float maxSpeed)
     {
         if (_canMove)
         {
-            if (_characterController.isGrounded) ApplyGroundMovement(inputDirection, maxSpeed);
-            else ApplyAirMovement(inputDirection);
+            if (_characterController.isGrounded) ApplyGroundMovement(inputVector, maxSpeed);
+            else ApplyAirMovement(inputVector);
 
             Vector3 finalMotion = _velocity;
             finalMotion.y = _velocity.y;
@@ -70,9 +68,9 @@ public class CharacterEngine : MonoBehaviour
         }
     }
 
-    private void ApplyGroundMovement(Vector3 inputDirection, float maxSpeed)
+    private void ApplyGroundMovement(Vector3 wishDir, float maxSpeed)
     {
-        float targetSpeed = inputDirection.magnitude * maxSpeed;
+        float targetSpeed = wishDir.magnitude * maxSpeed;
 
         if (targetSpeed > 0.01f) _isImpulseActive = false;
 
@@ -84,20 +82,20 @@ public class CharacterEngine : MonoBehaviour
         }
 
         float accel = (targetSpeed > 0 ? _accelerationRate : _decelerationRate);
-        _velocity = Vector3.MoveTowards(_velocity, inputDirection * targetSpeed, accel * Time.deltaTime);
+        _velocity = Vector3.MoveTowards(_velocity, wishDir * targetSpeed, accel * Time.deltaTime);
     }
 
-    private void ApplyAirMovement(Vector3 inputDirection)
+    private void ApplyAirMovement(Vector3 wishDir)
     {
-        if (inputDirection.magnitude <= 0) return;
+        if (wishDir.magnitude <= 0) return;
 
-        float currentSpeedInWishDir = Vector3.Dot(_velocity, inputDirection);
+        float currentSpeedInWishDir = Vector3.Dot(_velocity, wishDir);
         float addSpeed = Mathf.Max(0, _airCap - currentSpeedInWishDir);
 
         if (addSpeed > 0)
         {
             float accelSpeed = Mathf.Min(_airAcceleration * Time.deltaTime, addSpeed);
-            _velocity += inputDirection * accelSpeed;
+            _velocity += wishDir * accelSpeed;
         }
     }
 

@@ -1,4 +1,4 @@
 public interface IInteractionObject
 {
-    public abstract void Interact();
+    public abstract void Use();
 }
