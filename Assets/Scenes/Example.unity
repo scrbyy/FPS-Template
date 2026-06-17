@@ -775,13 +775,14 @@ GameObject:
   - component: {fileID: 30990239}
   - component: {fileID: 30990238}
   - component: {fileID: 30990240}
+  - component: {fileID: 30990241}
   m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &30990237
 Transform:
   m_ObjectHideFlags: 0
@@ -835,13 +836,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 30990236}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0990617c966cebe479a45ab183ddd951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recoilForce: {x: -5, y: 0, z: 0}
+  _recoilRandomness: {x: 1, y: 0, z: 0}
+  _minBounds: {x: -15, y: 0, z: 0}
+  _maxBounds: {x: 15, y: 0, z: 0}
+  _returnSpeed: 7
+  _snappiness: 26
+  _recoilDecreaseFactor: 1
+  _minRecoilMultiplier: 0.75
+  _resetTime: 12
+  _gun: {fileID: 30990239}
+--- !u!114 &30990241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30990236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 268035e4b61ccca4396bacc4ce0a3141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoilForce: {x: 0.04, y: 0, z: 0}
-  _recoilRandomness: {x: 0.05, y: 0, z: 0}
-  _minBounds: {x: -0.5, y: 0, z: 0}
-  _maxBounds: {x: 0.5, y: 0, z: 0}
+  _recoilForce: {x: 0.02, y: 0.025, z: -0.5}
+  _recoilRandomness: {x: 0.05, y: 0.005, z: 0.005}
+  _minBounds: {x: -0.5, y: -0.5, z: -0.35}
+  _maxBounds: {x: 0.5, y: 0.5, z: 0.5}
   _returnSpeed: 7
   _snappiness: 25
   _recoilDecreaseFactor: 1
@@ -16526,7 +16549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &4781903922246107270
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16873,15 +16896,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268035e4b61ccca4396bacc4ce0a3141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoilForce: {x: 0.02, y: 0.025, z: -0.5}
-  _recoilRandomness: {x: 0.05, y: 0.005, z: 0.005}
-  _minBounds: {x: -0.5, y: -0.5, z: -0.35}
-  _maxBounds: {x: 0.5, y: 0.5, z: 0.5}
-  _returnSpeed: 7
+  _recoilForce: {x: 0.03, y: 0.025, z: -0.18}
+  _recoilRandomness: {x: 0.02, y: 0.005, z: -0.03}
+  _minBounds: {x: -1, y: -0.5, z: -0.3}
+  _maxBounds: {x: 1, y: 1, z: 0.01}
+  _returnSpeed: 8
   _snappiness: 25
   _recoilDecreaseFactor: 1
-  _minRecoilMultiplier: 0.75
-  _resetTime: 10
+  _minRecoilMultiplier: 1.2
+  _resetTime: 0.75
   _gun: {fileID: 5444888314268869643}
 --- !u!114 &5444888314268869648
 MonoBehaviour:
@@ -16897,7 +16920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 0.1
   _strength: 0.017
-  _vibrato: 25
+  _vibrato: 10
   _randomness: 3
   _gun: {fileID: 5444888314268869643}
   _cameraTransform: {fileID: 330585546}

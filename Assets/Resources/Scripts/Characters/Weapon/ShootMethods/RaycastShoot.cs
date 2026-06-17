@@ -6,6 +6,7 @@ public class RaycastShoot : IShootingMethod
     private float _distance;
     private RaycastHit _hit;
     private HitData _hitData;
+    private GameObject _hitObject;
 
     public RaycastShoot(Transform origin, float distance)
     {
@@ -17,11 +18,11 @@ public class RaycastShoot : IShootingMethod
     {
         if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance))
         {
-            GameObject hitObject = _hit.transform.gameObject;
+            _hitObject = _hit.transform.gameObject;
             _hitData.isHit = true;
             _hitData.originPoint = _origin.position;
             _hitData.hitPoint = _hit.point;
-            _hitData.hitObject = hitObject.transform.gameObject;
+            _hitData.hitObject = _hitObject.transform.gameObject;
             _hitData.normal= _hit.normal;
         }
 

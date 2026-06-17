@@ -17,7 +17,7 @@ MonoBehaviour:
   _distanceModifier: 0.91
   _damageDecreasingStep: 10
   _startAmmo: 30
-  _magazineSize: 30
+  _magazineSize: 120
   _reserveAmmo: 90
   _reloadDuration: 1
   _afterShootDelay: 0.1

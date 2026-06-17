@@ -5,7 +5,7 @@ public class GunShooter
 {
     public event Action OnShoot;
 
-    Transform _origin;
+    private Transform _origin;
 
     private float _damage;
 

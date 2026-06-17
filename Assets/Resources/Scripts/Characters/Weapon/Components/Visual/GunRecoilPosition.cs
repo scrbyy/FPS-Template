@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GunRecoil : MonoBehaviour
+public class GunRecoilPosition : MonoBehaviour
 {
     [Header("Positions")]
     private Vector3 initialPosition;
