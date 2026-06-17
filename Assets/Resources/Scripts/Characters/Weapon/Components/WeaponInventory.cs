@@ -52,21 +52,20 @@ public class WeaponInventory : MonoBehaviour
         }
     }
 
-    public void SwitchWeapon(Weapon newWeapon)
+    public void SwitchWeapon(int newWeaponID)
     {
-        if (newWeapon == _selectedWeapon) return;
-
         if (_initializersRegistry.TryGetValue(_selectedWeapon, out IWeaponInitializer oldInitializer))
         {
             oldInitializer.Unselect(_selectedWeapon);
             _selectedWeapon.gameObject.SetActive(false);
 
-            if (_initializersRegistry.TryGetValue(newWeapon, out IWeaponInitializer newInitializer))
+            if (_initializersRegistry.TryGetValue(_weaponList[newWeaponID], out IWeaponInitializer newInitializer))
             {
-                _selectedWeapon = newWeapon;
+                _selectedWeapon = _weaponList[newWeaponID];
 
                 _selectedWeapon.gameObject.SetActive(true);
                 newInitializer.Select(_selectedWeapon);
+                _selectedWeaponID = newWeaponID;
 
                 OnNewWeaponSelected?.Invoke();
             }
@@ -80,17 +79,21 @@ public class WeaponInventory : MonoBehaviour
             newWeaponID = _weaponList.Count - 1;
         else
             newWeaponID = _selectedWeaponID - 1;
-        SwitchWeapon(_weaponList[newWeaponID]);
+        SwitchWeapon(newWeaponID);
     }
 
     private void SetNextWeapon()
     {
         int newWeaponID;
         if (_selectedWeaponID + 1 >= _weaponList.Count)
+        {
             newWeaponID = 0;
+        }
         else
+        {
             newWeaponID = _selectedWeaponID + 1;
-        SwitchWeapon(_weaponList[newWeaponID]);
+        }
+        SwitchWeapon(newWeaponID);
     }
 
     private void OnEnable()
