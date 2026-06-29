@@ -4,12 +4,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class RestarButton : MonoBehaviour
 {
-    private Button button;
+    private Button _button;
 
     private void Start()
     {
-        button = GetComponent<Button>();    
-        button.onClick.AddListener(OnMouseDown);
+        _button = GetComponent<Button>();    
     }
 
     private void OnMouseDown()
@@ -20,11 +19,11 @@ public class RestarButton : MonoBehaviour
 
     private void OnEnable()
     {
-        button.onClick.AddListener(OnMouseDown);
+        _button.onClick.AddListener(OnMouseDown);
     }
 
     private void OnDisable()
     {
-        button.onClick.RemoveListener(OnMouseDown);
+        _button.onClick.RemoveListener(OnMouseDown);
     }
 }
