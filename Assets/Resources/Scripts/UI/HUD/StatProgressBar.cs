@@ -53,7 +53,7 @@ public class StatProgressBar : MonoBehaviour
 
     private void SetValue(float currentValue)
     {
-        _targetFill = Mathf.Clamp01(currentValue / _playerStat.MaxValue());
+        _targetFill = Mathf.Clamp01(currentValue / _playerStat.MaxValue);
 
         if (autoHide)
         {

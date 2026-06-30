@@ -5,14 +5,11 @@ public abstract class CharacterStat : MonoBehaviour
     public event System.Action<float> OnValueChanged;
     public event System.Action OnValueExhausted;
 
-    public float CurrentValue() => _currentValue;
-    public float MaxValue() => _maxValue;
+    public float MaxValue => _maxValue;
 
     [Header("Main")]
     [SerializeField] protected float _currentValue;
     [SerializeField] protected float _maxValue;
-
-
 
     public virtual void Increase(float increasingValue)
     {

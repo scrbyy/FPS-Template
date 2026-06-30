@@ -11,7 +11,7 @@ public class CharacterJump : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
-    [SerializeField] private CharacterStamina playerStamina;
+    [SerializeField] private CharacterStamina _characterStamina;
 
     [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
@@ -21,10 +21,10 @@ public class CharacterJump : MonoBehaviour
     public void Jump(float jumpForce)
     {
         _inputBuffer.Set();
-        if (_groundCheck.IsGrounded && playerStamina.IsEnoughStamina(_staminaCost))
+        if (_groundCheck.IsGrounded && _characterStamina.IsEnoughStamina(_staminaCost))
         {
             _characterEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
-            playerStamina.Decrease(_staminaCost);
+            _characterStamina.Decrease(_staminaCost);
         }
     }
 

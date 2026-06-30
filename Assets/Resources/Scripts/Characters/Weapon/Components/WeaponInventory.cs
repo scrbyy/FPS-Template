@@ -12,8 +12,6 @@ public class WeaponInventory : MonoBehaviour
 
     [SerializeField] private List<Weapon> _weaponList = new List<Weapon>();
 
-    private List<Gun> _gunList = new List<Gun>();
-
     private Dictionary<Weapon, IWeaponInitializer> _initializersRegistry = new Dictionary<Weapon, IWeaponInitializer>();
 
     private Weapon _selectedWeapon;
@@ -24,14 +22,12 @@ public class WeaponInventory : MonoBehaviour
     [Inject]
     private void Construct(GunInitializer gunInitializer)
     {
-        _gunList.Clear();
         _initializersRegistry.Clear();
 
         foreach (var weapon in _weaponList)
         {
             if (weapon is Gun gun)
             {
-                _gunList.Add(gun);
                 _initializersRegistry.Add(weapon, gunInitializer);
                 weapon.gameObject.SetActive(false);
             }

@@ -2,26 +2,26 @@
 public class Buffer
 {
 
-    private float bufferDuration;
-    private float lastInputTime = float.NegativeInfinity;
+    private float _duration;
+    private float _lastInputTime = float.NegativeInfinity;
 
     public Buffer(float duration)
     {
-        bufferDuration = duration;
+        _duration = duration;
     }
 
     public void Set()
     {
-        lastInputTime = Time.time;
+        _lastInputTime = Time.time;
     }
 
     public bool Has()
     {
-        return Time.time < lastInputTime + bufferDuration;
+        return Time.time < _lastInputTime + _duration;
     }
 
     public void Reset()
     {
-        lastInputTime = float.NegativeInfinity;
+        _lastInputTime = float.NegativeInfinity;
     }
 }

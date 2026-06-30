@@ -23,9 +23,9 @@ public class EffectHandler : MonoBehaviour
     {
         Vector3 totalOffset = Vector3.zero;
 
-        for (int i = 0; i < _effects.Count; i++)
+        foreach (var effect in _effects)
         {
-            totalOffset += _effects[i].GetLocalOffset();
+            totalOffset += effect.GetLocalOffset();
         }
 
         if (_useSmoothing)

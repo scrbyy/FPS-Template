@@ -31,7 +31,6 @@
         else _inputProvider.OnShootReleased -= gun.Attack;
     }
 
-
     protected void SubscribeToStopAttack(Gun weapon)
     {
         _inputProvider.OnShootReleased += weapon.StopAttack;

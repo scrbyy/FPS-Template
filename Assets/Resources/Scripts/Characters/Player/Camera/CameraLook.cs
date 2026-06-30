@@ -8,8 +8,8 @@ public class CameraLook : MonoBehaviour
     [SerializeField] private float _sensitivity;
 
     [Header("Clamping")]
-    [SerializeField] private float maxAngle;
-    [SerializeField] private float minAngle;
+    [SerializeField] private float _maxViewAngle;
+    [SerializeField] private float _minViewAngle;
 
     [Header("References")]
     [SerializeField] private Transform _headTransform;  
@@ -30,7 +30,7 @@ public class CameraLook : MonoBehaviour
         _playerTransform.localRotation = Quaternion.Euler(0, _xRotation, 0);
 
         _yRotation -= mouseY;
-        _yRotation = Mathf.Clamp(_yRotation, minAngle, maxAngle);
+        _yRotation = Mathf.Clamp(_yRotation, _minViewAngle, _maxViewAngle);
 
         _headTransform.localRotation = Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
     }

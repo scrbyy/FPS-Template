@@ -57,7 +57,8 @@ public class BobbingEffect : MonoBehaviour, IMotionEffect
                _targetBobOffset = CalculateBobbingTarget(horizontalSpeed);
             }
             else
-            {_targetBobOffset = Vector3.zero;
+            {
+                _targetBobOffset = Vector3.zero;
                 _cycleTimer = 0f;
             }
             _currentCalculatedOffset = Vector3.Lerp(_currentCalculatedOffset, _targetBobOffset, Time.deltaTime * _returnToZeroSpeed);

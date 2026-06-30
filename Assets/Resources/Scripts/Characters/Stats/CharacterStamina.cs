@@ -42,9 +42,9 @@ public class CharacterStamina : CharacterStat
     {
         yield return new WaitForSeconds(_recoveryCooldown);
 
-        while (_currentValue < MaxValue())
+        while (_currentValue < MaxValue)
         {
-            _currentValue = Mathf.MoveTowards(_currentValue, MaxValue(), _recoverySpeed * Time.deltaTime);
+            _currentValue = Mathf.MoveTowards(_currentValue, MaxValue, _recoverySpeed * Time.deltaTime);
             NotifyValueChanged(_currentValue);
             yield return null;
         }
