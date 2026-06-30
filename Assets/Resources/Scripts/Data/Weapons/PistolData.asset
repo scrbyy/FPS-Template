@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: PistolData
   m_EditorClassIdentifier: 
   _damage: 15
+  _speedMultipler: 1
   _distance: 100
   _distanceModifier: 0.95
   _damageDecreasingStep: 10
-  _startAmmo: 50
-  _magazineSize: 200
+  _startAmmo: 12
+  _magazineSize: 12
   _reserveAmmo: 2147483647
   _reloadDuration: 1
   _afterShootDelay: 0.1

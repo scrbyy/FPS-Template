@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 
-public class WeaponData : ScriptableObject
+public class WeaponData : ScriptableObject, ISpeedModifier
 {
     public float Damage => _damage;
 
+    public float SpeedMultiplier => _speedMultipler;
+
     [SerializeField] private float _damage;
+
+    [SerializeField] private float _speedMultipler;
 }

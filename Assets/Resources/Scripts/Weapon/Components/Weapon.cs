@@ -7,6 +7,8 @@ public abstract class Weapon : MonoBehaviour
 
     protected float _damage;
 
+    [SerializeField] protected CharacterSpeed _ownerSpeedHandler;
+
     public abstract void Attack();
 
     public abstract void Initialize();

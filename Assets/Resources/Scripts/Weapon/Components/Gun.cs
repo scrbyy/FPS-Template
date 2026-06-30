@@ -20,12 +20,19 @@ public class Gun : Weapon, IShootable
     private Coroutine _shootingCoroutine = null;
     private bool _isShooting = false;
 
-    public override void Initialize()
-    {
-        _shooter = new GunShooter();
-        _reloader.Initialize(_gunData);
-        _shooter.Initialize(_gunData, _origin);
+    private WeaponSpeedModifier _speedModifier;
 
+    public override void Initialize()
+    {   
+        if(_shooter == null)
+        {
+            _shooter = new GunShooter();
+            _reloader.Initialize(_gunData);
+            _shooter.Initialize(_gunData, _origin);
+        }
+
+        _speedModifier = new WeaponSpeedModifier(_gunData.SpeedMultiplier);
+        _ownerSpeedHandler.AddModifier(_speedModifier);
 
         NotifyUpdateAmmo();
     }
@@ -36,6 +43,7 @@ public class Gun : Weapon, IShootable
         _shooter.Deinitialize();
         _isShooting = false;
         _shootingCoroutine = null;
+        _ownerSpeedHandler.RemoveModifier(_speedModifier);
     }
 
     public override void Attack()

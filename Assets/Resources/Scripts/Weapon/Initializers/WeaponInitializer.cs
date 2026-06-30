@@ -1,33 +1,19 @@
-﻿public abstract class WeaponInitializer<T> : IWeaponInitializer where T : Weapon
+﻿using System.Collections.Generic;
+
+public abstract class WeaponInitializer<T> : IWeaponInitializer where T : Weapon
 {
-    protected readonly IWeaponInputProvider _inputProvider;
+    protected readonly List<IWeaponFeature> _features = new List<IWeaponFeature>();
 
-    protected WeaponInitializer(IWeaponInputProvider inputProvider)
+    void IWeaponInitializer.Select(Weapon weapon) => Select(weapon as T);
+    void IWeaponInitializer.Unselect(Weapon weapon) => Unsubscribe(weapon as T);
+
+    public virtual void Select(T weapon)
     {
-        _inputProvider = inputProvider;
+        foreach (var feature in _features) feature.Subscribe(weapon);
     }
 
-    void IWeaponInitializer.Select(Weapon selectableWeapon)
+    public virtual void Unsubscribe(T weapon)
     {
-        Select(selectableWeapon as T);
+        foreach (var feature in _features) feature.Unsubscribe(weapon);
     }
-
-    void IWeaponInitializer.Unselect(Weapon unselectableWeapon)
-    {
-        if (unselectableWeapon != null) UnsubscribeFromAttack(unselectableWeapon as T);
-    }
-
-    public virtual void Unselect(T selectableWeapon)
-    {
-        Unselect(selectableWeapon);
-    }
-
-    public virtual void Select(T selectableWeapon)
-    {
-        if (selectableWeapon != null) SubscribeToAttack(selectableWeapon);
-    }
-    
-    protected virtual void SubscribeToAttack(T weapon) => _inputProvider.OnShootReleased += weapon.Attack;
-
-    protected virtual void UnsubscribeFromAttack(T weapon) => _inputProvider.OnShootReleased -= weapon.Attack;
 }

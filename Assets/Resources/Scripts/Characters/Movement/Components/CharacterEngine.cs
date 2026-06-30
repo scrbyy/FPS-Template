@@ -18,7 +18,7 @@ public class CharacterEngine : MonoBehaviour
     [SerializeField] private float _gravityScale;
     [SerializeField] private float _downforce;
 
-    [SerializeField] private CharacterStateHandler _speedProvider;
+    [SerializeField] private CharacterSpeed _speedProvider;
 
     private CharacterController _characterController;
 
