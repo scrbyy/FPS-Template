@@ -4,12 +4,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class RestarButton : MonoBehaviour
 {
-    private Button _button;
-
-    private void Start()
-    {
-        _button = GetComponent<Button>();    
-    }
+    [SerializeField] private Button _button;
 
     private void OnMouseDown()
     {

@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c22500c4f721a7409a59c1e622ede71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathZone
-  damageAmount: 20
+  _damageAmount: 25

@@ -3,56 +3,56 @@ using UnityEngine;
 
 public class OpenableDoor : MonoBehaviour, IInteractionObject
 {
-    [SerializeField] private Transform doorTransform;
-    [SerializeField] private float openAngle; 
-    [SerializeField] private float openTime;   
+    [SerializeField] private Transform _doorTransform;
+    [SerializeField] private float _openAngle; 
+    [SerializeField] private float _openTime;   
 
-    private float closedAngleY;
-    private float openedAngleY;
+    private float _closedAngleY;
+    private float _openedAngleY;
 
-    private bool isOpen = false;
-    private Coroutine RotateCourutine;
+    private bool _isOpen = false;
+    private Coroutine _openCourutine;
 
     private void Awake()
     {
-        closedAngleY = doorTransform.localEulerAngles.y;
-        openedAngleY = closedAngleY + openAngle;
+        _closedAngleY = _doorTransform.localEulerAngles.y;
+        _openedAngleY = _closedAngleY + _openAngle;
     }
 
-    public void Use()
+    public void Interact()
     {
-        if (RotateCourutine != null) return;
+        if (_openCourutine != null) return;
 
-        isOpen = !isOpen;
-        RotateCourutine = StartCoroutine(RotateDoor(isOpen ? openedAngleY : closedAngleY, openTime));
+        _isOpen = !_isOpen;
+        _openCourutine = StartCoroutine(RotateDoor(_isOpen ? _openedAngleY : _closedAngleY, _openTime));
     }
 
     private IEnumerator RotateDoor(float targetY, float duration)
     {
-        float startY = doorTransform.localEulerAngles.y;
+        float startY = _doorTransform.localEulerAngles.y;
         float elapsed = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float newY = Mathf.LerpAngle(startY, targetY, elapsed / duration);
-            doorTransform.localEulerAngles = new Vector3(doorTransform.localEulerAngles.x, newY, doorTransform.localEulerAngles.z);
+            _doorTransform.localEulerAngles = new Vector3(_doorTransform.localEulerAngles.x, newY, _doorTransform.localEulerAngles.z);
             yield return null;
         }
 
-        doorTransform.localEulerAngles = new Vector3(doorTransform.localEulerAngles.x, targetY, doorTransform.localEulerAngles.z);
-        RotateCourutine = null;
+        _doorTransform.localEulerAngles = new Vector3(_doorTransform.localEulerAngles.x, targetY, _doorTransform.localEulerAngles.z);
+        _openCourutine = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (RotateCourutine != null)
+            if (_openCourutine != null)
             {
-                isOpen = true;
-                StopCoroutine(RotateCourutine);
-                RotateCourutine = null;
+                _isOpen = true;
+                StopCoroutine(_openCourutine);
+                _openCourutine = null;
             }
         }
     }
