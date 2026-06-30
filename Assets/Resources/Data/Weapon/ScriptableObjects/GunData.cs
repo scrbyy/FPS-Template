@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-[CreateAssetMenu(fileName = "Gun Data Asset", menuName = "Data Assets/Weapon System/Gun Data Asset")] 
+[CreateAssetMenu(fileName = "Gun Data Asset", menuName = "Data Assets/Weapons/Gun Data Asset")] 
 public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 {
     public int StartAmmo => _startAmmo;

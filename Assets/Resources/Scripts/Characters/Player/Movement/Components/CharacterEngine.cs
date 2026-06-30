@@ -20,6 +20,7 @@ public class CharacterEngine : MonoBehaviour
     private bool _isImpulseActive;
     private bool _canMove;
 
+    [SerializeField] private CharacterStateHandler _speedProvider;
     private Vector3 _velocity;
     private CharacterController _characterController;
 
@@ -41,11 +42,11 @@ public class CharacterEngine : MonoBehaviour
         return horizontalVelocity.magnitude > threshold;
     }
 
-    public void Move(Vector3 inputVector, float maxSpeed)
+    public void Move(Vector3 inputVector)
     {
         if (_canMove)
         {
-            if (_characterController.isGrounded) ApplyGroundMovement(inputVector, maxSpeed);
+            if (_characterController.isGrounded) ApplyGroundMovement(inputVector, _speedProvider.Speed);
             else ApplyAirMovement(inputVector);
 
             Vector3 finalMotion = _velocity;

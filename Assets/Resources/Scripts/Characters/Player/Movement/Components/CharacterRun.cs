@@ -7,13 +7,11 @@ public class CharacterRun : MonoBehaviour
     public event System.Action OnStartRunning;
     public event System.Action OnEndRunning;
 
-    [SerializeField] private float _runSpeed;
     [SerializeField] private float _staminaCost;
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina _playerStamina;
-    [SerializeField] private CharacterMovement _playerMovement;
 
     [Inject] private IGroundChecker _groundChecker;
     [Inject] private IMovementInputProvider _inputProvider;
@@ -32,7 +30,6 @@ public class CharacterRun : MonoBehaviour
                 {
                     _isRunning = true;
                     _cooldownCoroutine = StartCoroutine(ReducingDelay());
-                    _playerMovement.SetTargetSpeed(_runSpeed);
                     OnStartRunning?.Invoke();
                 }
             }
@@ -43,7 +40,6 @@ public class CharacterRun : MonoBehaviour
     private void CancelRun() 
     {
         _isRunning = false;
-        _playerMovement.ResetSpeed();
 
         if (_cooldownCoroutine != null)
         {
