@@ -11,9 +11,9 @@ public class CharacterRun : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
-    [SerializeField] private CharacterStamina _playerStamina;
+    [SerializeField] private CharacterStamina _characterStamina;
 
-    [Inject] private IGroundChecker _groundChecker;
+    [Inject] private IGroundChecker _groundCheck;
     [Inject] private IMovementInputProvider _inputProvider;
 
     private Coroutine _cooldownCoroutine;
@@ -22,9 +22,9 @@ public class CharacterRun : MonoBehaviour
 
     private void TryRun()
     {
-        if (_groundChecker.IsGrounded)
+        if (_groundCheck.IsGrounded)
         {
-            if (_playerStamina.IsEnoughStamina(_staminaCost))
+            if (_characterStamina.IsEnoughStamina(_staminaCost))
             {
                 if (_characterEngine.IsMoving() && _cooldownCoroutine == null)
                 {
@@ -55,7 +55,7 @@ public class CharacterRun : MonoBehaviour
         while (_isRunning)
         {
             yield return new WaitForFixedUpdate();
-            _playerStamina.Decrease(_staminaCost);
+            _characterStamina.Decrease(_staminaCost);
         }
         _cooldownCoroutine = null;
     }

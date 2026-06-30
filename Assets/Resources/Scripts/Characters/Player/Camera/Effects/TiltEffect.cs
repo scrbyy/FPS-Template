@@ -33,7 +33,7 @@ public class TiltEffect : MonoBehaviour, IMotionEffect
         float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
         bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;
-        bool canApplyEffect = isMoving && _groundCheck.IsGrounded && !_characterEngine.IsImpulseActive();
+        bool canApplyEffect = isMoving && _groundCheck.IsGrounded && !_characterEngine.IsImpulseActive;
         
         if (canApplyEffect)
         {

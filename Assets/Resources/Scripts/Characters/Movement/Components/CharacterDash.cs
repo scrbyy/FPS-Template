@@ -13,7 +13,7 @@ public class CharacterDash : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
-    [SerializeField] private CharacterStamina _playerStamina;
+    [SerializeField] private CharacterStamina _characterStamina;
 
     [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private IGroundChecker _groundCheck;
@@ -34,13 +34,13 @@ public class CharacterDash : MonoBehaviour
 
         _characterEngine.AddForce(dashDir * impulse, ForceType.Impulse);
 
-        _playerStamina.Decrease(_dashStaminaCost);
+        _characterStamina.Decrease(_dashStaminaCost);
         _cooldownTimer = _cooldown;
     }
 
     private void TryPerformDash()
     {
-        if (_cooldownTimer <= 0 && _playerStamina.IsEnoughStamina(_dashStaminaCost))
+        if (_cooldownTimer <= 0 && _characterStamina.IsEnoughStamina(_dashStaminaCost))
         {
             ExecuteDash();
         }

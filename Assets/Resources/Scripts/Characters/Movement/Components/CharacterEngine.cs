@@ -4,6 +4,7 @@
 public class CharacterEngine : MonoBehaviour
 {
     public Vector3 Velocity => _velocity;
+    public bool IsImpulseActive => _isImpulseActive;
 
     [Header("Movement")]
     [SerializeField] private float _accelerationRate;
@@ -17,30 +18,13 @@ public class CharacterEngine : MonoBehaviour
     [SerializeField] private float _gravityScale;
     [SerializeField] private float _downforce;
 
-    private bool _isImpulseActive;
-    private bool _canMove;
-
     [SerializeField] private CharacterStateHandler _speedProvider;
-    private Vector3 _velocity;
+
     private CharacterController _characterController;
 
-    public void DisableMovement()
-    {
-        _canMove = false;
-    }
-
-    public void EnableMovement()
-    {
-        _canMove = true;
-    }
-
-    public bool IsImpulseActive() => _isImpulseActive;
-
-    public bool IsMoving(float threshold = 0.1f)
-    {
-        Vector3 horizontalVelocity = new Vector3(_velocity.x, 0, _velocity.z);
-        return horizontalVelocity.magnitude > threshold;
-    }
+    private bool _isImpulseActive;
+    private bool _canMove;
+    private Vector3 _velocity;
 
     public void Move(Vector3 inputVector)
     {
@@ -100,6 +84,30 @@ public class CharacterEngine : MonoBehaviour
         }
     }
 
+    private void ApplyGravity()
+    {
+        if (_characterController.isGrounded && _velocity.y < 0f)
+            _velocity.y = _downforce;
+        else
+            _velocity.y += Physics.gravity.y * _gravityScale * Time.deltaTime;
+    }
+
+    public void DisableMovement()
+    {
+        _canMove = false;
+    }
+
+    public void EnableMovement()
+    {
+        _canMove = true;
+    }
+
+    public bool IsMoving(float threshold = 0.1f)
+    {
+        Vector3 horizontalVelocity = new Vector3(_velocity.x, 0, _velocity.z);
+        return horizontalVelocity.magnitude > threshold;
+    }
+
     private void Update()
     {
         if (_canMove)
@@ -107,14 +115,6 @@ public class CharacterEngine : MonoBehaviour
             ApplyGravity();
             HandleCollisions();
         }
-    }
-
-    private void ApplyGravity()
-    {
-        if (_characterController.isGrounded && _velocity.y < 0f)
-            _velocity.y = _downforce;
-        else
-            _velocity.y += Physics.gravity.y * _gravityScale * Time.deltaTime;
     }
 
     private void HandleCollisions()

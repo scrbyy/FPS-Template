@@ -37,11 +37,11 @@ public class CharacterClimb : MonoBehaviour
 
     private Coroutine _climbCoroutine;
 
-    private CharacterController _controller;
+    private CharacterController _characterController;
 
     private void Start()
     { 
-        _controller = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     private void HandleJumpInput()
@@ -78,8 +78,8 @@ public class CharacterClimb : MonoBehaviour
         _isClimbing = true;
         _characterEngine.DisableMovement();
 
-        float halfHeight = (_controller.height / 2f);
-        float bottomOffset = _controller.center.y - halfHeight - _controller.skinWidth;
+        float halfHeight = (_characterController.height / 2f);
+        float bottomOffset = _characterController.center.y - halfHeight - _characterController.skinWidth;
 
         Vector3 startPos = transform.position;
         Vector3 peakPos = new Vector3(startPos.x, targetSurfacePos.y - bottomOffset, startPos.z);
