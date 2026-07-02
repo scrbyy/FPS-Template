@@ -32,7 +32,31 @@ public class GunReloader
         _reloadCts = new CancellationTokenSource();
     }
 
-    public async UniTaskVoid ReloadTask()
+    public void Deinitialize()
+    {
+        _reloadCts?.Cancel();
+        _reloadCts?.Dispose();
+    }
+
+    public void Reload()
+    {
+        if (_isReloading) return;
+        if (_reserveAmmo <= 0) return;
+        if (_currentAmmo >= _magazineSize) return;
+        ReloadTask().Forget();
+    }
+
+    public void UseBullet()
+    {
+        _currentAmmo--;
+    }
+
+    public bool CanShoot()
+    {
+        return _currentAmmo > 0 && _isReloading == false;
+    }
+
+    private async UniTaskVoid ReloadTask()
     {
         _isReloading = true;
         OnReload?.Invoke();
@@ -49,36 +73,20 @@ public class GunReloader
 
             OnReloadEnd?.Invoke();
         }
+        catch (OperationCanceledException)
+        {
+            // Перехватываем отмену, чтобы она не спамила в консоль Unity как ошибка
+        }
         finally
         {
             _isReloading = false;
         }
     }
 
-    public void Deinitialize()
+    private void ResetCts()
     {
-        if (_isReloading)
-        {
-            _reloadCts.Cancel();
-            _reloadCts = new CancellationTokenSource();
-        }
-    }
-
-    public void Reload()
-    {
-        if (_isReloading) return;
-        if (_reserveAmmo < 0) return;
-        if (_currentAmmo >= _magazineSize) return;
-        ReloadTask().Forget();
-    }
-
-    public void UseBullet()
-    {
-        _currentAmmo--;
-    }
-
-    public bool CanShoot()
-    {
-        return _currentAmmo > 0;
+        _reloadCts?.Cancel();
+        _reloadCts?.Dispose();
+        _reloadCts = new CancellationTokenSource();
     }
 }

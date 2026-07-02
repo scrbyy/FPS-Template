@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using UnityEngine;
 
 public class Gun : Weapon, IShootable
@@ -19,9 +19,6 @@ public class Gun : Weapon, IShootable
 
     private WeaponSpeedModifier _speedModifier;
 
-    private Coroutine _shootingCoroutine = null;
-    private bool _isShooting = false;
-
     public override void Initialize()
     {   
         if(_shooter == null && _reloader == null)
@@ -29,7 +26,7 @@ public class Gun : Weapon, IShootable
             _shooter = new GunShooter();
             _reloader = new GunReloader();
             _reloader.Initialize(_gunData);
-            _shooter.Initialize(_gunData, _origin);
+            _shooter.Initialize(_gunData, _origin, _reloader.CanShoot);
 
             _reloader.OnReloadEnd += NotifyUpdateAmmo;
 
@@ -46,9 +43,6 @@ public class Gun : Weapon, IShootable
     {
         _reloader.Deinitialize();
         _shooter.Deinitialize();
-        _isShooting = false;
-        _shootingCoroutine = null;
-
 
         _ownerSpeedHandler.RemoveModifier(_speedModifier);
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
@@ -56,58 +50,36 @@ public class Gun : Weapon, IShootable
         _shooter.OnShoot -= NotifyAttack;
     }
 
-    private void NotifyAttack()
-    {
-        OnAttack?.Invoke();
-        _reloader.UseBullet();
-    }
-
     public override void Attack()
     {
-        if (_shootingCoroutine == null)
+        if (_reloader.CanShoot())
         {
-            _isShooting = true;
-            _shootingCoroutine = StartCoroutine(AutomaticShoot());
+            _shooter.StartShoot().Forget();
         }
     }
 
     public void StopAttack()
     {
-        if (_shootingCoroutine != null)
-        {
-            _isShooting = false;
-            StopCoroutine(_shootingCoroutine);
-            _shootingCoroutine = null;
-        }
+        _shooter.StopShoot();
     }
 
     public void Reload()
     {
-        if (_isShooting == false)
+        if (_shooter.IsShooting == false)
         {
             _reloader.Reload();
         }
     }
 
-    private IEnumerator AutomaticShoot()
+    private void NotifyAttack()
     {
-        while (_isShooting)
-        {
-            if (_reloader.IsReloading == false && _reloader.CanShoot())
-            {
-                _reloader.UseBullet();
-                _shooter.Shoot();
-                NotifyUpdateAmmo();
-                OnAttack?.Invoke();
-                yield return new WaitForSeconds(_gunData.AfterShotDelay);
-            }
-            else break;
-        }
-        _shootingCoroutine = null;
-        _isShooting = false;
+        OnAttack?.Invoke();
+        _reloader.UseBullet();
+        NotifyUpdateAmmo();
     }
 
-    private void NotifyUpdateAmmo()
+
+private void NotifyUpdateAmmo()
     {
         OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
     }
