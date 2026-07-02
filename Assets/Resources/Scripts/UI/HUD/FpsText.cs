@@ -2,11 +2,34 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(TMP_Text))]
-public class FpsText : MonoBehaviour
+public class FpsTextZeroAlloc : MonoBehaviour
 {
     private TMP_Text _fpsText;
 
-    private void Start() => _fpsText = GetComponent<TMP_Text>();
+    [SerializeField] private float _updateInterval = 0.5f;
 
-    private void Update() => _fpsText.text = (Mathf.Round(1f / Time.deltaTime)) + " FPS";
+    private float _accumulatedTime = 0f;
+    private int _frameCount = 0;
+
+    private void Start()
+    {
+        _fpsText = GetComponent<TMP_Text>();
+        _fpsText.text = "{0} FPS";
+    }
+
+    private void Update()
+    {
+        _accumulatedTime += Time.unscaledDeltaTime;
+        _frameCount++;
+
+        if (_accumulatedTime >= _updateInterval)
+        {
+            int fps = Mathf.RoundToInt(_frameCount / _accumulatedTime);
+
+            _fpsText.SetText("{0} FPS", fps);
+
+            _accumulatedTime = 0f;
+            _frameCount = 0;
+        }
+    }
 }

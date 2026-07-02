@@ -4,6 +4,7 @@ using UnityEngine;
 public class GunShooter
 {
     public event Action OnShoot;
+    public event Action<HitData> OnShotContact;
 
     private Transform _origin;
 
@@ -26,11 +27,12 @@ public class GunShooter
 
         if (hitData.isHit)
         {
+            OnShotContact?.Invoke(hitData);
             _hitHandler.HadleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
         }
     }
 
-    public float CalculateDamageAtDistance(float distance)
+    private float CalculateDamageAtDistance(float distance)
     {
         float damageExponent = distance / _decreasingStep;
         float finalDamage = _damage * Mathf.Pow(_distanceModifier, damageExponent);

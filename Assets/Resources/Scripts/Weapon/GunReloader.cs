@@ -1,8 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
-public class GunReloader : MonoBehaviour 
+public class GunReloader 
 {
     public event Action OnReload;
     public event Action OnReloadEnd;
@@ -18,7 +18,7 @@ public class GunReloader : MonoBehaviour
 
     private bool _isReloading;
 
-    private Coroutine _reloadCoroutine;
+    private CancellationTokenSource _reloadCts;
 
     public void Initialize(IAmmoData ammoData)
     {
@@ -28,30 +28,48 @@ public class GunReloader : MonoBehaviour
         _reloadDuration = ammoData.ReloadDuration;
 
         _isReloading = false;
+
+        _reloadCts = new CancellationTokenSource();
+    }
+
+    public async UniTaskVoid ReloadTask()
+    {
+        _isReloading = true;
+        OnReload?.Invoke();
+
+        try
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(_reloadDuration), cancellationToken: _reloadCts.Token);
+
+            int neededAmmo = _magazineSize - _currentAmmo;
+            int amountToReload = Math.Min(_reserveAmmo, neededAmmo);
+
+            _currentAmmo += amountToReload;
+            _reserveAmmo -= amountToReload;
+
+            OnReloadEnd?.Invoke();
+        }
+        finally
+        {
+            _isReloading = false;
+        }
     }
 
     public void Deinitialize()
     {
-        if (_reloadCoroutine != null)
+        if (_isReloading)
         {
-            StopCoroutine(_reloadCoroutine);
-            _reloadCoroutine = null;
-            _isReloading = false;
+            _reloadCts.Cancel();
+            _reloadCts = new CancellationTokenSource();
         }
     }
 
     public void Reload()
     {
-        if(_reloadCoroutine == null)
-        {
-            if (_reserveAmmo > 0)
-            {
-                if(_currentAmmo < _magazineSize)
-                {
-                    _reloadCoroutine = StartCoroutine(ReloadCooldown());
-                }
-            }
-        }
+        if (_isReloading) return;
+        if (_reserveAmmo < 0) return;
+        if (_currentAmmo >= _magazineSize) return;
+        ReloadTask().Forget();
     }
 
     public void UseBullet()
@@ -62,29 +80,5 @@ public class GunReloader : MonoBehaviour
     public bool CanShoot()
     {
         return _currentAmmo > 0;
-    }
-
-    private IEnumerator ReloadCooldown()
-    {
-        OnReload?.Invoke();
-        _isReloading = true;
-
-        yield return new WaitForSeconds(_reloadDuration);
-
-        int neededAmmo = _magazineSize - _currentAmmo;
-
-        if (_reserveAmmo > neededAmmo)
-        {
-            _currentAmmo += neededAmmo;
-            _reserveAmmo -= neededAmmo;
-        }
-        else
-        {
-            _currentAmmo += _reserveAmmo;
-            _reserveAmmo = 0;
-        }
-        OnReloadEnd?.Invoke();
-        _isReloading = false;
-        _reloadCoroutine = null;
     }
 }

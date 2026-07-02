@@ -13,22 +13,27 @@ public class Gun : Weapon, IShootable
 
     [SerializeField] private Transform _origin;
     [SerializeField] private GunData _gunData;
-    [SerializeField] private GunReloader _reloader;
 
+    private GunReloader _reloader;
     private GunShooter _shooter;
+
+    private WeaponSpeedModifier _speedModifier;
 
     private Coroutine _shootingCoroutine = null;
     private bool _isShooting = false;
 
-    private WeaponSpeedModifier _speedModifier;
-
     public override void Initialize()
     {   
-        if(_shooter == null)
+        if(_shooter == null && _reloader == null)
         {
             _shooter = new GunShooter();
+            _reloader = new GunReloader();
             _reloader.Initialize(_gunData);
             _shooter.Initialize(_gunData, _origin);
+
+            _reloader.OnReloadEnd += NotifyUpdateAmmo;
+
+            _shooter.OnShoot += NotifyAttack;
         }
 
         _speedModifier = new WeaponSpeedModifier(_gunData.SpeedMultiplier);
@@ -43,7 +48,18 @@ public class Gun : Weapon, IShootable
         _shooter.Deinitialize();
         _isShooting = false;
         _shootingCoroutine = null;
+
+
         _ownerSpeedHandler.RemoveModifier(_speedModifier);
+        _reloader.OnReloadEnd -= NotifyUpdateAmmo;
+
+        _shooter.OnShoot -= NotifyAttack;
+    }
+
+    private void NotifyAttack()
+    {
+        OnAttack?.Invoke();
+        _reloader.UseBullet();
     }
 
     public override void Attack()
@@ -94,15 +110,5 @@ public class Gun : Weapon, IShootable
     private void NotifyUpdateAmmo()
     {
         OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
-    }
-
-    private void OnEnable()
-    {
-        _reloader.OnReloadEnd += NotifyUpdateAmmo;
-    }
-
-    private void OnDisable()
-    {
-        _reloader.OnReloadEnd -= NotifyUpdateAmmo;
     }
 }

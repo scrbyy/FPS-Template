@@ -773,7 +773,6 @@ GameObject:
   m_Component:
   - component: {fileID: 30990237}
   - component: {fileID: 30990239}
-  - component: {fileID: 30990238}
   - component: {fileID: 30990240}
   - component: {fileID: 30990241}
   m_Layer: 9
@@ -800,18 +799,6 @@ Transform:
   - {fileID: 1792691019}
   m_Father: {fileID: 1557150729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &30990238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30990236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c42cc749c1d6f40a225e7ea9559fd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &30990239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,7 +814,6 @@ MonoBehaviour:
   _ownerSpeedHandler: {fileID: 755122332}
   _origin: {fileID: 330585546}
   _gunData: {fileID: 11400000, guid: f6ed92eca35ad1945bd05ced4a1697cd, type: 2}
-  _reloader: {fileID: 30990238}
 --- !u!114 &30990240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9880,6 +9866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bdf30a38659133488b16a919da794af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateInterval: 0.5
 --- !u!114 &1472561875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17028,7 +17015,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5444888314268869640}
   - component: {fileID: 5444888314268869643}
-  - component: {fileID: 5444888314268869642}
   - component: {fileID: 5444888314268869646}
   - component: {fileID: 5444888314268869645}
   - component: {fileID: 5444888314268869644}
@@ -17317,18 +17303,6 @@ Transform:
   - {fileID: 1031427989}
   m_Father: {fileID: 1557150729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5444888314268869642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4673594838000320178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60c42cc749c1d6f40a225e7ea9559fd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5444888314268869643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17344,7 +17318,6 @@ MonoBehaviour:
   _ownerSpeedHandler: {fileID: 755122332}
   _origin: {fileID: 330585546}
   _gunData: {fileID: 11400000, guid: eb902cd4769b70a468a621e48db74f09, type: 2}
-  _reloader: {fileID: 5444888314268869642}
 --- !u!114 &5444888314268869644
 MonoBehaviour:
   m_ObjectHideFlags: 0
