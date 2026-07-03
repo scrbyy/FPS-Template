@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class BobbingEffect : MonoBehaviour, IMotionEffect
+public class BobbingEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Scale Limitations")]
     [SerializeField] private float _minEffectScale;

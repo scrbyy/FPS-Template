@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class ApproachingEffect : MonoBehaviour, IMotionEffect
+public class ApproachingEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Limits")]
     [SerializeField] private float _maxZOffset;

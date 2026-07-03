@@ -778,13 +778,14 @@ GameObject:
   - component: {fileID: 30990242}
   - component: {fileID: 30990243}
   - component: {fileID: 30990244}
+  - component: {fileID: 30990245}
   m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &30990237
 Transform:
   m_ObjectHideFlags: 0
@@ -992,6 +993,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &30990245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30990236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force: {x: 3, y: 6}
+  _multiplier: 1
+  _inverseX: 1
+  _inverseY: 0
+  _minMaxX: {x: -15, y: 15}
+  _minMaxY: {x: -15, y: 15}
 --- !u!1 &32322474
 GameObject:
   m_ObjectHideFlags: 0
@@ -17203,13 +17222,14 @@ GameObject:
   - component: {fileID: 5444888314268869644}
   - component: {fileID: 5444888314268869648}
   - component: {fileID: 5444888314268869649}
+  - component: {fileID: 5444888314268869650}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &4781903922246107270
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -17672,6 +17692,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5444888314268869650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _force: {x: 3, y: 6}
+  _multiplier: 1
+  _inverseX: 1
+  _inverseY: 0
+  _minMaxX: {x: -15, y: 15}
+  _minMaxY: {x: -15, y: 15}
 --- !u!1 &5527469117763098429
 GameObject:
   m_ObjectHideFlags: 0

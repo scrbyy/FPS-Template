@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class TiltEffect : MonoBehaviour, IMotionEffect
+public class TiltEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Tilt Settings")]
     [SerializeField] private float _sideTiltIntensity;

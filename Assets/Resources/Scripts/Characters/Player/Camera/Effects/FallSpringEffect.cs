@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class FallSpringEffect : MonoBehaviour, IMotionEffect
+public class FallSpringEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Spring Settings")]
     [SerializeField] private float _returnSpeed;

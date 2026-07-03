@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class EffectHandler : MonoBehaviour
+public class PositionEffectHandler : MonoBehaviour
 {
     [SerializeField] private bool _useSmoothing;
     [SerializeField] private float _smoothSpeed;
 
-    private List<IMotionEffect> _effects = new List<IMotionEffect>();
+    private List<IPositionEffect> _effects = new List<IPositionEffect>();
 
     private Vector3 _targetOffset;
 
@@ -16,7 +16,7 @@ public class EffectHandler : MonoBehaviour
     {
         _initialLocalPosition = transform.localPosition;
 
-        _effects.AddRange(GetComponents<IMotionEffect>());
+        _effects.AddRange(GetComponents<IPositionEffect>());
     }
 
     private void LateUpdate()

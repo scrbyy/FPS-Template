@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IMotionEffect
+public interface IPositionEffect
 {
     Vector3 GetLocalOffset();
 }
