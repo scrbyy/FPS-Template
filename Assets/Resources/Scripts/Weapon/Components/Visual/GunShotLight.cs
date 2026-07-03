@@ -3,12 +3,20 @@ using System.Collections;
 
 public class GunShotLight : MonoBehaviour
 {
-    [SerializeField] private Light _light;
     [SerializeField] private float _lightDuration;
+
+    [Header("References")]
+    [SerializeField] private Light _light;
     [SerializeField] private Gun _gun;
 
     private Coroutine _coroutine;
-    
+
+    private void Awake()
+    {
+        _light.gameObject.SetActive(true);
+        _light.enabled = false;
+    }
+
     private void ShowLight()
     {
         if (_coroutine != null)

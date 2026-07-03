@@ -11,7 +11,7 @@ public class GunRecoilRotation : MonoBehaviour
     [SerializeField] private Vector3 _recoilForce;
     [SerializeField] private Vector3 _recoilRandomness;
 
-    [Header("Limits and Clamping (Relative to Initial)")]
+    [Header("Limits and Clamping")]
     [SerializeField] private Vector3 _minBounds;
     [SerializeField] private Vector3 _maxBounds;
 
