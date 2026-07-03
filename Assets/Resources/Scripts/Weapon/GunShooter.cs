@@ -32,7 +32,7 @@ public class GunShooter
 
     private CancellationTokenSource _shootCts;
 
-    public void Initialize(IShootingData shootingData, Transform origin, Func<bool> canShootPredicate)
+    public GunShooter(IShootingData shootingData, Transform origin, Func<bool> canShootPredicate)
     {
         _origin = origin;
         _distance = shootingData.Distance;
@@ -45,7 +45,10 @@ public class GunShooter
 
         _hitHandler = new HitHandler();
         _shootingMethod = new ShootingMethodFactory(_origin, _distance).CreateShootingMethod(shootingData.ShootingMethod);
+    }
 
+    public void Initialize()
+    {
         _shootCts = new CancellationTokenSource();
     }
 
@@ -71,9 +74,7 @@ public class GunShooter
                 await UniTask.Delay(TimeSpan.FromSeconds(_afterShotDelay), cancellationToken: _shootCts.Token);
             }
         }
-        catch (OperationCanceledException)
-        {
-        }
+        catch (OperationCanceledException) { }
         finally
         {
             _isShooting = false;

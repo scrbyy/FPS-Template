@@ -13698,7 +13698,6 @@ GameObject:
   - component: {fileID: 1557150731}
   - component: {fileID: 1557150734}
   - component: {fileID: 1557150732}
-  - component: {fileID: 1557150735}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -13833,26 +13832,8 @@ MonoBehaviour:
   _increaseSpeed: 15
   _decreaseSpeed: 20
   _minSpeedThreshold: 1
-  _maxSpeedThreshold: 10
+  _maxSpeedThreshold: 15
   _characterEngine: {fileID: 755122330}
---- !u!114 &1557150735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557150728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _force: {x: 0, y: 0}
-  _multiplier: 0
-  _inverseX: 0
-  _inverseY: 0
-  _minMaxX: {x: 0, y: 0}
-  _minMaxY: {x: 0, y: 0}
 --- !u!1 &1696200657
 GameObject:
   m_ObjectHideFlags: 0
@@ -17221,8 +17202,8 @@ GameObject:
   - component: {fileID: 5444888314268869645}
   - component: {fileID: 5444888314268869644}
   - component: {fileID: 5444888314268869648}
-  - component: {fileID: 5444888314268869649}
   - component: {fileID: 5444888314268869650}
+  - component: {fileID: 5444888314268869649}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged

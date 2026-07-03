@@ -23,15 +23,15 @@ public class Gun : Weapon, IShootable
     {   
         if(_shooter == null && _reloader == null)
         {
-            _shooter = new GunShooter();
-            _reloader = new GunReloader();
-            _reloader.Initialize(_gunData);
-            _shooter.Initialize(_gunData, _origin, _reloader.CanShoot);
-
-            _reloader.OnReloadEnd += NotifyUpdateAmmo;
-
-            _shooter.OnShoot += NotifyAttack;
+            _reloader = new GunReloader(_gunData);
+            _shooter = new GunShooter(_gunData, _origin, _reloader.CanShoot);
         }
+
+        _reloader.Initialize();
+        _shooter.Initialize();
+
+        _reloader.OnReloadEnd += NotifyUpdateAmmo;
+        _shooter.OnShoot += NotifyAttack;
 
         _speedModifier = new WeaponSpeedModifier(_gunData.SpeedMultiplier);
         _ownerSpeedHandler.AddModifier(_speedModifier);
@@ -79,7 +79,7 @@ public class Gun : Weapon, IShootable
     }
 
 
-private void NotifyUpdateAmmo()
+    private void NotifyUpdateAmmo()
     {
         OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
     }
