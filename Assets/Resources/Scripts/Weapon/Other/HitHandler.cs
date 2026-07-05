@@ -8,11 +8,5 @@ public class HitHandler
         {
             damagable.TakeDamage(Mathf.RoundToInt(damage));
         }
-        Quaternion decalRotation = Quaternion.LookRotation(-hitData.normal);
-
-        Vector3 spawnPosition = hitData.hitPoint + (hitData.normal * 0.2f);
-
-        GameObject instantiatedDecal = Object.Instantiate(decal, spawnPosition, decalRotation);
-        instantiatedDecal.transform.SetParent(hitData.hitObject.transform);
     }
 }

@@ -32,6 +32,7 @@ public class Gun : Weapon, IShootable
 
         _reloader.OnReloadEnd += NotifyUpdateAmmo;
         _shooter.OnShoot += NotifyAttack;
+        _shooter.OnShotContact += NotifyContact;
 
         _speedModifier = new WeaponSpeedModifier(_gunData.SpeedMultiplier);
         _ownerSpeedHandler.AddModifier(_speedModifier);
@@ -77,7 +78,10 @@ public class Gun : Weapon, IShootable
         _reloader.UseBullet();
         NotifyUpdateAmmo();
     }
-
+    private void NotifyContact(HitData hit)
+    {
+        OnShotContact?.Invoke(hit);
+    }
 
     private void NotifyUpdateAmmo()
     {

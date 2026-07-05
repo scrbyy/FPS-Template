@@ -5,7 +5,9 @@ using System.Collections.Generic;
 
 public class WeaponInventory : MonoBehaviour
 {
-    public event Action OnNewWeaponSelected;
+    public event Action<Weapon> OnWeaponUnselect;
+
+    public event Action<Weapon> OnWeaponSelected;
 
     public Weapon SelectedWeapon => _selectedWeapon;
 
@@ -48,6 +50,7 @@ public class WeaponInventory : MonoBehaviour
             oldInitializer.Unselect(_selectedWeapon);
             _selectedWeapon.gameObject.SetActive(false);
             _selectedWeapon.Deinitialize();
+            OnWeaponUnselect?.Invoke(_selectedWeapon);
 
             if (_InitializersRegistry.TryGetInitializer(_weaponList[newWeaponID], out IWeaponInitializer newInitializer))
             {
@@ -61,7 +64,7 @@ public class WeaponInventory : MonoBehaviour
 
                 _selectedWeaponID = newWeaponID;
 
-                OnNewWeaponSelected?.Invoke();
+                OnWeaponSelected?.Invoke(_selectedWeapon);
             }
         }
     }

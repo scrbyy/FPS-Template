@@ -1,19 +1,43 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class AmmoUI : MonoBehaviour 
+public class AmmoUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text _ammoText;
     [SerializeField] private WeaponInventory _weaponInventory;
 
     private IShootable _currentAmmoWeapon;
 
-    private void UpdateWeaponEvent()
+    private void OnEnable()
     {
-        if (_weaponInventory.SelectedWeapon is IShootable ammoWeapon)
+        if (_weaponInventory != null)
         {
-            if (_currentAmmoWeapon != null) UnsubscribeFromAmmoEvent(_currentAmmoWeapon);
+            _weaponInventory.OnWeaponSelected += HandleWeaponSelected;
+            _weaponInventory.OnWeaponUnselect += HandleWeaponUnselected;
 
+            HandleWeaponSelected(_weaponInventory.SelectedWeapon);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (_weaponInventory != null)
+        {
+            _weaponInventory.OnWeaponSelected -= HandleWeaponSelected;
+            _weaponInventory.OnWeaponUnselect -= HandleWeaponUnselected;
+        }
+
+        if (_currentAmmoWeapon != null)
+        {
+            UnsubscribeFromAmmoEvent(_currentAmmoWeapon);
+            _currentAmmoWeapon = null;
+        }
+    }
+
+    private void HandleWeaponSelected(Weapon weapon)
+    {
+        if (weapon is IShootable ammoWeapon)
+        {
             _currentAmmoWeapon = ammoWeapon;
             SubscribeToAmmoEvents(_currentAmmoWeapon);
 
@@ -21,15 +45,23 @@ public class AmmoUI : MonoBehaviour
         }
         else
         {
-            if(_currentAmmoWeapon != null ) 
-            UnsubscribeFromAmmoEvent(_currentAmmoWeapon);
             _ammoText.text = string.Empty;
+        }
+    }
+
+    private void HandleWeaponUnselected(Weapon weapon)
+    {
+        if (weapon is IShootable ammoWeapon && _currentAmmoWeapon == ammoWeapon)
+        {
+            UnsubscribeFromAmmoEvent(ammoWeapon);
             _currentAmmoWeapon = null;
+            _ammoText.text = string.Empty;
         }
     }
 
     private void SubscribeToAmmoEvents(IShootable ammoWeapon)
     {
+        ammoWeapon.OnAmmoChanged -= UpdateText; 
         ammoWeapon.OnAmmoChanged += UpdateText;
     }
 
@@ -40,17 +72,6 @@ public class AmmoUI : MonoBehaviour
 
     private void UpdateText(int currentAmmo, int reserveAmmo)
     {
-        _ammoText.text = currentAmmo + "/" + reserveAmmo;
-    }
-
-    private void OnEnable()
-    {
-        _weaponInventory.OnNewWeaponSelected += UpdateWeaponEvent;
-        UpdateWeaponEvent();
-    }
-
-    private void OnDisable()
-    {
-        _weaponInventory.OnNewWeaponSelected -= UpdateWeaponEvent;
+        _ammoText.text = $"{currentAmmo}/{reserveAmmo}";
     }
 }

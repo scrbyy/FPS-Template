@@ -5,6 +5,8 @@ public abstract class Weapon : MonoBehaviour
 {
     public Action OnAttack;
 
+    public Action<HitData> OnShotContact;
+
     protected float _damage;
 
     [SerializeField] protected CharacterSpeed _ownerSpeedHandler;
