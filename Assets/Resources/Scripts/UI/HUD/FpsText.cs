@@ -6,7 +6,7 @@ public class FpsTextZeroAlloc : MonoBehaviour
 {
     private TMP_Text _fpsText;
 
-    [SerializeField] private float _updateInterval = 0.5f;
+    [SerializeField] private float _updateInterval;
 
     private float _accumulatedTime = 0f;
     private int _frameCount = 0;
