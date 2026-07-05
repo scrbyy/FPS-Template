@@ -1,8 +1,9 @@
-﻿public class GunInitializer : WeaponInitializer<Gun>
+﻿using System.Collections.Generic;
+
+public class GunInitializer : WeaponInitializer<Gun>
 {
-    public GunInitializer(IWeaponInputProvider inputProvider)
+    public GunInitializer(ShootingFeature shooting, ReloadingFeature reloading)
+        : base(new List<IWeaponFeature> { shooting, reloading })
     {
-        _features.Add(new ShootingFeature(inputProvider));
-        _features.Add(new ReloadingFeature(inputProvider));
     }
 }

@@ -6,39 +6,33 @@ using System.Collections.Generic;
 public class WeaponInventory : MonoBehaviour
 {
     public event Action OnNewWeaponSelected;
+
     public Weapon SelectedWeapon => _selectedWeapon;
 
     [SerializeField] private List<Weapon> _weaponList = new List<Weapon>();
-
-    private Dictionary<Weapon, IWeaponInitializer> _initializersRegistry = new Dictionary<Weapon, IWeaponInitializer>();
 
     private Weapon _selectedWeapon;
     private int _selectedWeaponID = 0;
 
     [Inject] private ILoadoutInputProvider _inputProvider;
+    [Inject] private WeaponInitializersRegistry _InitializersRegistry;
 
-    [Inject]
-    private void Construct(GunInitializer gunInitializer)
+
+    private void Awake()
     {
-        _initializersRegistry.Clear();
-
         foreach (var weapon in _weaponList)
         {
             if (weapon is Gun gun)
             {
-                _initializersRegistry.Add(weapon, gunInitializer);
                 weapon.gameObject.SetActive(false);
             }
         }
-    }
 
-    private void Awake()
-    {
         if (_weaponList.Count > 0)
         {
             _selectedWeapon = _weaponList[_selectedWeaponID];
 
-            if (_initializersRegistry.TryGetValue(_selectedWeapon, out IWeaponInitializer initializer))
+            if (_InitializersRegistry.TryGetInitializer(_selectedWeapon, out IWeaponInitializer initializer))
             {
                 _selectedWeapon.gameObject.SetActive(true);
                 _selectedWeapon.Initialize();
@@ -49,13 +43,13 @@ public class WeaponInventory : MonoBehaviour
 
     public void SwitchWeapon(int newWeaponID)
     {
-        if (_initializersRegistry.TryGetValue(_selectedWeapon, out IWeaponInitializer oldInitializer))
+        if (_InitializersRegistry.TryGetInitializer(_selectedWeapon, out IWeaponInitializer oldInitializer))
         {
             oldInitializer.Unselect(_selectedWeapon);
             _selectedWeapon.gameObject.SetActive(false);
             _selectedWeapon.Deinitialize();
 
-            if (_initializersRegistry.TryGetValue(_weaponList[newWeaponID], out IWeaponInitializer newInitializer))
+            if (_InitializersRegistry.TryGetInitializer(_weaponList[newWeaponID], out IWeaponInitializer newInitializer))
             {
                 _selectedWeapon = _weaponList[newWeaponID];
 

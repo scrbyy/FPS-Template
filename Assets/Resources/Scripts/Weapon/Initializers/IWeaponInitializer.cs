@@ -1,6 +1,8 @@
-﻿public interface IWeaponInitializer
-{
-    public void Select(Weapon selectableWeapon);
+﻿using System;
 
-    public void Unselect(Weapon unselectableWeapon);
+public interface IWeaponInitializer
+{
+    Type TargetWeaponType { get; }
+    void Select(Weapon weapon);
+    void Unselect(Weapon weapon);
 }
