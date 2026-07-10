@@ -486,8 +486,8 @@ MonoBehaviour:
   _returnSpeed: 15
   _snappiness: 40
   _recoilDecreaseFactor: 1
-  _minRecoilMultiplier: 0.91
-  _resetTime: 1
+  _minRecoilMultiplier: 1
+  _resetTime: 0.5
   _gun: {fileID: 30990239}
 --- !u!114 &30990241
 MonoBehaviour:
@@ -51883,7 +51883,7 @@ MonoBehaviour:
   _weapon: {fileID: 5444888314268869643}
   _shootSound: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
   _mixerGroup: {fileID: 0}
-  _volume: 0.08
+  _volume: 0.3
   _pitchMin: 0.9
   _pitchMax: 1.1
 --- !u!114 &5444888314268869646
@@ -51902,8 +51902,8 @@ MonoBehaviour:
   _recoilRandomness: {x: 0.02, y: 0.005, z: -0.03}
   _minBounds: {x: -1, y: -0.5, z: -0.3}
   _maxBounds: {x: 1, y: 1, z: 0.01}
-  _returnSpeed: 8
-  _snappiness: 25
+  _returnSpeed: 10
+  _snappiness: 30
   _recoilDecreaseFactor: 1
   _minRecoilMultiplier: 1.2
   _resetTime: 0.75

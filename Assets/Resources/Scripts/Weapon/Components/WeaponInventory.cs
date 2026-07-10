@@ -60,8 +60,6 @@ public class WeaponInventory : MonoBehaviour
                 _selectedWeapon.Initialize();
                 newInitializer.Select(_selectedWeapon);
 
-
-
                 _selectedWeaponID = newWeaponID;
 
                 OnWeaponSelected?.Invoke(_selectedWeapon);

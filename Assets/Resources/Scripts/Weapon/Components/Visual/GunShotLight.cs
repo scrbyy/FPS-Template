@@ -43,5 +43,7 @@ public class GunShotLight : MonoBehaviour
     private void OnDisable()
     {
         _gun.OnAttack -= ShowLight;
+        _light.enabled = false;
+        _coroutine = null;
     }
 }
