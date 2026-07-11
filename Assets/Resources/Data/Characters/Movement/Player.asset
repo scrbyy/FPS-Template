@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6ce45344ecf2a4e8feb776f66022e1, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  _walkSpeed: 6
-  _runSpeed: 12
+  _walkSpeed: 5
+  _runSpeed: 10
   _crouchSpeed: 4

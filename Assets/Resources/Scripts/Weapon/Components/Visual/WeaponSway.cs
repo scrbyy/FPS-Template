@@ -9,15 +9,18 @@ public class TransformSway : MonoBehaviour
     [SerializeField] private bool _inverseX;
     [SerializeField] private bool _inverseY;
 
-    [Header("Clamp")]
-    [SerializeField] private Vector2 _minMaxX;
-    [SerializeField] private Vector2 _minMaxY;
+    [Header("Clamp X")]
+    [SerializeField] private float _minX;
+    [SerializeField] private float _maxX;
 
-    [Header("References")]
+    [Header("Clamp Y")]
+    [SerializeField] private float _minY;
+    [SerializeField] private float _maxY;
+
     [Inject] private ILookInputProvider _inputProvider;
 
-    protected float AdditionalX;
-    protected float AdditionalY;
+    private float _additionalX;
+    private float _additionalY;
 
     private float _mouseX, _mouseY;
 
@@ -35,13 +38,11 @@ public class TransformSway : MonoBehaviour
         _mouseX = _inputProvider.LookInput.x * inverseSwayX;
         _mouseY = _inputProvider.LookInput.y * inverseSwayY;
 
-        OnSwayPerforming(deltaTime);
-
         var currentX = _mouseY * _force.y;
         var currentY = _mouseX * _force.x;
 
-        var endEulerAngleX = Mathf.Clamp(currentX + AdditionalX, _minMaxX.x, _minMaxX.y);
-        var endEulerAngleY = Mathf.Clamp(currentY + AdditionalY, _minMaxY.x, _minMaxY.y);
+        var endEulerAngleX = Mathf.Clamp(currentX + _additionalX, _minX, _maxX);
+        var endEulerAngleY = Mathf.Clamp(currentY + _additionalY, _minY, _maxY);
 
         var moment = deltaTime * _multiplier;
         var localEulerAngles = transform.localEulerAngles;
@@ -52,6 +53,4 @@ public class TransformSway : MonoBehaviour
 
         transform.localEulerAngles = localEulerAngles;
     }
-
-    protected virtual void OnSwayPerforming(in float deltaTime) { }
 }
