@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class TiltEffect : MonoBehaviour, IPositionEffect
+public class TiltEffect : MonoBehaviour
 {
     [Header("Tilt Settings")]
     [SerializeField] private float _sideTiltIntensity;
@@ -23,8 +23,6 @@ public class TiltEffect : MonoBehaviour, IPositionEffect
     [Inject] private IGroundChecker _groundCheck;
 
     private float _targetZRotation;
-
-    public Vector3 GetLocalOffset() => Vector3.zero;
 
     private void LateUpdate()
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(PositionEffectHandler))]
 public class BobbingEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Scale Limitations")]

@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 
+[RequireComponent(typeof(PositionEffectHandler))]
 public class ApproachingEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Limits")]
