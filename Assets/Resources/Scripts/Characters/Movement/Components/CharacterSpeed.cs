@@ -21,7 +21,6 @@ public class CharacterSpeed : MonoBehaviour
 
     [Inject] private IGroundChecker _groundCheck;
 
-
     public void AddModifier(ISpeedModifier modifier)
     {
         if (!_modifiers.Contains(modifier))

@@ -15,6 +15,7 @@ public class CharacterRun : MonoBehaviour
 
     [Inject] private IGroundChecker _groundCheck;
     [Inject] private IMovementInputProvider _inputProvider;
+    [Inject] private CharacterCollisionHandler _characterCollisionHandler;
 
     private Coroutine _cooldownCoroutine;
 
@@ -28,6 +29,7 @@ public class CharacterRun : MonoBehaviour
             {
                 if (_characterEngine.IsMoving() && _cooldownCoroutine == null)
                 {
+                    if (_characterCollisionHandler.IsCollisionedBySide()) return;
                     _isRunning = true;
                     _cooldownCoroutine = StartCoroutine(ReducingDelay());
                     OnStartRunning?.Invoke();
