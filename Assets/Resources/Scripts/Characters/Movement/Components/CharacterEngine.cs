@@ -122,7 +122,6 @@ public class CharacterEngine : MonoBehaviour
             ApplyGravity();
         }
         HandleCollisions();
-        Debug.Log(_characterCollisionHandler.IsCollisionedBySide());
     }
 
     private void HandleCollisions()
