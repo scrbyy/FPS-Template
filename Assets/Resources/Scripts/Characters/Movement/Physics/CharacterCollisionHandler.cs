@@ -16,13 +16,8 @@ public class CharacterCollisionHandler
         return (_characterController.collisionFlags & CollisionFlags.Sides) != 0;
     }
 
-    public bool IsCollisionedBellow()
-    {
-        return _characterController.collisionFlags == CollisionFlags.Below;
-    }
-
     public bool IsCollisionedAbove()
     {
-        return _characterController.collisionFlags == CollisionFlags.Above;
+        return (_characterController.collisionFlags & CollisionFlags.Above) != 0;
     }
 }
