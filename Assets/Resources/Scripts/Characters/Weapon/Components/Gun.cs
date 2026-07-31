@@ -64,6 +64,8 @@ public class Gun : Weapon, IShootable
 
         _isOpen = false;
 
+        _ownerSpeedHandler.RemoveModifier(_speedModifier);
+
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
     }
 

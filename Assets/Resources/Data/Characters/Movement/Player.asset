@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   _walkSpeed: 5
-  _runSpeed: 10
-  _crouchSpeed: 4
+  _runSpeed: 8
+  _crouchSpeed: 3
