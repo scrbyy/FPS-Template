@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class WeaponData : ScriptableObject, ISpeedModifier, IWeaponInitializingData
+public class WeaponData : ScriptableObject, ISpeedModifier
 {
     public float Damage => _damage;
 

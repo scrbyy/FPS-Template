@@ -9,6 +9,7 @@ public abstract class Weapon : MonoBehaviour
     public Action<HitData> OnShotContact;
 
     [SerializeField] protected CharacterSpeed _ownerSpeedHandler;
+
     protected float _damage;
     protected bool _isOpen;
     protected CancellationTokenSource _openCts;
@@ -24,11 +25,8 @@ public abstract class Weapon : MonoBehaviour
         try
         {
             await UniTask.Delay(TimeSpan.FromSeconds(_openTime), cancellationToken: _openCts.Token);
-        }
-        catch (OperationCanceledException) { }
-        finally
-        {
             _isOpen = true;
         }
+        catch (OperationCanceledException) { }
     }
 }

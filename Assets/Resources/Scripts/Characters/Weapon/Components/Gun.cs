@@ -51,13 +51,22 @@ public class Gun : Weapon, IShootable
         _reloader.Deinitialize();
         _shooter.Deinitialize();
 
-        _ownerSpeedHandler.RemoveModifier(_speedModifier);
+        _shooter.OnShoot -= NotifyAttack;
+        _shooter.OnShotContact -= NotifyContact;
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
 
-        _shooter.OnShoot -= NotifyAttack;
-        _openCts?.Dispose();
+        if (_openCts != null)
+        {
+            _openCts.Cancel();
+            _openCts.Dispose();
+            _openCts = null;
+        }
+
         _isOpen = false;
+
+        _reloader.OnReloadEnd -= NotifyUpdateAmmo;
     }
+
 
     public override void Attack()
     {
