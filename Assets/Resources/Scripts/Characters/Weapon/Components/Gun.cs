@@ -1,6 +1,7 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
+﻿using System;
 using UnityEngine;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 public class Gun : Weapon, IShootable
 {
@@ -20,12 +21,17 @@ public class Gun : Weapon, IShootable
     private WeaponSpeedModifier _speedModifier;
 
     public override void Initialize()
-    {   
+    {
+        _isOpen = false;
+        _openCts = new CancellationTokenSource();
+
         if(_shooter == null && _reloader == null)
         {
             _reloader = new GunReloader(_gunData);
             _shooter = new GunShooter(_gunData, _origin, _reloader.CanShoot);
         }
+
+        OpenDelay(_gunData.OpenTime).Forget();
 
         _reloader.Initialize();
         _shooter.Initialize();
@@ -49,10 +55,13 @@ public class Gun : Weapon, IShootable
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
 
         _shooter.OnShoot -= NotifyAttack;
+        _openCts?.Dispose();
+        _isOpen = false;
     }
 
     public override void Attack()
     {
+        if (_isOpen == false) return;
         if (_reloader.CanShoot())
         {
             _shooter.StartShoot().Forget();
@@ -66,6 +75,7 @@ public class Gun : Weapon, IShootable
 
     public void Reload()
     {
+        if (_isOpen == false) return;
         if (_shooter.IsShooting == false)
         {
             _reloader.Reload();
