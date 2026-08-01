@@ -34624,11 +34624,11 @@ GameObject:
   - component: {fileID: 1557150729}
   - component: {fileID: 1557150730}
   - component: {fileID: 1557150733}
+  - component: {fileID: 1557150736}
   - component: {fileID: 1557150731}
   - component: {fileID: 1557150734}
   - component: {fileID: 1557150732}
   - component: {fileID: 1557150735}
-  - component: {fileID: 1557150736}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -34732,6 +34732,9 @@ MonoBehaviour:
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.5
+  _inAirCompressionForce: 3
+  _maxInAirOffset: 0.2
+  _fallingForceMultiplier: 0.02
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150733
 MonoBehaviour:
@@ -42986,6 +42989,9 @@ MonoBehaviour:
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.2
+  _inAirCompressionForce: 5
+  _maxInAirOffset: 0.3
+  _fallingForceMultiplier: 0.02
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1915844018
 MonoBehaviour:
