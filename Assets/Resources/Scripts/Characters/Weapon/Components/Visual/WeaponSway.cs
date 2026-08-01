@@ -1,11 +1,13 @@
 using UnityEngine;
 using Zenject;
 
-public class TransformSway : MonoBehaviour
+public class TransformSway : MonoBehaviour, IRotationEffect
 {
-    [Header("Common")]
+    [Header("Force Settings")]
     [SerializeField] private Vector2 _force;
-    [SerializeField, Min(0f)] private float _multiplier;
+    [SerializeField, Min(0f)] private float _smoothness;
+
+    [Header("Invert?")]
     [SerializeField] private bool _inverseX;
     [SerializeField] private bool _inverseY;
 
@@ -19,38 +21,38 @@ public class TransformSway : MonoBehaviour
 
     [Inject] private ILookInputProvider _inputProvider;
 
-    private float _additionalX;
-    private float _additionalY;
+    private Quaternion _currentRotationOffset;
 
-    private float _mouseX, _mouseY;
-
-    private void LateUpdate()
+    private void Update()
     {
-        PerformTransformSway();
+        CalculateSwayOffset();
     }
 
-    private void PerformTransformSway()
+    private void CalculateSwayOffset()
     {
         var deltaTime = Time.deltaTime;
-        var inverseSwayX = _inverseX ? -1f : 1f;
-        var inverseSwayY = _inverseY ? -1f : 1f;
+        var lookInput = _inputProvider.LookInput;
 
-        _mouseX = _inputProvider.LookInput.x * inverseSwayX;
-        _mouseY = _inputProvider.LookInput.y * inverseSwayY;
+        var inverseX = _inverseX ? -1f : 1f;
+        var inverseY = _inverseY ? -1f : 1f;
 
-        var currentX = _mouseY * _force.y;
-        var currentY = _mouseX * _force.x;
+        var inputX = lookInput.x * inverseX;
+        var inputY = lookInput.y * inverseY;
 
-        var endEulerAngleX = Mathf.Clamp(currentX + _additionalX, _minX, _maxX);
-        var endEulerAngleY = Mathf.Clamp(currentY + _additionalY, _minY, _maxY);
+        float targetAngleX = Mathf.Clamp(inputY * _force.y, _minX, _maxX);
+        float targetAngleY = Mathf.Clamp(inputX * _force.x, _minY, _maxY);
 
-        var moment = deltaTime * _multiplier;
-        var localEulerAngles = transform.localEulerAngles;
+        Quaternion targetRotation = Quaternion.Euler(targetAngleX, targetAngleY, 0f);
 
-        localEulerAngles.x = Mathf.LerpAngle(localEulerAngles.x, endEulerAngleX, moment);
-        localEulerAngles.y = Mathf.LerpAngle(localEulerAngles.y, endEulerAngleY, moment);
-        localEulerAngles.z = 0f;
+        _currentRotationOffset = Quaternion.Slerp(
+            _currentRotationOffset,
+            targetRotation,
+            deltaTime * _smoothness
+        );
+    }
 
-        transform.localEulerAngles = localEulerAngles;
+    public Quaternion GetLocalRotationOffset()
+    {
+        return _currentRotationOffset;
     }
 }

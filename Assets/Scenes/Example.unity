@@ -34628,6 +34628,7 @@ GameObject:
   - component: {fileID: 1557150734}
   - component: {fileID: 1557150732}
   - component: {fileID: 1557150735}
+  - component: {fileID: 1557150736}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -34744,8 +34745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53809f2422952b241818b774829de4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useSmoothing: 0
-  _smoothSpeed: 12
+  _effectList: []
 --- !u!114 &1557150734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34758,11 +34758,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f393aa298c25e4a90423823753f5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxZOffset: -0.15
-  _increaseSpeed: 15
-  _decreaseSpeed: 20
-  _minSpeedThreshold: 1
-  _maxSpeedThreshold: 15
+  _maxZOffset: -0.1
+  _increaseSpeed: 0.15
+  _decreaseSpeed: 0.2
+  _minSpeedThreshold: 0.1
+  _maxSpeedThreshold: 8
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150735
 MonoBehaviour:
@@ -34776,14 +34776,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: {x: 2, y: 1}
-  _multiplier: 1
+  _force: {x: 1, y: 0.5}
+  _smoothness: 8
   _inverseX: 1
   _inverseY: 0
-  _minX: -7
-  _maxX: 7
-  _minY: -7
-  _maxY: 7
+  _minX: -6
+  _maxX: 6
+  _minY: -6
+  _maxY: 6
+--- !u!114 &1557150736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557150728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597a1ce96477a0a4fb812125b7832571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectList: []
 --- !u!43 &1557964667
 Mesh:
   m_ObjectHideFlags: 0
@@ -42986,8 +42999,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53809f2422952b241818b774829de4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useSmoothing: 0
-  _smoothSpeed: 10
+  _effectList: []
 --- !u!114 &1915844019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51772,6 +51784,7 @@ GameObject:
   - component: {fileID: 5444888314268869648}
   - component: {fileID: 5444888314268869649}
   - component: {fileID: 5444888314268869650}
+  - component: {fileID: 5444888314268869651}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -52288,6 +52301,28 @@ MonoBehaviour:
   _snappiness: 8
   _returnSpeed: 10
   _weapon: {fileID: 5444888314268869643}
+--- !u!114 &5444888314268869651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0990617c966cebe479a45ab183ddd951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recoilForce: {x: -2, y: 0, z: 0}
+  _recoilRandomness: {x: 0, y: 0, z: 0}
+  _minBounds: {x: -15, y: 0, z: 0}
+  _maxBounds: {x: 15, y: 0, z: 0}
+  _returnSpeed: 10
+  _snappiness: 30
+  _recoilDecreaseFactor: 1
+  _minRecoilMultiplier: 1
+  _resetTime: 0.5
+  _gun: {fileID: 5444888314268869643}
 --- !u!1 &5527469117763098429
 GameObject:
   m_ObjectHideFlags: 0

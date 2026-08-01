@@ -1,15 +1,14 @@
-using UnityEngine;
 using Zenject;
+using UnityEngine;
 
-[RequireComponent(typeof(PositionEffectHandler))]
-public class ApproachingEffect : MonoBehaviour, IPositionEffect
+public class MovementApproachingEffect : MonoBehaviour, IPositionEffect
 {
     [Header("Limits")]
     [SerializeField] private float _maxZOffset;
 
     [Header("Changing Rate")]
-    [SerializeField] private float _increaseSpeed;
-    [SerializeField] private float _decreaseSpeed;
+    [SerializeField] private float _increaseSpeed = 5f;
+    [SerializeField] private float _decreaseSpeed = 2f;
 
     [Header("Speed Thresholds")]
     [SerializeField] private float _minSpeedThreshold;
@@ -23,27 +22,25 @@ public class ApproachingEffect : MonoBehaviour, IPositionEffect
     private float _targetZOffset;
 
     public Vector3 GetLocalOffset()
-    {
+    {   
         return new Vector3(0, 0, _currentZOffset);
     }
 
     private void LateUpdate()
     {
         Vector3 velocity = _characterEngine.Velocity;
-        Vector3 direction = velocity.normalized;
-
         float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
 
-        Transform playerTransform = _characterEngine.transform;
-
-        float dot = Vector3.Dot(new Vector3(0.5f, 0, 1), direction);
-        float directionModifier = _inputProvider.MoveInput.y != 0 ? 1 : 0;
+        bool isMovingForwardOrBackward = !Mathf.Approximately(_inputProvider.MoveInput.y, 0f);
+        float directionModifier = isMovingForwardOrBackward ? 1f : 0f;
 
         float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
 
         _targetZOffset = (modifier * _maxZOffset) * directionModifier;
 
-        float currentLerp = (Mathf.Abs(_targetZOffset) > Mathf.Abs(_currentZOffset)) ? _increaseSpeed : _decreaseSpeed;
-        _currentZOffset = Mathf.Lerp(_currentZOffset, _targetZOffset, Time.deltaTime * currentLerp);
+        bool isIncreasing = Mathf.Abs(_targetZOffset) > Mathf.Abs(_currentZOffset);
+        float currentSpeed = isIncreasing ? _increaseSpeed : _decreaseSpeed;
+
+        _currentZOffset = Mathf.MoveTowards(_currentZOffset, _targetZOffset, currentSpeed * Time.deltaTime);
     }
 }
