@@ -41,7 +41,6 @@ public class CharacterEngine : MonoBehaviour
             else ApplyAirMovement(inputVector);
 
             Vector3 finalMotion = _velocity;
-            finalMotion.y = _velocity.y;
 
             _characterController.Move(finalMotion * Time.deltaTime);
         }
@@ -51,7 +50,7 @@ public class CharacterEngine : MonoBehaviour
     {
         if (type == ForceType.Jump)
         {
-            _velocity.y = Mathf.Sqrt(force.y * _downforce * Physics.gravity.y);
+            _velocity.y = Mathf.Sqrt(2f * force.y * Mathf.Abs(Physics.gravity.y));
         }
         else if (type == ForceType.Impulse)
         {

@@ -24,10 +24,7 @@ public class WeaponInventory : MonoBehaviour
     {
         foreach (var weapon in _weaponList)
         {
-            if (weapon is Gun gun)
-            {
-                weapon.gameObject.SetActive(false);
-            }
+            weapon.gameObject.SetActive(false);
         }
 
         if (_weaponList.Count > 0)

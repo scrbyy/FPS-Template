@@ -2,7 +2,7 @@
 
 public class HitHandler
 {
-    public void HadleShot(HitData hitData, float damage, GameObject decal)
+    public void HandleShot(HitData hitData, float damage, GameObject decal)
     {
         if (hitData.hitObject.TryGetComponent(out IDamagable damagable) )
         {

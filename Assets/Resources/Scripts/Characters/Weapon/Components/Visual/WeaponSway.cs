@@ -1,13 +1,13 @@
 using UnityEngine;
 using Zenject;
 
-public class TransformSway : MonoBehaviour, IRotationEffect
+public class WeaponSway : MonoBehaviour, IRotationEffect
 {
     [Header("Force Settings")]
     [SerializeField] private Vector2 _force;
     [SerializeField, Min(0f)] private float _smoothness;
 
-    [Header("Invert?")]
+    [Header("Invert")]
     [SerializeField] private bool _inverseX;
     [SerializeField] private bool _inverseY;
 

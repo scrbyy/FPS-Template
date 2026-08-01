@@ -34776,7 +34776,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: {x: 1, y: 0.5}
+  _force: {x: 0.5, y: 0.25}
   _smoothness: 8
   _inverseX: 1
   _inverseY: 0

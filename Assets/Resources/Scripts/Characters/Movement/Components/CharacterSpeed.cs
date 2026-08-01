@@ -65,12 +65,6 @@ public class CharacterSpeed : MonoBehaviour
         UpdateFinalSpeed();
     }
 
-    private void OnLandedReset()
-    {
-        _groundCheck.OnGrounded -= OnLandedReset;
-        _currentSpeed = _data.WalkSpeed;
-    }
-
     private void SetRunSpeed()
     {
         SetSpeed(_data.RunSpeed);

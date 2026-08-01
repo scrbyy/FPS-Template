@@ -36,7 +36,5 @@ public class CameraLook : MonoBehaviour, IRotationEffect
 
         _yRotation -= mouseY;
         _yRotation = Mathf.Clamp(_yRotation, _minViewAngle, _maxViewAngle);
-
-        //_headTransform.localRotation = Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
     }
 }

@@ -105,7 +105,7 @@ public class GunShooter
         if (hitData.isHit)
         {
             OnShotContact?.Invoke(hitData);
-            _hitHandler.HadleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
+            _hitHandler.HandleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
         }
     }
 
