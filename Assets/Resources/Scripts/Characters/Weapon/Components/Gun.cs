@@ -82,6 +82,7 @@ public class Gun : Weapon, IShootable
     public void StopAttack()
     {
         _shooter.StopShoot();
+        OnStopAttack?.Invoke();
     }
 
     public void Reload()

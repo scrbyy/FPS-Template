@@ -20,7 +20,7 @@ MonoBehaviour:
   _damageDecreasingStep: 10
   _startAmmo: 30
   _magazineSize: 30
-  _reserveAmmo: 90
+  _reserveAmmo: 9000
   _reloadDuration: 1
   _afterShootDelay: 0.1
   _recoilType: 0

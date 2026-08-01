@@ -6,6 +6,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     public Action OnAttack;
+    public Action OnStopAttack;
     public Action<HitData> OnShotContact;
 
     [SerializeField] protected CharacterSpeed _ownerSpeedHandler;

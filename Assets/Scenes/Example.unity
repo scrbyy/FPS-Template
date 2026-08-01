@@ -42855,6 +42855,7 @@ GameObject:
   - component: {fileID: 1915844013}
   - component: {fileID: 1915844018}
   - component: {fileID: 1915844016}
+  - component: {fileID: 1915844019}
   m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
@@ -42986,6 +42987,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _useSmoothing: 1
   _smoothSpeed: 10
+--- !u!114 &1915844019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915844011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597a1ce96477a0a4fb812125b7832571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _effectList:
+  - {fileID: 330585543}
+  - {fileID: 4673594838000320178}
 --- !u!1 &1931220212
 GameObject:
   m_ObjectHideFlags: 0
@@ -51754,6 +51770,7 @@ GameObject:
   - component: {fileID: 5444888314268869644}
   - component: {fileID: 5444888314268869648}
   - component: {fileID: 5444888314268869649}
+  - component: {fileID: 5444888314268869650}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -52223,6 +52240,53 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5444888314268869650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0edc6d95842501845ab06a85961fa34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilPattern:
+  - {x: 0, y: 0.4}
+  - {x: 0, y: 1.1}
+  - {x: 0, y: 2.5}
+  - {x: 0, y: 4.5}
+  - {x: 0.7, y: 6.5}
+  - {x: 0.5, y: 8}
+  - {x: 0.3, y: 8.5}
+  - {x: 0.1, y: 8}
+  - {x: 0, y: 7}
+  - {x: -0.3, y: 5.5}
+  - {x: -0.5, y: 6}
+  - {x: -1, y: 6}
+  - {x: 0, y: 6}
+  - {x: 1, y: 6}
+  - {x: 2, y: 6}
+  - {x: 3, y: 6}
+  - {x: 2, y: 5.5}
+  - {x: 2, y: 5.5}
+  - {x: 0, y: 5.5}
+  - {x: -2, y: 5.5}
+  - {x: -3, y: 5.5}
+  - {x: -5, y: 6}
+  - {x: -2, y: 6}
+  - {x: 0, y: 6}
+  - {x: 1, y: 6}
+  - {x: 3, y: 5.5}
+  - {x: 5, y: 5.5}
+  - {x: 2, y: 5.5}
+  - {x: 1, y: 5.5}
+  - {x: 0, y: 5.5}
+  _recoilMultiplier: 1.25
+  _snappiness: 15
+  _returnSpeed: 10
+  _weapon: {fileID: 5444888314268869643}
 --- !u!1 &5527469117763098429
 GameObject:
   m_ObjectHideFlags: 0

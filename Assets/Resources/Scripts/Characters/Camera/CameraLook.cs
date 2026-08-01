@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Camera))]
-public class CameraLook : MonoBehaviour
+public class CameraLook : MonoBehaviour, IRotationEffect
 {
     [Header("Sensitivity")]
     [SerializeField] private float _sensitivity;
@@ -17,7 +17,12 @@ public class CameraLook : MonoBehaviour
     [Inject] private ILookInputProvider _inputProvider;
 
     private float _yRotation; 
-    private float _xRotation; 
+    private float _xRotation;
+
+    public Quaternion GetLocalRotationOffset()
+    {
+        return Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
+    }
 
     private void Update()
     {
@@ -32,6 +37,6 @@ public class CameraLook : MonoBehaviour
         _yRotation -= mouseY;
         _yRotation = Mathf.Clamp(_yRotation, _minViewAngle, _maxViewAngle);
 
-        _headTransform.localRotation = Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
+        //_headTransform.localRotation = Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
     }
 }
