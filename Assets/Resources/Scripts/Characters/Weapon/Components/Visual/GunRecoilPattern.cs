@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GunRecoilPattern : MonoBehaviour, IRotationEffect
 {
-    [SerializeField] private Vector2[] recoilPattern;
+    [SerializeField] private Vector2[] _recoilPattern;
     [SerializeField] private float _recoilMultiplier;
     [SerializeField] private float _snappiness; 
     [SerializeField] private float _returnSpeed;
@@ -40,13 +40,13 @@ public class GunRecoilPattern : MonoBehaviour, IRotationEffect
 
     private void Fire()
     {
-        if (recoilPattern == null || recoilPattern.Length == 0) return;
+        if (_recoilPattern == null || _recoilPattern.Length == 0) return;
 
-        Vector2 patternOffset = recoilPattern[_currentShotIndex] * _recoilMultiplier;
+        Vector2 patternOffset = _recoilPattern[_currentShotIndex] * _recoilMultiplier;
 
         _targetRotation += new Vector3(-patternOffset.y, patternOffset.x, 0f);
 
-        _currentShotIndex = Mathf.Clamp(_currentShotIndex + 1, 0, recoilPattern.Length - 1);
+        _currentShotIndex = Mathf.Clamp(_currentShotIndex + 1, 0, _recoilPattern.Length - 1);
     }
 
     private void StopFiring()

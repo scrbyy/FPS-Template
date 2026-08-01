@@ -16722,8 +16722,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e65cfd4d3007eed4697bece9596058c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEngine
-  _accelerationRate: 30
+  _accelerationRate: 50
   _decelerationRate: 30
+  _movingThreshold: 0.25
   _airAcceleration: 30
   _airCap: 2
   _gravityScale: 2
@@ -52252,7 +52253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0edc6d95842501845ab06a85961fa34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recoilPattern:
+  _recoilPattern:
   - {x: 0, y: 0.4}
   - {x: 0, y: 1.1}
   - {x: 0, y: 2.5}
@@ -52273,18 +52274,18 @@ MonoBehaviour:
   - {x: 2, y: 5.5}
   - {x: 0, y: 5.5}
   - {x: -2, y: 5.5}
+  - {x: 3, y: 5.5}
   - {x: -3, y: 5.5}
   - {x: -5, y: 6}
   - {x: -2, y: 6}
-  - {x: 0, y: 6}
   - {x: 1, y: 6}
-  - {x: 3, y: 5.5}
+  - {x: 3, y: 6}
   - {x: 5, y: 5.5}
   - {x: 2, y: 5.5}
   - {x: 1, y: 5.5}
-  - {x: 0, y: 5.5}
+  - {x: 0, y: 5}
   _recoilMultiplier: 1.25
-  _snappiness: 15
+  _snappiness: 8
   _returnSpeed: 10
   _weapon: {fileID: 5444888314268869643}
 --- !u!1 &5527469117763098429

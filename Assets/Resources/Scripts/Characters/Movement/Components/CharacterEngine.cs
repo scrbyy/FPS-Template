@@ -11,6 +11,8 @@ public class CharacterEngine : MonoBehaviour
     [SerializeField] private float _accelerationRate;
     [SerializeField] private float _decelerationRate;
 
+    [SerializeField] private float _movingThreshold;
+
     [Header("CS-Style Air Movement")]
     [SerializeField] private float _airAcceleration;
     [SerializeField] private float _airCap;
@@ -30,9 +32,7 @@ public class CharacterEngine : MonoBehaviour
     private bool _isImpulseActive;
     private bool _canMove;
     private Vector3 _velocity;
-
-    private const float _movingThreshold = 0.1f;
-
+     
     public void Move(Vector3 inputVector)
     {
         if (_canMove)
