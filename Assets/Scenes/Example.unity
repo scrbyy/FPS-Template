@@ -34744,7 +34744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53809f2422952b241818b774829de4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useSmoothing: 1
+  _useSmoothing: 0
   _smoothSpeed: 12
 --- !u!114 &1557150734
 MonoBehaviour:
@@ -42986,7 +42986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53809f2422952b241818b774829de4fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _useSmoothing: 1
+  _useSmoothing: 0
   _smoothSpeed: 10
 --- !u!114 &1915844019
 MonoBehaviour:
