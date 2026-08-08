@@ -20,8 +20,19 @@ public abstract class Weapon : MonoBehaviour
     protected CancellationTokenSource _openCts;
     protected WeaponSpeedModifier _speedModifier;
 
-    public abstract void Attack();
-    public abstract void StopAttack();
+    protected WeaponAttacker _weaponAttacker;
+
+    public virtual void Attack()
+    {
+        if (_isOpen == false) return;
+        _weaponAttacker.StartShoot().Forget();
+    }
+
+    public virtual void StopAttack()
+    {
+        _weaponAttacker?.StopShoot();
+        OnStopAttack?.Invoke();
+    }
 
     public virtual void Initialize()
     {
@@ -32,7 +43,6 @@ public abstract class Weapon : MonoBehaviour
 
         _speedModifier = new WeaponSpeedModifier(_data.SpeedMultiplier);
         _ownerSpeedHandler.AddModifier(_speedModifier);
-
     }
 
     public virtual void Deinitialize()

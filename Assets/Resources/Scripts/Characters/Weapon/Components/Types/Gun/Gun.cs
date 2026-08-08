@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 
 public class Gun : Weapon, IShootable
 {
@@ -12,25 +11,24 @@ public class Gun : Weapon, IShootable
     public FireMode AttackMode => _data.FireMode;
 
     private GunReloader _reloader;
-    private GunAttacker _shooter;
 
     public override void Initialize()
     {
         base.Initialize();
         if (_data.GetType() != typeof(GunData)) Debug.Log("Wrong data asset!");
 
-        if(_shooter == null && _reloader == null)
+        if(_weaponAttacker == null && _reloader == null)
         {
             _reloader = new GunReloader(_data as GunData);
-            _shooter = new GunAttacker(_origin, _reloader.CanShoot, _data as GunData, _data);
+            _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, _data as GunData, _data);
         }
 
         _reloader.Initialize();
-        _shooter.Initialize();
+        _weaponAttacker.Initialize();
 
         _reloader.OnReloadEnd += NotifyUpdateAmmo;
-        _shooter.OnShoot += NotifyAttack;
-        _shooter.OnShotContact += NotifyContact;
+        _weaponAttacker.OnShoot += NotifyAttack;
+        _weaponAttacker.OnShotContact += NotifyContact;
 
         NotifyUpdateAmmo();
     }
@@ -39,29 +37,17 @@ public class Gun : Weapon, IShootable
     {
         base.Deinitialize();
         _reloader.Deinitialize();
-        _shooter.Deinitialize();
+        _weaponAttacker.Deinitialize();
 
-        _shooter.OnShoot -= NotifyAttack;
-        _shooter.OnShotContact -= NotifyContact;
+        _weaponAttacker.OnShoot -= NotifyAttack;
+        _weaponAttacker.OnShotContact -= NotifyContact;
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
-    }
-
-    public override void Attack()
-    {
-        if (_isOpen == false) return;
-        _shooter.StartShoot().Forget();
-    }
-
-    public override void StopAttack()
-    {
-        _shooter.StopShoot();
-        OnStopAttack?.Invoke();
     }
 
     public void Reload()
     {
         if (_isOpen == false) return;
-        if (_shooter.IsAttacking == false)
+        if (_weaponAttacker.IsAttacking == false)
         {
             _reloader.Reload();
         }
