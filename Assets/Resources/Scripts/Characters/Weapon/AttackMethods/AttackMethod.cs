@@ -2,5 +2,5 @@
 {
     None,
     Raycast,
-    SphereCast
+    Spherecast
 }

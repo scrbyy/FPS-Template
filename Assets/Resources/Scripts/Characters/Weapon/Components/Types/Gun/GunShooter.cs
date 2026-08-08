@@ -24,8 +24,6 @@ public class GunShooter
 
     private float _afterShotDelay;
 
-    private GameObject _decal;
-
     private bool _isShooting;
 
     private Func<bool> _canShootPredicate;
@@ -35,16 +33,15 @@ public class GunShooter
     public GunShooter(IShootingData shootingData, Transform origin, Func<bool> canShootPredicate)
     {
         _origin = origin;
-        _distance = shootingData.Distance;
+        _distance = shootingData.MaxDistance;
         _damage = shootingData.Damage;
-        _distanceModifier = shootingData.DistanceModifier;
+        _distanceModifier = shootingData.DistanceDamageMultiplier;
         _decreasingStep = shootingData.DamageDecreasingStep;
-        _decal = shootingData.Decal;
-        _afterShotDelay = shootingData.AfterShotDelay;
+        _afterShotDelay = shootingData.AfterAttackDelay;
         _canShootPredicate = canShootPredicate;
 
         _hitHandler = new HitHandler();
-        _shootingMethod = new AttackMethodFactory(_origin, _distance).CreateAttackMethod(shootingData.ShootingMethod);
+        _shootingMethod = new AttackMethodFactory(_origin, _distance).CreateAttackMethod(shootingData.AttackMethod);
     }
 
     public void Initialize()
@@ -105,7 +102,7 @@ public class GunShooter
         if (hitData.isHit)
         {
             OnShotContact?.Invoke(hitData);
-            _hitHandler.HandleShot(hitData, CalculateDamageAtDistance(hitData.Distance), _decal);
+            _hitHandler.HandleShot(hitData, CalculateDamageAtDistance(hitData.Distance));
         }
     }
 

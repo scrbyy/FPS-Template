@@ -2,7 +2,7 @@
 {
     public float ReloadDuration { get; }
 
-    public float AfterShotDelay { get; }
+    public float AfterAttackDelay { get; }
 
-    public FireMode RecoilType {  get; }
+    public FireMode FireMode {  get; }
 }

@@ -14,15 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 15
   _speedMultipler: 1
-  _openTime: 1
-  _distance: 100
-  _distanceModifier: 0.95
+  _openDelay: 0.25
+  _afterAttackDelay: 0.1
+  _attackMethod: 0
+  _maxDistance: 120
+  _distanceDamageMultiplier: 0.95
   _damageDecreasingStep: 10
   _startAmmo: 12
   _magazineSize: 12
   _reserveAmmo: 36
   _reloadDuration: 1
-  _afterShootDelay: 0.08
-  _recoilType: 1
-  _shootingMethod: 0
-  _decal: {fileID: 142568468007587749, guid: 6735bdf2daef1fd4cb7ac4c15454b200, type: 3}
+  _fireMode: 0

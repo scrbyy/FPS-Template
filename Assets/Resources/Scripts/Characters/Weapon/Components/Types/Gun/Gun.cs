@@ -10,7 +10,7 @@ public class Gun : Weapon, IShootable
     public int CurrentAmmo => _reloader.CurrentAmmo;
     public int ReserveAmmo => _reloader.ReserveAmmo;
 
-    public FireMode RecoilType => _gunData.RecoilType;
+    public FireMode RecoilType => _gunData.FireMode;
 
     [SerializeField] private Transform _origin;
     [SerializeField] private GunData _gunData;
@@ -31,7 +31,7 @@ public class Gun : Weapon, IShootable
             _shooter = new GunShooter(_gunData, _origin, _reloader.CanShoot);
         }
 
-        OpenDelay(_gunData.OpenTime).Forget();
+        OpenDelay(_gunData.OpenDelay).Forget();
 
         _reloader.Initialize();
         _shooter.Initialize();

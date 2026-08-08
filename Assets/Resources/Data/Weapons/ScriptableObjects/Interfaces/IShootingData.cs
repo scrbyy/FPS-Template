@@ -1,18 +1,14 @@
-﻿using UnityEngine;
-
-public interface IShootingData
+﻿public interface IShootingData
 {
     public float Damage { get; }
 
-    public float Distance { get; }
+    public float MaxDistance { get; }
 
-    public float AfterShotDelay { get; }
+    public float AfterAttackDelay { get; }
 
-    public AttackMethod ShootingMethod { get; }
+    public AttackMethod AttackMethod { get; }
 
-    public float DistanceModifier { get; }
+    public float DistanceDamageMultiplier { get; }
 
     public float DamageDecreasingStep { get; }
-
-    public GameObject Decal {  get; }
 }

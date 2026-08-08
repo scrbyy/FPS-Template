@@ -1,5 +1,5 @@
 ﻿public enum FireMode
 {
-    Automatic,
-    Single
+    Single,
+    Automatic
 }

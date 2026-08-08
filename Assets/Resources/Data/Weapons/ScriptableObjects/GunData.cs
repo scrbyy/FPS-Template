@@ -4,30 +4,20 @@
 public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 {
     public int StartAmmo => _startAmmo;
-
     public int MagazineSize => _magazineSize;
-
     public int ReserveAmmo => _reserveAmmo;
 
     public float ReloadDuration => _reloadDuration;
 
-    public float AfterShotDelay => _afterShootDelay;
-
-    public FireMode RecoilType => _recoilType;
-
-    public float Distance => _distance;
-
-    public AttackMethod ShootingMethod => _shootingMethod;
-
-    public float DistanceModifier => _distanceModifier;
-
+    public float MaxDistance => _maxDistance;
+    public float DistanceDamageMultiplier => _distanceDamageMultiplier;
     public float DamageDecreasingStep => _damageDecreasingStep;
 
-    public GameObject Decal => _decal;
+    public FireMode FireMode => _fireMode;
 
     [Header("Distance")]
-    [SerializeField] private float _distance;
-    [SerializeField] private float _distanceModifier;
+    [SerializeField] private float _maxDistance;
+    [SerializeField] private float _distanceDamageMultiplier;
     [SerializeField] private float _damageDecreasingStep;
 
     [Header("Ammunition")]
@@ -39,9 +29,5 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
     [SerializeField] private float _reloadDuration;
 
     [Header("Shooting")]
-    [SerializeField] private float _afterShootDelay;
-    [SerializeField] private FireMode _recoilType;
-    [SerializeField] private AttackMethod _shootingMethod;
-
-    [SerializeField] private GameObject _decal;
+    [SerializeField] private FireMode _fireMode;
 }
