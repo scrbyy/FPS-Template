@@ -16,13 +16,11 @@ public class RaycastAttackMethod : IAttackMethod
 
     public HitData Execute()
     {
-        _hitData.originPoint = _origin.position;
+        _hitData.origin = _origin.position;
         if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance))
         {
             _hitData.isHit = true;
-            _hitData.hitPoint = _hit.point;
-            _hitData.hitObject = _hit.transform.gameObject;
-            _hitData.normal = _hit.normal;
+            _hitData.SetData(_hit);
         }
         else _hitData.isHit = false;
 
