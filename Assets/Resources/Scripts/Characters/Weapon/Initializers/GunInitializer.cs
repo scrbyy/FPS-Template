@@ -2,7 +2,7 @@
 
 public class GunInitializer : WeaponInitializer<Gun>
 {
-    public GunInitializer(ShootingFeature shooting, ReloadingFeature reloading)
+    public GunInitializer(AttackFeature shooting, ReloadingFeature reloading)
         : base(new List<IWeaponFeature> { shooting, reloading })
     {
     }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using UnityEngine;
 
-namespace Assets.Resources.Scripts.Characters.Weapon.Other
+public class KnifeAttacker : WeaponAttacker
 {
-    internal class KnifeAttacker
+    public KnifeAttacker(IAttackData attackData, Transform origin) : base(attackData, origin)
     {
     }
 }

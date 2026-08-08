@@ -1,16 +1,32 @@
-using UnityEngine;
+using Cysharp.Threading.Tasks;
 
-public class Knife : MonoBehaviour
+public class Knife : Weapon
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private KnifeAttacker _knifeAttacker;
+
+    public override void Attack()
     {
-        
+        if (_isOpen == false) return;
+        _knifeAttacker.StartShoot().Forget();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Deinitialize()
     {
-        
+        base.Deinitialize();
+        _knifeAttacker.Deinitialize();
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        _knifeAttacker = new KnifeAttacker(_data, _origin);
+        OpenDelay(_data.OpenDelay).Forget();
+        _knifeAttacker.Initialize();
+    }
+
+    public override void StopAttack()
+    {
+        _knifeAttacker?.StopShoot();
+        OnStopAttack?.Invoke();
     }
 }

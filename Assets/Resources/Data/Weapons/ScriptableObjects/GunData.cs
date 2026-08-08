@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Gun Data Asset", menuName = "Data Assets/Weapons/Gun Data Asset")] 
-public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
+[CreateAssetMenu(fileName = "Gun Data", menuName = "Data Assets/Weapons/Gun Data")] 
+public class GunData : WeaponData, IAmmoData, IStatData, IDistanceAttackData
 {
     public int StartAmmo => _startAmmo;
     public int MagazineSize => _magazineSize;
@@ -9,14 +9,10 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 
     public float ReloadDuration => _reloadDuration;
 
-    public float MaxDistance => _maxDistance;
     public float DistanceDamageMultiplier => _distanceDamageMultiplier;
     public float DamageDecreasingStep => _damageDecreasingStep;
 
-    public FireMode FireMode => _fireMode;
-
     [Header("Distance")]
-    [SerializeField] private float _maxDistance;
     [SerializeField] private float _distanceDamageMultiplier;
     [SerializeField] private float _damageDecreasingStep;
 
@@ -27,7 +23,4 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
     [Header("Reloading")]
     [SerializeField] private int _reserveAmmo;
     [SerializeField] private float _reloadDuration;
-
-    [Header("Shooting")]
-    [SerializeField] private FireMode _fireMode;
 }

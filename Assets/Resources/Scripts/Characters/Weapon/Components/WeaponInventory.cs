@@ -14,13 +14,13 @@ public class WeaponInventory : MonoBehaviour
     [SerializeField] private List<Weapon> _weaponList = new List<Weapon>();
 
     private Weapon _selectedWeapon;
-    private int _selectedWeaponID = 0;
+    [SerializeField] private int _selectedWeaponID = 0;
 
     [Inject] private ILoadoutInputProvider _inputProvider;
-    [Inject] private WeaponInitializersRegistry _InitializersRegistry;
+    [Inject] private WeaponInitializersRegistry _initializersRegistry;
 
 
-    private void Awake()
+    private void Start()
     {
         foreach (var weapon in _weaponList)
         {
@@ -29,62 +29,50 @@ public class WeaponInventory : MonoBehaviour
 
         if (_weaponList.Count > 0)
         {
-            _selectedWeapon = _weaponList[_selectedWeaponID];
-
-            if (_InitializersRegistry.TryGetInitializer(_selectedWeapon, out IWeaponInitializer initializer))
-            {
-                _selectedWeapon.gameObject.SetActive(true);
-                _selectedWeapon.Initialize();
-                initializer.Select(_selectedWeapon);
-            }
+            SelectWeaponInternal(_selectedWeaponID);
         }
     }
 
     public void SwitchWeapon(int newWeaponID)
     {
-        if (_InitializersRegistry.TryGetInitializer(_selectedWeapon, out IWeaponInitializer oldInitializer))
+        if (newWeaponID < 0 || newWeaponID >= _weaponList.Count) return;
+
+        if (_selectedWeapon != null && _initializersRegistry.TryGetInitializer(_selectedWeapon, out var oldInitializer))
         {
             oldInitializer.Unselect(_selectedWeapon);
             _selectedWeapon.gameObject.SetActive(false);
             _selectedWeapon.Deinitialize();
             OnWeaponUnselect?.Invoke(_selectedWeapon);
+        }
 
-            if (_InitializersRegistry.TryGetInitializer(_weaponList[newWeaponID], out IWeaponInitializer newInitializer))
-            {
-                _selectedWeapon = _weaponList[newWeaponID];
+        SelectWeaponInternal(newWeaponID);
+    }
 
-                _selectedWeapon.gameObject.SetActive(true);
-                _selectedWeapon.Initialize();
-                newInitializer.Select(_selectedWeapon);
+    private void SelectWeaponInternal(int id)
+    {
+        _selectedWeaponID = id;
+        _selectedWeapon = _weaponList[_selectedWeaponID];
 
-                _selectedWeaponID = newWeaponID;
-
-                OnWeaponSelected?.Invoke(_selectedWeapon);
-            }
+        if (_initializersRegistry.TryGetInitializer(_selectedWeapon, out var newInitializer))
+        {
+            _selectedWeapon.gameObject.SetActive(true);
+            _selectedWeapon.Initialize();
+            newInitializer.Select(_selectedWeapon);
+            OnWeaponSelected?.Invoke(_selectedWeapon);
         }
     }
 
     private void SetPreviousWeapon()
     {
-        int newWeaponID;
-        if (_selectedWeaponID - 1 <= -1)
-            newWeaponID = _weaponList.Count - 1;
-        else
-            newWeaponID = _selectedWeaponID - 1;
+        // Если вышли за 0, берем последний индекс, иначе уменьшаем на 1
+        int newWeaponID = (_selectedWeaponID - 1 < 0) ? _weaponList.Count - 1 : _selectedWeaponID - 1;
         SwitchWeapon(newWeaponID);
     }
 
     private void SetNextWeapon()
     {
-        int newWeaponID;
-        if (_selectedWeaponID + 1 >= _weaponList.Count)
-        {
-            newWeaponID = 0;
-        }
-        else
-        {
-            newWeaponID = _selectedWeaponID + 1;
-        }
+        // Магическая формула остатка от деления автоматически сбросит индекс в 0 при достижении Count
+        int newWeaponID = (_selectedWeaponID + 1) % _weaponList.Count;
         SwitchWeapon(newWeaponID);
     }
 

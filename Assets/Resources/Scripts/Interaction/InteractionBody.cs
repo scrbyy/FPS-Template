@@ -4,7 +4,7 @@ using UnityEngine;
 public class InteractionBody : MonoBehaviour
 {
     [Header("Main")]
-    [SerializeField] private float _maxDistance;
+    [SerializeField] private float _distance;
 
     [SerializeField] private LayerMask _mask;
     [SerializeField] private Transform _rayOrigin;
@@ -15,7 +15,7 @@ public class InteractionBody : MonoBehaviour
 
     private void CheckInteraction()
     {
-        if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _maxDistance, _mask))
+        if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _mask))
         {
             IInteractionObject _interactionObject = _hit.collider.gameObject.GetComponent<IInteractionObject>();
             _interactionObject.Interact();

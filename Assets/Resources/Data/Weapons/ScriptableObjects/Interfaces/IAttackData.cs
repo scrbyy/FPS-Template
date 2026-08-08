@@ -1,4 +1,4 @@
-﻿public interface IShootingData
+﻿public interface IAttackData
 {
     public float Damage { get; }
 
@@ -7,8 +7,4 @@
     public float AfterAttackDelay { get; }
 
     public AttackMethod AttackMethod { get; }
-
-    public float DistanceDamageMultiplier { get; }
-
-    public float DamageDecreasingStep { get; }
 }

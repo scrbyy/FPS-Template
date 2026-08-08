@@ -14,6 +14,8 @@ public class AttackMethodFactory
     public IAttackMethod CreateAttackMethod(AttackMethod attackMethod)
     {
         if(attackMethod == AttackMethod.Raycast) return new RaycastAttackMethod(_origin, _distance);
+        if(attackMethod == AttackMethod.Spherecast) return new SpherecastAttackMethod(_origin, _distance);
+        
         else return null;
     }
 }

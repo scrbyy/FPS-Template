@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using System.Threading;
 using Cysharp.Threading.Tasks;
 
 public class Gun : Weapon, IShootable
@@ -10,28 +9,21 @@ public class Gun : Weapon, IShootable
     public int CurrentAmmo => _reloader.CurrentAmmo;
     public int ReserveAmmo => _reloader.ReserveAmmo;
 
-    public FireMode RecoilType => _gunData.FireMode;
-
-    [SerializeField] private Transform _origin;
-    [SerializeField] private GunData _gunData;
+    public FireMode AttackMode => _data.FireMode;
 
     private GunReloader _reloader;
-    private GunShooter _shooter;
-
-    private WeaponSpeedModifier _speedModifier;
+    private GunAttacker _shooter;
 
     public override void Initialize()
     {
-        _isOpen = false;
-        _openCts = new CancellationTokenSource();
+        base.Initialize();
+        if (_data.GetType() != typeof(GunData)) Debug.Log("Wrong data asset!");
 
         if(_shooter == null && _reloader == null)
         {
-            _reloader = new GunReloader(_gunData);
-            _shooter = new GunShooter(_gunData, _origin, _reloader.CanShoot);
+            _reloader = new GunReloader(_data as GunData);
+            _shooter = new GunAttacker(_origin, _reloader.CanShoot, _data as GunData, _data);
         }
-
-        OpenDelay(_gunData.OpenDelay).Forget();
 
         _reloader.Initialize();
         _shooter.Initialize();
@@ -40,44 +32,27 @@ public class Gun : Weapon, IShootable
         _shooter.OnShoot += NotifyAttack;
         _shooter.OnShotContact += NotifyContact;
 
-        _speedModifier = new WeaponSpeedModifier(_gunData.SpeedMultiplier);
-        _ownerSpeedHandler.AddModifier(_speedModifier);
-
         NotifyUpdateAmmo();
     }
 
     public override void Deinitialize()
     {
+        base.Deinitialize();
         _reloader.Deinitialize();
         _shooter.Deinitialize();
 
         _shooter.OnShoot -= NotifyAttack;
         _shooter.OnShotContact -= NotifyContact;
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
-
-        if (_openCts != null)
-        {
-            _openCts.Cancel();
-            _openCts.Dispose();
-            _openCts = null;
-        }
-
-        _isOpen = false;
-
-        _ownerSpeedHandler.RemoveModifier(_speedModifier);
     }
-
 
     public override void Attack()
     {
         if (_isOpen == false) return;
-        if (_reloader.CanShoot())
-        {
-            _shooter.StartShoot().Forget();
-        }
+        _shooter.StartShoot().Forget();
     }
 
-    public void StopAttack()
+    public override void StopAttack()
     {
         _shooter.StopShoot();
         OnStopAttack?.Invoke();
@@ -86,7 +61,7 @@ public class Gun : Weapon, IShootable
     public void Reload()
     {
         if (_isOpen == false) return;
-        if (_shooter.IsShooting == false)
+        if (_shooter.IsAttacking == false)
         {
             _reloader.Reload();
         }
@@ -98,6 +73,7 @@ public class Gun : Weapon, IShootable
         _reloader.UseBullet();
         NotifyUpdateAmmo();
     }
+
     private void NotifyContact(HitData hit)
     {
         OnShotContact?.Invoke(hit);

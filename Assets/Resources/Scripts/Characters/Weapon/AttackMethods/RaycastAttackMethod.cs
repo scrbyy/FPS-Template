@@ -4,9 +4,9 @@ public class RaycastAttackMethod : IAttackMethod
 {
     private Transform _origin;
     private float _distance;
+
     private RaycastHit _hit;
     private HitData _hitData;
-    private GameObject _hitObject;
 
     public RaycastAttackMethod(Transform origin, float distance)
     {
@@ -16,16 +16,14 @@ public class RaycastAttackMethod : IAttackMethod
 
     public HitData Execute()
     {
+        _hitData.originPoint = _origin.position;
         if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance))
         {
-            _hitObject = _hit.transform.gameObject;
             _hitData.isHit = true;
-            _hitData.originPoint = _origin.position;
             _hitData.hitPoint = _hit.point;
-            _hitData.hitObject = _hitObject.transform.gameObject;
-            _hitData.normal= _hit.normal;
+            _hitData.hitObject = _hit.transform.gameObject;
+            _hitData.normal = _hit.normal;
         }
-
         else _hitData.isHit = false;
 
         return _hitData;

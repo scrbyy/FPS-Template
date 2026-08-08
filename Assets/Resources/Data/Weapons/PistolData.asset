@@ -16,7 +16,7 @@ MonoBehaviour:
   _speedMultipler: 1
   _openDelay: 0.25
   _afterAttackDelay: 0.1
-  _attackMethod: 0
+  _attackMethod: 1
   _maxDistance: 120
   _distanceDamageMultiplier: 0.95
   _damageDecreasingStep: 10
