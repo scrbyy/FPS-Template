@@ -7,7 +7,7 @@
     {
         if (weapon is Gun gun)
         {
-            if (gun.RecoilType == RecoilType.Automatic) _input.OnShootStarted += gun.Attack;
+            if (gun.RecoilType == FireMode.Automatic) _input.OnShootStarted += gun.Attack;
             else _input.OnShootReleased += gun.Attack;
             _input.OnShootReleased += gun.StopAttack;
         }
@@ -17,7 +17,7 @@
     {
         if (weapon is Gun gun)
         {
-            if (gun.RecoilType == RecoilType.Automatic) _input.OnShootStarted -= gun.Attack;
+            if (gun.RecoilType == FireMode.Automatic) _input.OnShootStarted -= gun.Attack;
             else _input.OnShootReleased -= gun.Attack;
             _input.OnShootReleased -= gun.StopAttack;
         }

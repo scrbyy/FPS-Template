@@ -1,4 +1,4 @@
-﻿public enum RecoilType
+﻿public enum FireMode
 {
     Automatic,
     Single

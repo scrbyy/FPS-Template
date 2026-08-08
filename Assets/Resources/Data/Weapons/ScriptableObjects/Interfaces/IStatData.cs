@@ -4,5 +4,5 @@
 
     public float AfterShotDelay { get; }
 
-    public RecoilType RecoilType {  get; }
+    public FireMode RecoilType {  get; }
 }

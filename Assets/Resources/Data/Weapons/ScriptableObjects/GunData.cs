@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+
 [CreateAssetMenu(fileName = "Gun Data Asset", menuName = "Data Assets/Weapons/Gun Data Asset")] 
 public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 {
@@ -12,11 +13,11 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 
     public float AfterShotDelay => _afterShootDelay;
 
-    public RecoilType RecoilType => _recoilType;
+    public FireMode RecoilType => _recoilType;
 
     public float Distance => _distance;
 
-    public ShootingMethod ShootingMethod => _shootingMethod;
+    public AttackMethod ShootingMethod => _shootingMethod;
 
     public float DistanceModifier => _distanceModifier;
 
@@ -39,8 +40,8 @@ public class GunData : WeaponData, IAmmoData, IStatData, IShootingData
 
     [Header("Shooting")]
     [SerializeField] private float _afterShootDelay;
-    [SerializeField] private RecoilType _recoilType;
-    [SerializeField] private ShootingMethod _shootingMethod;
+    [SerializeField] private FireMode _recoilType;
+    [SerializeField] private AttackMethod _shootingMethod;
 
     [SerializeField] private GameObject _decal;
 }

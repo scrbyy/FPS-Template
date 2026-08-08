@@ -20,7 +20,7 @@ public class GunShooter
     private float _decreasingStep;
 
     private HitHandler _hitHandler;
-    private IShootingMethod _shootingMethod;
+    private IAttackMethod _shootingMethod;
 
     private float _afterShotDelay;
 
@@ -44,7 +44,7 @@ public class GunShooter
         _canShootPredicate = canShootPredicate;
 
         _hitHandler = new HitHandler();
-        _shootingMethod = new ShootingMethodFactory(_origin, _distance).CreateShootingMethod(shootingData.ShootingMethod);
+        _shootingMethod = new AttackMethodFactory(_origin, _distance).CreateAttackMethod(shootingData.ShootingMethod);
     }
 
     public void Initialize()
@@ -100,7 +100,7 @@ public class GunShooter
     private void Shoot()
     {
         OnShoot?.Invoke();
-        HitData hitData = _shootingMethod.ExecuteShoot();
+        HitData hitData = _shootingMethod.Execute();
 
         if (hitData.isHit)
         {

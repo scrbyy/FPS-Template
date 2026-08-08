@@ -8,7 +8,7 @@ public interface IShootingData
 
     public float AfterShotDelay { get; }
 
-    public ShootingMethod ShootingMethod { get; }
+    public AttackMethod ShootingMethod { get; }
 
     public float DistanceModifier { get; }
 

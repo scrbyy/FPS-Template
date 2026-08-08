@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class RaycastShoot : IShootingMethod
+public class RaycastAttackMethod : IAttackMethod
 {
     private Transform _origin;
     private float _distance;
@@ -8,13 +8,13 @@ public class RaycastShoot : IShootingMethod
     private HitData _hitData;
     private GameObject _hitObject;
 
-    public RaycastShoot(Transform origin, float distance)
+    public RaycastAttackMethod(Transform origin, float distance)
     {
         _origin = origin;
         _distance = distance;
     }
 
-    public HitData ExecuteShoot()
+    public HitData Execute()
     {
         if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance))
         {

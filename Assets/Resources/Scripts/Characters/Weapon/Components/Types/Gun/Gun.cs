@@ -10,7 +10,7 @@ public class Gun : Weapon, IShootable
     public int CurrentAmmo => _reloader.CurrentAmmo;
     public int ReserveAmmo => _reloader.ReserveAmmo;
 
-    public RecoilType RecoilType => _gunData.RecoilType;
+    public FireMode RecoilType => _gunData.RecoilType;
 
     [SerializeField] private Transform _origin;
     [SerializeField] private GunData _gunData;
