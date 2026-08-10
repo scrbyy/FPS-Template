@@ -18,11 +18,14 @@ MonoBehaviour:
   _attackMethod: 2
   _raycastParams:
     _distance: 0
-    _ignoreLayer:
+    _ignoreMask:
       serializedVersion: 2
       m_Bits: 512
   _spherecastParams:
     _distance: 1
     _radius: 1
+    _ignoreLayer:
+      serializedVersion: 2
+      m_Bits: 512
   _speedMultipler: 1
   _openDelay: 0.25

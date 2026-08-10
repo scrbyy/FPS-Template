@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: f6ed92eca35ad1945bd05ced4a1697cd, type: 2}
-  _origin: {fileID: 1915844012}
+  _origin: {fileID: 330585546}
   _ownerSpeedHandler: {fileID: 755122332}
 --- !u!114 &30990240
 MonoBehaviour:
@@ -1092,7 +1092,7 @@ GameObject:
   - component: {fileID: 64993097}
   - component: {fileID: 64993096}
   - component: {fileID: 64993100}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1184,7 +1184,7 @@ Transform:
   m_GameObject: {fileID: 64993094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 398.2, y: 0.75, z: 415.6}
+  m_LocalPosition: {x: 395.76, y: 0.75, z: 415.6}
   m_LocalScale: {x: 0.75, y: 0.65, z: 0.75}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2517,7 +2517,7 @@ GameObject:
   - component: {fileID: 133145820}
   - component: {fileID: 133145826}
   - component: {fileID: 133145825}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5934,7 +5934,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 5431
+    m_Bits: 7479
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -7347,6 +7347,70 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &383299254
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 383299255}
+  - component: {fileID: 383299257}
+  - component: {fileID: 383299256}
+  m_Layer: 0
+  m_Name: DecalPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &383299255
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383299254}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 642669985}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &383299256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383299254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21a6aacde318bc4288156b9fb9bf0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootingCharacters:
+  - {fileID: 1557150730}
+  _decalPool: {fileID: 383299257}
+--- !u!114 &383299257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383299254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272d4e978bcb36e4c857acedcbf3c5bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _decalPrefab: {fileID: 1105335975}
+  _initializePoolSize: 30
+  _fadeTime: 10
+  _surfaceOffset: 0.1
 --- !u!43 &390196677
 Mesh:
   m_ObjectHideFlags: 0
@@ -13012,8 +13076,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 642669985}
-  - component: {fileID: 642669987}
-  - component: {fileID: 642669986}
   m_Layer: 0
   m_Name: SceneSettings
   m_TagString: Untagged
@@ -13037,39 +13099,9 @@ Transform:
   - {fileID: 32322477}
   - {fileID: 1464845730}
   - {fileID: 1040894700}
+  - {fileID: 383299255}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &642669986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642669984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21a6aacde318bc4288156b9fb9bf0f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shootingCharacters:
-  - {fileID: 1557150730}
-  _decalPool: {fileID: 642669987}
---- !u!114 &642669987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642669984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 272d4e978bcb36e4c857acedcbf3c5bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _decalPrefab: {fileID: 1105335975}
-  _initializePoolSize: 30
-  _fadeTime: 10
-  _surfaceOffset: 0.1
 --- !u!1 &643286668
 GameObject:
   m_ObjectHideFlags: 0
@@ -18844,7 +18876,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 5f6b9ea6783e70a418cc8797c03a5680, type: 2}
-  _origin: {fileID: 1915844012}
+  _origin: {fileID: 330585546}
   _ownerSpeedHandler: {fileID: 755122332}
 --- !u!43 &857036695
 Mesh:
@@ -52626,7 +52658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: eb902cd4769b70a468a621e48db74f09, type: 2}
-  _origin: {fileID: 1915844012}
+  _origin: {fileID: 330585546}
   _ownerSpeedHandler: {fileID: 755122332}
 --- !u!114 &5444888314268869645
 MonoBehaviour:
