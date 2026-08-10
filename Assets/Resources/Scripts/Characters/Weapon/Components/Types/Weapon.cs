@@ -59,11 +59,11 @@ public abstract class Weapon : MonoBehaviour
         _ownerSpeedHandler.RemoveModifier(_speedModifier);
     }
 
-    public async UniTask OpenDelay(float _openTime)
+    public async UniTask OpenDelay(float openTime)
     {
         try
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_openTime), cancellationToken: _openCts.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(openTime), cancellationToken: _openCts.Token);
             _isOpen = true;
         }
         catch (OperationCanceledException) { }

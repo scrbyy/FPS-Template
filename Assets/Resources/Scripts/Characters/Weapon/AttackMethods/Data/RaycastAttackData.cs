@@ -8,10 +8,9 @@ public class RaycastAttackData : AttackData
     public override AttackType Type => AttackType.Raycast;
 
     [SerializeField] private float _distance;
-    [SerializeField] private LayerMask _ignoreLayer;
 
     public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
     {
-        return new RaycastAttackMethod(origin, _distance, _ignoreLayer);
+        return new RaycastAttackMethod(origin, _distance);
     }
 }

@@ -18,14 +18,14 @@ public class SpherecastAttackMethod : IAttackMethod
 
     public HitData Execute()
     {
-        _hitData.origin = _origin.position;
+        _hitData.Origin = _origin.position;
 
         if(Physics.SphereCast(_origin.position, _radius, _origin.forward, out _hit, _distance))
         {
-            _hitData.isHit = true;
+            _hitData.IsHit = true;
             _hitData.SetData(_hit);
         }
-        else _hitData.isHit = false;
+        else _hitData.IsHit = false;
         return _hitData; 
     }
 }

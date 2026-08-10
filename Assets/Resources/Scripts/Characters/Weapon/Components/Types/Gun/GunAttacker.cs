@@ -51,7 +51,7 @@ public class GunAttacker :WeaponAttacker
         OnShoot?.Invoke();
         HitData hitData = _attackMethod.Execute();
 
-        if (hitData.isHit)
+        if (hitData.IsHit)
         {
             OnShotContact?.Invoke(hitData);
             _hitHandler.HandleShot(hitData, CalculateDamageAtDistance(hitData.Distance));

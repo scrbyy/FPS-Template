@@ -58,10 +58,10 @@ public class DecalPool : MonoBehaviour
         }
 
 
-        if (hitData.normal != Vector3.zero)
+        if (hitData.Normal != Vector3.zero)
         {
-            decalToUse.transform.position = hitData.hit + (hitData.normal * _surfaceOffset);
-            decalToUse.transform.rotation = Quaternion.LookRotation(-hitData.normal);
+            decalToUse.transform.position = hitData.HitPoint + (hitData.Normal * _surfaceOffset);
+            decalToUse.transform.rotation = Quaternion.LookRotation(-hitData.Normal);
         }
 
         decalToUse.SetActive(true);
