@@ -13,6 +13,7 @@ public class SpherecastAttackMethod : IAttackMethod
     {
         _origin = origin;
         _radius = radius;
+        _distance = distance;
     }
 
     public HitData Execute()
@@ -25,7 +26,6 @@ public class SpherecastAttackMethod : IAttackMethod
             _hitData.SetData(_hit);
         }
         else _hitData.isHit = false;
-
         return _hitData; 
     }
 }

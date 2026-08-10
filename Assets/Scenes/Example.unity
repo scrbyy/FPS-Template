@@ -466,7 +466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: f6ed92eca35ad1945bd05ced4a1697cd, type: 2}
-  _origin: {fileID: 330585546}
+  _origin: {fileID: 1915844012}
   _ownerSpeedHandler: {fileID: 755122332}
 --- !u!114 &30990240
 MonoBehaviour:
@@ -5955,7 +5955,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13067,8 +13067,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _decalPrefab: {fileID: 1105335975}
-  _initializePoolSize: 25
-  _fadeTime: 3
+  _initializePoolSize: 30
+  _fadeTime: 10
   _surfaceOffset: 0.1
 --- !u!1 &643286668
 GameObject:
@@ -16794,7 +16794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98622a8955036d5479f4ff05ca5101a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDashPhysical
-  _airImpulse: 4
+  _airImpulse: 8
   _groundImpulse: 12
   _cooldown: 0.5
   _dashStaminaCost: 5
@@ -16862,9 +16862,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEngine
   _accelerationRate: 50
   _decelerationRate: 30
-  _movingThreshold: 0.25
-  _airAcceleration: 30
-  _airCap: 2
+  _movingThreshold: 0.4
+  _airAcceleration: 20
+  _airCap: 1
   _gravityScale: 2
   _downforce: -2
   _speedProvider: {fileID: 755122332}
@@ -18844,7 +18844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: 5f6b9ea6783e70a418cc8797c03a5680, type: 2}
-  _origin: {fileID: 330585546}
+  _origin: {fileID: 1915844012}
   _ownerSpeedHandler: {fileID: 755122332}
 --- !u!43 &857036695
 Mesh:
@@ -35057,7 +35057,7 @@ Transform:
   m_GameObject: {fileID: 1557150728}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -52626,7 +52626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: eb902cd4769b70a468a621e48db74f09, type: 2}
-  _origin: {fileID: 330585546}
+  _origin: {fileID: 1915844012}
   _ownerSpeedHandler: {fileID: 755122332}
 --- !u!114 &5444888314268869645
 MonoBehaviour:
