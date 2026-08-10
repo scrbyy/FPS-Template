@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Knife Data", menuName = "Data Assets/Weapons/Knife Data")]
+[CreateAssetMenu(fileName = "KnifeData", menuName = "FPS Template/Data Assets/Weapons/Knife Data Asset")]
 public class KnifeData : WeaponData
 {
 }

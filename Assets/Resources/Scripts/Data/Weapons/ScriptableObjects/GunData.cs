@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Gun Data", menuName = "Data Assets/Weapons/Gun Data")] 
+[CreateAssetMenu(fileName = "GunData", menuName = "FPS Template/Data Assets/Weapons/Gun Data Asset")] 
 public class GunData : WeaponData, IAmmoData, IStatData, IDistanceAttackData
 {
     public int StartAmmo => _startAmmo;
@@ -18,9 +18,11 @@ public class GunData : WeaponData, IAmmoData, IStatData, IDistanceAttackData
 
     [Header("Ammunition")]
     [SerializeField] private int _startAmmo;
+    [SerializeField] private int _reserveAmmo;
+
+    [Space]
     [SerializeField] private int _magazineSize;
 
     [Header("Reloading")]
-    [SerializeField] private int _reserveAmmo;
     [SerializeField] private float _reloadDuration;
 }

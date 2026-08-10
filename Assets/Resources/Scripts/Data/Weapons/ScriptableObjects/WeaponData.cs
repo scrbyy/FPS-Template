@@ -7,20 +7,28 @@ public class WeaponData : ScriptableObject, ISpeedModifier, IAttackData
     public float OpenDelay => _openDelay;
     public FireMode FireMode => _fireMode;
     public float AfterAttackDelay => _afterAttackDelay;
+    public AttackType AttackMethod => _attackMethod;
 
-    public float MaxDistance => throw new System.NotImplementedException();
 
-    public AttackType AttackMethod => throw new System.NotImplementedException();
-
+    [Header("Attack Settings")]
     [SerializeField] private float _damage;
-    [SerializeField] private float _speedMultipler;
-    [SerializeField] private float _openDelay;
     [SerializeField] private float _afterAttackDelay;
+
+    [Space]
     [SerializeField] private FireMode _fireMode;
 
+    [Space]
     [SerializeField] private AttackType _attackMethod;
+
+    [Header("Attack Method Settings")]
     [SerializeField] private RaycastAttackData _raycastParams;
     [SerializeField] private SpherecastAttackData _spherecastParams;
+
+    [Header("Movement")]
+    [SerializeField] private float _speedMultipler;
+
+    [Header("Timings")]
+    [SerializeField] private float _openDelay;
 
     public AttackData GetAttackConfig()
     {

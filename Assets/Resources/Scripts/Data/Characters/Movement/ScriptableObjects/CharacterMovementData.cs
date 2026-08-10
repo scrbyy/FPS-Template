@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Character Movement Data Asset", menuName = "Data Assets/Movement/Character Movement Data Asset")]
+[CreateAssetMenu(fileName = "CharacterMovementData", menuName = "FPS Template/Data Assets/Movement/CharacterMovement Data Asset")]
 public class CharacterMovementData : ScriptableObject
 {
     public float WalkSpeed => _walkSpeed;
