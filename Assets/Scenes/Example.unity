@@ -22270,9 +22270,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1002398855}
   - component: {fileID: 1002398858}
+  - component: {fileID: 1002398861}
   - component: {fileID: 1002398857}
   - component: {fileID: 1002398860}
-  - component: {fileID: 1002398861}
   m_Layer: 0
   m_Name: StaminaBar
   m_TagString: Untagged
@@ -22345,7 +22345,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002398854}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -22363,6 +22363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fillImage: {fileID: 1002398857}
   _smoothSpeed: 5
+  _defaultAlpha: 0
   _autoHide: 1
   _hideCooldown: 1
   _hideDuration: 0.25
@@ -33007,6 +33008,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fillImage: {fileID: 1435164042}
   _smoothSpeed: 5
+  _defaultAlpha: 0
   _autoHide: 1
   _hideCooldown: 1
   _hideDuration: 0.25
@@ -34972,7 +34974,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 31
+  m_AdditionalShaderChannelsFlag: -1
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0

@@ -3,24 +3,45 @@ using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class StatsProgressBar : MonoBehaviour
+public class StatProgressBar : MonoBehaviour
 {
-    [Header("Visual Settings")]
-    [SerializeField] protected Image _fillImage;
+    [Header("Fill Settings")]
     [SerializeField] private float _smoothSpeed;
 
     [Header("Visibility")]
+    [SerializeField, Range(0, 1)] private float _defaultAlpha;
     [SerializeField] private bool _autoHide;
     [SerializeField] private float _hideCooldown;
     [SerializeField] private float _hideDuration;
 
     [Header("References")]
     [SerializeField] private CharacterStat _characterStat;
+    [SerializeField] protected Image _fillImage;
 
     private CanvasGroup _canvasGroup;
     private Coroutine _hideCoroutine;
-    private float _defaultAlpha;
     private float _targetFill;
+
+    private void Awake()
+    {
+        _canvasGroup = GetComponent<CanvasGroup>();
+        if (_fillImage == null) _fillImage = GetComponent<Image>();
+
+        _targetFill = _fillImage.fillAmount;
+    }
+
+    private void Start()
+    {
+        _canvasGroup.alpha = _defaultAlpha;
+    }
+
+    private void Update()
+    {
+        if (!Mathf.Approximately(_fillImage.fillAmount, _targetFill))
+        {
+            _fillImage.fillAmount = Mathf.Lerp(_fillImage.fillAmount, _targetFill, Time.deltaTime * _smoothSpeed);
+        }
+    }
 
     private void SetValue(float currentValue)
     {
@@ -60,23 +81,6 @@ public class StatsProgressBar : MonoBehaviour
         }
 
         _canvasGroup.alpha = 0;
-    }
-
-    private void Awake()
-    {
-        _canvasGroup = GetComponent<CanvasGroup>();
-        if (_fillImage == null) _fillImage = GetComponent<Image>();
-
-        _targetFill = _fillImage.fillAmount;
-        _defaultAlpha = _canvasGroup.alpha;
-    }
-
-    private void Update()
-    {
-        if (!Mathf.Approximately(_fillImage.fillAmount, _targetFill))
-        {
-            _fillImage.fillAmount = Mathf.Lerp(_fillImage.fillAmount, _targetFill, Time.deltaTime * _smoothSpeed);
-        }
     }
 
     private void OnEnable()
