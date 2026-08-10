@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(PositionEffectHandler))]
-public class FallSpringEffect : MonoBehaviour, IPositionEffect
+public class FallSpringEffect : PositionEffect
 {
     [Header("Spring Settings")]
     [SerializeField] private float _returnSpeed;
@@ -28,7 +28,7 @@ public class FallSpringEffect : MonoBehaviour, IPositionEffect
     private Vector3 _shakeVelocity;
     private float _capturedFallSpeed;
 
-    public Vector3 GetLocalOffset() => _calculatedCameraOffset;
+    public override Vector3 GetLocalOffset() => _calculatedCameraOffset;
 
     private void Update()
     {

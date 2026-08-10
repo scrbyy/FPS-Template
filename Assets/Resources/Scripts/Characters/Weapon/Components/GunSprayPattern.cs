@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class GunRecoilPattern : MonoBehaviour, IRotationEffect
+public class GunSprayPattern : RotationEffect
 {
     [SerializeField] private Vector2[] _recoilPattern;
+
+    [Space]
     [SerializeField] private float _recoilMultiplier;
     [SerializeField] private float _snappiness; 
     [SerializeField] private float _returnSpeed;
 
+    [Header("References")]
     [SerializeField] private Gun _weapon;
 
     private int _currentShotIndex = 0;
@@ -54,7 +57,7 @@ public class GunRecoilPattern : MonoBehaviour, IRotationEffect
         _currentShotIndex = 0;
     }
 
-    public Quaternion GetLocalRotationOffset()
+    public override Quaternion GetLocalRotationOffset()
     {
         return Quaternion.Euler(_currentRotation);
     }

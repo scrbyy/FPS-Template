@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class WeaponSway : MonoBehaviour, IRotationEffect
+public class WeaponSway : RotationEffect
 {
     [Header("Force Settings")]
     [SerializeField] private Vector2 _force;
@@ -51,7 +51,7 @@ public class WeaponSway : MonoBehaviour, IRotationEffect
         );
     }
 
-    public Quaternion GetLocalRotationOffset()
+    public override Quaternion GetLocalRotationOffset()
     {
         return _currentRotationOffset;
     }

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
-public class GunRecoilRotation : MonoBehaviour
+public class GunRecoilRotation : RotationEffect
 {
-    [Header("Rotations (Euler Angles)")]
-    private Vector3 initialRotation;
-    private Vector3 currentRotation;
-    private Vector3 targetRotation;
+    private Vector3 initialRotation = Vector3.zero;
+    private Vector3 currentRotation = Vector3.zero;
+    private Vector3 targetRotation = Vector3.zero;
 
     [Header("Recoil Settings per Shot")]
     [SerializeField] private Vector3 _recoilForce;
@@ -30,6 +29,25 @@ public class GunRecoilRotation : MonoBehaviour
     private int _shotCount;
     private float _lastShotTime;
 
+    private void Start()
+    {
+        initialRotation = Vector3.zero;
+        currentRotation = initialRotation;
+        targetRotation = initialRotation;
+    }
+
+    private void Update()
+    {
+        if (Time.time - _lastShotTime > _resetTime)
+        {
+            _shotCount = 0;
+        }
+
+        targetRotation = Vector3.Lerp(targetRotation, initialRotation, _returnSpeed * Time.deltaTime);
+
+        currentRotation = Vector3.Lerp(currentRotation, targetRotation, _snappiness * Time.deltaTime);
+    }
+
     public void FireRecoil()
     {
         _lastShotTime = Time.time;
@@ -47,35 +65,11 @@ public class GunRecoilRotation : MonoBehaviour
 
         targetRotation += finalRecoil;
 
-        targetRotation.x = Mathf.Clamp(targetRotation.x, initialRotation.x + _minBounds.x, initialRotation.x + _maxBounds.x);
-        targetRotation.y = Mathf.Clamp(targetRotation.y, initialRotation.y + _minBounds.y, initialRotation.y + _maxBounds.y);
-        targetRotation.z = Mathf.Clamp(targetRotation.z, initialRotation.z + _minBounds.z, initialRotation.z + _maxBounds.z);
+        targetRotation.x = Mathf.Clamp(targetRotation.x, _minBounds.x, _maxBounds.x);
+        targetRotation.y = Mathf.Clamp(targetRotation.y, _minBounds.y, _maxBounds.y);
+        targetRotation.z = Mathf.Clamp(targetRotation.z, _minBounds.z, _maxBounds.z);
 
         _shotCount++;
-    }
-
-    private void Start()
-    {
-        initialRotation = transform.localEulerAngles;
-
-        initialRotation = NormalizeAngles(initialRotation);
-
-        currentRotation = initialRotation;
-        targetRotation = initialRotation;
-    }
-
-    private void Update()
-    {
-        if (Time.time - _lastShotTime > _resetTime)
-        {
-            _shotCount = 0;
-        }
-
-        targetRotation = Vector3.Lerp(targetRotation, initialRotation, _returnSpeed * Time.deltaTime);
-
-        currentRotation = Vector3.Lerp(currentRotation, targetRotation, _snappiness * Time.deltaTime);
-
-        transform.localRotation = Quaternion.Euler(currentRotation);
     }
 
     private void OnEnable()
@@ -88,18 +82,8 @@ public class GunRecoilRotation : MonoBehaviour
         if (_gun != null) _gun.OnAttack -= FireRecoil;
     }
 
-    private Vector3 NormalizeAngles(Vector3 angles)
+    public override Quaternion GetLocalRotationOffset()
     {
-        angles.x = NormalizeAngle(angles.x);
-        angles.y = NormalizeAngle(angles.y);
-        angles.z = NormalizeAngle(angles.z);
-        return angles;
-    }
-
-    private float NormalizeAngle(float angle)
-    {
-        while (angle > 180f) angle -= 360f;
-        while (angle < -180f) angle += 360f;
-        return angle;
+        return Quaternion.Euler(currentRotation);
     }
 }

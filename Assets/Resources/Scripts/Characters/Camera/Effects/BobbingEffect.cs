@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class BobbingEffect : MonoBehaviour, IPositionEffect
+public class BobbingEffect : PositionEffect
 {
     [Header("Scale Limitations")]
     [SerializeField] private float _minEffectScale;
@@ -36,7 +36,7 @@ public class BobbingEffect : MonoBehaviour, IPositionEffect
     private const float CurveNormalizationOffset = 0.5f;
     private const float CurveNormalizationScale = 2f;
 
-    public Vector3 GetLocalOffset() => _currentCalculatedOffset;
+    public override Vector3 GetLocalOffset() => _currentCalculatedOffset;
 
     private void LateUpdate()
     {

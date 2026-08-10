@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GunRecoilPosition : MonoBehaviour
+public class GunRecoilPosition : PositionEffect
 {
     [Header("Positions")]
     private Vector3 initialPosition;
@@ -9,7 +9,6 @@ public class GunRecoilPosition : MonoBehaviour
 
     [Header("Recoil Settings per Shot")]
     [SerializeField] private Vector3 _recoilForce;
-
     [SerializeField] private Vector3 _recoilRandomness;
 
     [Header("Limits and Clamping")]
@@ -30,6 +29,25 @@ public class GunRecoilPosition : MonoBehaviour
 
     private int _shotCount;
     private float _lastShotTime;
+
+    private void Start()
+    {
+        initialPosition = Vector3.zero;
+        currentPosition = initialPosition;
+        targetPosition = initialPosition;
+    }
+
+    private void Update()
+    {
+        if (Time.time - _lastShotTime > _resetTime)
+        {
+            _shotCount = 0;
+        }
+
+        targetPosition = Vector3.Lerp(targetPosition, initialPosition, _returnSpeed * Time.deltaTime);
+
+        currentPosition = Vector3.Lerp(currentPosition, targetPosition, _snappiness * Time.deltaTime);
+    }
 
     public void FireRecoil()
     {
@@ -55,33 +73,20 @@ public class GunRecoilPosition : MonoBehaviour
         _shotCount++;
     }
 
-    private void Start()
-    {
-        initialPosition = transform.localPosition;
-        currentPosition = initialPosition;
-        targetPosition = initialPosition;
-    }
-
-    private void Update()
-    {
-        if (Time.time - _lastShotTime > _resetTime)
-        {
-            _shotCount = 0;
-        }
-
-        targetPosition = Vector3.Lerp(targetPosition, initialPosition, _returnSpeed * Time.deltaTime);
-
-        currentPosition = Vector3.Lerp(currentPosition, targetPosition, _snappiness * Time.deltaTime);
-        transform.localPosition = currentPosition;
-    }
-
     private void OnEnable()
     {
-        _gun.OnAttack += FireRecoil;
+        if (_gun != null)
+            _gun.OnAttack += FireRecoil;
     }
 
     private void OnDisable()
     {
-        _gun.OnAttack -= FireRecoil;
+        if (_gun != null)
+            _gun.OnAttack -= FireRecoil;
+    }
+
+    public override Vector3 GetLocalOffset()
+    {
+        return currentPosition - initialPosition;
     }
 }

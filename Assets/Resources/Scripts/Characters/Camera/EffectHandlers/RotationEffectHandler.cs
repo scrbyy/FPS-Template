@@ -3,24 +3,12 @@ using UnityEngine;
 
 public class RotationEffectHandler : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> _effectList = new List<GameObject>();
-
-    private List<IRotationEffect> _effects = new List<IRotationEffect>();
+    [SerializeField] private List<RotationEffect> _effects = new List<RotationEffect>();
     private Quaternion _initialLocalRotation;
 
     private void Awake()
     {
         _initialLocalRotation = transform.localRotation;
-
-        foreach (GameObject effectObj in _effectList)
-        {
-            if (effectObj != null && effectObj.TryGetComponent<IRotationEffect>(out var effect))
-            {
-                _effects.Add(effect);
-            }
-        }
-
-        _effects.AddRange(GetComponents<IRotationEffect>());
     }
 
     private void LateUpdate()

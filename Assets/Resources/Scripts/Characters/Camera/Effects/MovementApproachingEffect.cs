@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class MovementApproachingEffect : MonoBehaviour, IPositionEffect
+public class MovementApproachingEffect : PositionEffect
 {
     [Header("Limits")]
     [SerializeField] private float _maxZOffset;
@@ -21,7 +21,7 @@ public class MovementApproachingEffect : MonoBehaviour, IPositionEffect
     private float _currentZOffset;
     private float _targetZOffset;
 
-    public Vector3 GetLocalOffset()
+    public override Vector3 GetLocalOffset()
     {   
         return new Vector3(0, 0, _currentZOffset);
     }

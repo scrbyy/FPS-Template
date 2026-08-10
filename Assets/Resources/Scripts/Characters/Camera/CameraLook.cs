@@ -2,7 +2,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Camera))]
-public class CameraLook : MonoBehaviour, IRotationEffect
+public class CameraLook : RotationEffect
 {
     [Header("Sensitivity")]
     [SerializeField] private float _sensitivity;
@@ -19,7 +19,7 @@ public class CameraLook : MonoBehaviour, IRotationEffect
     private float _yRotation; 
     private float _xRotation;
 
-    public Quaternion GetLocalRotationOffset()
+    public override Quaternion GetLocalRotationOffset()
     {
         return Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
     }
