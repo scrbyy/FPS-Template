@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 public class Gun : Weapon, IShootable
 {
@@ -12,15 +13,22 @@ public class Gun : Weapon, IShootable
 
     private GunReloader _reloader;
 
+    [Inject] private AttackMethodFactory _attackMethodFactory;
+
     public override void Initialize()
     {
         base.Initialize();
-        if (_data.GetType() != typeof(GunData)) Debug.Log("Wrong data asset!");
-
-        if(_weaponAttacker == null && _reloader == null)
+        if (!(_data is GunData gunData))
         {
-            _reloader = new GunReloader(_data as GunData);
-            _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, _data as GunData, _data);
+            Debug.LogError("Wrong data asset!");
+            return;
+        }
+
+        if (_weaponAttacker == null && _reloader == null)
+        {
+            _reloader = new GunReloader(gunData);
+
+            _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, gunData, gunData, _attackMethodFactory);
         }
 
         _reloader.Initialize();

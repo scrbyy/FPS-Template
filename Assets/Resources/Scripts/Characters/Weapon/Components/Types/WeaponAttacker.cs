@@ -17,10 +17,15 @@ public abstract class WeaponAttacker
 
     protected CancellationTokenSource _shootCts;
 
-    public WeaponAttacker(IAttackData attackData, Transform origin)
+    public WeaponAttacker(
+            AttackData attackConfig,
+            Transform origin,
+            IAttackData attackData,
+            AttackMethodFactory attackFactory)
     {
         _attackData = attackData;
-        _attackMethod = new AttackMethodFactory(origin, attackData.MaxDistance).CreateAttackMethod(attackData.AttackMethod);
+
+        _attackMethod = attackFactory.Create(attackConfig, origin);
         _hitHandler = new HitHandler();
     }
 

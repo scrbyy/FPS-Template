@@ -11,7 +11,13 @@ public class GunAttacker :WeaponAttacker
 
     private readonly IDistanceAttackData _distanceAttackData;
 
-    public GunAttacker(Transform origin, Func<bool> canShootPredicate, IDistanceAttackData distanceAttackData, IAttackData attackData) : base (attackData, origin)
+    public GunAttacker(
+        Transform origin,
+        Func<bool> canShootPredicate,
+        IDistanceAttackData distanceAttackData,
+        WeaponData weaponData,
+        AttackMethodFactory attackFactory)
+        : base(weaponData.GetAttackConfig(), origin, weaponData, attackFactory)
     {
         _distanceAttackData = distanceAttackData;
         _canShootPredicate = canShootPredicate;

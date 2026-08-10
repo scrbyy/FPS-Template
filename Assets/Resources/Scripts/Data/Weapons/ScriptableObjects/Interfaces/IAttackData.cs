@@ -6,5 +6,5 @@
 
     public float AfterAttackDelay { get; }
 
-    public AttackMethod AttackMethod { get; }
+    public AttackType AttackMethod { get; }
 }

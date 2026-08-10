@@ -1,21 +1,17 @@
 ﻿using UnityEngine;
+using Zenject;
 
 public class AttackMethodFactory
 {
-    private float _distance;
-    private Transform _origin;
+    private readonly DiContainer _container;
 
-    public AttackMethodFactory(Transform origin, float distance)
+    public AttackMethodFactory(DiContainer container)
     {
-       _distance = distance;
-        _origin = origin;
+        _container = container;
     }
 
-    public IAttackMethod CreateAttackMethod(AttackMethod attackMethod)
+    public IAttackMethod Create(AttackData data, Transform origin)
     {
-        if(attackMethod == AttackMethod.Raycast) return new RaycastAttackMethod(_origin, _distance);
-        if(attackMethod == AttackMethod.Spherecast) return new SpherecastAttackMethod(_origin, _distance);
-        
-        else return null;
+        return data.CreateMethod(origin, _container);
     }
 }

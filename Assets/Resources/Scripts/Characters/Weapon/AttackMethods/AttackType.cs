@@ -1,4 +1,4 @@
-﻿public enum AttackMethod
+﻿public enum AttackType
 {
     None,
     Raycast,

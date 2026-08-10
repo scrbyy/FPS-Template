@@ -15,7 +15,11 @@ MonoBehaviour:
   _damage: 25
   _speedMultipler: 1
   _openDelay: 0.25
-  _maxDistance: 1
   _afterAttackDelay: 0.1
-  _attackMethod: 2
   _fireMode: 0
+  _attackMethod: 2
+  _raycastParams:
+    _distance: 0
+  _spherecastParams:
+    _distance: 3
+    _radius: 5
