@@ -16702,6 +16702,7 @@ GameObject:
   - component: {fileID: 755122322}
   - component: {fileID: 755122321}
   - component: {fileID: 755122332}
+  - component: {fileID: 755122333}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -16870,14 +16871,14 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _minHeight: 0.5
-  _maxHeight: 3
+  _maxHeight: 4
   _detectionDistance: 0.75
   _climbLayer:
     serializedVersion: 2
     m_Bits: 4096
   _minimalClimbTime: 0.1
   _wallDepthOffset: 0.1
-  _exitImpulseModifier: 0.1
+  _exitImpulseModifier: 0.25
   _origin: {fileID: 9949983}
   _characterEngine: {fileID: 755122330}
 --- !u!114 &755122330
@@ -16930,6 +16931,45 @@ MonoBehaviour:
   _minModifier: 0.1
   _data: {fileID: 11400000, guid: ddf504b5417187447ab570813de20f8d, type: 2}
   _characterRun: {fileID: 755122323}
+--- !u!114 &755122333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755122318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a6248113574134eaeb352c02b85349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _minDamagableSpeed: -11
+  _damageCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 9
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 35
+      value: 100
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _characterEngine: {fileID: 755122330}
+  _attachedHealth: {fileID: 755122331}
 --- !u!1 &766852655
 GameObject:
   m_ObjectHideFlags: 0
