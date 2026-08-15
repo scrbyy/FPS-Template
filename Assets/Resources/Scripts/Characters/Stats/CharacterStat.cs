@@ -25,22 +25,25 @@ public abstract class CharacterStat : MonoBehaviour
             }
             OnValueChanged?.Invoke(_currentValue);
         }
+        else Debug.Log("Increasing value is negative!");
     }
 
-    public virtual void Decrease(float reducingValue)
+    public virtual void Decrease(float decreasingValue)
     {
-        if(reducingValue > 0)
+        if(decreasingValue > 0)
         {
-            if(_currentValue > reducingValue)
+            if(_currentValue > decreasingValue)
             {
-                _currentValue -= reducingValue;
+                _currentValue -= decreasingValue;
                 OnValueChanged?.Invoke(_currentValue);
             }
             else
             {
+                _currentValue = 0;  
                 HandleEmptyValue();
             }
         }
+        else Debug.Log("Decreasing value is negative!");
     }
 
     public void NotifyValueChanged(float value)
