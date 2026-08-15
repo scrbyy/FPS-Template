@@ -16895,7 +16895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEngine
   _accelerationRate: 50
   _decelerationRate: 30
-  _movingThreshold: 0.4
+  _movingThreshold: 1
   _airAcceleration: 20
   _airCap: 1
   _gravityScale: 2
@@ -35195,10 +35195,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _stepFrequency: 6
-  _frequencySensitivity: 5
+  _stepFrequency: 8.5
+  _frequencySensitivity: 4
   _speedThreshold: 0.1
-  _speedSensitivity: 0.2
+  _speedSensitivity: 0.175
   _returnToZeroSpeed: 10
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
@@ -35213,9 +35213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b41427ca150734ba03c1f995871396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _returnSpeed: 75
-  _shakeDamping: 15
-  _effectWeight: 0.75
+  _returnSpeed: 80
+  _shakeDamping: 7
+  _effectWeight: 0.5
   _maxForce: 5
   _minFallSpeedThreshold: -1
   _forceMultiplier: 0.5
@@ -35269,8 +35269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: {x: 0.25, y: 0.125}
-  _smoothness: 3
+  _force: {x: 0.5, y: 0.4}
+  _smoothness: 6
   _inverseX: 1
   _inverseY: 0
   _minX: -6
@@ -43552,11 +43552,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _returnSpeed: 100
-  _shakeDamping: 10
-  _effectWeight: 2
+  _shakeDamping: 25
+  _effectWeight: 1.75
   _maxForce: 5
   _minFallSpeedThreshold: -1
-  _forceMultiplier: 0.2
+  _forceMultiplier: 0.3
   _inAirCompressionForce: 5
   _maxInAirOffset: 0.3
   _fallingForceMultiplier: 0.02
