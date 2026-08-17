@@ -3,24 +3,29 @@ using UnityEngine;
 
 public class BobbingEffect : PositionEffect
 {
-    [Header("Scale Limitations")]
-    [SerializeField] private float _minEffectScale;
-    [SerializeField] private float _maxEffectScale;
+    [Header("Intensity Limitations")]
+    [SerializeField] private float _minIntensity;
+    [SerializeField] private float _maxIntensity;
 
-    [Header("Settings")]
-    [SerializeField] private float _verticalAmplitude;
-    [SerializeField] private float _horizontalAmplitude;
+    [Header("Intensity Settings")]
+    [SerializeField] private float _verticalIntensity;
+    [SerializeField] private float _horizontalIntensity;
+
+    [Header("Speed Modifiers")]
+    [SerializeField] private float _intensityMultiplier;
+    [SerializeField] private float _stepSpeedMultiplier;
 
     [Header("Bobbing Curve")]
-    [SerializeField] private AnimationCurve _motionCurve;
+    [SerializeField] private AnimationCurve _stepCurve;
 
     [Header("Dynamic Scaling")]
-    [SerializeField] private float _stepFrequency;
-    [SerializeField] private float _frequencySensitivity;
-    [SerializeField] private float _speedThreshold;
-    [SerializeField] private float _speedSensitivity;
+    [SerializeField] private float _baseStepRate;
 
-    [SerializeField] private float _returnToZeroSpeed;
+    [Space]
+    [SerializeField] private float _minSpeedThreshold;
+
+    [Space]
+    [SerializeField] private float _resetSpeed;
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
@@ -46,12 +51,12 @@ public class BobbingEffect : PositionEffect
             Vector3 worldVelocity = _characterEngine.Velocity;
             float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
-            bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;
+            bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _minSpeedThreshold;
             bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_characterEngine.IsImpulseActive;
 
             if (canApplyEffect)
             {
-                float stepSpeedMultiplier = _stepFrequency + (Mathf.Sqrt(horizontalSpeed) * _frequencySensitivity);
+                float stepSpeedMultiplier = _baseStepRate + (Mathf.Sqrt(horizontalSpeed) * _stepSpeedMultiplier);
                 _cycleTimer += Time.deltaTime * stepSpeedMultiplier;
 
                _targetBobOffset = CalculateBobbingTarget(horizontalSpeed);
@@ -61,7 +66,7 @@ public class BobbingEffect : PositionEffect
                 _targetBobOffset = Vector3.zero;
                 _cycleTimer = 0f;
             }
-            _currentCalculatedOffset = Vector3.Lerp(_currentCalculatedOffset, _targetBobOffset, Time.deltaTime * _returnToZeroSpeed);
+            _currentCalculatedOffset = Vector3.Lerp(_currentCalculatedOffset, _targetBobOffset, Time.deltaTime * _resetSpeed);
         }
     }
 
@@ -70,14 +75,14 @@ public class BobbingEffect : PositionEffect
         float waveX = Mathf.Sin(_cycleTimer * HalfCycleMultiplier);
         float waveY = Mathf.Sin(_characterEngine.Velocity.magnitude > 0 ? _cycleTimer : 0); 
 
-        float normalizedCurveX = _motionCurve.Evaluate((waveX + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
-        float normalizedCurveY = _motionCurve.Evaluate((waveY + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
+        float normalizedCurveX = _stepCurve.Evaluate((waveX + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
+        float normalizedCurveY = _stepCurve.Evaluate((waveY + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
 
-        float speedFactor = Mathf.Clamp(speed * _speedSensitivity, _minEffectScale, _maxEffectScale);
+        float speedFactor = Mathf.Clamp(speed * _intensityMultiplier, _minIntensity, _maxIntensity);
 
         return new Vector3(
-            normalizedCurveX * _horizontalAmplitude * speedFactor,
-            normalizedCurveY * _verticalAmplitude * speedFactor,
+            normalizedCurveX * _horizontalIntensity * speedFactor,
+            normalizedCurveY * _verticalIntensity * speedFactor,
             0
         );
     }
