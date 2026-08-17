@@ -25,7 +25,7 @@ public class BobbingEffect : PositionEffect
     [SerializeField] private float _minSpeedThreshold;
 
     [Space]
-    [SerializeField] private float _resetSpeed;
+    [SerializeField] private float _resetTime;
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
@@ -36,6 +36,7 @@ public class BobbingEffect : PositionEffect
     private float _cycleTimer;
     private Vector3 _currentCalculatedOffset;
     private Vector3 _targetBobOffset;
+    private Vector3 _resetVelocity;
 
     private const float HalfCycleMultiplier = 0.5f;
     private const float CurveNormalizationOffset = 0.5f;
@@ -56,17 +57,23 @@ public class BobbingEffect : PositionEffect
 
             if (canApplyEffect)
             {
-                float stepSpeedMultiplier = _baseStepRate + (Mathf.Sqrt(horizontalSpeed) * _stepSpeedMultiplier);
-                _cycleTimer += Time.deltaTime * stepSpeedMultiplier;
+                float currentStepRate = _baseStepRate + (Mathf.Sqrt(horizontalSpeed) * _stepSpeedMultiplier);
+                _cycleTimer += Time.deltaTime * currentStepRate;
 
-               _targetBobOffset = CalculateBobbingTarget(horizontalSpeed);
+                _targetBobOffset = CalculateBobbingTarget(horizontalSpeed);
             }
             else
             {
                 _targetBobOffset = Vector3.zero;
                 _cycleTimer = 0f;
             }
-            _currentCalculatedOffset = Vector3.Lerp(_currentCalculatedOffset, _targetBobOffset, Time.deltaTime * _resetSpeed);
+
+            _currentCalculatedOffset = Vector3.SmoothDamp(
+                _currentCalculatedOffset,
+                _targetBobOffset,
+                ref _resetVelocity,
+                _resetTime
+            );
         }
     }
 

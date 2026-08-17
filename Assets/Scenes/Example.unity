@@ -35172,6 +35172,7 @@ MonoBehaviour:
   _verticalIntensity: 0.03
   _horizontalIntensity: 0.025
   _intensityMultiplier: 0.1
+  _stepSpeedMultiplier: 4
   _stepCurve:
     serializedVersion: 2
     m_Curve:
@@ -35197,9 +35198,8 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _baseStepRate: 8.5
-  _stepSpeedMultiplier: 4
   _minSpeedThreshold: 0.1
-  _resetSpeed: 20
+  _resetTime: 0.1
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
 MonoBehaviour:
