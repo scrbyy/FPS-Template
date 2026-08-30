@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class SphereGroundChecker : MonoBehaviour, IGroundChecker
 {
+    public event Action OnGrounded;
+
+    public bool IsGrounded => _isGrounded;
+
     [Header("Sphere Settings")]
     [SerializeField] private Transform _checkPoint;
     [SerializeField] private float _radius;
     [SerializeField] private float _castDistance;
     [SerializeField] private LayerMask _groundLayer;
 
-    public event Action OnGrounded;
-
     private bool _isGrounded;
     private bool _wasGrounded;
-
-    public bool IsGrounded => _isGrounded;
 
     private void Update()
     {
