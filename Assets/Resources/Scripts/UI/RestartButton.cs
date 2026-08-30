@@ -6,7 +6,7 @@ public class RestartButton : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
 
-    private void OnMouseDown()
+    private void RestartScene()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(
             UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
@@ -14,11 +14,11 @@ public class RestartButton : MonoBehaviour
 
     private void OnEnable()
     {
-        _restartButton.onClick.AddListener(OnMouseDown);
+        _restartButton.onClick.AddListener(RestartScene);
     }
 
     private void OnDisable()
     {
-        _restartButton.onClick.RemoveListener(OnMouseDown);
+        _restartButton.onClick.RemoveListener(RestartScene);
     }
 }
