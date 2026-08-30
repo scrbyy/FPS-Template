@@ -4,6 +4,8 @@ using Zenject;
 
 public class Gun : Weapon, IShootable
 {
+    public event Action OnReloadStart;
+    public event Action OnReady;
     public event Action<int, int> OnAmmoChanged;
 
     public int CurrentAmmo => _reloader.CurrentAmmo;
@@ -37,6 +39,8 @@ public class Gun : Weapon, IShootable
         _reloader.OnReloadEnd += NotifyUpdateAmmo;
         _weaponAttacker.OnShoot += NotifyAttack;
         _weaponAttacker.OnShotContact += NotifyContact;
+        _reloader.OnReloadStart += NotifyReloadStart;
+        OnReady?.Invoke();
 
         NotifyUpdateAmmo();
     }
@@ -50,6 +54,7 @@ public class Gun : Weapon, IShootable
         _weaponAttacker.OnShoot -= NotifyAttack;
         _weaponAttacker.OnShotContact -= NotifyContact;
         _reloader.OnReloadEnd -= NotifyUpdateAmmo;
+        _reloader.OnReloadStart -= NotifyReloadStart;
     }
 
     public void Reload()
@@ -76,5 +81,9 @@ public class Gun : Weapon, IShootable
     private void NotifyUpdateAmmo()
     {
         OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
+    }
+    private void NotifyReloadStart()
+    {
+        OnReloadStart?.Invoke();
     }
 }

@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 public class GunReloader 
 {
-    public event Action OnReload;
+    public event Action OnReloadStart;
     public event Action OnReloadEnd;
 
     public int CurrentAmmo => _currentAmmo;
@@ -68,7 +68,7 @@ public class GunReloader
 
         ResetCts();
 
-        OnReload?.Invoke();
+        OnReloadStart?.Invoke();
 
         try
         {

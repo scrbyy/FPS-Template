@@ -554,8 +554,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0894c4c9244652844a7bd65c1e13f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 30990239}
+  _gun: {fileID: 30990239}
   _shootSound: {fileID: 8300000, guid: f127f4e1d16882049be5f53a5d2fcc78, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+  _readySound: {fileID: 0}
   _mixerGroup: {fileID: 0}
   _volume: 1
   _pitchMin: 0.9
@@ -49087,8 +49089,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0894c4c9244652844a7bd65c1e13f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 5444888314268869643}
+  _gun: {fileID: 5444888314268869643}
   _shootSound: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+  _readySound: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
   _mixerGroup: {fileID: 0}
   _volume: 0.3
   _pitchMin: 0.9
