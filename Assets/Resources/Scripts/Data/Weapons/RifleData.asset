@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30369b66674defd45bb95eb9f24b0d83, type: 3}
   m_Name: RifleData
   m_EditorClassIdentifier: 
-  _damage: 20
+  _damage: 25
   _afterAttackDelay: 0.1
   _fireMode: 1
   _attackMethod: 1
@@ -29,7 +29,7 @@ MonoBehaviour:
       m_Bits: 0
   _speedMultipler: 0.85
   _openDelay: 0.25
-  _distanceDamageMultiplier: 0.9
+  _distanceDamageMultiplier: 0.95
   _damageDecreasingStep: 10
   _startAmmo: 30
   _reserveAmmo: 9000
