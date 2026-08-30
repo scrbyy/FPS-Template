@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class InteractionBody : MonoBehaviour
 {
-    [Header("Main")]
+    [Header("Ray Settings")]
     [SerializeField] private float _distance;
-
     [SerializeField] private LayerMask _mask;
     [SerializeField] private Transform _rayOrigin;
 
@@ -17,8 +16,8 @@ public class InteractionBody : MonoBehaviour
     {
         if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _mask))
         {
-            IInteractionObject _interactionObject = _hit.collider.gameObject.GetComponent<IInteractionObject>();
-            _interactionObject.Interact();
+            _hit.collider.gameObject.TryGetComponent<IInteractionObject>(out IInteractionObject interactionObject);
+            interactionObject.Interact();
         }
     }
 

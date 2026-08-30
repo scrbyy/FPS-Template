@@ -12438,8 +12438,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc98d5c89ab75a4b9d177ba2a57fb45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 615637005}
+  _speedText: {fileID: 615637005}
   _characterEngine: {fileID: 755122330}
+  _updateInterval: 0.1
 --- !u!43 &624822974
 Mesh:
   m_ObjectHideFlags: 0
@@ -38533,7 +38534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d92b488cfc314a478ca0e39d9bb1fc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RestarButton
-  _button: {fileID: 1698228687}
+  _restartButton: {fileID: 0}
 --- !u!1 &1699327079
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(TMP_Text))]
-public class FpsTextZeroAlloc : MonoBehaviour
+public class FpsText : MonoBehaviour
 {
     private TMP_Text _fpsText;
 

@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class RestarButton : MonoBehaviour
+public class RestartButton : MonoBehaviour
 {
-    [SerializeField] private Button _button;
+    [SerializeField] private Button _restartButton;
 
     private void OnMouseDown()
     {
@@ -14,11 +14,11 @@ public class RestarButton : MonoBehaviour
 
     private void OnEnable()
     {
-        _button.onClick.AddListener(OnMouseDown);
+        _restartButton.onClick.AddListener(OnMouseDown);
     }
 
     private void OnDisable()
     {
-        _button.onClick.RemoveListener(OnMouseDown);
+        _restartButton.onClick.RemoveListener(OnMouseDown);
     }
 }
