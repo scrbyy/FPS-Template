@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 [RequireComponent(typeof(Button))]
 public class RestartButton : MonoBehaviour
 {
     [SerializeField] private Button _restartButton;
+    [Inject] private SceneLoader _sceneLoader;
 
     private void RestartScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(
-            UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        _sceneLoader.RestartCurrent();
     }
 
     private void OnEnable()

@@ -554,14 +554,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0894c4c9244652844a7bd65c1e13f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 30990239}
-  _shootSound: {fileID: 8300000, guid: f127f4e1d16882049be5f53a5d2fcc78, type: 3}
-  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
-  _readySound: {fileID: 0}
   _mixerGroup: {fileID: 0}
   _volume: 1
   _pitchMin: 0.9
   _pitchMax: 1.1
+  _shootSound: {fileID: 8300000, guid: f127f4e1d16882049be5f53a5d2fcc78, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+  _readySound: {fileID: 0}
+  _gun: {fileID: 30990239}
 --- !u!82 &30990244
 AudioSource:
   m_ObjectHideFlags: 0
@@ -23216,6 +23216,7 @@ MonoBehaviour:
   - {fileID: 1103999100}
   - {fileID: 1571931246}
   - {fileID: 1891315859}
+  - {fileID: 1269833795}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -23251,6 +23252,7 @@ Transform:
   - {fileID: 1103999101}
   - {fileID: 1571931245}
   - {fileID: 1891315858}
+  - {fileID: 1269833794}
   m_Father: {fileID: 642669985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1041166308
@@ -29242,6 +29244,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 265314772}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1269833793
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1269833794}
+  - component: {fileID: 1269833795}
+  m_Layer: 0
+  m_Name: SceneLoaderInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1269833794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269833793}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1040894700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269833795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269833793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ec01af87f9eb274a8fa8cf258c71c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1271024130
 Mesh:
   m_ObjectHideFlags: 0
@@ -49089,14 +49135,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0894c4c9244652844a7bd65c1e13f28c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 5444888314268869643}
-  _shootSound: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
-  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
-  _readySound: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
   _mixerGroup: {fileID: 0}
   _volume: 0.3
   _pitchMin: 0.9
   _pitchMax: 1.1
+  _shootSound: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+  _readySound: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
+  _gun: {fileID: 5444888314268869643}
 --- !u!114 &5444888314268869646
 MonoBehaviour:
   m_ObjectHideFlags: 0
