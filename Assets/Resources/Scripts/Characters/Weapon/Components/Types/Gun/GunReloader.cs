@@ -12,20 +12,17 @@ public class GunReloader
     public bool IsReloading => _isReloading;
 
     private int _currentAmmo;
-    private int _magazineSize;
     private int _reserveAmmo;
-    private float _reloadDuration;
-
     private bool _isReloading;
 
     private CancellationTokenSource _reloadCts;
+    private IAmmoData _ammoData;
 
     public GunReloader(IAmmoData ammoData)
     {
+        _ammoData = ammoData;
         _currentAmmo = ammoData.StartAmmo;
-        _magazineSize = ammoData.MagazineSize;
         _reserveAmmo = ammoData.ReserveAmmo;
-        _reloadDuration = ammoData.ReloadDuration;
     }
 
     public void Initialize()
@@ -48,7 +45,7 @@ public class GunReloader
     {
         if (_isReloading) return;
         if (_reserveAmmo <= 0) return;
-        if (_currentAmmo >= _magazineSize) return;
+        if (_currentAmmo >= _ammoData.MagazineSize) return;
         ReloadTask().Forget();
     }
 
@@ -72,9 +69,9 @@ public class GunReloader
 
         try
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(_reloadDuration), cancellationToken: _reloadCts.Token);
+            await UniTask.Delay(TimeSpan.FromSeconds(_ammoData.ReloadDuration), cancellationToken: _reloadCts.Token);
 
-            int neededAmmo = _magazineSize - _currentAmmo;
+            int neededAmmo = _ammoData.MagazineSize - _currentAmmo;
             int amountToReload = Math.Min(_reserveAmmo, neededAmmo);
 
             _currentAmmo += amountToReload;
