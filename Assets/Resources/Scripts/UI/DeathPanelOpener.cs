@@ -1,9 +1,12 @@
 using UnityEngine;
+using Zenject;
 
 public class DeathPanelOpener : MonoBehaviour
 {
     [SerializeField] private CharacterHealth _playerHealth;
     [SerializeField] private GameObject _deathPanelUI;
+
+    [Inject] private GameFSM _gameFSM;
 
     private void OnEnable()
     {
@@ -19,5 +22,7 @@ public class DeathPanelOpener : MonoBehaviour
     {
         _deathPanelUI.SetActive(true);
         CursorVisibility.Show();
+
+        _gameFSM.SetState<PlayerDeadState>();
     }
 }
