@@ -28,8 +28,6 @@ public class CameraLook : RotationEffect
     {
         Vector2 lookInput = _inputProvider.LookInput;
 
-        if (lookInput == Vector2.zero) return;
-
         float mouseX = lookInput.x * _sensitivity;
         float mouseY = lookInput.y * _sensitivity;
 
