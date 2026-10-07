@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class CharacterHitDamage : MonoBehaviour, IHittable
+public class CharacterHittablePart : MonoBehaviour, IHittable
 {
     [SerializeField] private CharacterHealth _attachedHealth;
     [SerializeField, Min(0f)] private float _damageMultiplier = 1f;

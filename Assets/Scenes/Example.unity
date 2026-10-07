@@ -5977,7 +5977,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 300
   field of view: 70
   orthographic: 0
@@ -16772,7 +16772,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
   _jumpForce: 2
   _staminaCost: 1
-  _bufferDuration: 0.08
+  _inputBufferDuration: 0.1
+  _coyoteTimeDuration: 0.1
   _characterEngine: {fileID: 755122330}
   _characterStamina: {fileID: 9949984}
 --- !u!114 &755122327
@@ -34385,7 +34386,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseStepRate: 4
+  _baseStepRate: 3
   _minSpeedThreshold: 0.1
   _resetTime: 0.1
   _characterEngine: {fileID: 755122330}
@@ -34475,8 +34476,8 @@ MonoBehaviour:
   _smoothness: 4
   _inverseX: 1
   _inverseY: 0
-  _minX: -2
-  _maxX: 1
+  _minX: -8
+  _maxX: 8
   _minY: -12
   _maxY: 14
 --- !u!43 &1557964667
@@ -49154,15 +49155,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268035e4b61ccca4396bacc4ce0a3141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoilForce: {x: 0.04, y: 0.015, z: -0.18}
-  _recoilRandomness: {x: 0.002, y: 0.005, z: -0.03}
+  _recoilForce: {x: 0.02, y: 0.0125, z: -0.18}
+  _recoilRandomness: {x: 0.002, y: 0.0025, z: -0.02}
   _minBounds: {x: -1, y: -0.5, z: -0.3}
-  _maxBounds: {x: 1, y: 1, z: 0.01}
-  _returnSpeed: 10
-  _snappiness: 30
+  _maxBounds: {x: 1, y: 1, z: 0}
+  _returnSpeed: 5.5
+  _snappiness: 40
   _recoilDecreaseFactor: 1
   _minRecoilMultiplier: 1.2
-  _resetTime: 0.75
+  _resetTime: 0.25
   _gun: {fileID: 5444888314268869643}
 --- !u!114 &5444888314268869648
 MonoBehaviour:
@@ -49177,7 +49178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 0.1
-  _strength: 0.017
+  _strength: 0.025
   _vibrato: 10
   _randomness: 3
   _gun: {fileID: 5444888314268869643}
@@ -49293,38 +49294,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _recoilPattern:
   - {x: 0, y: 0.4}
-  - {x: 0, y: 1.1}
-  - {x: 0, y: 2.5}
-  - {x: 0, y: 4.5}
-  - {x: 0.7, y: 6.5}
-  - {x: 0.5, y: 8}
-  - {x: 0.3, y: 8.5}
-  - {x: 0.1, y: 8}
-  - {x: 0, y: 7}
-  - {x: -0.3, y: 5.5}
-  - {x: -0.5, y: 6}
-  - {x: -1, y: 6}
-  - {x: 0, y: 6}
-  - {x: 1, y: 6}
-  - {x: 2, y: 6}
-  - {x: 3, y: 6}
-  - {x: 2, y: 5.5}
-  - {x: 2, y: 5.5}
-  - {x: 0, y: 5.5}
-  - {x: -2, y: 5.5}
-  - {x: 3, y: 5.5}
-  - {x: -3, y: 5.5}
-  - {x: -5, y: 6}
-  - {x: -2, y: 6}
-  - {x: 1, y: 6}
-  - {x: 3, y: 6}
-  - {x: 5, y: 5.5}
-  - {x: 2, y: 5.5}
-  - {x: 1, y: 5.5}
-  - {x: 0, y: 5}
   _recoilMultiplier: 1.25
   _snappiness: 8
-  _returnSpeed: 10
+  _returnSpeed: 5
   _weapon: {fileID: 5444888314268869643}
 --- !u!114 &5444888314268869653
 MonoBehaviour:

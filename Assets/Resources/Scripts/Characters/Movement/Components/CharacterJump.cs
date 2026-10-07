@@ -1,13 +1,15 @@
-using Zenject;
 using UnityEngine;
+using Zenject;
 
 public class CharacterJump : MonoBehaviour
 {
+    [Header("Jump Settings")]
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _staminaCost;
 
-    [Header("Buffer")]
-    [SerializeField] private float _bufferDuration;
+    [Header("Buffer Settings")]
+    [SerializeField] private float _inputBufferDuration;
+    [SerializeField] private float _coyoteTimeDuration;
 
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
@@ -17,37 +19,58 @@ public class CharacterJump : MonoBehaviour
     [Inject] private IGroundChecker _groundCheck;
 
     private Buffer _inputBuffer;
+    private Buffer _coyoteTimer;
 
-    public void Jump(float jumpForce)
+    private void Awake()
     {
-        _inputBuffer.Set();
-        if (_groundCheck.IsGrounded && _characterStamina.IsEnoughStamina(_staminaCost))
-        {
-            _characterEngine.AddForce(Vector3.up * jumpForce, ForceType.Jump);
-            _characterStamina.Decrease(_staminaCost);
-        }
+        _inputBuffer = new Buffer(_inputBufferDuration);
+        _coyoteTimer = new Buffer(_coyoteTimeDuration);
+    }
+
+    private void OnEnable()
+    {
+        if (_inputProvider != null)
+            _inputProvider.OnJumpStarted += BufferJumpInput;
+    }
+
+    private void OnDisable()
+    {
+        if (_inputProvider != null)
+            _inputProvider.OnJumpStarted -= BufferJumpInput;
     }
 
     private void Update()
     {
-        if (_inputBuffer.Has() && _groundCheck.IsGrounded)
+        if (_groundCheck.IsGrounded)
         {
-            Jump(_jumpForce);
-            _inputBuffer.Reset();
+            _coyoteTimer.Set();
+        }
+
+        TryExecuteJump();
+    }
+
+    private void BufferJumpInput()
+    {
+        _inputBuffer.Set();
+    }
+
+    private void TryExecuteJump()
+    {
+        if (_inputBuffer.Has() && _coyoteTimer.Has())
+        {
+            if (_characterStamina.IsEnoughStamina(_staminaCost))
+            {
+                ExecuteJump();
+            }
         }
     }
 
-    private void Start()
+    private void ExecuteJump()
     {
-        _inputBuffer = new Buffer(_bufferDuration);
+        _characterEngine.AddForce(Vector3.up * _jumpForce, ForceType.Jump);
+        _characterStamina.Decrease(_staminaCost);
+
+        _inputBuffer.Reset();
+        _coyoteTimer.Reset();
     }
-
-    private void JumpWithBuffer()
-    {
-        Jump(_jumpForce);
-    }
-
-    private void OnEnable() => _inputProvider.OnJumpStarted += JumpWithBuffer;
-
-    private void OnDisable() => _inputProvider.OnJumpStarted -= JumpWithBuffer;
 }

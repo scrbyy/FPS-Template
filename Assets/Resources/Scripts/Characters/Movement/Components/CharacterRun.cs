@@ -21,20 +21,6 @@ public class CharacterRun : MonoBehaviour
     private CancellationTokenSource _runCts;
     private bool _isRunning = false;
 
-    private void OnEnable()
-    {
-        _inputProvider.OnSprintStarted += TryRun;
-        _inputProvider.OnSprintReleased += CancelRun;
-    }
-
-    private void OnDisable()
-    {
-        _inputProvider.OnSprintReleased -= CancelRun;
-        _inputProvider.OnSprintStarted -= TryRun;
-
-        CancelRun();
-    }
-
     private void TryRun()
     {
         if (!_groundCheck.IsGrounded) return;
@@ -92,5 +78,19 @@ public class CharacterRun : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        _inputProvider.OnSprintStarted += TryRun;
+        _inputProvider.OnSprintReleased += CancelRun;
+    }
+
+    private void OnDisable()
+    {
+        _inputProvider.OnSprintReleased -= CancelRun;
+        _inputProvider.OnSprintStarted -= TryRun;
+
+        CancelRun();
     }
 }
