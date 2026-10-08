@@ -30,8 +30,8 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
     private InputAction fireAction;
     private InputAction reloadAction;
     private InputAction dashAction;
-    private InputAction selectNextWeaponAction;
-    private InputAction selectPreviousWeaponAction;
+    private InputAction nextWeaponAction;
+    private InputAction previousWeaponAction;
 
     private void Awake()
     {
@@ -43,14 +43,14 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
         fireAction = InputSystem.actions.FindAction("Fire");
         reloadAction = InputSystem.actions.FindAction("Reload");
         dashAction = InputSystem.actions.FindAction("Dash");
-        selectNextWeaponAction = InputSystem.actions.FindAction("SelectNextWeapon");
-        selectPreviousWeaponAction = InputSystem.actions.FindAction("SelectPreviousWeapon");
+        nextWeaponAction = InputSystem.actions.FindAction("NextWeapon");
+        previousWeaponAction = InputSystem.actions.FindAction("PreviousWeapon");
 
         jumpAction.performed += OnJump;
         interactAction.performed += OnInteract;
         reloadAction.performed += OnReload;
-        selectNextWeaponAction.performed += OnNextWeapon;
-        selectPreviousWeaponAction.performed += OnPreviousWeapon;
+        nextWeaponAction.performed += OnNextWeapon;
+        previousWeaponAction.performed += OnPreviousWeapon;
 
         sprintAction.started += OnSprintStart;
         sprintAction.canceled += OnSprintCancel;
@@ -66,8 +66,8 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
         jumpAction.performed -= OnJump;
         interactAction.performed -= OnInteract;
         reloadAction.performed -= OnReload;
-        selectNextWeaponAction.performed -= OnNextWeapon;
-        selectPreviousWeaponAction.performed -= OnPreviousWeapon;
+        nextWeaponAction.performed -= OnNextWeapon;
+        previousWeaponAction.performed -= OnPreviousWeapon;
 
         sprintAction.started -= OnSprintStart;
         sprintAction.canceled -= OnSprintCancel;

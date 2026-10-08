@@ -22921,8 +22921,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3153763f265a8f74a9f81657349376ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathPanel
+  _menu: {fileID: 1785847598}
+  _hud: {fileID: 815915170}
   _playerHealth: {fileID: 755122331}
-  _deathPanelUI: {fileID: 1785847598}
 --- !u!43 &1031004745
 Mesh:
   m_ObjectHideFlags: 0
