@@ -3,7 +3,7 @@ using Zenject;
 
 public class NewInputProviderInstaller : MonoInstaller
 {
-    [SerializeField] private NewInputProvider _inputProvider;
+    [SerializeField] private NewInputSystemProvider _inputProvider;
 
     public override void InstallBindings()
     {

@@ -17,7 +17,6 @@ public abstract class WeaponAttacker
 
     protected CancellationTokenSource _shootCts;
 
-    // Поле для отслеживания времени последнего выстрела
     protected float _lastShootTime;
 
     public WeaponAttacker(

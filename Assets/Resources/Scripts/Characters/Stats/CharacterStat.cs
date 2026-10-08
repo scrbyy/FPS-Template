@@ -47,7 +47,7 @@ public abstract class CharacterStat : MonoBehaviour
         else Debug.Log("Decreasing value is negative!");
     }
 
-    public void NotifyValueChanged(float value)
+    protected void NotifyValueChanged(float value)
     {
         OnValueChanged?.Invoke(value);
     }
