@@ -12967,6 +12967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 642669985}
+  - component: {fileID: 642669986}
   m_Layer: 0
   m_Name: SceneSettings
   m_TagString: Untagged
@@ -12993,6 +12994,18 @@ Transform:
   - {fileID: 383299255}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &642669986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642669984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24063c58ac27021449781d6c419b6bb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &643286668
 GameObject:
   m_ObjectHideFlags: 0
@@ -18487,6 +18500,51 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &835706390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 835706391}
+  - component: {fileID: 835706392}
+  m_Layer: 0
+  m_Name: GameFSMInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &835706391
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835706390}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1040894700}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835706392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835706390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c2d1aa9bacaa141b838f49a8357662, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameFSM: {fileID: 642669986}
 --- !u!43 &846053338
 Mesh:
   m_ObjectHideFlags: 0
@@ -23204,6 +23262,7 @@ MonoBehaviour:
   - {fileID: 1571931246}
   - {fileID: 1891315859}
   - {fileID: 1269833795}
+  - {fileID: 835706392}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -23240,6 +23299,7 @@ Transform:
   - {fileID: 1571931245}
   - {fileID: 1891315858}
   - {fileID: 1269833794}
+  - {fileID: 835706391}
   m_Father: {fileID: 642669985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1041166308
