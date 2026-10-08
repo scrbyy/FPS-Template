@@ -39,7 +39,8 @@ public abstract class CharacterStat : MonoBehaviour
             }
             else
             {
-                _currentValue = 0;  
+                _currentValue = 0;
+                OnValueChanged?.Invoke(_currentValue);
                 HandleEmptyValue();
             }
         }

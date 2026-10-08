@@ -30,7 +30,7 @@ public class CharacterStamina : CharacterStat
 
     public bool IsEnoughStamina(float amount)
     {
-        return !_isExhausted || _currentValue >= amount;
+        return !_isExhausted && _currentValue >= amount;
     }
 
     private void Start()
