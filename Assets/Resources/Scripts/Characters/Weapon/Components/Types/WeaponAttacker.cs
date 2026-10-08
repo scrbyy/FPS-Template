@@ -5,8 +5,8 @@ using UnityEngine;
 
 public abstract class WeaponAttacker
 {
-    public virtual event Action OnShoot;
-    public virtual event Action<HitData> OnShotContact;
+    public event Action OnShoot;
+    public event Action<HitData> OnShotContact;
 
     public bool IsAttacking => _isAttacking;
     protected bool _isAttacking;
@@ -16,19 +16,22 @@ public abstract class WeaponAttacker
     protected HitHandler _hitHandler;
 
     protected CancellationTokenSource _shootCts;
-
     protected float _lastShootTime;
 
     public WeaponAttacker(
-            AttackData attackConfig,
-            Transform origin,
-            IAttackData attackData,
-            AttackMethodFactory attackFactory)
+        AttackData attackConfig,
+        Transform origin,
+        IAttackData attackData,
+        AttackMethodFactory attackFactory)
     {
         _attackData = attackData;
         _attackMethod = attackFactory.Create(attackConfig, origin);
         _hitHandler = new HitHandler();
     }
+
+    protected virtual bool CanShoot() => true;
+
+    protected virtual float CalculateDamage(HitData hitData) => _attackData.Damage;
 
     protected virtual void Shoot()
     {
@@ -40,7 +43,7 @@ public abstract class WeaponAttacker
         if (hitData.IsHit)
         {
             OnShotContact?.Invoke(hitData);
-            _hitHandler.HandleShot(hitData, _attackData.Damage);
+            _hitHandler.HandleShot(hitData, CalculateDamage(hitData));
         }
     }
 
@@ -64,7 +67,7 @@ public abstract class WeaponAttacker
 
         try
         {
-            while (_isAttacking)
+            while (_isAttacking && CanShoot())
             {
                 float timeSinceLastShoot = Time.time - _lastShootTime;
                 float remainingDelay = _attackData.AfterAttackDelay - timeSinceLastShoot;
@@ -74,7 +77,7 @@ public abstract class WeaponAttacker
                     await UniTask.Delay(TimeSpan.FromSeconds(remainingDelay), cancellationToken: _shootCts.Token);
                 }
 
-                if (!_isAttacking) break;
+                if (!_isAttacking || !CanShoot()) break;
 
                 Shoot();
 
@@ -103,8 +106,4 @@ public abstract class WeaponAttacker
         _shootCts?.Dispose();
         _shootCts = new CancellationTokenSource();
     }
-
-    public virtual void StartAttack() { }
-
-    public virtual void StopAttack() { }
 }

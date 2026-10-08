@@ -5,14 +5,13 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public Action OnAttack;
-    public Action OnAttackStopped;
-    public Action<HitData> OnShotContact;
+    public event Action OnAttack;
+    public event Action OnAttackStopped;
+    public event Action<HitData> OnShotContact;
 
     public FireMode FireMode => _data.FireMode;
 
     [SerializeField] protected WeaponData _data;
-
     [SerializeField] protected Transform _origin;
     [SerializeField] protected CharacterSpeed _ownerSpeedHandler;
 
@@ -24,14 +23,14 @@ public abstract class Weapon : MonoBehaviour
 
     public virtual void Attack()
     {
-        if (_isOpen == false) return;
-        _weaponAttacker.StartShoot().Forget();
+        if (!_isOpen) return;
+        _weaponAttacker?.StartShoot().Forget();
     }
 
     public virtual void StopAttack()
     {
         _weaponAttacker?.StopShoot();
-        OnAttackStopped?.Invoke();
+        NotifyAttackStopped();
     }
 
     public virtual void Initialize()
@@ -55,7 +54,6 @@ public abstract class Weapon : MonoBehaviour
         }
 
         _isOpen = false;
-
         _ownerSpeedHandler.RemoveModifier(_speedModifier);
     }
 
@@ -68,4 +66,8 @@ public abstract class Weapon : MonoBehaviour
         }
         catch (OperationCanceledException) { }
     }
+
+    protected void NotifyAttack() => OnAttack?.Invoke();
+    protected void NotifyAttackStopped() => OnAttackStopped?.Invoke();
+    protected void NotifyShotContact(HitData hitData) => OnShotContact?.Invoke(hitData);
 }

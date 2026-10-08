@@ -20,6 +20,7 @@ public class Gun : Weapon, IAmmoHolder
     public override void Initialize()
     {
         base.Initialize();
+
         if (!(_data is GunData gunData))
         {
             Debug.LogError("Wrong data asset!");
@@ -29,7 +30,6 @@ public class Gun : Weapon, IAmmoHolder
         if (_weaponAttacker == null && _reloader == null)
         {
             _reloader = new GunReloader(gunData);
-
             _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, gunData, gunData, _attackMethodFactory);
         }
 
@@ -37,51 +37,59 @@ public class Gun : Weapon, IAmmoHolder
         _weaponAttacker.Initialize();
 
         _reloader.OnReloadEnd += NotifyUpdateAmmo;
-        _weaponAttacker.OnShoot += NotifyAttack;
+        _weaponAttacker.OnShoot += NotifyShoot;
         _weaponAttacker.OnShotContact += NotifyContact;
         _reloader.OnReloadStart += NotifyReloadStart;
-        OnReady?.Invoke();
 
+        OnReady?.Invoke();
         NotifyUpdateAmmo();
     }
 
     public override void Deinitialize()
     {
         base.Deinitialize();
-        _reloader.Deinitialize();
-        _weaponAttacker.Deinitialize();
 
-        _weaponAttacker.OnShoot -= NotifyAttack;
-        _weaponAttacker.OnShotContact -= NotifyContact;
-        _reloader.OnReloadEnd -= NotifyUpdateAmmo;
-        _reloader.OnReloadStart -= NotifyReloadStart;
+        if (_reloader != null)
+        {
+            _reloader.Deinitialize();
+            _reloader.OnReloadEnd -= NotifyUpdateAmmo;
+            _reloader.OnReloadStart -= NotifyReloadStart;
+        }
+
+        if (_weaponAttacker != null)
+        {
+            _weaponAttacker.Deinitialize();
+            _weaponAttacker.OnShoot -= NotifyShoot;
+            _weaponAttacker.OnShotContact -= NotifyContact;
+        }
     }
 
     public void Reload()
     {
-        if (_isOpen == false) return;
-        if (_weaponAttacker.IsAttacking == false)
+        if (!_isOpen) return;
+        if (!_weaponAttacker.IsAttacking)
         {
             _reloader.Reload();
         }
     }
 
-    private void NotifyAttack()
+    private void NotifyShoot()
     {
-        OnAttack?.Invoke();
+        NotifyAttack();
         _reloader.UseBullet();
         NotifyUpdateAmmo();
     }
 
     private void NotifyContact(HitData hit)
     {
-        OnShotContact?.Invoke(hit);
+        NotifyShotContact(hit);
     }
 
     private void NotifyUpdateAmmo()
     {
         OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
     }
+
     private void NotifyReloadStart()
     {
         OnReloadStart?.Invoke();
