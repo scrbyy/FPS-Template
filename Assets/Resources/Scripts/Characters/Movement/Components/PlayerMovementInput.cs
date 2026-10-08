@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerMovementInput : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
