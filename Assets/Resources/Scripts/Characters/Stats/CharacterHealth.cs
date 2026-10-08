@@ -1,4 +1,4 @@
-﻿public class CharacterHealth : CharacterStat, IDamagable
+﻿public class CharacterHealth : CharacterStat, IDamageable
 {
     public virtual void TakeDamage(int damage)
     {

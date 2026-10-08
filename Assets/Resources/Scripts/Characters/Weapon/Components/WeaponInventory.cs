@@ -64,14 +64,12 @@ public class WeaponInventory : MonoBehaviour
 
     private void SetPreviousWeapon()
     {
-        // Если вышли за 0, берем последний индекс, иначе уменьшаем на 1
         int newWeaponID = (_selectedWeaponID - 1 < 0) ? _weaponList.Count - 1 : _selectedWeaponID - 1;
         SwitchWeapon(newWeaponID);
     }
 
     private void SetNextWeapon()
     {
-        // Магическая формула остатка от деления автоматически сбросит индекс в 0 при достижении Count
         int newWeaponID = (_selectedWeaponID + 1) % _weaponList.Count;
         SwitchWeapon(newWeaponID);
     }

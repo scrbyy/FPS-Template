@@ -4,9 +4,9 @@ public class HitHandler
 {
     public void HandleShot(HitData hitData, float damage)
     {
-        if (hitData.GameObject.TryGetComponent(out IHittable target) )
+        if (hitData.GameObject.TryGetComponent(out IDamageable target) )
         {
-            target.OnHit(Mathf.RoundToInt(damage));
+            target.TakeDamage(Mathf.RoundToInt(damage));
         }
     }
 }

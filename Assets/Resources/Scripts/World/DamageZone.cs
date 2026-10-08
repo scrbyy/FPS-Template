@@ -16,7 +16,7 @@ public class DamageZone : MonoBehaviour
 
     private bool _inZone;
 
-    private async UniTaskVoid RepeatableDamaging(IDamagable target, CancellationToken token)
+    private async UniTaskVoid RepeatableDamaging(IDamageable target, CancellationToken token)
     {
         try
         {
@@ -36,7 +36,7 @@ public class DamageZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent<IDamagable>(out IDamagable target))
+        if(other.TryGetComponent<IDamageable>(out IDamageable target))
         {
             if (_damageType == DamageType.Instant)
             {
@@ -57,7 +57,7 @@ public class DamageZone : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<IDamagable>() != null)
+        if (other.GetComponent<IDamageable>() != null)
         {
             StopDamaging();
         }

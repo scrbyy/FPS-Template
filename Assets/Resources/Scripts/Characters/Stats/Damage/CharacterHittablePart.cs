@@ -1,12 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class CharacterHittablePart : MonoBehaviour, IHittable
+public class CharacterHittablePart : MonoBehaviour, IDamageable
 {
     [SerializeField] private CharacterHealth _attachedHealth;
-    [SerializeField, Min(0f)] private float _damageMultiplier = 1f;
+    [SerializeField, Min(0f)] private float _damageMultiplier;
 
-    public void OnHit(int damage)
+    public void TakeDamage(int damage)
     {
         _attachedHealth.TakeDamage(Mathf.RoundToInt(damage * _damageMultiplier));
     }
