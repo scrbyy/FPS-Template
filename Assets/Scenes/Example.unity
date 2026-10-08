@@ -49225,7 +49225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc49d081f3a590048a9ab8d415779dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 0.1
+  _duration: 0.09
   _strength: 0.025
   _vibrato: 10
   _randomness: 3

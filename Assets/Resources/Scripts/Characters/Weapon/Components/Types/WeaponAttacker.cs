@@ -17,6 +17,9 @@ public abstract class WeaponAttacker
 
     protected CancellationTokenSource _shootCts;
 
+    // Поле для отслеживания времени последнего выстрела
+    protected float _lastShootTime;
+
     public WeaponAttacker(
             AttackData attackConfig,
             Transform origin,
@@ -24,13 +27,14 @@ public abstract class WeaponAttacker
             AttackMethodFactory attackFactory)
     {
         _attackData = attackData;
-
         _attackMethod = attackFactory.Create(attackConfig, origin);
         _hitHandler = new HitHandler();
     }
 
     protected virtual void Shoot()
     {
+        _lastShootTime = Time.time;
+
         OnShoot?.Invoke();
         HitData hitData = _attackMethod.Execute();
 
@@ -63,6 +67,16 @@ public abstract class WeaponAttacker
         {
             while (_isAttacking)
             {
+                float timeSinceLastShoot = Time.time - _lastShootTime;
+                float remainingDelay = _attackData.AfterAttackDelay - timeSinceLastShoot;
+
+                if (remainingDelay > 0)
+                {
+                    await UniTask.Delay(TimeSpan.FromSeconds(remainingDelay), cancellationToken: _shootCts.Token);
+                }
+
+                if (!_isAttacking) break;
+
                 Shoot();
 
                 await UniTask.Delay(TimeSpan.FromSeconds(_attackData.AfterAttackDelay), cancellationToken: _shootCts.Token);

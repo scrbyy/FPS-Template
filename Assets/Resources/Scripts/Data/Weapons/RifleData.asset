@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RifleData
   m_EditorClassIdentifier: 
   _damage: 25
-  _afterAttackDelay: 0.1
+  _afterAttackDelay: 0.09
   _fireMode: 1
   _attackMethod: 1
   _raycastParams:
