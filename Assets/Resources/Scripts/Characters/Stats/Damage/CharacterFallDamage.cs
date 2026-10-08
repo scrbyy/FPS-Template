@@ -4,7 +4,7 @@ using Zenject;
 public class CharacterFallDamage : MonoBehaviour
 {
     [Header("Clamping")]
-    [SerializeField, Range(-20, 0)] private float _minDamagableSpeed;
+    [SerializeField, Range(-20, 0)] private float _minDamageableSpeed;
 
     [Header("Formula")]
     [SerializeField] private AnimationCurve _damageCurve;
@@ -27,7 +27,7 @@ public class CharacterFallDamage : MonoBehaviour
 
     private void DoFallDamage()
     {
-        if (_maxFallSpeed > _minDamagableSpeed) return;
+        if (_maxFallSpeed > _minDamageableSpeed) return;
         int damage = Mathf.RoundToInt(_damageCurve.Evaluate(-_maxFallSpeed));
         _attachedHealth.TakeDamage(damage);
         _maxFallSpeed = 0f;

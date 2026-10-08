@@ -16917,7 +16917,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a6248113574134eaeb352c02b85349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDamagableSpeed: -11
+  _minDamageableSpeed: -11
   _damageCurve:
     serializedVersion: 2
     m_Curve:

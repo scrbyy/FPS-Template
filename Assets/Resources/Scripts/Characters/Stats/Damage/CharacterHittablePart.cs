@@ -6,8 +6,8 @@ public class CharacterHittablePart : MonoBehaviour, IDamageable
     [SerializeField] private CharacterHealth _attachedHealth;
     [SerializeField, Min(0f)] private float _damageMultiplier;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
-        _attachedHealth.TakeDamage(Mathf.RoundToInt(damage * _damageMultiplier));
+        _attachedHealth.TakeDamage(damage * _damageMultiplier);
     }
 }
