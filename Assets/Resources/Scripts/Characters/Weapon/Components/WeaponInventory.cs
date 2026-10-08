@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class WeaponInventory : MonoBehaviour
 {
-    public event Action<Weapon> OnWeaponUnselect;
+    public event Action<Weapon> OnWeaponUnselected;
 
     public event Action<Weapon> OnWeaponSelected;
 
@@ -42,7 +42,7 @@ public class WeaponInventory : MonoBehaviour
             oldInitializer.Unselect(_selectedWeapon);
             _selectedWeapon.gameObject.SetActive(false);
             _selectedWeapon.Deinitialize();
-            OnWeaponUnselect?.Invoke(_selectedWeapon);
+            OnWeaponUnselected?.Invoke(_selectedWeapon);
         }
 
         SelectWeaponInternal(newWeaponID);
@@ -76,13 +76,13 @@ public class WeaponInventory : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputProvider.OnNextWeaponSelect += SetNextWeapon;
-        _inputProvider.OnPreviousWeaponSelect += SetPreviousWeapon;
+        _inputProvider.OnNextWeaponSelected += SetNextWeapon;
+        _inputProvider.OnPreviousWeaponSelected += SetPreviousWeapon;
     }
 
     private void OnDisable()
     {
-        _inputProvider.OnNextWeaponSelect -= SetNextWeapon;
-        _inputProvider.OnPreviousWeaponSelect -= SetPreviousWeapon;
+        _inputProvider.OnNextWeaponSelected -= SetNextWeapon;
+        _inputProvider.OnPreviousWeaponSelected -= SetPreviousWeapon;
     }
 }

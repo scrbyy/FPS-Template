@@ -28,7 +28,7 @@ public class CharacterClimb : MonoBehaviour
     [SerializeField] private Transform _origin;
     [SerializeField] private CharacterEngine _characterEngine;
 
-    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private GroundChecker _groundCheck;
     [Inject] private IMovementInputProvider _inputProvider;
 
     private bool _isClimbing;

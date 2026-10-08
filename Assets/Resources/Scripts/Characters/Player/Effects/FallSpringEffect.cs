@@ -22,7 +22,7 @@ public class FallSpringEffect : PositionEffect
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
 
-    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private GroundChecker _groundCheck;
 
     private Vector3 _calculatedCameraOffset;
     private Vector3 _shakeVelocity;

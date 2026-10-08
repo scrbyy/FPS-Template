@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class OpenableDoor : MonoBehaviour, IInteractionObject
+public class OpenableDoor : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform _doorTransform;
     [SerializeField] private float _openAngle; 
@@ -11,7 +11,7 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
     private float _openedAngleY;
 
     private bool _isOpen = false;
-    private Coroutine _openCourutine;
+    private Coroutine _openCoroutine;
 
     private void Awake()
     {
@@ -21,10 +21,10 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
 
     public void Interact()
     {
-        if (_openCourutine != null) return;
+        if (_openCoroutine != null) return;
 
         _isOpen = !_isOpen;
-        _openCourutine = StartCoroutine(RotateDoor(_isOpen ? _openedAngleY : _closedAngleY, _openTime));
+        _openCoroutine = StartCoroutine(RotateDoor(_isOpen ? _openedAngleY : _closedAngleY, _openTime));
     }
 
     private IEnumerator RotateDoor(float targetY, float duration)
@@ -41,18 +41,18 @@ public class OpenableDoor : MonoBehaviour, IInteractionObject
         }
 
         _doorTransform.localEulerAngles = new Vector3(_doorTransform.localEulerAngles.x, targetY, _doorTransform.localEulerAngles.z);
-        _openCourutine = null;
+        _openCoroutine = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            if (_openCourutine != null)
+            if (_openCoroutine != null)
             {
                 _isOpen = true;
-                StopCoroutine(_openCourutine);
-                _openCourutine = null;
+                StopCoroutine(_openCoroutine);
+                _openCoroutine = null;
             }
         }
     }

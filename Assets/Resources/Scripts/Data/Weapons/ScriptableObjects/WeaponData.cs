@@ -3,7 +3,7 @@
 public class WeaponData : ScriptableObject, ISpeedModifier, IAttackData
 {
     public float Damage => _damage;
-    public float SpeedMultiplier => _speedMultipler;
+    public float SpeedMultiplier => _speedMultiplier;
     public float OpenDelay => _openDelay;
     public FireMode FireMode => _fireMode;
     public float AfterAttackDelay => _afterAttackDelay;
@@ -25,7 +25,7 @@ public class WeaponData : ScriptableObject, ISpeedModifier, IAttackData
     [SerializeField] private SpherecastAttackData _spherecastParams;
 
     [Header("Movement")]
-    [SerializeField] private float _speedMultipler;
+    [SerializeField] private float _speedMultiplier;
 
     [Header("Timings")]
     [SerializeField] private float _openDelay;

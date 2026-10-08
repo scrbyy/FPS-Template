@@ -17,8 +17,8 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
     public event Action OnSprintReleased;
     public event Action OnDashStarted;
 
-    public event Action OnNextWeaponSelect;
-    public event Action OnPreviousWeaponSelect;
+    public event Action OnNextWeaponSelected;
+    public event Action OnPreviousWeaponSelected;
 
     public event Action OnInteractStarted;
 
@@ -84,9 +84,9 @@ public class NewInputProvider : MonoBehaviour, IWeaponInputProvider, IMovementIn
 
     private void OnReload(InputAction.CallbackContext ctx) => OnReloadStarted?.Invoke();
 
-    private void OnNextWeapon(InputAction.CallbackContext ctx) => OnNextWeaponSelect?.Invoke();
+    private void OnNextWeapon(InputAction.CallbackContext ctx) => OnNextWeaponSelected?.Invoke();
 
-    private void OnPreviousWeapon(InputAction.CallbackContext ctx) => OnPreviousWeaponSelect?.Invoke();
+    private void OnPreviousWeapon(InputAction.CallbackContext ctx) => OnPreviousWeaponSelected?.Invoke();
 
     private void OnSprintStart(InputAction.CallbackContext ctx) => OnSprintStarted?.Invoke();
 

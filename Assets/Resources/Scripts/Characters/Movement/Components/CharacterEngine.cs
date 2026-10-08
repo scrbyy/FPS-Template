@@ -25,7 +25,7 @@ public class CharacterEngine : MonoBehaviour
     [SerializeField] private CharacterSpeed _speedProvider;
 
     [Inject] private CharacterCollisionHandler _characterCollisionHandler;
-    [Inject] private IGroundChecker _groundChecker;
+    [Inject] private GroundChecker _groundChecker;
 
     private CharacterController _characterController;
 

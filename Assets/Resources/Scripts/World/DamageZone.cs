@@ -8,7 +8,7 @@ using UnityEngine;
 public class DamageZone : MonoBehaviour
 {
     [SerializeField] private int _damageAmount;
-    [SerializeField] private DamageType _damageType;
+    [SerializeField] private DamageZoneType _damageZoneType;
     [Header("Repeatable damage settings")]
     [SerializeField] private float _repeatTime;
 
@@ -38,12 +38,12 @@ public class DamageZone : MonoBehaviour
     {
         if(other.TryGetComponent<IDamageable>(out IDamageable target))
         {
-            if (_damageType == DamageType.Instant)
+            if (_damageZoneType == DamageZoneType.InstantDamage)
             {
                 target.TakeDamage(_damageAmount);
             }
 
-            else if (_damageType == DamageType.Repeatable)
+            else if (_damageZoneType == DamageZoneType.RepeatableDamage)
             {
                 StopDamaging();
 

@@ -16,7 +16,7 @@ public class InteractionBody : MonoBehaviour
     {
         if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _mask))
         {
-            if(_hit.collider.gameObject.TryGetComponent<IInteractionObject>(out IInteractionObject interactionObject))
+            if(_hit.collider.gameObject.TryGetComponent<IInteractable>(out IInteractable interactionObject))
             {
                 interactionObject.Interact();
             }

@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     public Action OnAttack;
-    public Action OnStopAttack;
+    public Action OnAttackStopped;
     public Action<HitData> OnShotContact;
 
     public FireMode FireMode => _data.FireMode;
@@ -31,7 +31,7 @@ public abstract class Weapon : MonoBehaviour
     public virtual void StopAttack()
     {
         _weaponAttacker?.StopShoot();
-        OnStopAttack?.Invoke();
+        OnAttackStopped?.Invoke();
     }
 
     public virtual void Initialize()

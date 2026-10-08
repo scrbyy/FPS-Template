@@ -14,7 +14,7 @@ public class CharacterRun : MonoBehaviour
     [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterStamina _characterStamina;
 
-    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private GroundChecker _groundCheck;
     [Inject] private IMovementInputProvider _inputProvider;
     [Inject] private CharacterCollisionHandler _characterCollisionHandler;
 

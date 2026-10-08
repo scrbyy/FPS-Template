@@ -7,7 +7,7 @@ public class GroundedStateText : MonoBehaviour
 {
     private TMP_Text _text;
 
-    [Inject] private IGroundChecker _groundChecker;
+    [Inject] private GroundChecker _groundChecker;
 
     private void Start()
     {

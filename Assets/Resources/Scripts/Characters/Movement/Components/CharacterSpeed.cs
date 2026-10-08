@@ -19,7 +19,7 @@ public class CharacterSpeed : MonoBehaviour
     private float _currentSpeed;
     private float _finalSpeed;
 
-    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private GroundChecker _groundCheck;
 
     public void AddModifier(ISpeedModifier modifier)
     {

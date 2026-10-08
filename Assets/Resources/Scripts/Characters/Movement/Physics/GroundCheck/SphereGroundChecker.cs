@@ -1,11 +1,10 @@
 using System;
 using UnityEngine;
 
-public class SphereGroundChecker : MonoBehaviour, IGroundChecker
+public class SphereGroundChecker : GroundChecker
 {
-    public event Action OnGrounded;
-
-    public bool IsGrounded => _isGrounded;
+    public override bool IsGrounded => _isGrounded;
+    public override event Action OnGrounded;
 
     [Header("Sphere Settings")]
     [SerializeField] private Transform _checkPoint;
@@ -14,7 +13,7 @@ public class SphereGroundChecker : MonoBehaviour, IGroundChecker
     [SerializeField] private LayerMask _groundLayer;
 
     private bool _isGrounded;
-    private bool _wasGrounded;
+    private bool _wasGrounded; 
 
     private void Update()
     {

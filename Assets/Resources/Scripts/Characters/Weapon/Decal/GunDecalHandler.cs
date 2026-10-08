@@ -23,7 +23,7 @@ public class GunDecalHandler : MonoBehaviour
             SubscribeToGun(character.SelectedWeapon);
 
             character.OnWeaponSelected += HandleWeaponSelected;
-            character.OnWeaponUnselect += HandleWeaponUnselected;
+            character.OnWeaponUnselected += HandleWeaponUnselected;
         }
     }
 
@@ -35,7 +35,7 @@ public class GunDecalHandler : MonoBehaviour
             {
                 UnsubscribeFromGun(character.SelectedWeapon);
                 character.OnWeaponSelected -= HandleWeaponSelected;
-                character.OnWeaponUnselect -= HandleWeaponUnselected;
+                character.OnWeaponUnselected -= HandleWeaponUnselected;
             }
         }
     }

@@ -6,14 +6,14 @@ public class AmmoUI : MonoBehaviour
     [SerializeField] private TMP_Text _ammoText;
     [SerializeField] private WeaponInventory _weaponInventory;
 
-    private IShootable _currentAmmoWeapon;
+    private IAmmoHolder _currentAmmoWeapon;
 
     private void OnEnable()
     {
         if (_weaponInventory != null)
         {
             _weaponInventory.OnWeaponSelected += HandleWeaponSelected;
-            _weaponInventory.OnWeaponUnselect += HandleWeaponUnselected;
+            _weaponInventory.OnWeaponUnselected += HandleWeaponUnselected;
 
             HandleWeaponSelected(_weaponInventory.SelectedWeapon);
         }
@@ -24,7 +24,7 @@ public class AmmoUI : MonoBehaviour
         if (_weaponInventory != null)
         {
             _weaponInventory.OnWeaponSelected -= HandleWeaponSelected;
-            _weaponInventory.OnWeaponUnselect -= HandleWeaponUnselected;
+            _weaponInventory.OnWeaponUnselected -= HandleWeaponUnselected;
         }
 
         if (_currentAmmoWeapon != null)
@@ -36,7 +36,7 @@ public class AmmoUI : MonoBehaviour
 
     private void HandleWeaponSelected(Weapon weapon)
     {
-        if (weapon is IShootable ammoWeapon)
+        if (weapon is IAmmoHolder ammoWeapon)
         {
             _currentAmmoWeapon = ammoWeapon;
             SubscribeToAmmoEvents(_currentAmmoWeapon);
@@ -51,7 +51,7 @@ public class AmmoUI : MonoBehaviour
 
     private void HandleWeaponUnselected(Weapon weapon)
     {
-        if (weapon is IShootable ammoWeapon && _currentAmmoWeapon == ammoWeapon)
+        if (weapon is IAmmoHolder ammoWeapon && _currentAmmoWeapon == ammoWeapon)
         {
             UnsubscribeFromAmmoEvent(ammoWeapon);
             _currentAmmoWeapon = null;
@@ -59,13 +59,13 @@ public class AmmoUI : MonoBehaviour
         }
     }
 
-    private void SubscribeToAmmoEvents(IShootable ammoWeapon)
+    private void SubscribeToAmmoEvents(IAmmoHolder ammoWeapon)
     {
         ammoWeapon.OnAmmoChanged -= UpdateText; 
         ammoWeapon.OnAmmoChanged += UpdateText;
     }
 
-    private void UnsubscribeFromAmmoEvent(IShootable ammoWeapon)
+    private void UnsubscribeFromAmmoEvent(IAmmoHolder ammoWeapon)
     {
         ammoWeapon.OnAmmoChanged -= UpdateText;
     }

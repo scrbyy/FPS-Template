@@ -27,7 +27,7 @@ MonoBehaviour:
     _ignoreLayer:
       serializedVersion: 2
       m_Bits: 0
-  _speedMultipler: 0.85
+  _speedMultiplier: 0.95
   _openDelay: 0.25
   _distanceDamageMultiplier: 0.95
   _damageDecreasingStep: 10

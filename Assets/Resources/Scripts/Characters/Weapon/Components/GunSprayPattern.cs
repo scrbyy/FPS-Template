@@ -21,7 +21,7 @@ public class GunSprayPattern : RotationEffect
         if (_weapon != null)
         {
             _weapon.OnAttack += Fire;
-            _weapon.OnStopAttack += StopFiring;
+            _weapon.OnAttackStopped += StopFiring;
         }
     }
 
@@ -30,7 +30,7 @@ public class GunSprayPattern : RotationEffect
         if (_weapon != null)
         {
             _weapon.OnAttack -= Fire;
-            _weapon.OnStopAttack -= StopFiring;
+            _weapon.OnAttackStopped -= StopFiring;
         }
     }
 

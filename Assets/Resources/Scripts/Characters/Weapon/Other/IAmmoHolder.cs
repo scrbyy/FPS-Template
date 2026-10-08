@@ -1,6 +1,6 @@
 ﻿using System;
 
-public interface IShootable
+public interface IAmmoHolder
 {
     public event Action<int, int> OnAmmoChanged;
     int CurrentAmmo { get; }

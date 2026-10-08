@@ -20,7 +20,7 @@ public class TiltEffect : MonoBehaviour
     [SerializeField] private CharacterEngine _characterEngine;
 
     [Inject] private IMovementInputProvider _inputProvider;
-    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private GroundChecker _groundCheck;
 
     private float _targetZRotation;
 

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6af75573f2391834581ac98b90618bf4, type: 3}
-  m_Name: Knife Data
+  m_Name: KnifeData
   m_EditorClassIdentifier: 
   _damage: 25
   _afterAttackDelay: 0.1
@@ -27,5 +27,5 @@ MonoBehaviour:
     _ignoreLayer:
       serializedVersion: 2
       m_Bits: 512
-  _speedMultipler: 1
+  _speedMultiplier: 1
   _openDelay: 0.25

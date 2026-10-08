@@ -30,7 +30,7 @@ public class BobbingEffect : PositionEffect
     [Header("References")]
     [SerializeField] private CharacterEngine _characterEngine;
 
-    [Inject] private IGroundChecker _groundChecker;
+    [Inject] private GroundChecker _groundChecker;
     [Inject] private IMovementInputProvider _inputProvider;
 
     private float _cycleTimer;

@@ -16,7 +16,7 @@ public class CharacterJump : MonoBehaviour
     [SerializeField] private CharacterStamina _characterStamina;
 
     [Inject] private IMovementInputProvider _inputProvider;
-    [Inject] private IGroundChecker _groundCheck;
+    [Inject] private GroundChecker _groundCheck;
 
     private Buffer _inputBuffer;
     private Buffer _coyoteTimer;

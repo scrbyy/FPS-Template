@@ -13,7 +13,7 @@ public class CharacterFallDamage : MonoBehaviour
     [SerializeField] private CharacterEngine _characterEngine;
     [SerializeField] private CharacterHealth _attachedHealth;
 
-    [Inject] private IGroundChecker _groundChecker;
+    [Inject] private GroundChecker _groundChecker;
 
     private float _maxFallSpeed;
 

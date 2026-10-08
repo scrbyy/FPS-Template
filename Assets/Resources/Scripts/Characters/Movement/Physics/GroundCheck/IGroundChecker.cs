@@ -1,8 +1,9 @@
 ﻿using System;
+using UnityEngine;
 
-public interface IGroundChecker
+public abstract class GroundChecker : MonoBehaviour
 {
-    public event Action OnGrounded;
+    public abstract event Action OnGrounded;
 
-    public bool IsGrounded { get; }
+    public abstract bool IsGrounded { get; }
 }

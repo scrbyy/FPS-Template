@@ -2,7 +2,7 @@
 using UnityEngine;
 using Zenject;
 
-public class Gun : Weapon, IShootable
+public class Gun : Weapon, IAmmoHolder
 {
     public event Action OnReloadStart;
     public event Action OnReady;
