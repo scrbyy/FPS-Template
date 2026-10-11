@@ -72,7 +72,7 @@ public class CharacterRun : MonoBehaviour
 
             _characterStamina.Decrease(_staminaCost);
 
-            if (!_characterStamina.IsEnoughStamina(_staminaCost))
+            if (_characterStamina.IsEnoughStamina(_staminaCost) == false || _characterEngine.IsMoving() == false)
             {
                 CancelRun();
                 break;
