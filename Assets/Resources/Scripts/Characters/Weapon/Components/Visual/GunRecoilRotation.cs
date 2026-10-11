@@ -2,10 +2,6 @@
 
 public class GunRecoilRotation : RotationEffect
 {
-    private Vector3 initialRotation = Vector3.zero;
-    private Vector3 currentRotation = Vector3.zero;
-    private Vector3 targetRotation = Vector3.zero;
-
     [Header("Recoil Settings per Shot")]
     [SerializeField] private Vector3 _recoilForce;
     [SerializeField] private Vector3 _recoilRandomness;
@@ -25,6 +21,10 @@ public class GunRecoilRotation : RotationEffect
 
     [Header("References")]
     [SerializeField] private Gun _gun;
+
+    private Vector3 initialRotation = Vector3.zero;
+    private Vector3 currentRotation = Vector3.zero;
+    private Vector3 targetRotation = Vector3.zero;
 
     private int _shotCount;
     private float _lastShotTime;

@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class GunRecoilPosition : PositionEffect
 {
-    [Header("Positions")]
-    private Vector3 initialPosition;
-    private Vector3 currentPosition;
-    private Vector3 targetPosition;
-
     [Header("Recoil Settings per Shot")]
     [SerializeField] private Vector3 _recoilForce;
     [SerializeField] private Vector3 _recoilRandomness;
@@ -26,6 +21,10 @@ public class GunRecoilPosition : PositionEffect
 
     [Header("References")]
     [SerializeField] private Gun _gun;
+
+    private Vector3 initialPosition;
+    private Vector3 currentPosition;
+    private Vector3 targetPosition;
 
     private int _shotCount;
     private float _lastShotTime;
