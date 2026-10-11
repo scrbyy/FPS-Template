@@ -38,9 +38,6 @@ public class FallSpringEffect : PositionEffect
         {
             _capturedFallSpeed = currentVerticalSpeed;
 
-            float fallRatio = Mathf.Abs(currentVerticalSpeed) / _minFallSpeedThreshold;
-            float compressionFactor = Mathf.Clamp01(fallRatio);
-
             float targetAirOffset = -Mathf.Min(Mathf.Abs(currentVerticalSpeed) * _fallingForceMultiplier, _maxInAirOffset);
 
             _calculatedCameraOffset.y = Mathf.Lerp(_calculatedCameraOffset.y, targetAirOffset, Time.deltaTime * _inAirCompressionForce);

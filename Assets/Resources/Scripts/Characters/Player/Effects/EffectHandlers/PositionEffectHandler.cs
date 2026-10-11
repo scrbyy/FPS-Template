@@ -4,8 +4,7 @@ using System.Collections.Generic;
 public class PositionEffectHandler : MonoBehaviour
 {
     [SerializeField] private List<PositionEffect> _effects = new List<PositionEffect>();
-     
-    private Vector3 _targetOffset;
+    
     private Vector3 _initialLocalPosition;
 
     private void Awake()
@@ -22,8 +21,6 @@ public class PositionEffectHandler : MonoBehaviour
             totalOffset += effect.GetLocalOffset();
         }
 
-        _targetOffset = totalOffset;
-
-        transform.localPosition = _initialLocalPosition + _targetOffset;
+        transform.localPosition = _initialLocalPosition + totalOffset;
     }
 }
