@@ -3,19 +3,12 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(TMP_Text))]
-public class GroundedStateText : MonoBehaviour
+public class GroundedStateText : UpdateableText
 {
-    private TMP_Text _text;
-
     [Inject] private GroundChecker _groundChecker;
 
-    private void Start()
+    protected override void UpdateText()
     {
-        _text = GetComponent<TMP_Text>();
-    }
-
-    private void Update()
-    {
-        _text.text = $"Grounded: {_groundChecker.IsGrounded} ";
+        _text.SetText(_groundChecker.IsGrounded ? "Grounded" : "Not Grounded");
     }
 }

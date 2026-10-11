@@ -14758,7 +14758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 100
-  _damageType: 0
+  _damageZoneType: 0
   _repeatTime: 0.25
 --- !u!1 &685553826
 GameObject:
@@ -24839,6 +24839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a493d9888a3698f45b333420cf17896c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateInterval: 0.1
   _characterEngine: {fileID: 755122330}
 --- !u!1 &1073333231
 GameObject:
@@ -32093,7 +32094,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6385b4f595454764191c754d1d555319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: {fileID: 1384875060}
+  _updateInterval: 0.25
   _characterSpeedHandler: {fileID: 755122332}
 --- !u!43 &1402416973
 Mesh:
@@ -45058,6 +45059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18fa14d9c4b3e554b9466c3fdec33005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _updateInterval: 0.1
 --- !u!114 &2047319177
 MonoBehaviour:
   m_ObjectHideFlags: 0

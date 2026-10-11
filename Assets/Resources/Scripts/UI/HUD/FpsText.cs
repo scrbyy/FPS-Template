@@ -1,35 +1,27 @@
 using UnityEngine;
-using TMPro;
 
-[RequireComponent(typeof(TMP_Text))]
-public class FpsText : MonoBehaviour
+public class FpsText : UpdateableText
 {
-    private TMP_Text _fpsText;
+    private int _frameCount;
 
-    [SerializeField] private float _updateInterval;
-
-    private float _accumulatedTime = 0f;
-    private int _frameCount = 0;
-
-    private void Start()
+    protected override void Start()
     {
-        _fpsText = GetComponent<TMP_Text>();
-        _fpsText.text = "{0} FPS";
+        base.Start();
+        _text.SetText("{0} FPS", 0);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        _accumulatedTime += Time.unscaledDeltaTime;
         _frameCount++;
+    }
 
-        if (_accumulatedTime >= _updateInterval)
-        {
-            int fps = Mathf.RoundToInt(_frameCount / _accumulatedTime);
+    protected override void UpdateText()
+    {
+        float time = _updateInterval > 0 ? _updateInterval : Time.unscaledDeltaTime;
+        int fps = Mathf.RoundToInt(_frameCount / time);
 
-            _fpsText.SetText("{0} FPS", fps);
+        _text.SetText("{0} FPS", fps);
 
-            _accumulatedTime = 0f;
-            _frameCount = 0;
-        }
+        _frameCount = 0;
     }
 }

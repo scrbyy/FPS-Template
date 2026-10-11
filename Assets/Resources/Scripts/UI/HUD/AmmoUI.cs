@@ -72,6 +72,6 @@ public class AmmoUI : MonoBehaviour
 
     private void UpdateText(int currentAmmo, int reserveAmmo)
     {
-        _ammoText.text = $"{currentAmmo}/{reserveAmmo}";
+        _ammoText.SetText("{0}/{1}", currentAmmo, reserveAmmo);
     }
 }

@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-using TMPro;
-public class TargetSpeedText : MonoBehaviour 
+
+public class TargetSpeedText : UpdateableText 
 {
-    [SerializeField] private TMP_Text _text;
     [SerializeField] private CharacterSpeed _characterSpeedHandler;
 
-    private void Update()
+    protected override void UpdateText()
     {
-        _text.text = "Target Speed: " + _characterSpeedHandler.Speed.ToString();
+        _text.SetText("Target Speed: {0}", _characterSpeedHandler.Speed);
     }
 }
