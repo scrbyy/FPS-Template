@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class StatProgressBar : MonoBehaviour
@@ -19,28 +20,23 @@ public class StatProgressBar : MonoBehaviour
     [SerializeField] protected Image _fillImage;
 
     private CanvasGroup _canvasGroup;
-    private Coroutine _hideCoroutine;
     private float _targetFill;
+    private float _previousTargetFill;
+
+    private CancellationTokenSource _hideCts;
+    private CancellationTokenSource _fillCts;
 
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
         if (_fillImage == null) _fillImage = GetComponent<Image>();
-
         _targetFill = _fillImage.fillAmount;
+        _previousTargetFill = _targetFill;
     }
 
     private void Start()
     {
         _canvasGroup.alpha = _defaultAlpha;
-    }
-
-    private void Update()
-    {
-        if (!Mathf.Approximately(_fillImage.fillAmount, _targetFill))
-        {
-            _fillImage.fillAmount = Mathf.Lerp(_fillImage.fillAmount, _targetFill, Time.deltaTime * _smoothSpeed);
-        }
     }
 
     private void SetValue(float currentValue)
@@ -50,37 +46,66 @@ public class StatProgressBar : MonoBehaviour
         if (_autoHide)
         {
             ShowBar();
-            ResetHideTimer();
+
+            if (!Mathf.Approximately(_targetFill, _previousTargetFill))
+            {
+                RestartHideTimerAsync(this.GetCancellationTokenOnDestroy()).Forget();
+                _previousTargetFill = _targetFill;
+            }
         }
+
+        SmoothFillAsync(this.GetCancellationTokenOnDestroy()).Forget();
+    }
+
+    private async UniTaskVoid SmoothFillAsync(CancellationToken cancellationToken)
+    {
+        _fillCts?.Cancel();
+        _fillCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+
+        try
+        {
+            while (!Mathf.Approximately(_fillImage.fillAmount, _targetFill))
+            {
+                _fillImage.fillAmount = Mathf.Lerp(_fillImage.fillAmount, _targetFill, 1f - Mathf.Exp(-_smoothSpeed * Time.deltaTime));
+
+                await UniTask.Yield(PlayerLoopTiming.Update, _fillCts.Token);
+            }
+
+            _fillImage.fillAmount = _targetFill;
+        }
+        catch (System.OperationCanceledException)
+        { }
     }
 
     private void ShowBar()
     {
-        if (_hideCoroutine != null) StopCoroutine(_hideCoroutine);
+        _hideCts?.Cancel();
         _canvasGroup.alpha = 1f;
     }
 
-    private void ResetHideTimer()
+    private async UniTaskVoid RestartHideTimerAsync(CancellationToken cancellationToken)
     {
-        if (_hideCoroutine != null) StopCoroutine(_hideCoroutine);
-        _hideCoroutine = StartCoroutine(HideRoutine());
-    }
+        _hideCts?.Cancel();
+        _hideCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
-    private IEnumerator HideRoutine()
-    {
-        yield return new WaitForSeconds(_hideCooldown);
-
-        float startAlpha = _canvasGroup.alpha;
-        float elapsed = 0;
-
-        while (elapsed < _hideDuration)
+        try
         {
-            elapsed += Time.deltaTime;
-            _canvasGroup.alpha = Mathf.Lerp(startAlpha, _defaultAlpha, elapsed / _hideDuration);
-            yield return null;
-        }
+            await UniTask.Delay(System.TimeSpan.FromSeconds(_hideCooldown), ignoreTimeScale: false, cancellationToken: _hideCts.Token);
 
-        _canvasGroup.alpha = 0;
+            float startAlpha = _canvasGroup.alpha;
+            float elapsed = 0f;
+
+            while (elapsed < _hideDuration)
+            {
+                elapsed += Time.deltaTime;
+                _canvasGroup.alpha = Mathf.Lerp(startAlpha, _defaultAlpha, elapsed / _hideDuration);
+                await UniTask.Yield(PlayerLoopTiming.Update, _hideCts.Token);
+            }
+
+            _canvasGroup.alpha = _defaultAlpha;
+        }
+        catch (System.OperationCanceledException)
+        { }
     }
 
     private void OnEnable()
@@ -91,5 +116,14 @@ public class StatProgressBar : MonoBehaviour
     private void OnDisable()
     {
         _characterStat.OnValueChanged -= SetValue;
+
+        _hideCts?.Cancel();
+        _fillCts?.Cancel();
+    }
+
+    private void OnDestroy()
+    {
+        _hideCts?.Dispose();
+        _fillCts?.Dispose();
     }
 }
