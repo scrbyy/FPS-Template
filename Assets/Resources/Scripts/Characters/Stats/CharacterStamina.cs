@@ -7,6 +7,7 @@ public class CharacterStamina : CharacterStat
     [SerializeField] private float _recoveryCooldown;
     [SerializeField] private float _recoverySpeed;
 
+    private WaitForSeconds _cooldown;
     private Coroutine _recoveryCoroutine;
     private bool _isExhausted;
 
@@ -35,12 +36,13 @@ public class CharacterStamina : CharacterStat
 
     private void Start()
     {
+        _cooldown = new WaitForSeconds(_recoveryCooldown);
         NotifyValueChanged(_currentValue);
     }
     
     private IEnumerator RecoveryRoutine()
     {
-        yield return new WaitForSeconds(_recoveryCooldown);
+        yield return _cooldown;
 
         while (_currentValue < MaxValue)
         {
