@@ -74,13 +74,13 @@ public class CharacterSpeed : MonoBehaviour
 
     private void OnEnable()
     {
-        _characterRun.OnStartRunning += SetRunSpeed;
-        _characterRun.OnEndRunning += SetWalkSpeed;
+        _characterRun.OnRunStarted += SetRunSpeed;
+        _characterRun.OnRunEnded += SetWalkSpeed;
     }
 
     private void OnDisable()
     {
-        _characterRun.OnStartRunning -= SetRunSpeed;
-        _characterRun.OnEndRunning -= SetWalkSpeed;
+        _characterRun.OnRunStarted -= SetRunSpeed;
+        _characterRun.OnRunEnded -= SetWalkSpeed;
     }
 }

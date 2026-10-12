@@ -5,8 +5,8 @@ using Zenject;
 
 public class CharacterRun : MonoBehaviour
 {
-    public event System.Action OnStartRunning;
-    public event System.Action OnEndRunning;
+    public event System.Action OnRunStarted;
+    public event System.Action OnRunEnded;
 
     [SerializeField] private float _staminaCost;
 
@@ -43,7 +43,7 @@ public class CharacterRun : MonoBehaviour
 
         ReduceStaminaAsync(_runCts.Token).Forget();
 
-        OnStartRunning?.Invoke();
+        OnRunStarted?.Invoke();
     }
 
     private void CancelRun()
@@ -59,7 +59,7 @@ public class CharacterRun : MonoBehaviour
             _runCts = null;
         }
 
-        OnEndRunning?.Invoke();
+        OnRunEnded?.Invoke();
     }
 
     private async UniTaskVoid ReduceStaminaAsync(CancellationToken cancellationToken)

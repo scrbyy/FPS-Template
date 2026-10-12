@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CurrentSpeedText : UpdateableText
+public class CurrentVelocityText : UpdateableText
 {
     [SerializeField] private CharacterEngine _characterEngine;
 
