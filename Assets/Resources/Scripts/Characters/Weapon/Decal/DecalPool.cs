@@ -7,16 +7,20 @@ public class DecalPool : MonoBehaviour
 {
     [SerializeField] private GameObject _decalPrefab;
     [SerializeField] private int _initializePoolSize;
-    [SerializeField] private float _fadeTime;
+    [SerializeField] private int _maxPoolSize;
+    [SerializeField] private float _liveTime;
     [SerializeField] private float _surfaceOffset;
 
-    private List<GameObject> _pool;
+    private Queue<GameObject> _availableDecals;
+
+    private List<GameObject> _allDecals;
 
     private CancellationTokenSource _destroyCts;
 
     private void Awake()
     {
-        _pool = new List<GameObject>();
+        _availableDecals = new Queue<GameObject>(_initializePoolSize);
+        _allDecals = new List<GameObject>(_initializePoolSize);
         _destroyCts = new CancellationTokenSource();
 
         for (int i = 0; i < _initializePoolSize; i++)
@@ -35,7 +39,8 @@ public class DecalPool : MonoBehaviour
     {
         GameObject decal = Instantiate(_decalPrefab, transform);
         decal.SetActive(false);
-        _pool.Add(decal);
+        _allDecals.Add(decal);
+        _availableDecals.Enqueue(decal);
         return decal;
     }
 
@@ -43,20 +48,29 @@ public class DecalPool : MonoBehaviour
     {
         GameObject decalToUse = null;
 
-        foreach (var decal in _pool)
+        while (_availableDecals.Count > 0)
         {
-            if (decal != null && !decal.activeSelf)
+            var candidate = _availableDecals.Dequeue();
+            if (candidate != null)
             {
-                decalToUse = decal;
+                decalToUse = candidate;
                 break;
             }
         }
 
         if (decalToUse == null)
         {
-            decalToUse = CreateNewDecalInstance();
+            if (_allDecals.Count < _maxPoolSize)
+            {
+                decalToUse = CreateNewDecalInstance();
+            }
+            else
+            {
+                decalToUse = _allDecals[0];
+                _allDecals.RemoveAt(0);
+                _allDecals.Add(decalToUse);
+            }
         }
-
 
         if (hitData.Normal != Vector3.zero)
         {
@@ -66,27 +80,27 @@ public class DecalPool : MonoBehaviour
 
         decalToUse.SetActive(true);
 
-        var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(_destroyCts.Token, decalToUse.GetCancellationTokenOnDestroy());
-        DisableDecalAfterTimeAsync(decalToUse, _fadeTime, linkedCts).Forget();
+        DisableDecalAfterTimeAsync(decalToUse, _liveTime, _destroyCts.Token).Forget();
     }
 
-    private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationTokenSource cts)
+    private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationToken destroyToken)
     {
         try
         {
-            await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: cts.Token);
+            var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(destroyToken, decal.GetCancellationTokenOnDestroy());
 
-            if (decal != null)
+            await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: linkedToken.Token);
+
+            linkedToken.Dispose();
+
+            if (decal != null && decal.activeSelf)
             {
                 decal.SetActive(false);
+                _availableDecals.Enqueue(decal);
             }
         }
         catch (System.OperationCanceledException)
         {
-        }
-        finally
-        {
-            cts.Dispose();
         }
     }
 }

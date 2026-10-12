@@ -7464,7 +7464,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _decalPrefab: {fileID: 142568469053937920}
   _initializePoolSize: 30
-  _fadeTime: 10
+  _maxPoolSize: 120
+  _liveTime: 10
   _surfaceOffset: 0.1
 --- !u!43 &390196677
 Mesh:
