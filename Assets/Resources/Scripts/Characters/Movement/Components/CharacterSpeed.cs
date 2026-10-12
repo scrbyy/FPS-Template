@@ -15,7 +15,7 @@ public class CharacterSpeed : MonoBehaviour
 
     private List<ISpeedModifier> _modifiers = new List<ISpeedModifier>();
 
-    private float _currentSpeed;
+    private float _baseSpeed;
     private float _finalSpeed;
 
     public void AddModifier(ISpeedModifier modifier)
@@ -43,9 +43,10 @@ public class CharacterSpeed : MonoBehaviour
         foreach (var mod in _modifiers)
             totalReduction += (1.0f - mod.SpeedMultiplier);
 
-        float finalMultiplier = Mathf.Max(_minModifier, _maxModifier - totalReduction);
+        float finalMultiplier = 1.0f - totalReduction;
+        finalMultiplier = Mathf.Clamp(finalMultiplier, _minModifier, _maxModifier);
 
-        _finalSpeed = _currentSpeed * finalMultiplier;
+        _finalSpeed = _baseSpeed * finalMultiplier;
     }
 
     private void Start()
@@ -57,7 +58,7 @@ public class CharacterSpeed : MonoBehaviour
     {
         if (newSpeed < 0) return;
 
-        _currentSpeed = newSpeed;
+        _baseSpeed = newSpeed;
 
         UpdateFinalSpeed();
     }

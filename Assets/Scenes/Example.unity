@@ -16901,7 +16901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aefe5e389cdf4a46a3c20cfea5c84a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxModifier: 1
+  _maxModifier: 1.5
   _minModifier: 0.1
   _data: {fileID: 11400000, guid: ddf504b5417187447ab570813de20f8d, type: 2}
   _characterRun: {fileID: 755122323}
