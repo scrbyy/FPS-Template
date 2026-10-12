@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lightDuration: 0.05
+  _fadeDuration: 0.05
   _light: {fileID: 1699327082}
   _gun: {fileID: 30990239}
 --- !u!114 &30990243
@@ -12273,9 +12274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc98d5c89ab75a4b9d177ba2a57fb45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedText: {fileID: 615637005}
-  _characterEngine: {fileID: 755122330}
   _updateInterval: 0.1
+  _characterEngine: {fileID: 755122330}
 --- !u!43 &624822974
 Mesh:
   m_ObjectHideFlags: 0
@@ -23224,6 +23224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lightDuration: 0.01
+  _fadeDuration: 0.75
   _light: {fileID: 1031427991}
   _gun: {fileID: 5444888314268869643}
 --- !u!1 &1040894698
@@ -49227,7 +49228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc49d081f3a590048a9ab8d415779dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 0.09
+  _duration: 0.15
   _strength: 0.025
   _vibrato: 10
   _randomness: 3

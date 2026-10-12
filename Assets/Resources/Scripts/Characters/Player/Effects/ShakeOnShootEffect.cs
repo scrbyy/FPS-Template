@@ -20,8 +20,7 @@ public class ShakeOnShootEffect : MonoBehaviour
         _cameraTransform.DOKill();
         _cameraTransform.localPosition = _originalPosition;
 
-        _cameraTransform.DOShakePosition(_duration, _strength, _vibrato, _randomness)
-            .OnComplete(() => _cameraTransform.localPosition = _originalPosition);
+        _cameraTransform.DOShakePosition(_duration, _strength, _vibrato, _randomness);
     }
 
     private void Awake()
