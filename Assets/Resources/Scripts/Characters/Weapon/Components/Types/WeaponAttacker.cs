@@ -1,22 +1,22 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
+﻿using System;
 using UnityEngine;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 public abstract class WeaponAttacker
 {
-    public event Action OnShoot;
-    public event Action<HitData> OnShotContact;
+    public event Action OnAttack;
+    public event Action<HitData> OnHit;
 
-    public bool IsAttacking => _isAttacking;
-    protected bool _isAttacking;
+    public bool IsAutoAttacking => _isAutoAttacking;
+    protected bool _isAutoAttacking;
 
     protected readonly IAttackData _attackData;
     protected IAttackMethod _attackMethod;
     protected HitHandler _hitHandler;
 
-    protected CancellationTokenSource _shootCts;
-    protected float _lastShootTime;
+    protected CancellationTokenSource _attackCts;
+    protected float _lastAttackTime;
 
     public WeaponAttacker(
         AttackData attackConfig,
@@ -29,81 +29,88 @@ public abstract class WeaponAttacker
         _hitHandler = new HitHandler();
     }
 
-    protected virtual bool CanShoot() => true;
-
-    protected virtual float CalculateDamage(HitData hitData) => _attackData.Damage;
-
-    protected virtual void Shoot()
+    public virtual async UniTask StartAttack()
     {
-        _lastShootTime = Time.time;
-
-        OnShoot?.Invoke();
-        HitData hitData = _attackMethod.Execute();
-
-        if (hitData.IsHit)
-        {
-            OnShotContact?.Invoke(hitData);
-            _hitHandler.HandleShot(hitData, CalculateDamage(hitData));
-        }
-    }
-
-    public virtual void Initialize()
-    {
-        _shootCts = new CancellationTokenSource();
-    }
-
-    public virtual void Deinitialize()
-    {
-        StopShoot();
-        _shootCts?.Dispose();
-    }
-
-    public virtual async UniTask StartShoot()
-    {
-        if (_isAttacking) return;
+        if (_isAutoAttacking) return;
 
         ResetCts();
-        _isAttacking = true;
+        _isAutoAttacking = true;
 
         try
         {
-            while (_isAttacking && CanShoot())
-            {
-                float timeSinceLastShoot = Time.time - _lastShootTime;
-                float remainingDelay = _attackData.AfterAttackDelay - timeSinceLastShoot;
+            float interval = _attackData.AfterAttackDelay;
+            float nextAttackTime = Time.time;
 
-                if (remainingDelay > 0)
+            while (_isAutoAttacking && CanAttack())
+            {
+                float delay = nextAttackTime - Time.time;
+
+                if (delay > 0)
                 {
-                    await UniTask.Delay(TimeSpan.FromSeconds(remainingDelay), cancellationToken: _shootCts.Token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(delay), cancellationToken: _attackCts.Token);
                 }
 
-                if (!_isAttacking || !CanShoot()) break;
+                if (!_isAutoAttacking || !CanAttack()) break;
 
-                Shoot();
+                SingleAttack();
 
-                await UniTask.Delay(TimeSpan.FromSeconds(_attackData.AfterAttackDelay), cancellationToken: _shootCts.Token);
+                nextAttackTime += interval;
+
+                if (nextAttackTime < Time.time)
+                {
+                    nextAttackTime = Time.time;
+                }
             }
         }
         catch (OperationCanceledException) { }
         finally
         {
-            _isAttacking = false;
+            _isAutoAttacking = false;
         }
     }
 
-    public void StopShoot()
+    public void StopAttack()
     {
-        if (_isAttacking)
+        if (_isAutoAttacking)
         {
-            _isAttacking = false;
-            _shootCts?.Cancel();
+            _isAutoAttacking = false;
+            _attackCts?.Cancel();
+        }
+    }
+
+    public virtual void Initialize()
+    {
+        _attackCts = new CancellationTokenSource();
+    }
+
+    public virtual void Deinitialize()
+    {
+        StopAttack();
+        _attackCts?.Dispose();
+    }
+
+    protected virtual bool CanAttack() => true;
+
+    protected virtual float CalculateDamage(HitData hitData) => _attackData.Damage;
+
+    protected virtual void SingleAttack()
+    {
+        _lastAttackTime = Time.time;
+
+        OnAttack?.Invoke();
+        HitData hitData = _attackMethod.Execute();
+
+        if (hitData.IsHit)
+        {
+            OnHit?.Invoke(hitData);
+            _hitHandler.HandleHit(hitData, CalculateDamage(hitData));
         }
     }
 
     protected void ResetCts()
     {
-        _shootCts?.Cancel();
-        _shootCts?.Dispose();
-        _shootCts = new CancellationTokenSource();
+        _attackCts?.Cancel();
+        _attackCts?.Dispose();
+        _attackCts = new CancellationTokenSource();
     }
 }

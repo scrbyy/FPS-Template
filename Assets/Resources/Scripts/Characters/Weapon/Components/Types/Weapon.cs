@@ -24,12 +24,12 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Attack()
     {
         if (!_isOpen) return;
-        _weaponAttacker?.StartShoot().Forget();
+        _weaponAttacker?.StartAttack().Forget();
     }
 
     public virtual void StopAttack()
     {
-        _weaponAttacker?.StopShoot();
+        _weaponAttacker?.StopAttack();
         NotifyAttackStopped();
     }
 

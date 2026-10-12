@@ -37,8 +37,8 @@ public class Gun : Weapon, IAmmoHolder
         _weaponAttacker.Initialize();
 
         _reloader.OnReloadEnd += NotifyUpdateAmmo;
-        _weaponAttacker.OnShoot += NotifyShoot;
-        _weaponAttacker.OnShotContact += NotifyContact;
+        _weaponAttacker.OnAttack += NotifyShoot;
+        _weaponAttacker.OnHit += NotifyContact;
         _reloader.OnReloadStart += NotifyReloadStart;
 
         OnReady?.Invoke();
@@ -59,15 +59,15 @@ public class Gun : Weapon, IAmmoHolder
         if (_weaponAttacker != null)
         {
             _weaponAttacker.Deinitialize();
-            _weaponAttacker.OnShoot -= NotifyShoot;
-            _weaponAttacker.OnShotContact -= NotifyContact;
+            _weaponAttacker.OnAttack -= NotifyShoot;
+            _weaponAttacker.OnHit -= NotifyContact;
         }
     }
 
     public void Reload()
     {
         if (!_isOpen) return;
-        if (!_weaponAttacker.IsAttacking)
+        if (!_weaponAttacker.IsAutoAttacking)
         {
             _reloader.Reload();
         }

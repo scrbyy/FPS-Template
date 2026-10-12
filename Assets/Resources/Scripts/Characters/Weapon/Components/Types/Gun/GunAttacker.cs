@@ -18,9 +18,9 @@ public class GunAttacker : WeaponAttacker
         _canShootPredicate = canShootPredicate;
     }
 
-    protected override bool CanShoot()
+    protected override bool CanAttack()
     {
-        return base.CanShoot() && (_canShootPredicate == null || _canShootPredicate());
+        return base.CanAttack() && (_canShootPredicate == null || _canShootPredicate());
     }
 
     protected override float CalculateDamage(HitData hitData)

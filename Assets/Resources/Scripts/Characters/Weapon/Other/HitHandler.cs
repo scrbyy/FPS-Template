@@ -1,6 +1,6 @@
 ﻿public class HitHandler
 {
-    public void HandleShot(HitData hitData, float damage)
+    public void HandleHit(HitData hitData, float damage)
     {
         if (hitData.GameObject.TryGetComponent(out IDamageable target) )
         {

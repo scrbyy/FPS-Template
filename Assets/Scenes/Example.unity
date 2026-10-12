@@ -23224,7 +23224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lightDuration: 0.01
-  _fadeDuration: 0.75
+  _fadeDuration: 0.075
   _light: {fileID: 1031427991}
   _gun: {fileID: 5444888314268869643}
 --- !u!1 &1040894698
@@ -49228,8 +49228,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc49d081f3a590048a9ab8d415779dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 0.15
-  _strength: 0.025
+  _duration: 0.1
+  _strength: 0.02
   _vibrato: 10
   _randomness: 3
   _gun: {fileID: 5444888314268869643}
@@ -49375,8 +49375,8 @@ MonoBehaviour:
   - {x: 3.2, y: 7.7}
   - {x: 2.2, y: 7.7}
   _recoilMultiplier: 1.25
-  _snappiness: 8
-  _returnSpeed: 5
+  _snappiness: 10
+  _returnSpeed: 12
   _weapon: {fileID: 5444888314268869643}
 --- !u!114 &5444888314268869653
 MonoBehaviour:
