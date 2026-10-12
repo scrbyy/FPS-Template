@@ -7,8 +7,8 @@ public class MovementApproachingEffect : PositionEffect
     [SerializeField] private float _maxZOffset;
 
     [Header("Changing Rate")]
-    [SerializeField] private float _increaseSpeed = 5f;
-    [SerializeField] private float _decreaseSpeed = 2f;
+    [SerializeField] private float _increaseSpeed;
+    [SerializeField] private float _decreaseSpeed;
 
     [Header("Speed Thresholds")]
     [SerializeField] private float _minSpeedThreshold;
@@ -22,7 +22,7 @@ public class MovementApproachingEffect : PositionEffect
     private float _targetZOffset;
 
     public override Vector3 GetLocalOffset()
-    {   
+    {
         return new Vector3(0, 0, _currentZOffset);
     }
 
@@ -36,11 +36,11 @@ public class MovementApproachingEffect : PositionEffect
 
         float modifier = Mathf.InverseLerp(_minSpeedThreshold, _maxSpeedThreshold, horizontalSpeed);
 
-        _targetZOffset = (modifier * _maxZOffset) * directionModifier;
+        _targetZOffset = modifier * _maxZOffset * directionModifier;
 
         bool isIncreasing = Mathf.Abs(_targetZOffset) > Mathf.Abs(_currentZOffset);
         float currentSpeed = isIncreasing ? _increaseSpeed : _decreaseSpeed;
 
-        _currentZOffset = Mathf.MoveTowards(_currentZOffset, _targetZOffset, currentSpeed * Time.deltaTime);
+        _currentZOffset = Mathf.Lerp(_currentZOffset, _targetZOffset, 1f - Mathf.Exp(-currentSpeed * Time.deltaTime));
     }
 }

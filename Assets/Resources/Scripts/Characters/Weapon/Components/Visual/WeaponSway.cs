@@ -21,7 +21,7 @@ public class WeaponSway : RotationEffect
 
     [Inject] private ILookInputProvider _inputProvider;
 
-    private Quaternion _currentRotationOffset;
+    private Quaternion _currentRotationOffset = Quaternion.identity;
 
     private void Update()
     {
@@ -44,10 +44,11 @@ public class WeaponSway : RotationEffect
 
         Quaternion targetRotation = Quaternion.Euler(targetAngleX, targetAngleY, 0f);
 
+        float t = 1f - Mathf.Exp(-_smoothness * deltaTime);
         _currentRotationOffset = Quaternion.Slerp(
             _currentRotationOffset,
             targetRotation,
-            deltaTime * _smoothness
+            t
         );
     }
 

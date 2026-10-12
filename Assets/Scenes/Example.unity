@@ -6071,7 +6071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87fac49dca8627641b84278d9119fb40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraLook
-  _sensitivity: 0.06
+  _sensitivity: 0.05
   _maxViewAngle: 90
   _minViewAngle: -90
   _headTransform: {fileID: 1915844012}
@@ -6088,11 +6088,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d430a416a66bf349aad7303d15ed108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFovEffect
-  _maxFov: 3
-  _decreaseSpeed: 4
-  _increaseSpeed: 5
-  _minSpeedThreshold: 1
-  _maxSpeedThreshold: 3
+  _maxFov: 85
+  _decreaseSpeed: 3
+  _increaseSpeed: 4
+  _minSpeedThreshold: 4.5
+  _maxSpeedThreshold: 15
   _characterEngine: {fileID: 755122330}
 --- !u!43 &335527066
 Mesh:
@@ -34490,11 +34490,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f393aa298c25e4a90423823753f5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxZOffset: -0.1
-  _increaseSpeed: 0.15
-  _decreaseSpeed: 0.2
+  _maxZOffset: -0.125
+  _increaseSpeed: 12
+  _decreaseSpeed: 6
   _minSpeedThreshold: 0.1
-  _maxSpeedThreshold: 8
+  _maxSpeedThreshold: 9
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150736
 MonoBehaviour:
