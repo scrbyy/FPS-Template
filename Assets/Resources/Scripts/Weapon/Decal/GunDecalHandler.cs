@@ -54,8 +54,8 @@ public class GunDecalHandler : MonoBehaviour
     {
         if (weapon is Gun gun)
         {
-            gun.OnShotContact -= CreateDecal;
-            gun.OnShotContact += CreateDecal;
+            gun.OnContact -= CreateDecal;
+            gun.OnContact += CreateDecal;
         }
     }
 
@@ -63,7 +63,7 @@ public class GunDecalHandler : MonoBehaviour
     {
         if (weapon is Gun gun)
         {
-            gun.OnShotContact -= CreateDecal;
+            gun.OnContact -= CreateDecal;
         }
     }
 

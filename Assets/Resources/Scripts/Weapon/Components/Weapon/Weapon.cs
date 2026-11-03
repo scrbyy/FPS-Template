@@ -1,14 +1,14 @@
-﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Threading;
+﻿using System;
 using UnityEngine;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 public abstract class Weapon : MonoBehaviour
 {
     public event Action OnOpened;
     public event Action OnAttack;
     public event Action OnAttackStopped;
-    public event Action<HitData> OnShotContact;
+    public event Action<HitData> OnContact;
 
     public FireMode FireMode => _data.FireMode;
 
@@ -16,34 +16,21 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected Transform _origin;
     [SerializeField] protected CharacterSpeed _ownerSpeedHandler;
 
-    protected bool _isOpen;
     protected CancellationTokenSource _openCts;
     protected WeaponSpeedModifier _speedModifier;
-
     protected WeaponAttacker _weaponAttacker;
 
-    public virtual void Attack()
-    {
-        if (!_isOpen) return;
-        _weaponAttacker?.StartAttack().Forget();
-    }
-
-    public virtual void StopAttack()
-    {
-        _weaponAttacker?.StopAttack();
-        NotifyAttackStopped();
-    }
+    protected bool _isOpened;
 
     public virtual void Initialize()
     {
-        _isOpen = false;
+        _isOpened = false;
         _openCts = new CancellationTokenSource();
 
         OpenDelay(_data.OpenDelay).Forget();
 
         _speedModifier = new WeaponSpeedModifier(_data.SpeedMultiplier);
         _ownerSpeedHandler.AddModifier(_speedModifier);
-
     }
 
     public virtual void Deinitialize()
@@ -55,15 +42,39 @@ public abstract class Weapon : MonoBehaviour
             _openCts = null;
         }
 
-        _isOpen = false;
+        _isOpened = false;
         _ownerSpeedHandler.RemoveModifier(_speedModifier);
+    }
+
+    public virtual void Attack()
+    {
+        if (!_isOpened) return;
+        _weaponAttacker?.StartAttack().Forget();
+    }
+
+    public virtual void StopAttack()
+    {
+        _weaponAttacker?.StopAttack();
+        NotifyAttackStopped();
+    }
+
+    protected async UniTask OpenDelay(float openTime)
+    {
+        try
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(openTime), cancellationToken: _openCts.Token);
+            _isOpened = true;
+
+            OnOpened?.Invoke();
+        }
+        catch (OperationCanceledException) { }
     }
 
     protected void SubscribeAttackerEvents()
     {
         if (_weaponAttacker != null)
         {
-            _weaponAttacker.OnAttack += HandleAttackerAttack;
+            _weaponAttacker.OnAttack += NotifyAttack;
             _weaponAttacker.OnHit += HandleAttackerHit;
         }
     }
@@ -72,34 +83,19 @@ public abstract class Weapon : MonoBehaviour
     {
         if (_weaponAttacker != null)
         {
-            _weaponAttacker.OnAttack -= HandleAttackerAttack;
+            _weaponAttacker.OnAttack -= NotifyAttack;
             _weaponAttacker.OnHit -= HandleAttackerHit;
         }
     }
 
-    private void HandleAttackerAttack()
-    {
-        NotifyAttack();
-    }
-
-    private void HandleAttackerHit(HitData hitData)
+    protected void HandleAttackerHit(HitData hitData)
     {
         NotifyShotContact(hitData);
     }
 
-    public async UniTask OpenDelay(float openTime)
-    {
-        try
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(openTime), cancellationToken: _openCts.Token);
-            _isOpen = true;
-
-            OnOpened?.Invoke();
-        }
-        catch (OperationCanceledException) { }
-    }
-
     protected void NotifyAttack() => OnAttack?.Invoke();
+
     protected void NotifyAttackStopped() => OnAttackStopped?.Invoke();
-    protected void NotifyShotContact(HitData hitData) => OnShotContact?.Invoke(hitData);
+
+    protected void NotifyShotContact(HitData hitData) => OnContact?.Invoke(hitData);
 }

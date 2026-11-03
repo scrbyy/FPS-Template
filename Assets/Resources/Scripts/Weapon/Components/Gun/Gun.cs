@@ -10,8 +10,6 @@ public class Gun : Weapon, IAmmoHolder
     public int CurrentAmmo => _reloader.CurrentAmmo;
     public int ReserveAmmo => _reloader.ReserveAmmo;
 
-    public FireMode AttackMode => _data.FireMode;
-
     private GunReloader _reloader;
 
     [Inject] private AttackMethodFactory _attackMethodFactory;
@@ -37,7 +35,7 @@ public class Gun : Weapon, IAmmoHolder
 
         _reloader.OnReloadEnd += NotifyUpdateAmmo;
         _weaponAttacker.OnAttack += NotifyShoot;
-        _weaponAttacker.OnHit += NotifyContact;
+        _weaponAttacker.OnHit += HandleAttackerHit;
         _reloader.OnReloadStart += NotifyReloadStart;
 
         NotifyUpdateAmmo();
@@ -58,13 +56,13 @@ public class Gun : Weapon, IAmmoHolder
         {
             _weaponAttacker.Deinitialize();
             _weaponAttacker.OnAttack -= NotifyShoot;
-            _weaponAttacker.OnHit -= NotifyContact;
+            _weaponAttacker.OnHit -= HandleAttackerHit;
         }
     }
 
     public void Reload()
     {
-        if (!_isOpen) return;
+        if (!_isOpened) return;
         if (!_weaponAttacker.IsAutoAttacking)
         {
             _reloader.Reload();
@@ -76,11 +74,6 @@ public class Gun : Weapon, IAmmoHolder
         NotifyAttack();
         _reloader.UseBullet();
         NotifyUpdateAmmo();
-    }
-
-    private void NotifyContact(HitData hit)
-    {
-        NotifyShotContact(hit);
     }
 
     private void NotifyUpdateAmmo()
