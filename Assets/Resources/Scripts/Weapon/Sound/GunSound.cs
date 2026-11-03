@@ -48,20 +48,19 @@ public class GunSound : MonoBehaviour
     {
         if (_readySound == null || _audioSource == null) return;
         _audioSource.PlayOneShot(_readySound, _volume);
-
     }
 
     private void OnEnable()
     {
         _gun.OnAttack += PlayShootSound;
         _gun.OnReloadStart += PlayReloadSound;
-        _gun.OnReady += PlayReadySound;
+        _gun.OnOpened += PlayReadySound;
     }
 
     private void OnDisable()
     {
         _gun.OnAttack -= PlayShootSound;
         _gun.OnReloadStart -= PlayReloadSound;
-        _gun.OnReady -= PlayReadySound;
+        _gun.OnOpened -= PlayReadySound;
     }
 }

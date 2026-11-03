@@ -35,7 +35,6 @@ public abstract class WeaponAttacker
 
         ResetCts();
         _isAutoAttacking = true;
-
         try
         {
             float interval = _attackData.AfterAttackDelay;

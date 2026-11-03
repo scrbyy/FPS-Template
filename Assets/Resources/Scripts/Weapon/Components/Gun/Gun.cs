@@ -5,7 +5,6 @@ using Zenject;
 public class Gun : Weapon, IAmmoHolder
 {
     public event Action OnReloadStart;
-    public event Action OnReady;
     public event Action<int, int> OnAmmoChanged;
 
     public int CurrentAmmo => _reloader.CurrentAmmo;
@@ -41,7 +40,6 @@ public class Gun : Weapon, IAmmoHolder
         _weaponAttacker.OnHit += NotifyContact;
         _reloader.OnReloadStart += NotifyReloadStart;
 
-        OnReady?.Invoke();
         NotifyUpdateAmmo();
     }
 

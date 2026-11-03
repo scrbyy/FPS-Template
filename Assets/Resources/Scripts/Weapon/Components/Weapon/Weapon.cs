@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
+    public event Action OnOpened;
     public event Action OnAttack;
     public event Action OnAttackStopped;
     public event Action<HitData> OnShotContact;
@@ -42,6 +43,7 @@ public abstract class Weapon : MonoBehaviour
 
         _speedModifier = new WeaponSpeedModifier(_data.SpeedMultiplier);
         _ownerSpeedHandler.AddModifier(_speedModifier);
+
     }
 
     public virtual void Deinitialize()
@@ -57,12 +59,42 @@ public abstract class Weapon : MonoBehaviour
         _ownerSpeedHandler.RemoveModifier(_speedModifier);
     }
 
+    protected void SubscribeAttackerEvents()
+    {
+        if (_weaponAttacker != null)
+        {
+            _weaponAttacker.OnAttack += HandleAttackerAttack;
+            _weaponAttacker.OnHit += HandleAttackerHit;
+        }
+    }
+
+    protected void UnsubscribeAttackerEvents()
+    {
+        if (_weaponAttacker != null)
+        {
+            _weaponAttacker.OnAttack -= HandleAttackerAttack;
+            _weaponAttacker.OnHit -= HandleAttackerHit;
+        }
+    }
+
+    private void HandleAttackerAttack()
+    {
+        NotifyAttack();
+    }
+
+    private void HandleAttackerHit(HitData hitData)
+    {
+        NotifyShotContact(hitData);
+    }
+
     public async UniTask OpenDelay(float openTime)
     {
         try
         {
             await UniTask.Delay(TimeSpan.FromSeconds(openTime), cancellationToken: _openCts.Token);
             _isOpen = true;
+
+            OnOpened?.Invoke();
         }
         catch (OperationCanceledException) { }
     }
