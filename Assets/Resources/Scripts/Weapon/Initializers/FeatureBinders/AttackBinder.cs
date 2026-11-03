@@ -1,7 +1,7 @@
-﻿public class AttackFeature : IWeaponFeature
+﻿public class AttackBinder : IFeatureBinder
 {
     private readonly IWeaponInputProvider _inputProvider;
-    public AttackFeature(IWeaponInputProvider inputProvider) => _inputProvider = inputProvider;
+    public AttackBinder(IWeaponInputProvider inputProvider) => _inputProvider = inputProvider;
 
     public void Subscribe(Weapon weapon)
     {

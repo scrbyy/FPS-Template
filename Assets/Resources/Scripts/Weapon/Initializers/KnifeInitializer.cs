@@ -2,6 +2,6 @@
 
 public class KnifeInitializer : WeaponInitializer<Knife>
 {
-    public KnifeInitializer(AttackFeature attackFeature) : base(new List<IWeaponFeature> { attackFeature }) { 
-    }
+    public KnifeInitializer(AttackBinder attackBinder) : base(new List<IFeatureBinder> { attackBinder }) 
+    { }
 }

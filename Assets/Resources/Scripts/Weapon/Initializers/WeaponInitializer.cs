@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public abstract class WeaponInitializer<T> : IWeaponInitializer where T : Weapon
 {
-    protected readonly List<IWeaponFeature> _features;
+    protected readonly List<IFeatureBinder> _features;
 
-    protected WeaponInitializer(List<IWeaponFeature> features)
+    protected WeaponInitializer(List<IFeatureBinder> features)
     {
         _features = features;
     }

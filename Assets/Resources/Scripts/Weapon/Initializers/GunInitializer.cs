@@ -2,8 +2,7 @@
 
 public class GunInitializer : WeaponInitializer<Gun>
 {
-    public GunInitializer(AttackFeature attackFeature, ReloadingFeature reloadingFeature)
-        : base(new List<IWeaponFeature> { attackFeature, reloadingFeature })
-    {
-    }
+    public GunInitializer(AttackBinder attackBinder, ReloadingBinder reloadingBinder)
+        : base(new List<IFeatureBinder> { attackBinder, reloadingBinder})
+    { }
 }
