@@ -21,8 +21,8 @@ public class WeaponData : ScriptableObject, ISpeedModifier, IAttackData
     [SerializeField] private AttackType _attackMethod;
 
     [Header("Attack Method Settings")]
-    [SerializeField] private RaycastAttackData _raycastParams;
-    [SerializeField] private SpherecastAttackData _spherecastParams;
+    [SerializeField] private RaycastMethodData _raycastParams;
+    [SerializeField] private SpherecastMethodData _spherecastParams;
 
     [Header("Movement")]
     [SerializeField] private float _speedMultiplier;
@@ -30,7 +30,7 @@ public class WeaponData : ScriptableObject, ISpeedModifier, IAttackData
     [Header("Timings")]
     [SerializeField] private float _openDelay;
 
-    public AttackData GetAttackConfig()
+    public AttackMethodData GetAttackConfig()
     {
         return _attackMethod switch
         {

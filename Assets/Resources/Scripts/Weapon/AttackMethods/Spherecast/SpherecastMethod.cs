@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 
-public class RaycastAttackMethod : IAttackMethod
+public class SpherecastMethod : IAttackMethod
 {
+    private float _radius;
     private Transform _origin;
     private float _distance;
     private LayerMask _ignoreLayer;
 
-    private RaycastHit _hit;
     private HitData _hitData;
+    private RaycastHit _hit;
 
-    public RaycastAttackMethod(Transform origin, float distance, LayerMask ignoreLayer)
+    public SpherecastMethod(Transform origin, float radius, float distance, LayerMask ignoreLayer)
     {
         _origin = origin;
+        _radius = radius;
         _distance = distance;
         _ignoreLayer = ignoreLayer;
     }
@@ -19,13 +21,13 @@ public class RaycastAttackMethod : IAttackMethod
     public HitData Execute()
     {
         _hitData.Origin = _origin.position;
-        if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance, ~_ignoreLayer))
+
+        if(Physics.SphereCast(_origin.position, _radius, _origin.forward, out _hit, _distance, ~_ignoreLayer))
         {
             _hitData.IsHit = true;
             _hitData.SetData(_hit);
         }
         else _hitData.IsHit = false;
-
-        return _hitData;
+        return _hitData; 
     }
 }

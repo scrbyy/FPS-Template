@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 [Serializable]
-public class SpherecastAttackData : AttackData
+public class SpherecastMethodData : AttackMethodData
 {
     public override AttackType Type => AttackType.Spherecast;
 
@@ -12,6 +12,6 @@ public class SpherecastAttackData : AttackData
     [SerializeField] private LayerMask _ignoreLayer;
     public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
     {
-        return new SpherecastAttackMethod(origin, _radius, _distance, _ignoreLayer);
+        return new SpherecastMethod(origin, _radius, _distance, _ignoreLayer);
     }
 }

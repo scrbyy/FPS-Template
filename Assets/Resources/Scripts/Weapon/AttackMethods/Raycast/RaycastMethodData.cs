@@ -1,9 +1,9 @@
 ﻿using System;
-using UnityEngine;
 using Zenject;
+using UnityEngine;
 
 [Serializable]
-public class RaycastAttackData : AttackData
+public class RaycastMethodData : AttackMethodData
 {
     public override AttackType Type => AttackType.Raycast;
 
@@ -12,6 +12,6 @@ public class RaycastAttackData : AttackData
 
     public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
     {
-        return new RaycastAttackMethod(origin, _distance, _ignoreMask);
+        return new RaycastMethod(origin, _distance, _ignoreMask);
     }
 }

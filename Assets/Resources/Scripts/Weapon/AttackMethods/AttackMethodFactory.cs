@@ -10,7 +10,7 @@ public class AttackMethodFactory
         _container = container;
     }
 
-    public IAttackMethod Create(AttackData data, Transform origin)
+    public IAttackMethod Create(AttackMethodData data, Transform origin)
     {
         return data.CreateMethod(origin, _container);
     }

@@ -19,7 +19,7 @@ public abstract class WeaponAttacker
     protected float _lastAttackTime;
 
     public WeaponAttacker(
-        AttackData attackConfig,
+        AttackMethodData attackConfig,
         Transform origin,
         IAttackData attackData,
         AttackMethodFactory attackFactory)

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public abstract class AttackData
+public abstract class AttackMethodData
 {
     public abstract AttackType Type { get; }
 
