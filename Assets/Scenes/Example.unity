@@ -441,8 +441,8 @@ GameObject:
   - component: {fileID: 30990241}
   - component: {fileID: 30990240}
   - component: {fileID: 30990242}
-  - component: {fileID: 30990243}
   - component: {fileID: 30990244}
+  - component: {fileID: 30990247}
   m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
@@ -543,26 +543,6 @@ MonoBehaviour:
   _fadeDuration: 0.05
   _light: {fileID: 1699327082}
   _gun: {fileID: 30990239}
---- !u!114 &30990243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 30990236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0894c4c9244652844a7bd65c1e13f28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mixerGroup: {fileID: 0}
-  _volume: 1
-  _pitchMin: 0.9
-  _pitchMax: 1.1
-  _shootSound: {fileID: 8300000, guid: f127f4e1d16882049be5f53a5d2fcc78, type: 3}
-  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
-  _readySound: {fileID: 0}
-  _gun: {fileID: 30990239}
 --- !u!82 &30990244
 AudioSource:
   m_ObjectHideFlags: 0
@@ -575,7 +555,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6203143601711258582, guid: 8790e9c58ba486a408a6af1f565dd036, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
@@ -688,6 +668,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effects:
   - {fileID: 30990241}
+--- !u!114 &30990247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30990236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b4f93b1812938478bad7b8691a7356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixerGroup: {fileID: 0}
+  _attackSound:
+    _clip: {fileID: 8300000, guid: f127f4e1d16882049be5f53a5d2fcc78, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: -0.08
+    _pitchMax: 0
+  _openSound:
+    _clip: {fileID: 8300000, guid: 23800074cbd14574dab1a1403f52ae7c, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
+  _reloadSound:
+    _clip: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
+  _gun: {fileID: 30990239}
 --- !u!1 &32322474
 GameObject:
   m_ObjectHideFlags: 0
@@ -19033,13 +19048,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 848882172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 891d453e9aa204f43b92ce86272d854a, type: 3}
+  m_Script: {fileID: 11500000, guid: 26a02cac52fa6224394055e57a15c489, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mixerGroup: {fileID: 24300002, guid: 8790e9c58ba486a408a6af1f565dd036, type: 2}
-  _attackSound: {fileID: 8300000, guid: 2cb217ebf1a89cc418fc6eb1246709ec, type: 3}
-  _openSound: {fileID: 8300000, guid: 23800074cbd14574dab1a1403f52ae7c, type: 3}
-  _weapon: {fileID: 848882174}
+  _mixerGroup: {fileID: 0}
+  _attackSound:
+    _clip: {fileID: 8300000, guid: 2cb217ebf1a89cc418fc6eb1246709ec, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
+  _openSound:
+    _clip: {fileID: 8300000, guid: 23800074cbd14574dab1a1403f52ae7c, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
+  _knife: {fileID: 848882174}
 --- !u!43 &857036695
 Mesh:
   m_ObjectHideFlags: 0
@@ -48980,9 +49007,9 @@ GameObject:
   - component: {fileID: 5444888314268869650}
   - component: {fileID: 5444888314268869646}
   - component: {fileID: 5444888314268869655}
-  - component: {fileID: 5444888314268869645}
   - component: {fileID: 5444888314268869648}
   - component: {fileID: 5444888314268869649}
+  - component: {fileID: 5444888314268869656}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -49290,26 +49317,6 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: eb902cd4769b70a468a621e48db74f09, type: 2}
   _origin: {fileID: 330585546}
   _ownerSpeedHandler: {fileID: 755122332}
---- !u!114 &5444888314268869645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4673594838000320178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0894c4c9244652844a7bd65c1e13f28c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mixerGroup: {fileID: 0}
-  _volume: 0.3
-  _pitchMin: 0.9
-  _pitchMax: 1.1
-  _shootSound: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
-  _reloadSound: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
-  _readySound: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
-  _gun: {fileID: 5444888314268869643}
 --- !u!114 &5444888314268869646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49543,6 +49550,41 @@ MonoBehaviour:
   _recoilDecreaseFactor: 1
   _minRecoilMultiplier: 1
   _resetTime: 0.5
+  _gun: {fileID: 5444888314268869643}
+--- !u!114 &5444888314268869656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4673594838000320178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0b4f93b1812938478bad7b8691a7356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mixerGroup: {fileID: 0}
+  _attackSound:
+    _clip: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
+  _openSound:
+    _clip: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
+  _reloadSound:
+    _clip: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+    _volume: 1
+    _spatialBlend: 0
+    _isPitchRandomized: 0
+    _pitchMin: 0
+    _pitchMax: 0
   _gun: {fileID: 5444888314268869643}
 --- !u!1 &5527469117763098429
 GameObject:

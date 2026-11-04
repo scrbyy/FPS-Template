@@ -5,7 +5,7 @@ using Cysharp.Threading.Tasks;
 
 public abstract class Weapon : MonoBehaviour
 {
-    public event Action OnOpened;
+    public event Action OnOpening;
     public event Action OnAttack;
     public event Action OnAttackStopped;
     public event Action<HitData> OnContact;
@@ -26,6 +26,8 @@ public abstract class Weapon : MonoBehaviour
     {
         _isOpened = false;
         _openCts = new CancellationTokenSource();
+
+        OnOpening?.Invoke();
 
         OpenDelay(_data.OpenDelay).Forget();
 
@@ -64,8 +66,6 @@ public abstract class Weapon : MonoBehaviour
         {
             await UniTask.Delay(TimeSpan.FromSeconds(openTime), cancellationToken: _openCts.Token);
             _isOpened = true;
-
-            OnOpened?.Invoke();
         }
         catch (OperationCanceledException) { }
     }
