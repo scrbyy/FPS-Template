@@ -4,14 +4,14 @@ using UnityEngine.Audio;
 [RequireComponent(typeof(AudioSource))]
 public abstract class WeaponSound : MonoBehaviour
 {
-    protected Weapon Weapon { get; set; }
-
     [Header("Settings")]
     [SerializeField] protected AudioMixerGroup _mixerGroup;
 
     [Header("Sound Library")]
     [SerializeField] protected Sound _attackSound;
     [SerializeField] protected Sound _openSound;
+
+    protected Weapon Weapon { get; set; }
 
     protected AudioSource _audioSource;
 
@@ -26,24 +26,20 @@ public abstract class WeaponSound : MonoBehaviour
         
         if (_mixerGroup != null) _audioSource.outputAudioMixerGroup = _mixerGroup;
 
-        _playAttackSound = () => PlaySound(_attackSound._clip, _attackSound._volume);
-        _playOpenSound = () => PlaySound(_openSound._clip, _openSound._volume);
+        _playAttackSound = () => PlaySound(_attackSound);
+        _playOpenSound = () => PlaySound(_openSound);
     }
 
-    protected void PlaySound(AudioClip sound, float volume)
+    protected void PlaySound(Sound sound)
     {
-        if (sound == null || _audioSource == null) return;
+        if (sound.Clip == null || _audioSource == null) return;
 
-        _audioSource.PlayOneShot(sound, volume);
-    }
+        if (sound.IsPitchRandomized)
+        {
+            _audioSource.pitch = Random.Range(sound.PitchMin, sound.PitchMax);
+        }
 
-    protected void PlaySound(AudioClip sound, float volume, float minPitch, float maxPitch)
-    {
-        if (sound == null || _audioSource == null) return;
-
-        _audioSource.pitch = Random.Range(minPitch, maxPitch);
-
-        _audioSource.PlayOneShot(sound, volume);
+        _audioSource.PlayOneShot(sound.Clip, sound.Volume);
     }
 
     protected virtual void OnEnable()

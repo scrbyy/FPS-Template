@@ -13,7 +13,7 @@ public class GunSound : WeaponSound
     {
         base.Awake();
         Weapon = _gun;
-        _playReloadSound = () => PlaySound(_reloadSound._clip, _reloadSound._volume);
+        _playReloadSound = () => PlaySound(_reloadSound);
     }
 
     protected override void OnEnable()

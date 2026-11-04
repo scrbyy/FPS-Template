@@ -600,7 +600,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -689,14 +689,14 @@ MonoBehaviour:
     _pitchMin: -0.08
     _pitchMax: 0
   _openSound:
-    _clip: {fileID: 8300000, guid: 23800074cbd14574dab1a1403f52ae7c, type: 3}
+    _clip: {fileID: 0}
     _volume: 1
     _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
   _reloadSound:
-    _clip: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
+    _clip: {fileID: 0}
     _volume: 1
     _spatialBlend: 0
     _isPitchRandomized: 0
@@ -18999,7 +18999,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -49414,7 +49414,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
