@@ -4,9 +4,9 @@ using UnityEngine.InputSystem;
 
 public class NewInputSystemProvider : MonoBehaviour, IWeaponInputProvider, IMovementInputProvider, ILookInputProvider, ILoadoutInputProvider, IInteractionInputProvider
 {
-    public Vector2 MoveInput => moveAction.ReadValue<Vector2>();
+    public Vector2 MoveInput => _moveAction.ReadValue<Vector2>();
 
-    public Vector2 LookInput => lookAction.ReadValue<Vector2>();
+    public Vector2 LookInput => _lookAction.ReadValue<Vector2>();
 
     public event Action OnShootReleased;
     public event Action OnShootStarted;
@@ -22,60 +22,60 @@ public class NewInputSystemProvider : MonoBehaviour, IWeaponInputProvider, IMove
 
     public event Action OnInteractStarted;
 
-    private InputAction moveAction;
-    private InputAction jumpAction;
-    private InputAction lookAction;
-    private InputAction interactAction;
-    private InputAction sprintAction;
-    private InputAction fireAction;
-    private InputAction reloadAction;
-    private InputAction dashAction;
-    private InputAction nextWeaponAction;
-    private InputAction previousWeaponAction;
+    private InputAction _moveAction;
+    private InputAction _jumpAction;
+    private InputAction _lookAction;
+    private InputAction _interactAction;
+    private InputAction _sprintAction;
+    private InputAction _fireAction;
+    private InputAction _reloadAction;
+    private InputAction _dashAction;
+    private InputAction _nextWeaponAction;
+    private InputAction _previousWeaponAction;
 
     private void Awake()
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        jumpAction = InputSystem.actions.FindAction("Jump");
-        lookAction = InputSystem.actions.FindAction("Look");
-        interactAction = InputSystem.actions.FindAction("Interact");
-        sprintAction = InputSystem.actions.FindAction("Sprint");
-        fireAction = InputSystem.actions.FindAction("Fire");
-        reloadAction = InputSystem.actions.FindAction("Reload");
-        dashAction = InputSystem.actions.FindAction("Dash");
-        nextWeaponAction = InputSystem.actions.FindAction("NextWeapon");
-        previousWeaponAction = InputSystem.actions.FindAction("PreviousWeapon");
+        _moveAction = InputSystem.actions.FindAction("Move");
+        _jumpAction = InputSystem.actions.FindAction("Jump");
+        _lookAction = InputSystem.actions.FindAction("Look");
+        _interactAction = InputSystem.actions.FindAction("Interact");
+        _sprintAction = InputSystem.actions.FindAction("Sprint");
+        _fireAction = InputSystem.actions.FindAction("Fire");
+        _reloadAction = InputSystem.actions.FindAction("Reload");
+        _dashAction = InputSystem.actions.FindAction("Dash");
+        _nextWeaponAction = InputSystem.actions.FindAction("NextWeapon");
+        _previousWeaponAction = InputSystem.actions.FindAction("PreviousWeapon");
 
-        jumpAction.performed += OnJump;
-        interactAction.performed += OnInteract;
-        reloadAction.performed += OnReload;
-        nextWeaponAction.performed += OnNextWeapon;
-        previousWeaponAction.performed += OnPreviousWeapon;
+        _jumpAction.performed += OnJump;
+        _interactAction.performed += OnInteract;
+        _reloadAction.performed += OnReload;
+        _nextWeaponAction.performed += OnNextWeapon;
+        _previousWeaponAction.performed += OnPreviousWeapon;
 
-        sprintAction.started += OnSprintStart;
-        sprintAction.canceled += OnSprintCancel;
+        _sprintAction.started += OnSprintStart;
+        _sprintAction.canceled += OnSprintCancel;
 
-        dashAction.started += OnDashStart;
+        _dashAction.started += OnDashStart;
 
-        fireAction.started += OnShootStart;
-        fireAction.canceled += OnShootCancel;
+        _fireAction.started += OnShootStart;
+        _fireAction.canceled += OnShootCancel;
     }
 
     private void OnDestroy()
     {
-        jumpAction.performed -= OnJump;
-        interactAction.performed -= OnInteract;
-        reloadAction.performed -= OnReload;
-        nextWeaponAction.performed -= OnNextWeapon;
-        previousWeaponAction.performed -= OnPreviousWeapon;
+        _jumpAction.performed -= OnJump;
+        _interactAction.performed -= OnInteract;
+        _reloadAction.performed -= OnReload;
+        _nextWeaponAction.performed -= OnNextWeapon;
+        _previousWeaponAction.performed -= OnPreviousWeapon;
 
-        sprintAction.started -= OnSprintStart;
-        sprintAction.canceled -= OnSprintCancel;
+        _sprintAction.started -= OnSprintStart;
+        _sprintAction.canceled -= OnSprintCancel;
 
-        dashAction.started -= OnDashStart;
+        _dashAction.started -= OnDashStart;
 
-        fireAction.started -= OnShootStart;
-        fireAction.canceled -= OnShootCancel;
+        _fireAction.started -= OnShootStart;
+        _fireAction.canceled -= OnShootCancel;
     }
 
     private void OnJump(InputAction.CallbackContext ctx) => OnJumpStarted?.Invoke();
