@@ -4,6 +4,7 @@ public class GunSound : WeaponSound
 {
     [SerializeField] protected Sound _reloadSound;
 
+    [Header("References")]
     [SerializeField] private Gun _gun;
 
     private System.Action _playReloadSound;

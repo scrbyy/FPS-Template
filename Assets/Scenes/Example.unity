@@ -441,8 +441,8 @@ GameObject:
   - component: {fileID: 30990241}
   - component: {fileID: 30990240}
   - component: {fileID: 30990242}
-  - component: {fileID: 30990244}
   - component: {fileID: 30990247}
+  - component: {fileID: 30990244}
   m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
@@ -18954,7 +18954,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -49008,8 +49008,8 @@ GameObject:
   - component: {fileID: 5444888314268869646}
   - component: {fileID: 5444888314268869655}
   - component: {fileID: 5444888314268869648}
-  - component: {fileID: 5444888314268869649}
   - component: {fileID: 5444888314268869656}
+  - component: {fileID: 5444888314268869649}
   m_Layer: 8
   m_Name: Rifle
   m_TagString: Untagged
@@ -49369,7 +49369,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -6203143601711258582, guid: 8790e9c58ba486a408a6af1f565dd036, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
