@@ -12,8 +12,9 @@ public class DecalPool : MonoBehaviour
     [SerializeField] private float _surfaceOffset;
 
     private Queue<GameObject> _availableDecals;
-
     private List<GameObject> _allDecals;
+
+    private Dictionary<GameObject, CancellationTokenSource> _decalCts;
 
     private CancellationTokenSource _destroyCts;
 
@@ -21,6 +22,7 @@ public class DecalPool : MonoBehaviour
     {
         _availableDecals = new Queue<GameObject>(_initializePoolSize);
         _allDecals = new List<GameObject>(_initializePoolSize);
+        _decalCts = new Dictionary<GameObject, CancellationTokenSource>(_initializePoolSize);
         _destroyCts = new CancellationTokenSource();
 
         for (int i = 0; i < _initializePoolSize; i++)
@@ -33,14 +35,24 @@ public class DecalPool : MonoBehaviour
     {
         _destroyCts?.Cancel();
         _destroyCts?.Dispose();
+
+        foreach (var cts in _decalCts.Values)
+        {
+            cts?.Cancel();
+            cts?.Dispose();
+        }
+        _decalCts.Clear();
     }
 
     private GameObject CreateNewDecalInstance()
     {
         GameObject decal = Instantiate(_decalPrefab, transform);
         decal.SetActive(false);
+
         _allDecals.Add(decal);
         _availableDecals.Enqueue(decal);
+        _decalCts[decal] = new CancellationTokenSource();
+
         return decal;
     }
 
@@ -72,6 +84,15 @@ public class DecalPool : MonoBehaviour
             }
         }
 
+        if (_decalCts.TryGetValue(decalToUse, out var oldCts))
+        {
+            oldCts.Cancel();
+            oldCts.Dispose();
+        }
+
+        var newCts = CancellationTokenSource.CreateLinkedTokenSource(_destroyCts.Token, decalToUse.GetCancellationTokenOnDestroy());
+        _decalCts[decalToUse] = newCts;
+
         if (hitData.Normal != Vector3.zero)
         {
             decalToUse.transform.position = hitData.HitPoint + (hitData.Normal * _surfaceOffset);
@@ -80,18 +101,14 @@ public class DecalPool : MonoBehaviour
 
         decalToUse.SetActive(true);
 
-        DisableDecalAfterTimeAsync(decalToUse, _liveTime, _destroyCts.Token).Forget();
+        DisableDecalAfterTimeAsync(decalToUse, _liveTime, newCts.Token).Forget();
     }
 
-    private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationToken destroyToken)
+    private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationToken cancellationToken)
     {
         try
         {
-            var linkedToken = CancellationTokenSource.CreateLinkedTokenSource(destroyToken, decal.GetCancellationTokenOnDestroy());
-
-            await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: linkedToken.Token);
-
-            linkedToken.Dispose();
+            await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: cancellationToken);
 
             if (decal != null && decal.activeSelf)
             {
