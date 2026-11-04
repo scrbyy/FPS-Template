@@ -5,7 +5,7 @@ using Zenject;
 [RequireComponent(typeof(TMP_Text))]
 public class GroundedStateText : UpdateableText
 {
-    [Inject] private GroundChecker _groundChecker;
+    [Inject] private IGroundChecker _groundChecker;
 
     protected override void UpdateText()
     {

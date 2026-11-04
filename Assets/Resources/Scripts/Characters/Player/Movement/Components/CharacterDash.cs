@@ -16,7 +16,7 @@ public class CharacterDash : MonoBehaviour
     [SerializeField] private CharacterStamina _characterStamina;
 
     [Inject] private IMovementInputProvider _inputProvider;
-    [Inject] private GroundChecker _groundCheck;
+    [Inject] private IGroundChecker _groundCheck;
 
     private float _cooldownTimer;
 

@@ -684,21 +684,18 @@ MonoBehaviour:
   _attackSound:
     _clip: {fileID: 8300000, guid: f127f4e1d16882049be5f53a5d2fcc78, type: 3}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: -0.08
     _pitchMax: 0
   _openSound:
     _clip: {fileID: 0}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
   _reloadSound:
     _clip: {fileID: 0}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
@@ -19055,14 +19052,12 @@ MonoBehaviour:
   _attackSound:
     _clip: {fileID: 8300000, guid: 2cb217ebf1a89cc418fc6eb1246709ec, type: 3}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
   _openSound:
     _clip: {fileID: 8300000, guid: 23800074cbd14574dab1a1403f52ae7c, type: 3}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
@@ -23439,12 +23434,12 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 936000764}
-  - {fileID: 1943569771}
   - {fileID: 1103999101}
   - {fileID: 1571931245}
   - {fileID: 1891315858}
   - {fileID: 1269833794}
   - {fileID: 835706391}
+  - {fileID: 1503516121}
   m_Father: {fileID: 642669985}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1041166308
@@ -33937,12 +33932,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503516120}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1943569771}
+  m_Father: {fileID: 1040894700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1503516122
 MonoBehaviour:
@@ -43476,38 +43471,6 @@ AudioReverbZone:
   m_Density: 100
   m_LFReference: 250
   m_RoomLF: 0
---- !u!1 &1943569770
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1943569771}
-  m_Layer: 0
-  m_Name: GroundCheck
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1943569771
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1943569770}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1503516121}
-  m_Father: {fileID: 1040894700}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1993702741
 GameObject:
   m_ObjectHideFlags: 0
@@ -49567,21 +49530,18 @@ MonoBehaviour:
   _attackSound:
     _clip: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
   _openSound:
     _clip: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
   _reloadSound:
     _clip: {fileID: 8300000, guid: 449e6220c10d59b409db0e5208bb3c70, type: 3}
     _volume: 1
-    _spatialBlend: 0
     _isPitchRandomized: 0
     _pitchMin: 0
     _pitchMax: 0
