@@ -22515,10 +22515,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1002398855}
-  - component: {fileID: 1002398858}
   - component: {fileID: 1002398861}
-  - component: {fileID: 1002398857}
   - component: {fileID: 1002398860}
+  - component: {fileID: 1002398857}
+  - component: {fileID: 1002398858}
   m_Layer: 5
   m_Name: StaminaBar
   m_TagString: Untagged
@@ -22614,6 +22614,7 @@ MonoBehaviour:
   _hideDuration: 0.25
   _characterStat: {fileID: 9949984}
   _fillImage: {fileID: 1002398857}
+  _canvasGroup: {fileID: 1002398860}
 --- !u!43 &1007958733
 Mesh:
   m_ObjectHideFlags: 0
@@ -32574,10 +32575,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1435164038}
-  - component: {fileID: 1435164041}
-  - component: {fileID: 1435164042}
-  - component: {fileID: 1435164044}
   - component: {fileID: 1435164045}
+  - component: {fileID: 1435164044}
+  - component: {fileID: 1435164042}
+  - component: {fileID: 1435164041}
   m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
@@ -32673,6 +32674,7 @@ MonoBehaviour:
   _hideDuration: 0.25
   _characterStat: {fileID: 755122331}
   _fillImage: {fileID: 1435164042}
+  _canvasGroup: {fileID: 1435164044}
 --- !u!1 &1463682768
 GameObject:
   m_ObjectHideFlags: 0

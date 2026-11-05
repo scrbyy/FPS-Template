@@ -1,5 +1,6 @@
 using UnityEngine;
-using System.Collections;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class CharacterStamina : CharacterStat
 {
@@ -7,8 +8,7 @@ public class CharacterStamina : CharacterStat
     [SerializeField] private float _recoveryCooldown;
     [SerializeField] private float _recoverySpeed;
 
-    private WaitForSeconds _cooldown;
-    private Coroutine _recoveryCoroutine;
+    private CancellationTokenSource _recoveryCts;
     private bool _isExhausted;
 
     public override void Decrease(float reducingValue)
@@ -23,9 +23,10 @@ public class CharacterStamina : CharacterStat
 
             if (_currentValue <= 0) _isExhausted = true;
 
-            if (_recoveryCoroutine != null) StopCoroutine(_recoveryCoroutine);
+            _recoveryCts?.Cancel();
+            _recoveryCts = new CancellationTokenSource();
 
-            _recoveryCoroutine = StartCoroutine(RecoveryRoutine());
+            RecoveryRoutineAsync(_recoveryCts.Token).Forget();
         }
     }
 
@@ -34,23 +35,30 @@ public class CharacterStamina : CharacterStat
         return !_isExhausted && _currentValue >= amount;
     }
 
-    private void Start()
+    private async UniTaskVoid RecoveryRoutineAsync(CancellationToken cancellationToken)
     {
-        _cooldown = new WaitForSeconds(_recoveryCooldown);
-        NotifyValueChanged(_currentValue);
-    }
-    
-    private IEnumerator RecoveryRoutine()
-    {
-        yield return _cooldown;
-
-        while (_currentValue < MaxValue)
+        try
         {
-            _currentValue = Mathf.MoveTowards(_currentValue, MaxValue, _recoverySpeed * Time.deltaTime);
-            NotifyValueChanged(_currentValue);
-            yield return null;
+            await UniTask.Delay(System.TimeSpan.FromSeconds(_recoveryCooldown), cancellationToken: cancellationToken);
+
+            while (_currentValue < MaxValue)
+            {
+                _currentValue = Mathf.MoveTowards(_currentValue, MaxValue, _recoverySpeed * Time.deltaTime);
+                NotifyValueChanged(_currentValue);
+
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: cancellationToken);
+            }
+
+            _isExhausted = false;
         }
-        _isExhausted = false;
-        _recoveryCoroutine = null;
+        catch (System.OperationCanceledException)
+        {
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _recoveryCts?.Cancel();
+        _recoveryCts?.Dispose();
     }
 }

@@ -6,6 +6,7 @@ public abstract class CharacterStat : MonoBehaviour
     public event System.Action OnValueExhausted;
 
     public float MaxValue => _maxValue;
+    public float CurrentValue => _currentValue;
 
     [Header("Main")]
     [SerializeField] protected float _currentValue;
