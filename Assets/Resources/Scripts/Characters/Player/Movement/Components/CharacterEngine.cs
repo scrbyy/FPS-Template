@@ -62,15 +62,27 @@ public class CharacterEngine : MonoBehaviour
 
         if (targetSpeed > 0.01f) _isImpulseActive = false;
 
+        float verticalVelocity = _velocity.y;
+
         if (_isImpulseActive)
         {
-            _velocity = Vector3.MoveTowards(_velocity, Vector3.zero, _decelerationRate * Time.deltaTime);
-            if (_velocity.magnitude <= speed) _isImpulseActive = false;
+            Vector3 horizontalVel = new Vector3(_velocity.x, 0, _velocity.z);
+            horizontalVel = Vector3.MoveTowards(horizontalVel, Vector3.zero, _decelerationRate * Time.deltaTime);
+
+            _velocity = new Vector3(horizontalVel.x, verticalVelocity, horizontalVel.z);
+
+            if (horizontalVel.magnitude <= speed) _isImpulseActive = false;
             return;
         }
 
         float accel = (targetSpeed > 0 ? _accelerationRate : _decelerationRate);
-        _velocity = Vector3.MoveTowards(_velocity, wishDirection * targetSpeed, accel * Time.deltaTime);
+
+        Vector3 currentHorizontal = new Vector3(_velocity.x, 0, _velocity.z);
+        Vector3 targetHorizontal = wishDirection * targetSpeed;
+
+        Vector3 newHorizontal = Vector3.MoveTowards(currentHorizontal, targetHorizontal, accel * Time.deltaTime);
+
+        _velocity = new Vector3(newHorizontal.x, verticalVelocity, newHorizontal.z);
     }
 
     private void ApplyAirMovement(Vector3 wishDirection)
