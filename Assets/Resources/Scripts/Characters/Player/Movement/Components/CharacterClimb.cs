@@ -100,7 +100,7 @@ public class CharacterClimb : MonoBehaviour
 
         _characterEngine.EnableMovement();
 
-        _characterEngine.AddForce(transform.forward * (_speedBeforeClimb * _exitImpulseModifier), ForceType.Impulse);
+        _characterEngine.AddImpulse(transform.forward * (_speedBeforeClimb * _exitImpulseModifier));
 
         _isClimbing = false;
     }

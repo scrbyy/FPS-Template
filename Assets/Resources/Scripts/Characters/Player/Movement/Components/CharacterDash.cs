@@ -32,7 +32,7 @@ public class CharacterDash : MonoBehaviour
         } 
         else return;
 
-        _characterEngine.AddForce(dashDir * impulse, ForceType.Impulse);
+        _characterEngine.AddImpulse(dashDir * impulse);
 
         _characterStamina.Decrease(_dashStaminaCost);
         _cooldownTimer = _cooldown;

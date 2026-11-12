@@ -67,7 +67,7 @@ public class CharacterJump : MonoBehaviour
 
     private void ExecuteJump()
     {
-        _characterEngine.AddForce(Vector3.up * _jumpForce, ForceType.Jump);
+        _characterEngine.Jump(_jumpForce);
         _characterStamina.Decrease(_staminaCost);
 
         _inputBuffer.Reset();

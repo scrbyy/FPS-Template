@@ -16664,7 +16664,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkPoint: {fileID: 748745580}
-  _radius: 0.15
+  _radius: 0.1
   _castDistance: 0.1
   _groundLayer:
     serializedVersion: 2
@@ -16796,7 +16796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be61cee0b4dd2f4eaf53f357f2a41e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  _jumpForce: 2
+  _jumpForce: 1.25
   _staminaCost: 1
   _inputBufferDuration: 0.1
   _coyoteTimeDuration: 0.1

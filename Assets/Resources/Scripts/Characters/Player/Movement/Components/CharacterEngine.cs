@@ -10,7 +10,6 @@ public class CharacterEngine : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float _accelerationRate;
     [SerializeField] private float _decelerationRate;
-
     [SerializeField] private float _movingThreshold;
 
     [Header("CS-Style Air Movement")]
@@ -32,12 +31,12 @@ public class CharacterEngine : MonoBehaviour
     private bool _isImpulseActive;
     private bool _canMove;
     private Vector3 _velocity;
-     
+
     public void Move(Vector3 inputVector)
     {
         if (_canMove)
         {
-            if (_characterController.isGrounded) ApplyGroundMovement(inputVector, _speedProvider.Speed);
+            if (_groundChecker.IsGrounded) ApplyGroundMovement(inputVector, _speedProvider.Speed);
             else ApplyAirMovement(inputVector);
 
             Vector3 finalMotion = _velocity;
@@ -46,17 +45,15 @@ public class CharacterEngine : MonoBehaviour
         }
     }
 
-    public void AddForce(Vector3 force, ForceType type)
+    public void Jump(float height)
     {
-        if (type == ForceType.Jump)
-        {
-            _velocity.y = Mathf.Sqrt(2f * force.y * Mathf.Abs(Physics.gravity.y));
-        }
-        else if (type == ForceType.Impulse)
-        {
-            _velocity += force;
-            _isImpulseActive = true;
-        }
+        _velocity.y = Mathf.Sqrt(2f * height * Mathf.Abs(Physics.gravity.y * _gravityScale));
+    }
+
+    public void AddImpulse(Vector3 impulse)
+    {
+        _velocity += impulse;
+        _isImpulseActive = true;
     }
 
     private void ApplyGroundMovement(Vector3 wishDirection, float speed)
