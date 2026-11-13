@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Movement;
+using scrbyy.FpsTemplate.Player.Movement;
 
 public class BobbingEffect : PositionEffect
 {

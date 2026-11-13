@@ -2,7 +2,7 @@ using Zenject;
 using UnityEngine;
 using System.Collections;
 
-namespace scrbyy.FpsTemplate.Movement
+namespace scrbyy.FpsTemplate.Player.Movement
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterClimb : MonoBehaviour

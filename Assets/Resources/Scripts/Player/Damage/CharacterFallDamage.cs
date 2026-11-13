@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-using scrbyy.FpsTemplate.Movement;
+using scrbyy.FpsTemplate.Player.Movement;
 
 public class CharacterFallDamage : MonoBehaviour
 {

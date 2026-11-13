@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Movement
+namespace scrbyy.FpsTemplate.Player.Movement
 {
     public class CharacterSpeed : MonoBehaviour 
     {

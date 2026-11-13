@@ -1,7 +1,7 @@
 ﻿using Zenject;
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Movement
+namespace scrbyy.FpsTemplate.Player.Movement
 {
     public class CharacterDash : MonoBehaviour
     {

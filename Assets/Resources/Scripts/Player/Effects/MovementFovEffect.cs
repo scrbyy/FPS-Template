@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-using scrbyy.FpsTemplate.Movement;
+using scrbyy.FpsTemplate.Player.Movement;
 
 [RequireComponent(typeof(Camera))]
 public class MovementFovEffect : MonoBehaviour
