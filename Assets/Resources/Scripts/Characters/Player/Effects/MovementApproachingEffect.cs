@@ -1,6 +1,8 @@
 using Zenject;
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Movement;
+
 public class MovementApproachingEffect : PositionEffect
 {
     [Header("Limits")]

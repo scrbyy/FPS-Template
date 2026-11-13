@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
+using scrbyy.FpsTemplate.Movement;
+
 public abstract class Weapon : MonoBehaviour
 {
     public event Action OnOpening;

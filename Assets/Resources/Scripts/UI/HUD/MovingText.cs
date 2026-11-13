@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Movement;
+
 public class MovingText : UpdateableText
 {
     [SerializeField] private CharacterEngine _characterEngine;

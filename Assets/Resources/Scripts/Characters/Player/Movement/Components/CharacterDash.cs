@@ -1,66 +1,69 @@
 ﻿using Zenject;
 using UnityEngine;
 
-public class CharacterDash : MonoBehaviour
+namespace scrbyy.FpsTemplate.Movement
 {
-    [Header("Impulse Force")]
-    [SerializeField] private float _airImpulse;
-    [SerializeField] private float _groundImpulse;
-
-    [Header("Settings")]
-    [SerializeField] private float _cooldown;
-    [SerializeField] private float _dashStaminaCost;
-
-    [Header("References")]
-    [SerializeField] private CharacterEngine _characterEngine;
-    [SerializeField] private CharacterStamina _characterStamina;
-
-    [Inject] private IMovementInputProvider _inputProvider;
-    [Inject] private IGroundChecker _groundCheck;
-
-    private float _cooldownTimer;
-
-    private void ExecuteDash()
+    public class CharacterDash : MonoBehaviour
     {
-        Vector2 moveInput = _inputProvider.MoveInput;
-        Vector3 dashDir;
-        float impulse = _groundCheck.IsGrounded ? _groundImpulse : _airImpulse;
+        [Header("Impulse Force")]
+        [SerializeField] private float _airImpulse;
+        [SerializeField] private float _groundImpulse;
 
-        if (moveInput.sqrMagnitude > 0.01f)
+        [Header("Settings")]
+        [SerializeField] private float _cooldown;
+        [SerializeField] private float _dashStaminaCost;
+
+        [Header("References")]
+        [SerializeField] private CharacterEngine _characterEngine;
+        [SerializeField] private CharacterStamina _characterStamina;
+
+        [Inject] private IMovementInputProvider _inputProvider;
+        [Inject] private IGroundChecker _groundCheck;
+
+        private float _cooldownTimer;
+
+        private void ExecuteDash()
         {
-            dashDir = transform.TransformDirection(new Vector3(moveInput.x, 0, moveInput.y)).normalized;
-        } 
-        else return;
+            Vector2 moveInput = _inputProvider.MoveInput;
+            Vector3 dashDir;
+            float impulse = _groundCheck.IsGrounded ? _groundImpulse : _airImpulse;
 
-        _characterEngine.AddImpulse(dashDir * impulse);
+            if (moveInput.sqrMagnitude > 0.01f)
+            {
+                dashDir = transform.TransformDirection(new Vector3(moveInput.x, 0, moveInput.y)).normalized;
+            } 
+            else return;
 
-        _characterStamina.Decrease(_dashStaminaCost);
-        _cooldownTimer = _cooldown;
-    }
+            _characterEngine.AddImpulse(dashDir * impulse);
 
-    private void TryPerformDash()
-    {
-        if (_cooldownTimer <= 0 && _characterStamina.IsEnoughStamina(_dashStaminaCost))
-        {
-            ExecuteDash();
+            _characterStamina.Decrease(_dashStaminaCost);
+            _cooldownTimer = _cooldown;
         }
-    }
 
-    private void Update()
-    {
-        if (_cooldownTimer > 0)
+        private void TryPerformDash()
         {
-            _cooldownTimer -= Time.deltaTime;
+            if (_cooldownTimer <= 0 && _characterStamina.IsEnoughStamina(_dashStaminaCost))
+            {
+                ExecuteDash();
+            }
         }
-    }
 
-    private void OnEnable()
-    {
-        _inputProvider.OnDashStarted += TryPerformDash;
-    }
+        private void Update()
+        {
+            if (_cooldownTimer > 0)
+            {
+                _cooldownTimer -= Time.deltaTime;
+            }
+        }
 
-    private void OnDisable()
-    {
-        _inputProvider.OnDashStarted -= TryPerformDash;
+        private void OnEnable()
+        {
+            _inputProvider.OnDashStarted += TryPerformDash;
+        }
+
+        private void OnDisable()
+        {
+            _inputProvider.OnDashStarted -= TryPerformDash;
+        }
     }
 }

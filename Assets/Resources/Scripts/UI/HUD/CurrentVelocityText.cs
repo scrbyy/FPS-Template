@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Movement;
+
 public class CurrentVelocityText : UpdateableText
 {
     [SerializeField] private CharacterEngine _characterEngine;

@@ -1,6 +1,8 @@
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Movement;
+
 [RequireComponent(typeof(PositionEffectHandler))]
 public class FallSpringEffect : PositionEffect
 {

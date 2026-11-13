@@ -1,6 +1,8 @@
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Movement;
+
 public class CharacterFallDamage : MonoBehaviour
 {
     [Header("Clamping")]

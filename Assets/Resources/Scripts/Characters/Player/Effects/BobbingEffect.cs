@@ -1,6 +1,8 @@
 using Zenject;
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Movement;
+
 public class BobbingEffect : PositionEffect
 {
     [Header("Intensity Limitations")]

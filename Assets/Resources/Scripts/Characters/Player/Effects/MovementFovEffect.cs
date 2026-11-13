@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using scrbyy.FpsTemplate.Movement;
+
 [RequireComponent(typeof(Camera))]
 public class MovementFovEffect : MonoBehaviour
 {

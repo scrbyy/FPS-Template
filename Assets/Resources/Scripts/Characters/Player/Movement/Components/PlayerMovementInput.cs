@@ -1,17 +1,20 @@
 using Zenject;
 using UnityEngine;
 
-public class PlayerMovementInput : MonoBehaviour
+namespace scrbyy.FpsTemplate.Movement
 {
-    [Header("References")]
-    [SerializeField] private CharacterEngine _characterEngine;
-
-    [Inject] private IMovementInputProvider _inputProvider;
-
-    private void Update()
+    public class PlayerMovementInput : MonoBehaviour
     {
-        Vector2 input = _inputProvider.MoveInput;
-        Vector3 wishDir = transform.TransformDirection(new Vector3(input.x, 0, input.y)).normalized;
-        _characterEngine.Move(wishDir);
+        [Header("References")]
+        [SerializeField] private CharacterEngine _characterEngine;
+
+        [Inject] private IMovementInputProvider _inputProvider;
+
+        private void Update()
+        {
+            Vector2 input = _inputProvider.MoveInput;
+            Vector3 wishDir = transform.TransformDirection(new Vector3(input.x, 0, input.y)).normalized;
+            _characterEngine.Move(wishDir);
+        }
     }
 }

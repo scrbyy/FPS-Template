@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using scrbyy.FpsTemplate.Movement;
+
 public class TargetSpeedText : UpdateableText 
 {
     [SerializeField] private CharacterSpeed _characterSpeedHandler;
