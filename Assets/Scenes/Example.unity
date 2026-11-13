@@ -16645,7 +16645,7 @@ Transform:
   m_GameObject: {fileID: 748745579}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0.017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16749,9 +16749,9 @@ CharacterController:
   m_Radius: 0.28
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.04
+  m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.91, z: 0}
 --- !u!114 &755122322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16796,7 +16796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be61cee0b4dd2f4eaf53f357f2a41e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  _jumpForce: 1.25
+  _jumpForce: 1
   _staminaCost: 1
   _inputBufferDuration: 0.1
   _coyoteTimeDuration: 0.1
@@ -34486,12 +34486,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1557150729}
   - component: {fileID: 1557150730}
-  - component: {fileID: 1557150733}
-  - component: {fileID: 1557150736}
   - component: {fileID: 1557150731}
   - component: {fileID: 1557150734}
   - component: {fileID: 1557150732}
   - component: {fileID: 1557150737}
+  - component: {fileID: 1557150733}
+  - component: {fileID: 1557150736}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -34546,11 +34546,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  _minIntensity: 0.75
+  _minIntensity: 0.1
   _maxIntensity: 1
   _verticalIntensity: 0.03
   _horizontalIntensity: 0.04
-  _intensityMultiplier: 0.1
+  _intensityMultiplier: 0.25
   _stepSpeedMultiplier: 7
   _stepCurve:
     serializedVersion: 2
@@ -34578,7 +34578,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseStepRate: 3
   _minSpeedThreshold: 0.1
-  _resetTime: 0.1
+  _resetTime: 0.125
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
 MonoBehaviour:
@@ -34662,7 +34662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27949b38ae0c655469583138a0bcce54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _force: {x: 0.6, y: 0.5}
+  _force: {x: 0.6, y: 0.25}
   _smoothness: 4
   _inverseX: 1
   _inverseY: 0
@@ -49294,8 +49294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 268035e4b61ccca4396bacc4ce0a3141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoilForce: {x: 0.02, y: 0.0125, z: -0.18}
-  _recoilRandomness: {x: 0.002, y: 0.0025, z: -0.02}
+  _recoilForce: {x: 0.02, y: 0.01, z: -0.18}
+  _recoilRandomness: {x: 0.002, y: 0.0025, z: -0.01}
   _minBounds: {x: -1, y: -0.5, z: -0.3}
   _maxBounds: {x: 1, y: 1, z: 0}
   _returnSpeed: 5.5
@@ -49317,9 +49317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 0.1
-  _strength: 0.02
-  _vibrato: 10
-  _randomness: 3
+  _strength: 0.025
+  _vibrato: 0
+  _randomness: 5
   _gun: {fileID: 5444888314268869643}
   _cameraTransform: {fileID: 330585546}
 --- !u!82 &5444888314268869649
@@ -49506,12 +49506,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0990617c966cebe479a45ab183ddd951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recoilForce: {x: -1, y: 0, z: 0}
+  _recoilForce: {x: -0.5, y: 0, z: 0}
   _recoilRandomness: {x: 0, y: 0, z: 0}
   _minBounds: {x: -15, y: 0, z: 0}
   _maxBounds: {x: 15, y: 0, z: 0}
   _returnSpeed: 10
-  _snappiness: 30
+  _snappiness: 60
   _recoilDecreaseFactor: 1
   _minRecoilMultiplier: 1
   _resetTime: 0.5
@@ -49532,9 +49532,9 @@ MonoBehaviour:
   _attackSound:
     _clip: {fileID: 8300000, guid: 27f9da758ece278439c967b902c61c18, type: 3}
     _volume: 1
-    _isPitchRandomized: 0
-    _pitchMin: 0
-    _pitchMax: 0
+    _isPitchRandomized: 1
+    _pitchMin: 1
+    _pitchMax: 1.1
   _openSound:
     _clip: {fileID: 8300000, guid: 125413e200e01ba43b4f6ab0e618a2e9, type: 3}
     _volume: 1
