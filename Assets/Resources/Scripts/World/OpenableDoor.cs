@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Interaction;
+
 public class OpenableDoor : MonoBehaviour, IInteractable
 {
     [SerializeField] private Transform _doorTransform;

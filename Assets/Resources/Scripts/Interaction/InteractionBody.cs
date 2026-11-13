@@ -1,35 +1,38 @@
 using Zenject;
 using UnityEngine;
 
-public class InteractionBody : MonoBehaviour
+namespace scrbyy.FpsTemplate.Interaction
 {
-    [Header("Ray Settings")]
-    [SerializeField] private float _distance;
-    [SerializeField] private LayerMask _mask;
-    [SerializeField] private Transform _rayOrigin;
-
-    [Inject] private IInteractionInputProvider _inputProvider;
-
-    private RaycastHit _hit;
-
-    private void CheckInteraction()
+    public class InteractionBody : MonoBehaviour
     {
-        if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _mask))
+        [Header("Ray Settings")]
+        [SerializeField] private float _distance;
+        [SerializeField] private LayerMask _mask;
+        [SerializeField] private Transform _rayOrigin;
+
+        [Inject] private IInteractionInputProvider _inputProvider;
+
+        private RaycastHit _hit;
+
+        private void CheckInteraction()
         {
-            if(_hit.collider.gameObject.TryGetComponent<IInteractable>(out IInteractable interactionObject))
+            if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _mask))
             {
-                interactionObject.Interact();
+                if(_hit.collider.gameObject.TryGetComponent<IInteractable>(out IInteractable interactionObject))
+                {
+                    interactionObject.Interact();
+                }
             }
         }
-    }
 
-    private void OnEnable()
-    {
-        _inputProvider.OnInteractStarted += CheckInteraction;
-    }
+        private void OnEnable()
+        {
+            _inputProvider.OnInteractStarted += CheckInteraction;
+        }
 
-    private void OnDisable()
-    {
-        _inputProvider.OnInteractStarted -= CheckInteraction;
+        private void OnDisable()
+        {
+            _inputProvider.OnInteractStarted -= CheckInteraction;
+        }
     }
 }

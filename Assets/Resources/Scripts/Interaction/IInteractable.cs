@@ -1,4 +1,7 @@
-public interface IInteractable
+namespace scrbyy.FpsTemplate.Interaction 
 {
-    void Interact();
+    public interface IInteractable
+    {
+        void Interact();
+    }
 }
