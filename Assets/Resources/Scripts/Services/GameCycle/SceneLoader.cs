@@ -1,13 +1,16 @@
 using UnityEngine.SceneManagement;
 
-public class SceneLoader
+namespace scrbyy.FpsTemplate.Services.GameCycle
 {
-    public void RestartCurrent()
+    public class SceneLoader
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    public void Load(string sceneName)
-    {
-        SceneManager.LoadScene(sceneName);
+        public void RestartCurrent()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        public void Load(string sceneName)
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

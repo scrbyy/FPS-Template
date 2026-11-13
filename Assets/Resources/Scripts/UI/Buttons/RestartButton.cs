@@ -2,24 +2,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-[RequireComponent(typeof(Button))]
-public class RestartButton : MonoBehaviour
+using scrbyy.FpsTemplate.Services.GameCycle;
+
+namespace scrbyy.FpsTemplate.UI.Buttons
 {
-    [SerializeField] private Button _restartButton;
-    [Inject] private SceneLoader _sceneLoader;
-
-    private void RestartScene()
+    [RequireComponent(typeof(Button))]
+    public class RestartButton : MonoBehaviour
     {
-        _sceneLoader.RestartCurrent();
-    }
+        [SerializeField] private Button _restartButton;
+        [Inject] private SceneLoader _sceneLoader;
 
-    private void OnEnable()
-    {
-        _restartButton.onClick.AddListener(RestartScene);
-    }
+        private void RestartScene()
+        {
+            _sceneLoader.RestartCurrent();
+        }
 
-    private void OnDisable()
-    {
-        _restartButton.onClick.RemoveListener(RestartScene);
+        private void OnEnable()
+        {
+            _restartButton.onClick.AddListener(RestartScene);
+        }
+
+        private void OnDisable()
+        {
+            _restartButton.onClick.RemoveListener(RestartScene);
+        }
     }
 }
