@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-using scrbyy.FpsTemplate.Player.Movement;
+using scrbyy.FpsTemplate.Characters.Player.Movement;
 
 namespace scrbyy.FpsTemplate.UI.HUD.DebugMenu
 {

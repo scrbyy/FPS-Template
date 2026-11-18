@@ -4,7 +4,7 @@ using System.Collections;
 
 using scrbyy.FpsTemplate.Input;
 
-namespace scrbyy.FpsTemplate.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterClimb : MonoBehaviour

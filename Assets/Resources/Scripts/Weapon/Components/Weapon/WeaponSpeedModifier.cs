@@ -1,4 +1,6 @@
-﻿public class WeaponSpeedModifier : ISpeedModifier
+﻿using scrbyy.FpsTemplate.Characters.Player.Movement;
+
+public class WeaponSpeedModifier : ISpeedModifier
 {
     public float SpeedMultiplier { get; }
     public WeaponSpeedModifier(float multiplier) => SpeedMultiplier = multiplier;

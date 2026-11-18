@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-using scrbyy.FpsTemplate.Player.Movement;
+using scrbyy.FpsTemplate.Characters.Player.Movement;
 
 public abstract class Weapon : MonoBehaviour
 {

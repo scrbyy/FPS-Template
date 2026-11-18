@@ -3,7 +3,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.Input;
 
-namespace scrbyy.FpsTemplate.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {
     public class CharacterDash : MonoBehaviour
     {

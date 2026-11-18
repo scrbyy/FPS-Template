@@ -4,7 +4,7 @@ using Zenject;
 using scrbyy.FpsTemplate.Input;
 using scrbyy.FpsTemplate.Services;
 
-namespace scrbyy.FpsTemplate.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {
     public class CharacterJump : MonoBehaviour
     {

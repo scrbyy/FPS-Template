@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace scrbyy.FpsTemplate.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterEngine : MonoBehaviour

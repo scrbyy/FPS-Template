@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Player.Movement;
+using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Input;
 
 public class MovementApproachingEffect : PositionEffect
