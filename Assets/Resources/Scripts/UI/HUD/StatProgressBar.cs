@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using scrbyy.FpsTemplate.Characters.Stats;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class StatProgressBar : MonoBehaviour

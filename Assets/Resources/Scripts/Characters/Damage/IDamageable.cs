@@ -1,4 +1,7 @@
-﻿public interface IDamageable
+﻿namespace scrbyy.FpsTemplate.Characters.Damage
 {
-    public void TakeDamage(float damage);
+    public interface IDamageable
+    {
+        public void TakeDamage(float damage);
+    }
 }

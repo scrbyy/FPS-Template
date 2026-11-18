@@ -1,7 +1,12 @@
-﻿public class CharacterHealth : CharacterStat, IDamageable
+﻿using scrbyy.FpsTemplate.Characters.Damage;
+
+namespace scrbyy.FpsTemplate.Characters.Stats
 {
-    public virtual void TakeDamage(float damage)
+    public class CharacterHealth : CharacterStat, IDamageable
     {
-        Decrease(damage);
+        public virtual void TakeDamage(float damage)
+        {
+            Decrease(damage);
+        }
     }
 }

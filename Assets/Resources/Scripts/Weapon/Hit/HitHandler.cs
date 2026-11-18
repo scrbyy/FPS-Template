@@ -1,4 +1,6 @@
-﻿public class HitHandler
+﻿using scrbyy.FpsTemplate.Characters.Damage;
+
+public class HitHandler
 {
     public void HandleHit(HitData hitData, float damage)
     {

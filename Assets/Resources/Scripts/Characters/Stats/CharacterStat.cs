@@ -1,60 +1,63 @@
 using UnityEngine;
 
-public abstract class CharacterStat : MonoBehaviour
+namespace scrbyy.FpsTemplate.Characters.Stats
 {
-    public event System.Action<float> OnValueChanged;
-    public event System.Action OnValueExhausted;
-
-    public float MaxValue => _maxValue;
-    public float CurrentValue => _currentValue;
-
-    [Header("Main")]
-    [SerializeField] protected float _currentValue;
-    [SerializeField] protected float _maxValue;
-
-    public virtual void Increase(float increasingValue)
+    public abstract class CharacterStat : MonoBehaviour
     {
-        if (increasingValue > 0)
-        {
-            if (_currentValue + increasingValue > _maxValue)
-            {
-                _currentValue = _maxValue;
-            }
-            else
-            {
-                _currentValue += increasingValue;
-            }
-            OnValueChanged?.Invoke(_currentValue);
-        }
-        else Debug.Log("Increasing value is negative!");
-    }
+        public event System.Action<float> OnValueChanged;
+        public event System.Action OnValueExhausted;
 
-    public virtual void Decrease(float decreasingValue)
-    {
-        if(decreasingValue > 0)
+        public float MaxValue => _maxValue;
+        public float CurrentValue => _currentValue;
+
+        [Header("Main")]
+        [SerializeField] protected float _currentValue;
+        [SerializeField] protected float _maxValue;
+
+        public virtual void Increase(float increasingValue)
         {
-            if(_currentValue > decreasingValue)
+            if (increasingValue > 0)
             {
-                _currentValue -= decreasingValue;
+                if (_currentValue + increasingValue > _maxValue)
+                {
+                    _currentValue = _maxValue;
+                }
+                else
+                {
+                    _currentValue += increasingValue;
+                }
                 OnValueChanged?.Invoke(_currentValue);
             }
-            else
-            {
-                _currentValue = 0;
-                OnValueChanged?.Invoke(_currentValue);
-                HandleEmptyValue();
-            }
+            else Debug.Log("Increasing value is negative!");
         }
-        else Debug.Log("Decreasing value is negative!");
-    }
 
-    protected void NotifyValueChanged(float value)
-    {
-        OnValueChanged?.Invoke(value);
-    }
+        public virtual void Decrease(float decreasingValue)
+        {
+            if (decreasingValue > 0)
+            {
+                if (_currentValue > decreasingValue)
+                {
+                    _currentValue -= decreasingValue;
+                    OnValueChanged?.Invoke(_currentValue);
+                }
+                else
+                {
+                    _currentValue = 0;
+                    OnValueChanged?.Invoke(_currentValue);
+                    HandleEmptyValue();
+                }
+            }
+            else Debug.Log("Decreasing value is negative!");
+        }
 
-    protected virtual void HandleEmptyValue()
-    {
-        OnValueExhausted?.Invoke();
+        protected void NotifyValueChanged(float value)
+        {
+            OnValueChanged?.Invoke(value);
+        }
+
+        protected virtual void HandleEmptyValue()
+        {
+            OnValueExhausted?.Invoke();
+        }
     }
 }

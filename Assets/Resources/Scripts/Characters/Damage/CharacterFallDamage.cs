@@ -2,45 +2,49 @@ using UnityEngine;
 using Zenject;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
+using scrbyy.FpsTemplate.Characters.Stats;
 
-public class CharacterFallDamage : MonoBehaviour
+namespace scrbyy.FpsTemplate.Characters.Damage
 {
-    [Header("Clamping")]
-    [SerializeField, Range(-20, 0)] private float _minDamageableSpeed;
-
-    [Header("Formula")]
-    [SerializeField] private AnimationCurve _damageCurve;
-
-    [Header("References")]
-    [SerializeField] private CharacterEngine _characterEngine;
-    [SerializeField] private CharacterHealth _attachedHealth;
-
-    [Inject] private IGroundChecker _groundChecker;
-
-    private float _maxFallSpeed;
-
-    private void Update()
+    public class CharacterFallDamage : MonoBehaviour
     {
-        if(_groundChecker.IsGrounded == false && _characterEngine.Velocity.y < 0 && _maxFallSpeed > _characterEngine.Velocity.y)
+        [Header("Clamping")]
+        [SerializeField, Range(-20, 0)] private float _minDamageableSpeed;
+
+        [Header("Formula")]
+        [SerializeField] private AnimationCurve _damageCurve;
+
+        [Header("References")]
+        [SerializeField] private CharacterEngine _characterEngine;
+        [SerializeField] private CharacterHealth _attachedHealth;
+
+        [Inject] private IGroundChecker _groundChecker;
+
+        private float _maxFallSpeed;
+
+        private void Update()
         {
-            _maxFallSpeed = _characterEngine.Velocity.y;
+            if (_groundChecker.IsGrounded == false && _characterEngine.Velocity.y < 0 && _maxFallSpeed > _characterEngine.Velocity.y)
+            {
+                _maxFallSpeed = _characterEngine.Velocity.y;
+            }
         }
-    }
 
-    private void DoFallDamage()
-    {
-        if (_maxFallSpeed > _minDamageableSpeed) return;
-        int damage = Mathf.RoundToInt(_damageCurve.Evaluate(-_maxFallSpeed));
-        _attachedHealth.TakeDamage(damage);
-        _maxFallSpeed = 0f;
-    }
-    private void OnEnable()
-    {
-        _groundChecker.OnGrounded += DoFallDamage;
-    }
+        private void DoFallDamage()
+        {
+            if (_maxFallSpeed > _minDamageableSpeed) return;
+            int damage = Mathf.RoundToInt(_damageCurve.Evaluate(-_maxFallSpeed));
+            _attachedHealth.TakeDamage(damage);
+            _maxFallSpeed = 0f;
+        }
+        private void OnEnable()
+        {
+            _groundChecker.OnGrounded += DoFallDamage;
+        }
 
-    private void OnDisable()
-    {
-        _groundChecker.OnGrounded -= DoFallDamage;
+        private void OnDisable()
+        {
+            _groundChecker.OnGrounded -= DoFallDamage;
+        }
     }
 }

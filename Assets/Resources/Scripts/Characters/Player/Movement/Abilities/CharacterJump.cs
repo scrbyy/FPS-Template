@@ -3,6 +3,7 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Input;
 using scrbyy.FpsTemplate.Services;
+using scrbyy.FpsTemplate.Characters.Stats;
 
 namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {

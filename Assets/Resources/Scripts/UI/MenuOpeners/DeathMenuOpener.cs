@@ -1,3 +1,4 @@
+using scrbyy.FpsTemplate.Characters.Stats;
 using UnityEngine;
 
 public class DeathMenuOpener : MenuOpener
