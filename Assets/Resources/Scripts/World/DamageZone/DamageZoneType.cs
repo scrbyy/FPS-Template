@@ -1,5 +1,8 @@
-﻿public enum DamageZoneType
+﻿namespace scrbyy.FpsTemplate.World.DamageZone
 {
-    InstantDamage, 
-    RepeatableDamage
+    public enum DamageZoneType
+    {
+        Instant,
+        Repeatable
+    }
 }
