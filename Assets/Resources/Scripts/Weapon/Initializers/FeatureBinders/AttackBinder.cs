@@ -1,4 +1,6 @@
-﻿public class AttackBinder : IFeatureBinder
+﻿using scrbyy.FpsTemplate.Input;
+
+public class AttackBinder : IFeatureBinder
 {
     private readonly IWeaponInputProvider _inputProvider;
     public AttackBinder(IWeaponInputProvider inputProvider) => _inputProvider = inputProvider;

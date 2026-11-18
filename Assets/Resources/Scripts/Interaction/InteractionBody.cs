@@ -1,6 +1,8 @@
 using Zenject;
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Input;
+
 namespace scrbyy.FpsTemplate.Interaction
 {
     public class InteractionBody : MonoBehaviour

@@ -1,27 +1,30 @@
 ﻿using UnityEngine;
-public class Buffer
+
+namespace scrbyy.FpsTemplate.Services
 {
-
-    private float _duration;
-    private float _lastInputTime = float.NegativeInfinity;
-
-    public Buffer(float duration)
+    public class Buffer
     {
-        _duration = duration;
-    }
+        private float _duration;
+        private float _lastInputTime = float.NegativeInfinity;
 
-    public void Set()
-    {
-        _lastInputTime = Time.time;
-    }
+        public Buffer(float duration)
+        {
+            _duration = duration;
+        }
 
-    public bool Has()
-    {
-        return Time.time < _lastInputTime + _duration;
-    }
+        public void Set()
+        {
+            _lastInputTime = Time.time;
+        }
 
-    public void Reset()
-    {
-        _lastInputTime = float.NegativeInfinity;
+        public bool Has()
+        {
+            return Time.time < _lastInputTime + _duration;
+        }
+
+        public void Reset()
+        {
+            _lastInputTime = float.NegativeInfinity;
+        }
     }
 }

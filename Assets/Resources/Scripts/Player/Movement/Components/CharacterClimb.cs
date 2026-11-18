@@ -2,6 +2,8 @@ using Zenject;
 using UnityEngine;
 using System.Collections;
 
+using scrbyy.FpsTemplate.Input;
+
 namespace scrbyy.FpsTemplate.Player.Movement
 {
     [RequireComponent(typeof(CharacterController))]

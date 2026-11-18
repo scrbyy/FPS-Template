@@ -1,4 +1,6 @@
-﻿public class ReloadingBinder : IFeatureBinder
+﻿using scrbyy.FpsTemplate.Input;
+
+public class ReloadingBinder : IFeatureBinder
 {
     private readonly IWeaponInputProvider _input;
     public ReloadingBinder(IWeaponInputProvider input) => _input = input;

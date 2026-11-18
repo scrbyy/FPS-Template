@@ -1,6 +1,8 @@
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Input;
+
 public class WeaponSway : RotationEffect
 {
     [Header("Force Settings")]

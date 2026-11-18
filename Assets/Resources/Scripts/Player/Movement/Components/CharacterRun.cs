@@ -3,6 +3,8 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Input;
+
 namespace scrbyy.FpsTemplate.Player.Movement
 {
     public class CharacterRun : MonoBehaviour

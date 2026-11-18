@@ -32235,7 +32235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateInterval: 0.25
-  _characterSpeedHandler: {fileID: 755122332}
+  _characterSpeed: {fileID: 755122332}
 --- !u!43 &1402416973
 Mesh:
   m_ObjectHideFlags: 0

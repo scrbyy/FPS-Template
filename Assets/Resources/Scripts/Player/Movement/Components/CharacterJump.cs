@@ -1,6 +1,9 @@
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.Services;
+
 namespace scrbyy.FpsTemplate.Player.Movement
 {
     public class CharacterJump : MonoBehaviour

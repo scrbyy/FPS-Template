@@ -1,6 +1,8 @@
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Input;
+
 [RequireComponent(typeof(Camera))]
 public class CameraLook : RotationEffect
 {

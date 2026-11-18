@@ -3,6 +3,8 @@ using Zenject;
 using UnityEngine;
 using System.Collections.Generic;
 
+using scrbyy.FpsTemplate.Input;
+
 public class WeaponInventory : MonoBehaviour
 {
     public event Action<Weapon> OnWeaponUnselected;
