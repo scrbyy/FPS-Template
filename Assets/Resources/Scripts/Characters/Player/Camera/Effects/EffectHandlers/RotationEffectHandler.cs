@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Camera.Effects
+namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 {
     public class RotationEffectHandler : MonoBehaviour
     {

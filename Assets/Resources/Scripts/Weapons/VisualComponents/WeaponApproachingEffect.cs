@@ -3,7 +3,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.InputSystem;
 using scrbyy.FpsTemplate.Characters.Player.Movement;
-using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
+using scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects;
 
 namespace scrbyy.FpsTemplate.Weapons.VisualComponents
 {

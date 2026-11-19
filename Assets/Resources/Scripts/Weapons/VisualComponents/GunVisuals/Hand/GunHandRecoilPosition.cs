@@ -1,6 +1,6 @@
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
+using scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects;
 
 namespace scrbyy.FpsTemplate.Weapons.VisualComponents.GunVisuals.Hand
 {

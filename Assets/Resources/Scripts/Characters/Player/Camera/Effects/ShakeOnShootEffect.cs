@@ -3,7 +3,7 @@ using DG.Tweening;
 
 using scrbyy.FpsTemplate.Weapons;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Camera.Effects
+namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 {
     public class ShakeOnShootEffect : MonoBehaviour
     {

@@ -5,7 +5,7 @@ using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.InputSystem;
 using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Camera.Effects
+namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 {
     public class TiltEffect : MonoBehaviour
     {

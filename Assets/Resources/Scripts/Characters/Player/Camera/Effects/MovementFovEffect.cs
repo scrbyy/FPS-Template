@@ -2,9 +2,9 @@
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Camera.Effects
+namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 {
-    [RequireComponent(typeof(UnityEngine.Camera))]
+    [RequireComponent(typeof(Camera))]
     public class MovementFovEffect : MonoBehaviour
     {
         [Header("Limits")]
@@ -21,12 +21,12 @@ namespace scrbyy.FpsTemplate.Characters.Player.Camera.Effects
         [Header("References")]
         [SerializeField] private CharacterEngine _characterEngine;
 
-        private UnityEngine.Camera _camera;
+        private Camera _camera;
         private float _defaultFov;
 
         private void Awake()
         {
-            _camera = GetComponent<UnityEngine.Camera>();
+            _camera = GetComponent<Camera>();
             _defaultFov = _camera.fieldOfView;
         }
 
