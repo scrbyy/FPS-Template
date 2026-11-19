@@ -1,27 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public abstract class WeaponInitializer<T> : IWeaponInitializer where T : Weapon
+namespace scrbyy.FpsTemplate.Weapons.Initializers
 {
-    protected readonly List<IFeatureBinder> _features;
-
-    protected WeaponInitializer(List<IFeatureBinder> features)
+    public abstract class WeaponInitializer<T> : IWeaponInitializer where T : Weapon
     {
-        _features = features;
-    }
+        protected readonly List<IFeatureBinder> _features;
 
-    public Type TargetWeaponType => typeof(T);
+        protected WeaponInitializer(List<IFeatureBinder> features)
+        {
+            _features = features;
+        }
 
-    void IWeaponInitializer.Select(Weapon weapon) => Select(weapon as T);
-    void IWeaponInitializer.Unselect(Weapon weapon) => Unsubscribe(weapon as T);
+        public Type TargetWeaponType => typeof(T);
 
-    public virtual void Select(T weapon)
-    {
-        foreach (var feature in _features) feature.Subscribe(weapon);
-    }
+        void IWeaponInitializer.Select(Weapon weapon) => Select(weapon as T);
 
-    public virtual void Unsubscribe(T weapon)
-    {
-        foreach (var feature in _features) feature.Unsubscribe(weapon);
+        void IWeaponInitializer.Unselect(Weapon weapon) => Unsubscribe(weapon as T);
+
+        public virtual void Select(T weapon)
+        {
+            foreach (var feature in _features) feature.Subscribe(weapon);
+        }
+
+        public virtual void Unsubscribe(T weapon)
+        {
+            foreach (var feature in _features) feature.Unsubscribe(weapon);
+        }
     }
 }

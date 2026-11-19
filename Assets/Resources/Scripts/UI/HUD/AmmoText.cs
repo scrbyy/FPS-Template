@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using scrbyy.FpsTemplate.Weapons;
+using TMPro;
 using UnityEngine;
 
 namespace scrbyy.FpsTemplate.UI.HUD

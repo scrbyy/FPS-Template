@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Weapons;
+
 public class GunRecoilPosition : PositionEffect
 {
     [Header("Recoil Settings per Shot")]

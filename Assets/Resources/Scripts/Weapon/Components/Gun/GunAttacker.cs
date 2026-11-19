@@ -1,34 +1,39 @@
 ﻿using System;
 using UnityEngine;
 
-public class GunAttacker : WeaponAttacker
+using scrbyy.FpsTemplate.Weapons.AttackMethods;
+
+namespace scrbyy.FpsTemplate.Weapons
 {
-    private readonly Func<bool> _canShootPredicate;
-    private readonly IDistanceAttackData _distanceAttackData;
-
-    public GunAttacker(
-        Transform origin,
-        Func<bool> canShootPredicate,
-        IDistanceAttackData distanceAttackData,
-        WeaponData weaponData,
-        AttackMethodFactory attackFactory)
-        : base(weaponData.GetAttackConfig(), origin, weaponData, attackFactory)
+    public class GunAttacker : WeaponAttacker
     {
-        _distanceAttackData = distanceAttackData;
-        _canShootPredicate = canShootPredicate;
-    }
+        private readonly Func<bool> _canShootPredicate;
+        private readonly IDistanceAttackData _distanceAttackData;
 
-    protected override bool CanAttack()
-    {
-        return base.CanAttack() && (_canShootPredicate == null || _canShootPredicate());
-    }
+        public GunAttacker(
+            Transform origin,
+            Func<bool> canShootPredicate,
+            IDistanceAttackData distanceAttackData,
+            WeaponData weaponData,
+            AttackMethodFactory attackFactory)
+            : base(weaponData.GetAttackConfig(), origin, weaponData, attackFactory)
+        {
+            _distanceAttackData = distanceAttackData;
+            _canShootPredicate = canShootPredicate;
+        }
 
-    protected override float CalculateDamage(HitData hitData)
-    {
-        if (_distanceAttackData == null || _distanceAttackData.DamageDecreasingStep <= 0)
-            return _attackData.Damage;
+        protected override bool CanAttack()
+        {
+            return base.CanAttack() && (_canShootPredicate == null || _canShootPredicate());
+        }
 
-        float damageExponent = hitData.Distance / _distanceAttackData.DamageDecreasingStep;
-        return _attackData.Damage * Mathf.Pow(_distanceAttackData.DistanceDamageMultiplier, damageExponent);
+        protected override float CalculateDamage(HitData hitData)
+        {
+            if (_distanceAttackData == null || _distanceAttackData.DamageDecreasingStep <= 0)
+                return _attackData.Damage;
+
+            float damageExponent = hitData.Distance / _distanceAttackData.DamageDecreasingStep;
+            return _attackData.Damage * Mathf.Pow(_distanceAttackData.DistanceDamageMultiplier, damageExponent);
+        }
     }
 }

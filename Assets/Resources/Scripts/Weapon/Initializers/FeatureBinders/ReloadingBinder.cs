@@ -1,17 +1,20 @@
 ﻿using scrbyy.FpsTemplate.Input;
 
-public class ReloadingBinder : IFeatureBinder
+namespace scrbyy.FpsTemplate.Weapons.Initializers
 {
-    private readonly IWeaponInputProvider _input;
-    public ReloadingBinder(IWeaponInputProvider input) => _input = input;
-
-    public void Subscribe(Weapon weapon)
+    public class ReloadingBinder : IFeatureBinder
     {
-        if (weapon is Gun gun) _input.OnReloadStarted += gun.Reload;
-    }
+        private readonly IWeaponInputProvider _input;
+        public ReloadingBinder(IWeaponInputProvider input) => _input = input;
 
-    public void Unsubscribe(Weapon weapon)
-    {
-        if (weapon is Gun gun) _input.OnReloadStarted -= gun.Reload;
+        public void Subscribe(Weapon weapon)
+        {
+            if (weapon is Gun gun) _input.OnReloadStarted += gun.Reload;
+        }
+
+        public void Unsubscribe(Weapon weapon)
+        {
+            if (weapon is Gun gun) _input.OnReloadStarted -= gun.Reload;
+        }
     }
 }

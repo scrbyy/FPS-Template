@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 
-public class GunInitializer : WeaponInitializer<Gun>
+namespace scrbyy.FpsTemplate.Weapons.Initializers
 {
-    public GunInitializer(AttackBinder attackBinder, ReloadingBinder reloadingBinder)
-        : base(new List<IFeatureBinder> { attackBinder, reloadingBinder})
-    { }
+    public class GunInitializer : WeaponInitializer<Gun>
+    {
+        public GunInitializer(AttackBinder attackBinder, ReloadingBinder reloadingBinder)
+            : base(new List<IFeatureBinder> { attackBinder, reloadingBinder })
+        { }
+    }
 }

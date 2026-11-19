@@ -1,6 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
+
+using scrbyy.FpsTemplate.Weapons;
 
 public class GunDecalHandler : MonoBehaviour
 {

@@ -1,24 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class WeaponInitializersRegistry
+namespace scrbyy.FpsTemplate.Weapons.Initializers
 {
-    private readonly Dictionary<Type, IWeaponInitializer> _initializersMap = new();
-
-    public WeaponInitializersRegistry(List<IWeaponInitializer> initializers)
+    public class WeaponInitializersRegistry
     {
-        foreach (var initializer in initializers)
+        private readonly Dictionary<Type, IWeaponInitializer> _initializersMap = new();
+
+        public WeaponInitializersRegistry(List<IWeaponInitializer> initializers)
         {
-            Type weaponType = initializer.TargetWeaponType;
-            _initializersMap[weaponType] = initializer;
+            foreach (var initializer in initializers)
+            {
+                Type weaponType = initializer.TargetWeaponType;
+                _initializersMap[weaponType] = initializer;
+            }
         }
-    }
 
-    public bool TryGetInitializer(Weapon weapon, out IWeaponInitializer initializer)
-    {
-        initializer = null;
-        if (weapon == null) return false;
+        public bool TryGetInitializer(Weapon weapon, out IWeaponInitializer initializer)
+        {
+            initializer = null;
+            if (weapon == null) return false;
 
-        return _initializersMap.TryGetValue(weapon.GetType(), out initializer);
+            return _initializersMap.TryGetValue(weapon.GetType(), out initializer);
+        }
     }
 }

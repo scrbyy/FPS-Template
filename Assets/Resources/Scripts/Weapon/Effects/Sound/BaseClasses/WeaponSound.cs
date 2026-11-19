@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
+using scrbyy.FpsTemplate.Weapons;
+
 [RequireComponent(typeof(AudioSource))]
 public abstract class WeaponSound : MonoBehaviour
 {

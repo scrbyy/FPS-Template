@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
+using scrbyy.FpsTemplate.Weapons.AttackMethods;
+
 public class WeaponData : ScriptableObject, ISpeedModifier, IAttackData
 {
     public float Damage => _damage;

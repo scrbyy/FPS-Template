@@ -2,87 +2,93 @@
 using UnityEngine;
 using Zenject;
 
-public class Gun : Weapon, IAmmoHolder
+using scrbyy.FpsTemplate.Weapons.AttackMethods;
+
+namespace scrbyy.FpsTemplate.Weapons
 {
-    public event Action OnReloadStart;
-    public event Action<int, int> OnAmmoChanged;
 
-    public int CurrentAmmo => _reloader.CurrentAmmo;
-    public int ReserveAmmo => _reloader.ReserveAmmo;
-
-    private GunReloader _reloader;
-
-    [Inject] private AttackMethodFactory _attackMethodFactory;
-
-    public override void Initialize()
+    public class Gun : Weapon, IAmmoHolder
     {
-        base.Initialize();
+        public event Action OnReloadStart;
+        public event Action<int, int> OnAmmoChanged;
 
-        if (!(_data is GunData gunData))
+        public int CurrentAmmo => _reloader.CurrentAmmo;
+        public int ReserveAmmo => _reloader.ReserveAmmo;
+
+        private GunReloader _reloader;
+
+        [Inject] private AttackMethodFactory _attackMethodFactory;
+
+        public override void Initialize()
         {
-            Debug.LogError("Wrong data asset!");
-            return;
+            base.Initialize();
+
+            if (!(_data is GunData gunData))
+            {
+                Debug.LogError("Wrong data asset!");
+                return;
+            }
+
+            if (_weaponAttacker == null && _reloader == null)
+            {
+                _reloader = new GunReloader(gunData);
+                _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, gunData, gunData, _attackMethodFactory);
+            }
+
+            _reloader.Initialize();
+            _weaponAttacker.Initialize();
+
+            _reloader.OnReloadEnd += NotifyUpdateAmmo;
+            _weaponAttacker.OnAttack += NotifyShoot;
+            _weaponAttacker.OnHit += HandleAttackerHit;
+            _reloader.OnReloadStart += NotifyReloadStart;
+
+            NotifyUpdateAmmo();
         }
 
-        if (_weaponAttacker == null && _reloader == null)
+        public override void Deinitialize()
         {
-            _reloader = new GunReloader(gunData);
-            _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, gunData, gunData, _attackMethodFactory);
+            base.Deinitialize();
+
+            if (_reloader != null)
+            {
+                _reloader.Deinitialize();
+                _reloader.OnReloadEnd -= NotifyUpdateAmmo;
+                _reloader.OnReloadStart -= NotifyReloadStart;
+            }
+
+            if (_weaponAttacker != null)
+            {
+                _weaponAttacker.Deinitialize();
+                _weaponAttacker.OnAttack -= NotifyShoot;
+                _weaponAttacker.OnHit -= HandleAttackerHit;
+            }
         }
 
-        _reloader.Initialize();
-        _weaponAttacker.Initialize();
-
-        _reloader.OnReloadEnd += NotifyUpdateAmmo;
-        _weaponAttacker.OnAttack += NotifyShoot;
-        _weaponAttacker.OnHit += HandleAttackerHit;
-        _reloader.OnReloadStart += NotifyReloadStart;
-
-        NotifyUpdateAmmo();
-    }
-
-    public override void Deinitialize()
-    {
-        base.Deinitialize();
-
-        if (_reloader != null)
+        public void Reload()
         {
-            _reloader.Deinitialize();
-            _reloader.OnReloadEnd -= NotifyUpdateAmmo;
-            _reloader.OnReloadStart -= NotifyReloadStart;
+            if (!_isOpened) return;
+            if (!_weaponAttacker.IsAutoAttacking)
+            {
+                _reloader.Reload();
+            }
         }
 
-        if (_weaponAttacker != null)
+        private void NotifyShoot()
         {
-            _weaponAttacker.Deinitialize();
-            _weaponAttacker.OnAttack -= NotifyShoot;
-            _weaponAttacker.OnHit -= HandleAttackerHit;
+            NotifyAttack();
+            _reloader.UseBullet();
+            NotifyUpdateAmmo();
         }
-    }
 
-    public void Reload()
-    {
-        if (!_isOpened) return;
-        if (!_weaponAttacker.IsAutoAttacking)
+        private void NotifyUpdateAmmo()
         {
-            _reloader.Reload();
+            OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
         }
-    }
 
-    private void NotifyShoot()
-    {
-        NotifyAttack();
-        _reloader.UseBullet();
-        NotifyUpdateAmmo();
-    }
-
-    private void NotifyUpdateAmmo()
-    {
-        OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);
-    }
-
-    private void NotifyReloadStart()
-    {
-        OnReloadStart?.Invoke();
+        private void NotifyReloadStart()
+        {
+            OnReloadStart?.Invoke();
+        }
     }
 }

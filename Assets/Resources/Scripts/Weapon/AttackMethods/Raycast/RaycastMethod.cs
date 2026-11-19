@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Weapon.AttackMethods
+namespace scrbyy.FpsTemplate.Weapons.AttackMethods
 {
     public class RaycastMethod : IAttackMethod
     {

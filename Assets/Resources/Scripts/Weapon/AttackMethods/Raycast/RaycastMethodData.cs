@@ -2,7 +2,7 @@
 using Zenject;
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Weapon.AttackMethods
+namespace scrbyy.FpsTemplate.Weapons.AttackMethods
 {
     [Serializable]
     public class RaycastMethodData : AttackMethodData

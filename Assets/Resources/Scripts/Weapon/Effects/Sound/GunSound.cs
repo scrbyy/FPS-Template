@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using scrbyy.FpsTemplate.Weapons;
+
 public class GunSound : WeaponSound
 {
     [SerializeField] protected Sound _reloadSound;

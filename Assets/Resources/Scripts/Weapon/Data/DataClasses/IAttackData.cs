@@ -1,4 +1,6 @@
-﻿public interface IAttackData
+﻿using scrbyy.FpsTemplate.Weapons.AttackMethods;
+
+public interface IAttackData
 {
     public float Damage { get; }
 

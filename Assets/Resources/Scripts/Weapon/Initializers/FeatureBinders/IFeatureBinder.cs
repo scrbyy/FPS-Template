@@ -1,5 +1,8 @@
-﻿public interface IFeatureBinder
+﻿namespace scrbyy.FpsTemplate.Weapons.Initializers
 {
-    void Subscribe(Weapon weapon);
-    void Unsubscribe(Weapon weapon);
+    public interface IFeatureBinder
+    {
+        void Subscribe(Weapon weapon);
+        void Unsubscribe(Weapon weapon);
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace scrbyy.FpsTemplate.Weapon.AttackMethods
+namespace scrbyy.FpsTemplate.Weapons.AttackMethods
 {
     public abstract class AttackMethodData
     {

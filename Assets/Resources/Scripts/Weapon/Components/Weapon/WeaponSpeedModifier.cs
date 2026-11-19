@@ -1,7 +1,11 @@
 ﻿using scrbyy.FpsTemplate.Characters.Player.Movement;
 
-public class WeaponSpeedModifier : ISpeedModifier
+
+namespace scrbyy.FpsTemplate.Weapons
 {
-    public float SpeedMultiplier { get; }
-    public WeaponSpeedModifier(float multiplier) => SpeedMultiplier = multiplier;
+    public class WeaponSpeedModifier : ISpeedModifier
+    {
+        public float SpeedMultiplier { get; }
+        public WeaponSpeedModifier(float multiplier) => SpeedMultiplier = multiplier;
+    }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 
-public interface IAmmoHolder
+namespace scrbyy.FpsTemplate.Weapons
 {
-    public event Action<int, int> OnAmmoChanged;
-    int CurrentAmmo { get; }
-    int ReserveAmmo { get; }
+    public interface IAmmoHolder
+    {
+        public event Action<int, int> OnAmmoChanged;
+        int CurrentAmmo { get; }
+        int ReserveAmmo { get; }
+    }
 }

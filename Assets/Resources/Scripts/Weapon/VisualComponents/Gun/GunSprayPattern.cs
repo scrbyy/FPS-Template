@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Weapons;
+
 public class GunSprayPattern : RotationEffect
 {
     [SerializeField] private Vector2[] _recoilPattern;

@@ -1,8 +1,11 @@
 ﻿using System;
 
-public interface IWeaponInitializer
+namespace scrbyy.FpsTemplate.Weapons.Initializers 
 {
-    Type TargetWeaponType { get; }
-    void Select(Weapon weapon);
-    void Unselect(Weapon weapon);
+    public interface IWeaponInitializer
+    {
+        Type TargetWeaponType { get; }
+        void Select(Weapon weapon);
+        void Unselect(Weapon weapon);
+    }
 }

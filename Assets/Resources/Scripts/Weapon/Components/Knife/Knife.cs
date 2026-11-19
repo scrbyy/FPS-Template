@@ -1,23 +1,29 @@
-using Cysharp.Threading.Tasks;
 using Zenject;
+using Cysharp.Threading.Tasks;
 
-public class Knife : Weapon
+using scrbyy.FpsTemplate.Weapons.AttackMethods;
+
+namespace scrbyy.FpsTemplate.Weapons
 {
-    [Inject] private AttackMethodFactory _attackMethodFactory;
 
-    public override void Initialize()
+    public class Knife : Weapon
     {
-        base.Initialize();
-        _weaponAttacker = new KnifeAttacker(_data.GetAttackConfig(), _origin, _data, _attackMethodFactory);
-        OpenDelay(_data.OpenDelay).Forget();
-        _weaponAttacker.Initialize();
-        SubscribeAttackerEvents();
-    }
+        [Inject] private AttackMethodFactory _attackMethodFactory;
 
-    public override void Deinitialize()
-    {
-        UnsubscribeAttackerEvents();
-        base.Deinitialize();
-        _weaponAttacker.Deinitialize();
+        public override void Initialize()
+        {
+            base.Initialize();
+            _weaponAttacker = new KnifeAttacker(_data.GetAttackConfig(), _origin, _data, _attackMethodFactory);
+            OpenDelay(_data.OpenDelay).Forget();
+            _weaponAttacker.Initialize();
+            SubscribeAttackerEvents();
+        }
+
+        public override void Deinitialize()
+        {
+            UnsubscribeAttackerEvents();
+            base.Deinitialize();
+            _weaponAttacker.Deinitialize();
+        }
     }
 }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
 
+using scrbyy.FpsTemplate.Weapons;
+
 public class ShakeOnShootEffect : MonoBehaviour
 {
     [Header("Shake Settings")]

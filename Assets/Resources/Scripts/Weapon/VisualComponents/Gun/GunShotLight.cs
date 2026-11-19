@@ -1,6 +1,8 @@
 using UnityEngine;
-using Cysharp.Threading.Tasks;
 using System.Threading;
+using Cysharp.Threading.Tasks;
+
+using scrbyy.FpsTemplate.Weapons;
 
 public class GunShotLight : MonoBehaviour
 {

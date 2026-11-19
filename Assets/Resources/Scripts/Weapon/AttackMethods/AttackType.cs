@@ -1,4 +1,4 @@
-﻿namespace scrbyy.FpsTemplate.Weapon.AttackMethods
+﻿namespace scrbyy.FpsTemplate.Weapons.AttackMethods
 {
     public enum AttackType
     {

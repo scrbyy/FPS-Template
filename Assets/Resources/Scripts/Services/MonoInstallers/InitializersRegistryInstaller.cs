@@ -1,5 +1,7 @@
 ﻿using Zenject;
 
+using scrbyy.FpsTemplate.Weapons.Initializers;
+
 public class InitializersRegistryInstaller : MonoInstaller
 {
     public override void InstallBindings()

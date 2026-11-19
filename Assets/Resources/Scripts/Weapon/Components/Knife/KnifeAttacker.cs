@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 
-public class KnifeAttacker : WeaponAttacker
+using scrbyy.FpsTemplate.Weapons.AttackMethods;
+
+namespace scrbyy.FpsTemplate.Weapons
 {
-    public KnifeAttacker(AttackMethodData attackConfig,
-            Transform origin,
-            IAttackData attackData,
-            AttackMethodFactory attackFactory) : base(attackConfig, origin, attackData, attackFactory)
+    public class KnifeAttacker : WeaponAttacker
     {
+        public KnifeAttacker(AttackMethodData attackConfig,
+                Transform origin,
+                IAttackData attackData,
+                AttackMethodFactory attackFactory) : base(attackConfig, origin, attackData, attackFactory)
+        { }
     }
 }
