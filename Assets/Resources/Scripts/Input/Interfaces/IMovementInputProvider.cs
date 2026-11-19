@@ -7,11 +7,11 @@ namespace scrbyy.FpsTemplate.InputSystem
     {
         public Vector2 MoveInput { get; }
 
-        public abstract event Action OnJumpStarted;
+        public event Action OnJumpStarted;
 
-        public abstract event Action OnSprintStarted;
-        public abstract event Action OnSprintReleased;
+        public event Action OnSprintStarted;
+        public event Action OnSprintReleased;
 
-        public abstract event Action OnDashStarted;
+        public event Action OnDashStarted;
     }
 }
