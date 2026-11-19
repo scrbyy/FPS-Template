@@ -2,6 +2,8 @@
 using UnityEngine;
 using Zenject;
 
+using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
+
 namespace scrbyy.FpsTemplate.UI.HUD.DebugMenu
 {
     [RequireComponent(typeof(TMP_Text))]

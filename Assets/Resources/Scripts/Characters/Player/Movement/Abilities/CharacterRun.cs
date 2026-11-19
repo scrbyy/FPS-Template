@@ -5,8 +5,9 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Input;
 using scrbyy.FpsTemplate.Characters.Stats;
+using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.Abilities
 {
     public class CharacterRun : MonoBehaviour
     {

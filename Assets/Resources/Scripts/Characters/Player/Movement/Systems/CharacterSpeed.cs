@@ -2,6 +2,7 @@
 using UnityEngine;
 
 using scrbyy.FpsTemplate.Characters.Data;
+using scrbyy.FpsTemplate.Characters.Player.Movement.Abilities;
 
 namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {

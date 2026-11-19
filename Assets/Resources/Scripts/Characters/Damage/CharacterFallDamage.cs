@@ -3,6 +3,7 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Characters.Stats;
+using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
 
 namespace scrbyy.FpsTemplate.Characters.Damage
 {

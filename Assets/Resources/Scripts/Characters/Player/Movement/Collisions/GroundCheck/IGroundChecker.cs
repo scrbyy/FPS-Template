@@ -1,8 +1,11 @@
 ﻿using System;
 
-public interface IGroundChecker
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker
 {
-    event Action OnGrounded;
+    public interface IGroundChecker
+    {
+        event Action OnGrounded;
 
-    bool IsGrounded { get; }
+        bool IsGrounded { get; }
+    }
 }

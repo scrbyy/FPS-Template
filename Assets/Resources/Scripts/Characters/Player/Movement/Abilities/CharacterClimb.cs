@@ -3,8 +3,9 @@ using UnityEngine;
 using System.Collections;
 
 using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.Abilities
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterClimb : MonoBehaviour

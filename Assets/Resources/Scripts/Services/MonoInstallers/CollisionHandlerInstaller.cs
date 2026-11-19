@@ -1,5 +1,6 @@
 ﻿using Zenject;
 using UnityEngine;
+using scrbyy.FpsTemplate.Characters.Player.Movement;
 
 namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {

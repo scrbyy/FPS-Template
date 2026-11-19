@@ -3,6 +3,7 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
+using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
 
 [RequireComponent(typeof(PositionEffectHandler))]
 public class FallSpringEffect : PositionEffect
