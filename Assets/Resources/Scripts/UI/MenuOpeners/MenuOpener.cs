@@ -3,23 +3,26 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.GameCycle;
 
-public abstract class MenuOpener : MonoBehaviour
+namespace scrbyy.FpsTemplate.UI.MenuOpeners
 {
-    [SerializeField] protected GameObject _menu;
-    [SerializeField] protected GameObject _hud;
-    [Inject] private GameFSM _gameFSM;
-
-    protected virtual void OpenMenu()
+    public abstract class MenuOpener : MonoBehaviour
     {
-        _menu.SetActive(true);
-        _hud.SetActive(false);
-        _gameFSM.SetState<PauseState>();
-    }
+        [SerializeField] protected GameObject _menu;
+        [SerializeField] protected GameObject _hud;
+        [Inject] private GameFSM _gameFSM;
 
-    protected virtual void CloseMenu()
-    {
-        _menu.SetActive(false);
-        _hud.SetActive(true);
-        _gameFSM.SetState<GameplayState>();
+        protected virtual void OpenMenu()
+        {
+            _menu.SetActive(true);
+            _hud.SetActive(false);
+            _gameFSM.SetState<PauseState>();
+        }
+
+        protected virtual void CloseMenu()
+        {
+            _menu.SetActive(false);
+            _hud.SetActive(true);
+            _gameFSM.SetState<GameplayState>();
+        }
     }
 }

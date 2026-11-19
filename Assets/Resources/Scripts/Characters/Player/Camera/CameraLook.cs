@@ -3,40 +3,43 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Input;
 
-[RequireComponent(typeof(Camera))]
-public class CameraLook : RotationEffect
+namespace scrbyy.FpsTemplate.Characters.Player.Camera
 {
-    [Header("Sensitivity")]
-    [SerializeField] private float _sensitivity;
-
-    [Header("Clamping")]
-    [SerializeField] private float _maxViewAngle;
-    [SerializeField] private float _minViewAngle;
-
-    [Header("References")]
-    [SerializeField] private Transform _headTransform;  
-    [SerializeField] private Transform _playerTransform;
-    [Inject] private ILookInputProvider _inputProvider;
-
-    private float _yRotation; 
-    private float _xRotation;
-
-    public override Quaternion GetLocalRotationOffset()
+    [RequireComponent(typeof(UnityEngine.Camera))]
+    public class CameraLook : RotationEffect
     {
-        return Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
-    }
+        [Header("Sensitivity")]
+        [SerializeField] private float _sensitivity;
 
-    private void Update()
-    {
-        Vector2 lookInput = _inputProvider.LookInput;
+        [Header("Clamping")]
+        [SerializeField] private float _maxViewAngle;
+        [SerializeField] private float _minViewAngle;
 
-        float mouseX = lookInput.x * _sensitivity;
-        float mouseY = lookInput.y * _sensitivity;
+        [Header("References")]
+        [SerializeField] private Transform _headTransform;
+        [SerializeField] private Transform _playerTransform;
+        [Inject] private ILookInputProvider _inputProvider;
 
-        _xRotation += mouseX;
-        _playerTransform.localRotation = Quaternion.Euler(0, _xRotation, 0);
+        private float _yRotation;
+        private float _xRotation;
 
-        _yRotation -= mouseY;
-        _yRotation = Mathf.Clamp(_yRotation, _minViewAngle, _maxViewAngle);
+        public override Quaternion GetLocalRotationOffset()
+        {
+            return Quaternion.Euler(_yRotation, 0, _headTransform.localEulerAngles.z);
+        }
+
+        private void Update()
+        {
+            Vector2 lookInput = _inputProvider.LookInput;
+
+            float mouseX = lookInput.x * _sensitivity;
+            float mouseY = lookInput.y * _sensitivity;
+
+            _xRotation += mouseX;
+            _playerTransform.localRotation = Quaternion.Euler(0, _xRotation, 0);
+
+            _yRotation -= mouseY;
+            _yRotation = Mathf.Clamp(_yRotation, _minViewAngle, _maxViewAngle);
+        }
     }
 }

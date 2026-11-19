@@ -1,17 +1,20 @@
 using scrbyy.FpsTemplate.Characters.Stats;
 using UnityEngine;
 
-public class DeathMenuOpener : MenuOpener
+namespace scrbyy.FpsTemplate.UI.MenuOpeners
 {
-    [SerializeField] private CharacterHealth _playerHealth;
-
-    private void OnEnable()
+    public class DeathMenuOpener : MenuOpener
     {
-        _playerHealth.OnValueExhausted += OpenMenu;
-    }
+        [SerializeField] private CharacterHealth _playerHealth;
 
-    private void OnDisable()
-    {
-        _playerHealth.OnValueExhausted -= OpenMenu;
+        private void OnEnable()
+        {
+            _playerHealth.OnValueExhausted += OpenMenu;
+        }
+
+        private void OnDisable()
+        {
+            _playerHealth.OnValueExhausted -= OpenMenu;
+        }
     }
 }
