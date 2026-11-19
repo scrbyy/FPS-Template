@@ -7,6 +7,7 @@ using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
 namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 {
+    [RequireComponent(typeof(PositionEffectHandler))]
     public class BobbingEffect : PositionEffect
     {
         [Header("Intensity Limitations")]

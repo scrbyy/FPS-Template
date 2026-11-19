@@ -5944,6 +5944,7 @@ GameObject:
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585550}
   m_Layer: 9
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -6105,6 +6106,25 @@ MonoBehaviour:
   _increaseSpeed: 4
   _minSpeedThreshold: 4.5
   _maxSpeedThreshold: 15
+  _characterEngine: {fileID: 755122330}
+--- !u!114 &330585550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c42d3f5d828c73643af7f6912ba797ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sideTiltIntensity: 0.15
+  _tiltSmoothing: 8
+  _minSpeedFactor: 0.1
+  _maxSpeedFactor: 0.25
+  _speedThreshold: 0.1
+  _referenceSpeed: 1
   _characterEngine: {fileID: 755122330}
 --- !u!43 &335527066
 Mesh:
@@ -16630,7 +16650,7 @@ GameObject:
   - component: {fileID: 748745580}
   - component: {fileID: 748745581}
   m_Layer: 9
-  m_Name: GroundCheck
+  m_Name: GroundChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42862,13 +42882,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1915844012}
+  - component: {fileID: 1915844021}
+  - component: {fileID: 1915844016}
+  - component: {fileID: 1915844020}
   - component: {fileID: 1915844018}
   - component: {fileID: 1915844019}
-  - component: {fileID: 1915844016}
+  - component: {fileID: 1915844013}
   - component: {fileID: 1915844015}
   - component: {fileID: 1915844014}
-  - component: {fileID: 1915844013}
-  - component: {fileID: 1915844020}
   m_Layer: 9
   m_Name: Head
   m_TagString: Untagged
@@ -43003,6 +43024,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effects:
   - {fileID: 1915844016}
+  - {fileID: 1915844021}
 --- !u!114 &1915844019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43018,6 +43040,7 @@ MonoBehaviour:
   _effects:
   - {fileID: 330585548}
   - {fileID: 5444888314268869650}
+  - {fileID: 5444888314268869650}
 --- !u!114 &1915844020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43032,6 +43055,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attachedHealth: {fileID: 755122331}
   _damageMultiplier: 1
+--- !u!114 &1915844021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915844011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
+  _minIntensity: 0.1
+  _maxIntensity: 1
+  _verticalIntensity: 0.035
+  _horizontalIntensity: 0.02
+  _intensityMultiplier: 0.25
+  _stepSpeedMultiplier: 4
+  _stepCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _baseStepRate: 5
+  _minSpeedThreshold: 0.1
+  _resetTime: 0.125
+  _characterEngine: {fileID: 755122330}
 --- !u!1 &1931220212
 GameObject:
   m_ObjectHideFlags: 0

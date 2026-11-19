@@ -7,7 +7,7 @@ using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
 namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 {
-    public class TiltEffect : MonoBehaviour
+    public class MovementTiltEffect : MonoBehaviour
     {
         [Header("Tilt Settings")]
         [SerializeField] private float _sideTiltIntensity;
@@ -20,7 +20,6 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
         [SerializeField] private float _speedThreshold;
         [SerializeField] private float _referenceSpeed;
 
-        [SerializeField] private float _baseTiltDivider;
 
         [Header("References")]
         [SerializeField] private CharacterEngine _characterEngine;
@@ -55,7 +54,7 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
 
             float speedFactor = Mathf.Clamp(speed / _referenceSpeed, _minSpeedFactor, _maxSpeedFactor);
 
-            float targetTilt = -localVelocity.x * (_sideTiltIntensity / _baseTiltDivider) * speedFactor;
+            float targetTilt = -localVelocity.x * _sideTiltIntensity * speedFactor;
 
             _targetZRotation = Mathf.Lerp(_targetZRotation, targetTilt, Time.deltaTime * _tiltSmoothing);
 
