@@ -2,6 +2,7 @@
 using UnityEngine;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
+using scrbyy.FpsTemplate.Weapons.Hit;
 
 namespace scrbyy.FpsTemplate.Weapons
 {

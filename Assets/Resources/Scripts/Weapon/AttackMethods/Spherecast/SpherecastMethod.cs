@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
+using scrbyy.FpsTemplate.Weapons.Hit;
+
 namespace scrbyy.FpsTemplate.Weapons.AttackMethods
 {
     public class SpherecastMethod : IAttackMethod

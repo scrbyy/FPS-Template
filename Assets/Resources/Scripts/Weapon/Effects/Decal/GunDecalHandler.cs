@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 using scrbyy.FpsTemplate.Weapons;
+using scrbyy.FpsTemplate.Weapons.Hit;
 
 public class GunDecalHandler : MonoBehaviour
 {

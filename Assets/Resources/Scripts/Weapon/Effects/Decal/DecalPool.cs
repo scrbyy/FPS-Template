@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 using System.Threading;
+using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
+
+using scrbyy.FpsTemplate.Weapons.Hit;
 
 public class DecalPool : MonoBehaviour
 {

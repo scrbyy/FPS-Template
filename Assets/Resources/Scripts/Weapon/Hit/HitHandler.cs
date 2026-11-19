@@ -1,12 +1,15 @@
 ﻿using scrbyy.FpsTemplate.Characters.Damage;
 
-public class HitHandler
+namespace scrbyy.FpsTemplate.Weapons.Hit
 {
-    public void HandleHit(HitData hitData, float damage)
+    public class HitHandler
     {
-        if (hitData.GameObject.TryGetComponent(out IDamageable target) )
+        public void HandleHit(HitData hitData, float damage)
         {
-            target.TakeDamage(damage);
+            if (hitData.GameObject.TryGetComponent(out IDamageable target))
+            {
+                target.TakeDamage(damage);
+            }
         }
     }
 }
