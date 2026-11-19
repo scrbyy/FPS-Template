@@ -2,80 +2,82 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-using scrbyy.FpsTemplate.Weapons;
 using scrbyy.FpsTemplate.Weapons.Hit;
 
-public class GunDecalHandler : MonoBehaviour
+namespace scrbyy.FpsTemplate.Weapons.Effects
 {
-    public event Action OnDecalSpawned;
-
-    [SerializeField] private List<WeaponInventory> _shootingCharacters;
-    [SerializeField] private DecalPool _decalPool;
-
-    private void Start()
+    public class GunDecalHandler : MonoBehaviour
     {
-        if (_decalPool == null)
+        public event Action OnDecalSpawned;
+
+        [SerializeField] private List<WeaponInventory> _shootingCharacters;
+        [SerializeField] private DecalPool _decalPool;
+
+        private void Start()
         {
-            _decalPool = FindFirstObjectByType<DecalPool>();
-        }
-
-        foreach (var character in _shootingCharacters)
-        {
-            if (character == null) continue;
-
-            SubscribeToGun(character.SelectedWeapon);
-
-            character.OnWeaponSelected += HandleWeaponSelected;
-            character.OnWeaponUnselected += HandleWeaponUnselected;
-        }
-    }
-
-    private void OnDestroy()
-    {
-        foreach (var character in _shootingCharacters)
-        {
-            if (character != null)
+            if (_decalPool == null)
             {
-                UnsubscribeFromGun(character.SelectedWeapon);
-                character.OnWeaponSelected -= HandleWeaponSelected;
-                character.OnWeaponUnselected -= HandleWeaponUnselected;
+                _decalPool = FindFirstObjectByType<DecalPool>();
+            }
+
+            foreach (var character in _shootingCharacters)
+            {
+                if (character == null) continue;
+
+                SubscribeToGun(character.SelectedWeapon);
+
+                character.OnWeaponSelected += HandleWeaponSelected;
+                character.OnWeaponUnselected += HandleWeaponUnselected;
             }
         }
-    }
 
-    private void HandleWeaponSelected(Weapon weapon)
-    {
-        SubscribeToGun(weapon);
-    }
-
-    private void HandleWeaponUnselected(Weapon weapon)
-    {
-        UnsubscribeFromGun(weapon);
-    }
-
-    private void SubscribeToGun(Weapon weapon)
-    {
-        if (weapon is Gun gun)
+        private void OnDestroy()
         {
-            gun.OnContact -= CreateDecal;
-            gun.OnContact += CreateDecal;
+            foreach (var character in _shootingCharacters)
+            {
+                if (character != null)
+                {
+                    UnsubscribeFromGun(character.SelectedWeapon);
+                    character.OnWeaponSelected -= HandleWeaponSelected;
+                    character.OnWeaponUnselected -= HandleWeaponUnselected;
+                }
+            }
         }
-    }
 
-    private void UnsubscribeFromGun(Weapon weapon)
-    {
-        if (weapon is Gun gun)
+        private void HandleWeaponSelected(Weapon weapon)
         {
-            gun.OnContact -= CreateDecal;
+            SubscribeToGun(weapon);
         }
-    }
 
-    private void CreateDecal(HitData hitData)
-    {
-        if (_decalPool != null)
+        private void HandleWeaponUnselected(Weapon weapon)
         {
-            _decalPool.Get(hitData);
-            OnDecalSpawned?.Invoke();
+            UnsubscribeFromGun(weapon);
+        }
+
+        private void SubscribeToGun(Weapon weapon)
+        {
+            if (weapon is Gun gun)
+            {
+                gun.OnContact -= CreateDecal;
+                gun.OnContact += CreateDecal;
+            }
+        }
+
+        private void UnsubscribeFromGun(Weapon weapon)
+        {
+            if (weapon is Gun gun)
+            {
+                gun.OnContact -= CreateDecal;
+            }
+        }
+
+        private void CreateDecal(HitData hitData)
+        {
+            if (_decalPool != null)
+            {
+                _decalPool.Get(hitData);
+                OnDecalSpawned?.Invoke();
+            }
         }
     }
 }

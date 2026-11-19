@@ -1,58 +1,59 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-using scrbyy.FpsTemplate.Weapons;
-
-[RequireComponent(typeof(AudioSource))]
-public abstract class WeaponSound : MonoBehaviour
+namespace scrbyy.FpsTemplate.Weapons.Effects
 {
-    [Header("Settings")]
-    [SerializeField] protected AudioMixerGroup _mixerGroup;
-
-    [Header("Sound Library")]
-    [SerializeField] protected Sound _attackSound;
-    [SerializeField] protected Sound _openSound;
-
-    protected Weapon Weapon { get; set; }
-
-    protected AudioSource _audioSource;
-
-    private System.Action _playAttackSound;
-    private System.Action _playOpenSound;
-
-    protected virtual void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public abstract class WeaponSound : MonoBehaviour
     {
-        _audioSource = GetComponent<AudioSource>();
+        [Header("Settings")]
+        [SerializeField] protected AudioMixerGroup _mixerGroup;
 
-        _audioSource.playOnAwake = false;
-        
-        if (_mixerGroup != null) _audioSource.outputAudioMixerGroup = _mixerGroup;
+        [Header("Sound Library")]
+        [SerializeField] protected Sound _attackSound;
+        [SerializeField] protected Sound _openSound;
 
-        _playAttackSound = () => PlaySound(_attackSound);
-        _playOpenSound = () => PlaySound(_openSound);
-    }
+        protected Weapon Weapon { get; set; }
 
-    protected void PlaySound(Sound sound)
-    {
-        if (sound.Clip == null || _audioSource == null) return;
+        protected AudioSource _audioSource;
 
-        if (sound.IsPitchRandomized)
+        private System.Action _playAttackSound;
+        private System.Action _playOpenSound;
+
+        protected virtual void Awake()
         {
-            _audioSource.pitch = Random.Range(sound.PitchMin, sound.PitchMax);
+            _audioSource = GetComponent<AudioSource>();
+
+            _audioSource.playOnAwake = false;
+
+            if (_mixerGroup != null) _audioSource.outputAudioMixerGroup = _mixerGroup;
+
+            _playAttackSound = () => PlaySound(_attackSound);
+            _playOpenSound = () => PlaySound(_openSound);
         }
 
-        _audioSource.PlayOneShot(sound.Clip, sound.Volume);
-    }
+        protected void PlaySound(Sound sound)
+        {
+            if (sound.Clip == null || _audioSource == null) return;
 
-    protected virtual void OnEnable()
-    {
-        Weapon.OnAttack += _playAttackSound;
-        Weapon.OnOpening += _playOpenSound;
-    }
+            if (sound.IsPitchRandomized)
+            {
+                _audioSource.pitch = Random.Range(sound.PitchMin, sound.PitchMax);
+            }
 
-    protected virtual void OnDisable()
-    {
-        Weapon.OnAttack -= _playAttackSound;
-        Weapon.OnOpening -= _playOpenSound;
+            _audioSource.PlayOneShot(sound.Clip, sound.Volume);
+        }
+
+        protected virtual void OnEnable()
+        {
+            Weapon.OnAttack += _playAttackSound;
+            Weapon.OnOpening += _playOpenSound;
+        }
+
+        protected virtual void OnDisable()
+        {
+            Weapon.OnAttack -= _playAttackSound;
+            Weapon.OnOpening -= _playOpenSound;
+        }
     }
 }

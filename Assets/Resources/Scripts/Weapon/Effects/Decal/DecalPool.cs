@@ -5,121 +5,124 @@ using Cysharp.Threading.Tasks;
 
 using scrbyy.FpsTemplate.Weapons.Hit;
 
-public class DecalPool : MonoBehaviour
+namespace scrbyy.FpsTemplate.Weapons.Effects
 {
-    [SerializeField] private GameObject _decalPrefab;
-    [SerializeField] private int _initializePoolSize;
-    [SerializeField] private int _maxPoolSize;
-    [SerializeField] private float _liveTime;
-    [SerializeField] private float _surfaceOffset;
-
-    private Queue<GameObject> _availableDecals;
-    private List<GameObject> _allDecals;
-
-    private Dictionary<GameObject, CancellationTokenSource> _decalCts;
-
-    private CancellationTokenSource _destroyCts;
-
-    private void Awake()
+    public class DecalPool : MonoBehaviour
     {
-        _availableDecals = new Queue<GameObject>(_initializePoolSize);
-        _allDecals = new List<GameObject>(_initializePoolSize);
-        _decalCts = new Dictionary<GameObject, CancellationTokenSource>(_initializePoolSize);
-        _destroyCts = new CancellationTokenSource();
+        [SerializeField] private GameObject _decalPrefab;
+        [SerializeField] private int _initializePoolSize;
+        [SerializeField] private int _maxPoolSize;
+        [SerializeField] private float _liveTime;
+        [SerializeField] private float _surfaceOffset;
 
-        for (int i = 0; i < _initializePoolSize; i++)
+        private Queue<GameObject> _availableDecals;
+        private List<GameObject> _allDecals;
+
+        private Dictionary<GameObject, CancellationTokenSource> _decalCts;
+
+        private CancellationTokenSource _destroyCts;
+
+        private void Awake()
         {
-            CreateNewDecalInstance();
-        }
-    }
+            _availableDecals = new Queue<GameObject>(_initializePoolSize);
+            _allDecals = new List<GameObject>(_initializePoolSize);
+            _decalCts = new Dictionary<GameObject, CancellationTokenSource>(_initializePoolSize);
+            _destroyCts = new CancellationTokenSource();
 
-    private void OnDestroy()
-    {
-        _destroyCts?.Cancel();
-        _destroyCts?.Dispose();
-
-        foreach (var cts in _decalCts.Values)
-        {
-            cts?.Cancel();
-            cts?.Dispose();
-        }
-        _decalCts.Clear();
-    }
-
-    private GameObject CreateNewDecalInstance()
-    {
-        GameObject decal = Instantiate(_decalPrefab, transform);
-        decal.SetActive(false);
-
-        _allDecals.Add(decal);
-        _availableDecals.Enqueue(decal);
-        _decalCts[decal] = new CancellationTokenSource();
-
-        return decal;
-    }
-
-    public void Get(HitData hitData)
-    {
-        GameObject decalToUse = null;
-
-        while (_availableDecals.Count > 0)
-        {
-            var candidate = _availableDecals.Dequeue();
-            if (candidate != null)
+            for (int i = 0; i < _initializePoolSize; i++)
             {
-                decalToUse = candidate;
-                break;
+                CreateNewDecalInstance();
             }
         }
 
-        if (decalToUse == null)
+        private void OnDestroy()
         {
-            if (_allDecals.Count < _maxPoolSize)
+            _destroyCts?.Cancel();
+            _destroyCts?.Dispose();
+
+            foreach (var cts in _decalCts.Values)
             {
-                decalToUse = CreateNewDecalInstance();
+                cts?.Cancel();
+                cts?.Dispose();
             }
-            else
+            _decalCts.Clear();
+        }
+
+        private GameObject CreateNewDecalInstance()
+        {
+            GameObject decal = Instantiate(_decalPrefab, transform);
+            decal.SetActive(false);
+
+            _allDecals.Add(decal);
+            _availableDecals.Enqueue(decal);
+            _decalCts[decal] = new CancellationTokenSource();
+
+            return decal;
+        }
+
+        public void Get(HitData hitData)
+        {
+            GameObject decalToUse = null;
+
+            while (_availableDecals.Count > 0)
             {
-                decalToUse = _allDecals[0];
-                _allDecals.RemoveAt(0);
-                _allDecals.Add(decalToUse);
+                var candidate = _availableDecals.Dequeue();
+                if (candidate != null)
+                {
+                    decalToUse = candidate;
+                    break;
+                }
             }
-        }
 
-        if (_decalCts.TryGetValue(decalToUse, out var oldCts))
-        {
-            oldCts.Cancel();
-            oldCts.Dispose();
-        }
-
-        var newCts = CancellationTokenSource.CreateLinkedTokenSource(_destroyCts.Token, decalToUse.GetCancellationTokenOnDestroy());
-        _decalCts[decalToUse] = newCts;
-
-        if (hitData.Normal != Vector3.zero)
-        {
-            decalToUse.transform.position = hitData.HitPoint + (hitData.Normal * _surfaceOffset);
-            decalToUse.transform.rotation = Quaternion.LookRotation(-hitData.Normal);
-        }
-
-        decalToUse.SetActive(true);
-
-        DisableDecalAfterTimeAsync(decalToUse, _liveTime, newCts.Token).Forget();
-    }
-
-    private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationToken cancellationToken)
-    {
-        try
-        {
-            await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: cancellationToken);
-
-            if (decal != null && decal.activeSelf)
+            if (decalToUse == null)
             {
-                decal.SetActive(false);
-                _availableDecals.Enqueue(decal);
+                if (_allDecals.Count < _maxPoolSize)
+                {
+                    decalToUse = CreateNewDecalInstance();
+                }
+                else
+                {
+                    decalToUse = _allDecals[0];
+                    _allDecals.RemoveAt(0);
+                    _allDecals.Add(decalToUse);
+                }
             }
+
+            if (_decalCts.TryGetValue(decalToUse, out var oldCts))
+            {
+                oldCts.Cancel();
+                oldCts.Dispose();
+            }
+
+            var newCts = CancellationTokenSource.CreateLinkedTokenSource(_destroyCts.Token, decalToUse.GetCancellationTokenOnDestroy());
+            _decalCts[decalToUse] = newCts;
+
+            if (hitData.Normal != Vector3.zero)
+            {
+                decalToUse.transform.position = hitData.HitPoint + (hitData.Normal * _surfaceOffset);
+                decalToUse.transform.rotation = Quaternion.LookRotation(-hitData.Normal);
+            }
+
+            decalToUse.SetActive(true);
+
+            DisableDecalAfterTimeAsync(decalToUse, _liveTime, newCts.Token).Forget();
         }
-        catch (System.OperationCanceledException)
+
+        private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationToken cancellationToken)
         {
+            try
+            {
+                await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: cancellationToken);
+
+                if (decal != null && decal.activeSelf)
+                {
+                    decal.SetActive(false);
+                    _availableDecals.Enqueue(decal);
+                }
+            }
+            catch (System.OperationCanceledException)
+            {
+            }
         }
     }
 }

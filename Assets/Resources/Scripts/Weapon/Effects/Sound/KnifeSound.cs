@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
 
-using scrbyy.FpsTemplate.Weapons;
-
-public class KnifeSound : WeaponSound
+namespace scrbyy.FpsTemplate.Weapons.Effects
 {
-    [Header("References")]
-    [SerializeField] private Knife _knife;
-
-    protected override void Awake()
+    public class KnifeSound : WeaponSound
     {
-        base.Awake();
-        Weapon = _knife;
-    }
+        [Header("References")]
+        [SerializeField] private Knife _knife;
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-    }
+        protected override void Awake()
+        {
+            base.Awake();
+            Weapon = _knife;
+        }
 
-    protected override void OnDisable()
-    {
-        base.OnDisable();
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+        }
     }
 }
