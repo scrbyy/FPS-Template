@@ -3,9 +3,8 @@ using Cysharp.Threading.Tasks;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
 
-namespace scrbyy.FpsTemplate.Weapons
+namespace scrbyy.FpsTemplate.Weapons.Knife
 {
-
     public class Knife : Weapon
     {
         [Inject] private AttackMethodFactory _attackMethodFactory;

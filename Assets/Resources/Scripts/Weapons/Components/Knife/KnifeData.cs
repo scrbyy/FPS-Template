@@ -1,0 +1,9 @@
+﻿using UnityEngine;
+
+namespace scrbyy.FpsTemplate.Weapons.Knife
+{
+    [CreateAssetMenu(fileName = "KnifeData", menuName = "FPS Template/Data Assets/Weapons/Knife Data Asset")]
+    public class KnifeData : WeaponData
+    {
+    }
+}

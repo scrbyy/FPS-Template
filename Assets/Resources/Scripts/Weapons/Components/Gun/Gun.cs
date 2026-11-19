@@ -3,11 +3,9 @@ using UnityEngine;
 using Zenject;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
-using scrbyy.FpsTemplate.Weapons.Data;
 
-namespace scrbyy.FpsTemplate.Weapons
+namespace scrbyy.FpsTemplate.Weapons.Guns
 {
-
     public class Gun : Weapon, IAmmoHolder
     {
         public event Action OnReloadStart;

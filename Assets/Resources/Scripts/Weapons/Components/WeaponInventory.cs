@@ -4,11 +4,10 @@ using UnityEngine;
 using System.Collections.Generic;
 
 using scrbyy.FpsTemplate.InputSystem;
-using scrbyy.FpsTemplate.Weapons.Initializers;
+using scrbyy.FpsTemplate.Weapons.Initialization;
 
 namespace scrbyy.FpsTemplate.Weapons
 {
-
     public class WeaponInventory : MonoBehaviour
     {
         public event Action<Weapon> OnWeaponUnselected;

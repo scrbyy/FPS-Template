@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 
 using scrbyy.FpsTemplate.Weapons.Data.Interfaces;
 
-namespace scrbyy.FpsTemplate.Weapons
+namespace scrbyy.FpsTemplate.Weapons.Guns
 {
     public class GunReloader
     {

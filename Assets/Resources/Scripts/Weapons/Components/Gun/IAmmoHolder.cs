@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace scrbyy.FpsTemplate.Weapons
+namespace scrbyy.FpsTemplate.Weapons.Guns
 {
     public interface IAmmoHolder
     {

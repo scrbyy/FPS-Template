@@ -34567,9 +34567,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
   _minIntensity: 0.1
-  _maxIntensity: 1
+  _maxIntensity: 1.1
   _verticalIntensity: 0.03
-  _horizontalIntensity: 0.04
+  _horizontalIntensity: 0.05
   _intensityMultiplier: 0.25
   _stepSpeedMultiplier: 7
   _stepCurve:
@@ -34596,7 +34596,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseStepRate: 3
+  _baseStepRate: 2.5
   _minSpeedThreshold: 0.1
   _resetTime: 0.125
   _characterEngine: {fileID: 755122330}
@@ -43068,11 +43068,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
   _minIntensity: 0.1
-  _maxIntensity: 1
-  _verticalIntensity: 0.035
-  _horizontalIntensity: 0.02
-  _intensityMultiplier: 0.25
-  _stepSpeedMultiplier: 4
+  _maxIntensity: 1.1
+  _verticalIntensity: 0.02
+  _horizontalIntensity: 0.015
+  _intensityMultiplier: 1
+  _stepSpeedMultiplier: 7
   _stepCurve:
     serializedVersion: 2
     m_Curve:
@@ -43097,7 +43097,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseStepRate: 5
+  _baseStepRate: 1
   _minSpeedThreshold: 0.1
   _resetTime: 0.125
   _characterEngine: {fileID: 755122330}

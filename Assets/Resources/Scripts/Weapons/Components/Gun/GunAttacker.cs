@@ -6,7 +6,7 @@ using scrbyy.FpsTemplate.Weapons.Hit;
 using scrbyy.FpsTemplate.Weapons.Data.Interfaces;
 using scrbyy.FpsTemplate.Weapons.Data;
 
-namespace scrbyy.FpsTemplate.Weapons
+namespace scrbyy.FpsTemplate.Weapons.Guns
 {
     public class GunAttacker : WeaponAttacker
     {

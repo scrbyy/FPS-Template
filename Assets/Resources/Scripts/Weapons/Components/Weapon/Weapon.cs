@@ -3,9 +3,9 @@ using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Weapons.Hit;
 using scrbyy.FpsTemplate.Weapons.Data;
+using scrbyy.FpsTemplate.Characters.Player.Movement;
 
 namespace scrbyy.FpsTemplate.Weapons
 {

@@ -1,0 +1,128 @@
+﻿using UnityEngine;
+using System.Threading;
+using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+
+using scrbyy.FpsTemplate.Weapons.Hit;
+
+namespace scrbyy.FpsTemplate.Weapons.Guns.Effects.Decal
+{
+    public class DecalPool : MonoBehaviour
+    {
+        [SerializeField] private GameObject _decalPrefab;
+        [SerializeField] private int _initializePoolSize;
+        [SerializeField] private int _maxPoolSize;
+        [SerializeField] private float _liveTime;
+        [SerializeField] private float _surfaceOffset;
+
+        private Queue<GameObject> _availableDecals;
+        private List<GameObject> _allDecals;
+
+        private Dictionary<GameObject, CancellationTokenSource> _decalCts;
+
+        private CancellationTokenSource _destroyCts;
+
+        private void Awake()
+        {
+            _availableDecals = new Queue<GameObject>(_initializePoolSize);
+            _allDecals = new List<GameObject>(_initializePoolSize);
+            _decalCts = new Dictionary<GameObject, CancellationTokenSource>(_initializePoolSize);
+            _destroyCts = new CancellationTokenSource();
+
+            for (int i = 0; i < _initializePoolSize; i++)
+            {
+                CreateNewDecalInstance();
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _destroyCts?.Cancel();
+            _destroyCts?.Dispose();
+
+            foreach (var cts in _decalCts.Values)
+            {
+                cts?.Cancel();
+                cts?.Dispose();
+            }
+            _decalCts.Clear();
+        }
+
+        private GameObject CreateNewDecalInstance()
+        {
+            GameObject decal = Instantiate(_decalPrefab, transform);
+            decal.SetActive(false);
+
+            _allDecals.Add(decal);
+            _availableDecals.Enqueue(decal);
+            _decalCts[decal] = new CancellationTokenSource();
+
+            return decal;
+        }
+
+        public void Get(HitData hitData)
+        {
+            GameObject decalToUse = null;
+
+            while (_availableDecals.Count > 0)
+            {
+                var candidate = _availableDecals.Dequeue();
+                if (candidate != null)
+                {
+                    decalToUse = candidate;
+                    break;
+                }
+            }
+
+            if (decalToUse == null)
+            {
+                if (_allDecals.Count < _maxPoolSize)
+                {
+                    decalToUse = CreateNewDecalInstance();
+                }
+                else
+                {
+                    decalToUse = _allDecals[0];
+                    _allDecals.RemoveAt(0);
+                    _allDecals.Add(decalToUse);
+                }
+            }
+
+            if (_decalCts.TryGetValue(decalToUse, out var oldCts))
+            {
+                oldCts.Cancel();
+                oldCts.Dispose();
+            }
+
+            var newCts = CancellationTokenSource.CreateLinkedTokenSource(_destroyCts.Token, decalToUse.GetCancellationTokenOnDestroy());
+            _decalCts[decalToUse] = newCts;
+
+            if (hitData.Normal != Vector3.zero)
+            {
+                decalToUse.transform.position = hitData.HitPoint + (hitData.Normal * _surfaceOffset);
+                decalToUse.transform.rotation = Quaternion.LookRotation(-hitData.Normal);
+            }
+
+            decalToUse.SetActive(true);
+
+            DisableDecalAfterTimeAsync(decalToUse, _liveTime, newCts.Token).Forget();
+        }
+
+        private async UniTaskVoid DisableDecalAfterTimeAsync(GameObject decal, float delaySeconds, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await UniTask.Delay(System.TimeSpan.FromSeconds(delaySeconds), delayType: DelayType.DeltaTime, cancellationToken: cancellationToken);
+
+                if (decal != null && decal.activeSelf)
+                {
+                    decal.SetActive(false);
+                    _availableDecals.Enqueue(decal);
+                }
+            }
+            catch (System.OperationCanceledException)
+            {
+            }
+        }
+    }
+}

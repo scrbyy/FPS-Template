@@ -1,6 +1,5 @@
 ﻿using scrbyy.FpsTemplate.Characters.Player.Movement;
 
-
 namespace scrbyy.FpsTemplate.Weapons
 {
     public class WeaponSpeedModifier : ISpeedModifier

@@ -1,6 +1,8 @@
-﻿using scrbyy.FpsTemplate.Weapons;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
+
+using scrbyy.FpsTemplate.Weapons;
+using scrbyy.FpsTemplate.Weapons.Guns;
 
 namespace scrbyy.FpsTemplate.UI.HUD
 {
@@ -37,7 +39,7 @@ namespace scrbyy.FpsTemplate.UI.HUD
             }
         }
 
-        private void HandleWeaponSelected(Weapons.Weapon weapon)
+        private void HandleWeaponSelected(Weapon weapon)
         {
             if (weapon is IAmmoHolder ammoWeapon)
             {
@@ -52,7 +54,7 @@ namespace scrbyy.FpsTemplate.UI.HUD
             }
         }
 
-        private void HandleWeaponUnselected(Weapons.Weapon weapon)
+        private void HandleWeaponUnselected(Weapon weapon)
         {
             if (weapon is IAmmoHolder ammoWeapon && _currentAmmoWeapon == ammoWeapon)
             {
