@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
 public class WeaponSway : RotationEffect
 {

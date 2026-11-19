@@ -1,8 +1,9 @@
 using Zenject;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.Characters.Player.Movement;
+using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
 public class MovementApproachingEffect : PositionEffect
 {

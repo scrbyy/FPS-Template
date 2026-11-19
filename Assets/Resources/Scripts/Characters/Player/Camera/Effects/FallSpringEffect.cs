@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
+using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
 [RequireComponent(typeof(PositionEffectHandler))]
 public class FallSpringEffect : PositionEffect

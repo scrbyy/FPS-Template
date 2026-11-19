@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using scrbyy.FpsTemplate.Weapons;
+using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
 public class GunRecoilRotation : RotationEffect
 {
