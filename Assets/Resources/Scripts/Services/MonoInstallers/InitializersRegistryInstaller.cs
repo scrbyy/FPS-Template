@@ -2,16 +2,19 @@
 
 using scrbyy.FpsTemplate.Weapons.Initializers;
 
-public class InitializersRegistryInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    public override void InstallBindings()
+    public class InitializersRegistryInstaller : MonoInstaller
     {
-        Container.Bind<AttackBinder>().AsTransient();
-        Container.Bind<ReloadingBinder>().AsTransient();
+        public override void InstallBindings()
+        {
+            Container.Bind<AttackBinder>().AsTransient();
+            Container.Bind<ReloadingBinder>().AsTransient();
 
-        Container.Bind<IWeaponInitializer>().To<GunInitializer>().AsSingle();
-        Container.Bind<IWeaponInitializer>().To<KnifeInitializer>().AsSingle();
+            Container.Bind<IWeaponInitializer>().To<GunInitializer>().AsSingle();
+            Container.Bind<IWeaponInitializer>().To<KnifeInitializer>().AsSingle();
 
-        Container.Bind<WeaponInitializersRegistry>().AsSingle();
+            Container.Bind<WeaponInitializersRegistry>().AsSingle();
+        }
     }
 }

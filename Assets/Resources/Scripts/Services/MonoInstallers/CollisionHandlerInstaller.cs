@@ -1,12 +1,15 @@
 ﻿using Zenject;
 using UnityEngine;
 
-public class CollisionHandlerInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    [SerializeField] private CharacterController _characterController;
-
-    public override void InstallBindings()
+    public class CollisionHandlerInstaller : MonoInstaller
     {
-        Container.Bind<CharacterCollisionHandler>().AsSingle().WithArguments(_characterController);
+        [SerializeField] private CharacterController _characterController;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<CharacterCollisionHandler>().AsSingle().WithArguments(_characterController);
+        }
     }
 }

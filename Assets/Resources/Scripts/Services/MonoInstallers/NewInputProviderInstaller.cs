@@ -3,16 +3,19 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Input;
 
-public class NewInputProviderInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    [SerializeField] private NewInputSystemProvider _inputProvider;
-
-    public override void InstallBindings()
+    public class NewInputProviderInstaller : MonoInstaller
     {
-        Container.Bind<IMovementInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
-        Container.Bind<IInteractionInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
-        Container.Bind<IWeaponInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
-        Container.Bind<ILoadoutInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
-        Container.Bind<ILookInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+        [SerializeField] private NewInputSystemProvider _inputProvider;
+
+        public override void InstallBindings()
+        {
+            Container.Bind<IMovementInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+            Container.Bind<IInteractionInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+            Container.Bind<IWeaponInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+            Container.Bind<ILoadoutInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+            Container.Bind<ILookInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+        }
     }
 }

@@ -2,10 +2,13 @@
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
 
-public class AttackMethodFactoryInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    public override void InstallBindings()
+    public class AttackMethodFactoryInstaller : MonoInstaller
     {
-        Container.Bind<AttackMethodFactory>().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.Bind<AttackMethodFactory>().AsSingle();
+        }
     }
 }

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using scrbyy.FpsTemplate.Services.UI;
+
 namespace scrbyy.FpsTemplate.GameCycle
 {
     public class PauseState : IGameState

@@ -2,10 +2,13 @@
 
 using scrbyy.FpsTemplate.Services.GameCycle;
 
-public class SceneLoaderInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    public override void InstallBindings()
+    public class SceneLoaderInstaller : MonoInstaller
     {
-        Container.Bind<SceneLoader>().AsSingle();
+        public override void InstallBindings()
+        {
+            Container.Bind<SceneLoader>().AsSingle();
+        }
     }
 }

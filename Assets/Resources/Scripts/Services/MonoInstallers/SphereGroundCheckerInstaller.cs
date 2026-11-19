@@ -1,11 +1,14 @@
 using UnityEngine;
 using Zenject;
 
-public class SphereGroundCheckerInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    [SerializeField] private SphereGroundChecker _groundChecker;
-    public override void InstallBindings()
+    public class SphereGroundCheckerInstaller : MonoInstaller
     {
-        Container.Bind<IGroundChecker>().FromInstance(_groundChecker).AsSingle();
+        [SerializeField] private SphereGroundChecker _groundChecker;
+        public override void InstallBindings()
+        {
+            Container.Bind<IGroundChecker>().FromInstance(_groundChecker).AsSingle();
+        }
     }
 }

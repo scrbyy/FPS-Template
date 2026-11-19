@@ -3,15 +3,18 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.GameCycle;
 
-public class GameFSMInstaller : MonoInstaller
+namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {
-    [SerializeField] private GameFSM _gameFSM;
-
-    public override void InstallBindings()
+    public class GameFSMInstaller : MonoInstaller
     {
-        Container.Bind<IGameState>().To<GameplayState>().AsSingle();
-        Container.Bind<IGameState>().To<PauseState>().AsSingle();
+        [SerializeField] private GameFSM _gameFSM;
 
-        Container.Bind<GameFSM>().FromInstance(_gameFSM).AsSingle().NonLazy();
+        public override void InstallBindings()
+        {
+            Container.Bind<IGameState>().To<GameplayState>().AsSingle();
+            Container.Bind<IGameState>().To<PauseState>().AsSingle();
+
+            Container.Bind<GameFSM>().FromInstance(_gameFSM).AsSingle().NonLazy();
+        }
     }
 }
