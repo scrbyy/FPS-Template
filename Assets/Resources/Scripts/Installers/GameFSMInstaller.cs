@@ -3,7 +3,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.GameCycle;
 
-namespace scrbyy.FpsTemplate.Services.Installers
+namespace scrbyy.FpsTemplate.Installers
 {
     public class GameFSMInstaller : MonoInstaller
     {

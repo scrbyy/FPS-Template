@@ -3,7 +3,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions;
 
-namespace scrbyy.FpsTemplate.Services.Installers
+namespace scrbyy.FpsTemplate.Installers
 {
     public class CollisionHandlerInstaller : MonoInstaller
     {

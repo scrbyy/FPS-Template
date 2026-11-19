@@ -3,7 +3,7 @@ using Zenject;
 
 using scrbyy.FpsTemplate.Input;
 
-namespace scrbyy.FpsTemplate.Services.Installers
+namespace scrbyy.FpsTemplate.Installers
 {
     public class NewInputProviderInstaller : MonoInstaller
     {

@@ -2,7 +2,7 @@
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
 
-namespace scrbyy.FpsTemplate.Services.Installers
+namespace scrbyy.FpsTemplate.Installers
 {
     public class AttackMethodFactoryInstaller : MonoInstaller
     {

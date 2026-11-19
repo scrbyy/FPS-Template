@@ -2,7 +2,7 @@
 
 using scrbyy.FpsTemplate.Services.GameCycle;
 
-namespace scrbyy.FpsTemplate.Services.Installers
+namespace scrbyy.FpsTemplate.Installers
 {
     public class SceneLoaderInstaller : MonoInstaller
     {
