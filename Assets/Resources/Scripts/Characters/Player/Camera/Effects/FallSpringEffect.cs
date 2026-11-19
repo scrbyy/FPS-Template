@@ -5,78 +5,81 @@ using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
 
-[RequireComponent(typeof(PositionEffectHandler))]
-public class FallSpringEffect : PositionEffect
+namespace scrbyy.FpsTemplate.Characters.Player.Camera.Effects
 {
-    [Header("Spring Settings")]
-    [SerializeField] private float _returnSpeed;
-    [SerializeField] private float _shakeDamping;
-    [SerializeField] private float _effectWeight;
-
-    [Header("Landing Impact Settings")]
-    [SerializeField] private float _maxForce;
-    [SerializeField] private float _minFallSpeedThreshold;
-    [SerializeField] private float _forceMultiplier;
-
-    [Header("In-Air Compression Settings")]
-    [SerializeField] private float _inAirCompressionForce;
-    [SerializeField] private float _maxInAirOffset;
-    [SerializeField] private float _fallingForceMultiplier;
-
-    [Header("References")]
-    [SerializeField] private CharacterEngine _characterEngine;
-
-    [Inject] private IGroundChecker _groundCheck;
-
-    private Vector3 _calculatedCameraOffset;
-    private Vector3 _shakeVelocity;
-    private float _capturedFallSpeed;
-
-    public override Vector3 GetLocalOffset() => _calculatedCameraOffset;
-
-    private void Update()
+    [RequireComponent(typeof(PositionEffectHandler))]
+    public class FallSpringEffect : PositionEffect
     {
-        float currentVerticalSpeed = _characterEngine.Velocity.y;
+        [Header("Spring Settings")]
+        [SerializeField] private float _returnSpeed;
+        [SerializeField] private float _shakeDamping;
+        [SerializeField] private float _effectWeight;
 
-        if (currentVerticalSpeed < 0 && !_groundCheck.IsGrounded)
+        [Header("Landing Impact Settings")]
+        [SerializeField] private float _maxForce;
+        [SerializeField] private float _minFallSpeedThreshold;
+        [SerializeField] private float _forceMultiplier;
+
+        [Header("In-Air Compression Settings")]
+        [SerializeField] private float _inAirCompressionForce;
+        [SerializeField] private float _maxInAirOffset;
+        [SerializeField] private float _fallingForceMultiplier;
+
+        [Header("References")]
+        [SerializeField] private CharacterEngine _characterEngine;
+
+        [Inject] private IGroundChecker _groundCheck;
+
+        private Vector3 _calculatedCameraOffset;
+        private Vector3 _shakeVelocity;
+        private float _capturedFallSpeed;
+
+        public override Vector3 GetLocalOffset() => _calculatedCameraOffset;
+
+        private void Update()
         {
-            _capturedFallSpeed = currentVerticalSpeed;
+            float currentVerticalSpeed = _characterEngine.Velocity.y;
 
-            float targetAirOffset = -Mathf.Min(Mathf.Abs(currentVerticalSpeed) * _fallingForceMultiplier, _maxInAirOffset);
+            if (currentVerticalSpeed < 0 && !_groundCheck.IsGrounded)
+            {
+                _capturedFallSpeed = currentVerticalSpeed;
 
-            _calculatedCameraOffset.y = Mathf.Lerp(_calculatedCameraOffset.y, targetAirOffset, Time.deltaTime * _inAirCompressionForce);
+                float targetAirOffset = -Mathf.Min(Mathf.Abs(currentVerticalSpeed) * _fallingForceMultiplier, _maxInAirOffset);
+
+                _calculatedCameraOffset.y = Mathf.Lerp(_calculatedCameraOffset.y, targetAirOffset, Time.deltaTime * _inAirCompressionForce);
+            }
         }
-    }
 
-    private void LateUpdate()
-    {
-        Vector3 returnForce = -_returnSpeed * _calculatedCameraOffset - _shakeDamping * _shakeVelocity;
-        Vector3 acceleration = returnForce / _effectWeight;
+        private void LateUpdate()
+        {
+            Vector3 returnForce = -_returnSpeed * _calculatedCameraOffset - _shakeDamping * _shakeVelocity;
+            Vector3 acceleration = returnForce / _effectWeight;
 
-        _shakeVelocity += acceleration * Time.deltaTime;
-        _calculatedCameraOffset += _shakeVelocity * Time.deltaTime;
-    }
+            _shakeVelocity += acceleration * Time.deltaTime;
+            _calculatedCameraOffset += _shakeVelocity * Time.deltaTime;
+        }
 
-    private void ApplyLandingForce()
-    {
-        float absoluteFallSpeed = Mathf.Abs(_capturedFallSpeed);
-        if (absoluteFallSpeed < _minFallSpeedThreshold) return;
+        private void ApplyLandingForce()
+        {
+            float absoluteFallSpeed = Mathf.Abs(_capturedFallSpeed);
+            if (absoluteFallSpeed < _minFallSpeedThreshold) return;
 
-        float finalImpactForce = Mathf.Min(absoluteFallSpeed * _forceMultiplier, _maxForce);
+            float finalImpactForce = Mathf.Min(absoluteFallSpeed * _forceMultiplier, _maxForce);
 
-        _shakeVelocity.y -= finalImpactForce;
-        _capturedFallSpeed = 0f;
-    }
+            _shakeVelocity.y -= finalImpactForce;
+            _capturedFallSpeed = 0f;
+        }
 
-    private void OnEnable()
-    {
-        if (_groundCheck != null)
-            _groundCheck.OnGrounded += ApplyLandingForce;
-    }
+        private void OnEnable()
+        {
+            if (_groundCheck != null)
+                _groundCheck.OnGrounded += ApplyLandingForce;
+        }
 
-    private void OnDisable()
-    {
-        if (_groundCheck != null)
-            _groundCheck.OnGrounded -= ApplyLandingForce;
+        private void OnDisable()
+        {
+            if (_groundCheck != null)
+                _groundCheck.OnGrounded -= ApplyLandingForce;
+        }
     }
 }

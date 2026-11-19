@@ -4,7 +4,7 @@ namespace scrbyy.FpsTemplate.Weapons.Effects
 {
     public class GunSound : WeaponSound
     {
-        [SerializeField] protected Sound _reloadSound;
+        [SerializeField] protected Sound.Sound _reloadSound;
 
         [Header("References")]
         [SerializeField] private Gun _gun;
