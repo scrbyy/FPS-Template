@@ -8,15 +8,15 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
     public class MovementFovEffect : MonoBehaviour
     {
         [Header("Limits")]
-        [SerializeField] private float _maxFov;
+        [SerializeField, Range(0.1f, 180f)] private float _maxFov;
 
         [Header("Changing Rate")]
-        [SerializeField] private float _decreaseSpeed;
-        [SerializeField] private float _increaseSpeed;
+        [SerializeField, Min(0f)] private float _decreaseSpeed;
+        [SerializeField, Min(0f)] private float _increaseSpeed;
 
         [Header("FOV Thresholds")]
-        [SerializeField] private float _minSpeedThreshold;
-        [SerializeField] private float _maxSpeedThreshold;
+        [SerializeField, Min(0f)] private float _minSpeedThreshold;
+        [SerializeField, Min(0f)] private float _maxSpeedThreshold;
 
         [Header("References")]
         [SerializeField] private CharacterEngine _characterEngine;
