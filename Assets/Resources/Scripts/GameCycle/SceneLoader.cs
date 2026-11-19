@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 
-namespace scrbyy.FpsTemplate.Services.GameCycle
+namespace scrbyy.FpsTemplate.GameCycle
 {
     public class SceneLoader
     {

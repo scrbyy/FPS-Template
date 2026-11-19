@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Sound
+namespace scrbyy.FpsTemplate.SoundSystem
 {
     [System.Serializable]
     public struct Sound

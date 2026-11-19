@@ -10,8 +10,8 @@ namespace scrbyy.FpsTemplate.Weapons.Effects
         [SerializeField] protected AudioMixerGroup _mixerGroup;
 
         [Header("Sound Library")]
-        [SerializeField] protected Sound.Sound _attackSound;
-        [SerializeField] protected Sound.Sound _openSound;
+        [SerializeField] protected SoundSystem.Sound _attackSound;
+        [SerializeField] protected SoundSystem.Sound _openSound;
 
         protected Weapon Weapon { get; set; }
 
@@ -32,7 +32,7 @@ namespace scrbyy.FpsTemplate.Weapons.Effects
             _playOpenSound = () => PlaySound(_openSound);
         }
 
-        protected void PlaySound(Sound.Sound sound)
+        protected void PlaySound(SoundSystem.Sound sound)
         {
             if (sound.Clip == null || _audioSource == null) return;
 

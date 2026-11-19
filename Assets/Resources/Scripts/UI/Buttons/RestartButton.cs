@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-using scrbyy.FpsTemplate.Services.GameCycle;
+using scrbyy.FpsTemplate.GameCycle;
 
 namespace scrbyy.FpsTemplate.UI.Buttons
 {

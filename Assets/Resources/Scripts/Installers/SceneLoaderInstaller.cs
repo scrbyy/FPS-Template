@@ -1,6 +1,6 @@
 ﻿using Zenject;
 
-using scrbyy.FpsTemplate.Services.GameCycle;
+using scrbyy.FpsTemplate.GameCycle;
 
 namespace scrbyy.FpsTemplate.Installers
 {
