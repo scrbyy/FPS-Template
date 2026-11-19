@@ -37,7 +37,7 @@ namespace scrbyy.FpsTemplate.UI.HUD
             }
         }
 
-        private void HandleWeaponSelected(Weapon weapon)
+        private void HandleWeaponSelected(Weapons.Weapon weapon)
         {
             if (weapon is IAmmoHolder ammoWeapon)
             {
@@ -52,7 +52,7 @@ namespace scrbyy.FpsTemplate.UI.HUD
             }
         }
 
-        private void HandleWeaponUnselected(Weapon weapon)
+        private void HandleWeaponUnselected(Weapons.Weapon weapon)
         {
             if (weapon is IAmmoHolder ammoWeapon && _currentAmmoWeapon == ammoWeapon)
             {

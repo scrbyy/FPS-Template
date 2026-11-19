@@ -1,67 +1,69 @@
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Weapons;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
-public class GunSprayPattern : RotationEffect
+namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
 {
-    [SerializeField] private Vector2[] _recoilPattern;
-
-    [Space]
-    [SerializeField] private float _recoilMultiplier;
-    [SerializeField] private float _snappiness; 
-    [SerializeField] private float _returnSpeed;
-
-    [Header("References")]
-    [SerializeField] private Gun _weapon;
-
-    private int _currentShotIndex = 0;
-    private Vector3 _targetRotation;
-    private Vector3 _currentRotation;
-
-    private void OnEnable()
+    public class GunSprayPattern : RotationEffect
     {
-        if (_weapon != null)
+        [SerializeField] private Vector2[] _recoilPattern;
+
+        [Space]
+        [SerializeField] private float _recoilMultiplier;
+        [SerializeField] private float _snappiness;
+        [SerializeField] private float _returnSpeed;
+
+        [Header("References")]
+        [SerializeField] private Weapons.Gun _weapon;
+
+        private int _currentShotIndex = 0;
+        private Vector3 _targetRotation;
+        private Vector3 _currentRotation;
+
+        private void OnEnable()
         {
-            _weapon.OnAttack += Fire;
-            _weapon.OnAttackStopped += StopFiring;
+            if (_weapon != null)
+            {
+                _weapon.OnAttack += Fire;
+                _weapon.OnAttackStopped += StopFiring;
+            }
         }
-    }
 
-    private void OnDisable()
-    {
-        if (_weapon != null)
+        private void OnDisable()
         {
-            _weapon.OnAttack -= Fire;
-            _weapon.OnAttackStopped -= StopFiring;
+            if (_weapon != null)
+            {
+                _weapon.OnAttack -= Fire;
+                _weapon.OnAttackStopped -= StopFiring;
+            }
         }
-    }
 
-    private void Update()
-    {
-        _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
+        private void Update()
+        {
+            _targetRotation = Vector3.Lerp(_targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
 
-        _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, _snappiness * Time.deltaTime);
-    }
+            _currentRotation = Vector3.Slerp(_currentRotation, _targetRotation, _snappiness * Time.deltaTime);
+        }
 
-    private void Fire()
-    {
-        if (_recoilPattern == null || _recoilPattern.Length == 0) return;
+        private void Fire()
+        {
+            if (_recoilPattern == null || _recoilPattern.Length == 0) return;
 
-        Vector2 patternOffset = _recoilPattern[_currentShotIndex] * _recoilMultiplier;
+            Vector2 patternOffset = _recoilPattern[_currentShotIndex] * _recoilMultiplier;
 
-        _targetRotation += new Vector3(-patternOffset.y, patternOffset.x, 0f);
+            _targetRotation += new Vector3(-patternOffset.y, patternOffset.x, 0f);
 
-        _currentShotIndex = Mathf.Clamp(_currentShotIndex + 1, 0, _recoilPattern.Length - 1);
-    }
+            _currentShotIndex = Mathf.Clamp(_currentShotIndex + 1, 0, _recoilPattern.Length - 1);
+        }
 
-    private void StopFiring()
-    {
-        _currentShotIndex = 0;
-    }
+        private void StopFiring()
+        {
+            _currentShotIndex = 0;
+        }
 
-    public override Quaternion GetLocalRotationOffset()
-    {
-        return Quaternion.Euler(_currentRotation);
+        public override Quaternion GetLocalRotationOffset()
+        {
+            return Quaternion.Euler(_currentRotation);
+        }
     }
 }
