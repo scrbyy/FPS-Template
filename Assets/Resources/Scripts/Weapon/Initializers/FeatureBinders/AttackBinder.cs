@@ -1,4 +1,5 @@
 ﻿using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.Weapons.Data;
 
 namespace scrbyy.FpsTemplate.Weapons.Initializers
 {

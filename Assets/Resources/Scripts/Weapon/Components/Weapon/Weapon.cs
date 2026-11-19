@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Weapons.Hit;
+using scrbyy.FpsTemplate.Weapons.Data;
 
 namespace scrbyy.FpsTemplate.Weapons
 {

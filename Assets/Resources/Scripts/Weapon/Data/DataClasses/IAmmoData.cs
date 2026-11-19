@@ -1,10 +1,13 @@
-﻿public interface IAmmoData
+﻿namespace scrbyy.FpsTemplate.Weapons.Data.Interfaces
 {
-    public int StartAmmo {  get; }
+    public interface IAmmoData
+    {
+        public int StartAmmo { get; }
 
-    public int MagazineSize { get; }
+        public int MagazineSize { get; }
 
-    public int ReserveAmmo { get; }
+        public int ReserveAmmo { get; }
 
-    public float ReloadDuration { get; }
+        public float ReloadDuration { get; }
+    }
 }

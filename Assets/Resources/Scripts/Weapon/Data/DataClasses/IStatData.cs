@@ -1,8 +1,11 @@
-﻿public interface IStatData
+﻿namespace scrbyy.FpsTemplate.Weapons.Data.Interfaces
 {
-    public float ReloadDuration { get; }
+    public interface IStatData
+    {
+        public float ReloadDuration { get; }
 
-    public float AfterAttackDelay { get; }
+        public float AfterAttackDelay { get; }
 
-    public FireMode FireMode {  get; }
+        public FireMode FireMode { get; }
+    }
 }

@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
 using scrbyy.FpsTemplate.Weapons.Hit;
+using scrbyy.FpsTemplate.Weapons.Data.Interfaces;
 
 namespace scrbyy.FpsTemplate.Weapons
 {

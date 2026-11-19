@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
+using scrbyy.FpsTemplate.Weapons.Data;
 
 namespace scrbyy.FpsTemplate.Weapons
 {

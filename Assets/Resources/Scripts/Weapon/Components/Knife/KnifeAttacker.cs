@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
+using scrbyy.FpsTemplate.Weapons.Data.Interfaces;
 
 namespace scrbyy.FpsTemplate.Weapons
 {

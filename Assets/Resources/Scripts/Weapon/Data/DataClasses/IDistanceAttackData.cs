@@ -1,6 +1,9 @@
-﻿public interface IDistanceAttackData
+﻿namespace scrbyy.FpsTemplate.Weapons.Data.Interfaces
 {
-    public float DistanceDamageMultiplier { get; }
+    public interface IDistanceAttackData
+    {
+        public float DistanceDamageMultiplier { get; }
 
-    public float DamageDecreasingStep { get; }
+        public float DamageDecreasingStep { get; }
+    }
 }
