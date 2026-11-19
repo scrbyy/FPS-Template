@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-using scrbyy.FpsTemplate.Weapons;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
 namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
