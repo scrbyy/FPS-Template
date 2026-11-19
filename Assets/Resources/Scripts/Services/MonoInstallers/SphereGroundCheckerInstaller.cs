@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
+using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
 namespace scrbyy.FpsTemplate.Services.MonoInstallers
 {

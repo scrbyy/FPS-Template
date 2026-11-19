@@ -2,9 +2,7 @@ using UnityEngine;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 
-using scrbyy.FpsTemplate.Weapons;
-
-namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
+namespace scrbyy.FpsTemplate.Weapons.VisualComponents.GunVisuals
 {
     public class GunShotLight : MonoBehaviour
     {
@@ -13,7 +11,7 @@ namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
 
         [Header("References")]
         [SerializeField] private Light _light;
-        [SerializeField] private Weapons.Gun _gun;
+        [SerializeField] private Gun _gun;
 
         private CancellationTokenSource _cts;
         private float _initialIntensity;

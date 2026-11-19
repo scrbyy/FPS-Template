@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Characters.Data
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.Data
 {
     [CreateAssetMenu(fileName = "CharacterMovementData", menuName = "FPS Template/Data Assets/Movement/CharacterMovement Data Asset")]
     public class CharacterMovementData : ScriptableObject

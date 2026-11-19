@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker
 {
     public interface IGroundChecker
     {

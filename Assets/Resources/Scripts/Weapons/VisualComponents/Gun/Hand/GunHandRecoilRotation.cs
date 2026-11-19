@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
-namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
+namespace scrbyy.FpsTemplate.Weapons.VisualComponents.GunVisuals.Hand
 {
-    public class GunRecoilPosition : PositionEffect
+    public class GunHandRecoilRotation : RotationEffect
     {
         [Header("Recoil Settings per Shot")]
         [SerializeField] private Vector3 _recoilForce;
@@ -24,20 +24,20 @@ namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
         [SerializeField] private float _resetTime;
 
         [Header("References")]
-        [SerializeField] private Weapons.Gun _gun;
+        [SerializeField] private Gun _gun;
 
-        private Vector3 initialPosition;
-        private Vector3 currentPosition;
-        private Vector3 targetPosition;
+        private Vector3 initialRotation = Vector3.zero;
+        private Vector3 currentRotation = Vector3.zero;
+        private Vector3 targetRotation = Vector3.zero;
 
         private int _shotCount;
         private float _lastShotTime;
 
         private void Start()
         {
-            initialPosition = Vector3.zero;
-            currentPosition = initialPosition;
-            targetPosition = initialPosition;
+            initialRotation = Vector3.zero;
+            currentRotation = initialRotation;
+            targetRotation = initialRotation;
         }
 
         private void Update()
@@ -47,9 +47,9 @@ namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
                 _shotCount = 0;
             }
 
-            targetPosition = Vector3.Lerp(targetPosition, initialPosition, _returnSpeed * Time.deltaTime);
+            targetRotation = Vector3.Lerp(targetRotation, initialRotation, _returnSpeed * Time.deltaTime);
 
-            currentPosition = Vector3.Lerp(currentPosition, targetPosition, _snappiness * Time.deltaTime);
+            currentRotation = Vector3.Lerp(currentRotation, targetRotation, _snappiness * Time.deltaTime);
         }
 
         public void FireRecoil()
@@ -67,30 +67,28 @@ namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
 
             Vector3 finalRecoil = (_recoilForce + randomOffset) * currentMultiplier;
 
-            targetPosition += finalRecoil;
+            targetRotation += finalRecoil;
 
-            targetPosition.x = Mathf.Clamp(targetPosition.x, initialPosition.x + _minBounds.x, initialPosition.x + _maxBounds.x);
-            targetPosition.y = Mathf.Clamp(targetPosition.y, initialPosition.y + _minBounds.y, initialPosition.y + _maxBounds.y);
-            targetPosition.z = Mathf.Clamp(targetPosition.z, initialPosition.z + _minBounds.z, initialPosition.z + _maxBounds.z);
+            targetRotation.x = Mathf.Clamp(targetRotation.x, _minBounds.x, _maxBounds.x);
+            targetRotation.y = Mathf.Clamp(targetRotation.y, _minBounds.y, _maxBounds.y);
+            targetRotation.z = Mathf.Clamp(targetRotation.z, _minBounds.z, _maxBounds.z);
 
             _shotCount++;
         }
 
         private void OnEnable()
         {
-            if (_gun != null)
-                _gun.OnAttack += FireRecoil;
+            if (_gun != null) _gun.OnAttack += FireRecoil;
         }
 
         private void OnDisable()
         {
-            if (_gun != null)
-                _gun.OnAttack -= FireRecoil;
+            if (_gun != null) _gun.OnAttack -= FireRecoil;
         }
 
-        public override Vector3 GetLocalOffset()
+        public override Quaternion GetLocalRotationOffset()
         {
-            return currentPosition - initialPosition;
+            return Quaternion.Euler(currentRotation);
         }
     }
 }

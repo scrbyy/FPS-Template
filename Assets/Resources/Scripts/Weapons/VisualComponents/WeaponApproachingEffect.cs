@@ -5,7 +5,7 @@ using scrbyy.FpsTemplate.Input;
 using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
-namespace scrbyy.FpsTemplate.Weapon.VisualComponents
+namespace scrbyy.FpsTemplate.Weapons.VisualComponents
 {
     [RequireComponent(typeof(PositionEffectHandler))]
     public class WeaponApproachingEffect : PositionEffect

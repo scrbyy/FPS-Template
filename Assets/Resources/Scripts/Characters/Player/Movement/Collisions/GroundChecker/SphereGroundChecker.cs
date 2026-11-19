@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker
 {
     public class SphereGroundChecker : MonoBehaviour, IGroundChecker
     {

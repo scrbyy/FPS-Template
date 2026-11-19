@@ -4,7 +4,7 @@ using Zenject;
 using scrbyy.FpsTemplate.Input;
 using scrbyy.FpsTemplate.Services;
 using scrbyy.FpsTemplate.Characters.Stats;
-using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
+using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
 namespace scrbyy.FpsTemplate.Characters.Player.Movement.Abilities
 {

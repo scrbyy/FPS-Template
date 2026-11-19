@@ -2,7 +2,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
-namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
+namespace scrbyy.FpsTemplate.Weapons.VisualComponents.GunVisuals
 {
     public class GunSprayPattern : RotationEffect
     {
@@ -14,7 +14,7 @@ namespace scrbyy.FpsTemplate.Weapon.VisualComponents.Gun
         [SerializeField] private float _returnSpeed;
 
         [Header("References")]
-        [SerializeField] private Weapons.Gun _weapon;
+        [SerializeField] private Gun _weapon;
 
         private int _currentShotIndex = 0;
         private Vector3 _targetRotation;

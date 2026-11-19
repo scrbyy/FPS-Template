@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Characters.Data;
 using scrbyy.FpsTemplate.Characters.Player.Movement.Abilities;
+using scrbyy.FpsTemplate.Characters.Player.Movement.Data;
 
 namespace scrbyy.FpsTemplate.Characters.Player.Movement
 {

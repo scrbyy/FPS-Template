@@ -4,7 +4,7 @@ using Zenject;
 using scrbyy.FpsTemplate.Input;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 
-namespace scrbyy.FpsTemplate.Weapon.VisualComponents
+namespace scrbyy.FpsTemplate.Weapons.VisualComponents
 {
     public class WeaponSway : RotationEffect
     {

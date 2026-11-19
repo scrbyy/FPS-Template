@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 
 using scrbyy.FpsTemplate.Input;
-using scrbyy.FpsTemplate.Characters.Player.Movement.GroundChecker;
+using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
 namespace scrbyy.FpsTemplate.Characters.Player.Movement.Abilities
 {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Zenject;
 
-namespace scrbyy.FpsTemplate.Characters.Player.Movement
+namespace scrbyy.FpsTemplate.Characters.Player.Movement.Collisions
 {
     public class CharacterCollisionHandler
     {
