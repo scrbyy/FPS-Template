@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.InputSystem;
 using scrbyy.FpsTemplate.Characters.Stats;
 using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions;

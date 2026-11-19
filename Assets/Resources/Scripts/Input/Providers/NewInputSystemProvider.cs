@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace scrbyy.FpsTemplate.Input
+namespace scrbyy.FpsTemplate.InputSystem
 {
     public class NewInputSystemProvider : MonoBehaviour, IWeaponInputProvider, IMovementInputProvider, ILookInputProvider, ILoadoutInputProvider, IInteractionInputProvider
     {
@@ -37,16 +37,16 @@ namespace scrbyy.FpsTemplate.Input
 
         private void Awake()
         {
-            _moveAction = InputSystem.actions.FindAction("Move");
-            _jumpAction = InputSystem.actions.FindAction("Jump");
-            _lookAction = InputSystem.actions.FindAction("Look");
-            _interactAction = InputSystem.actions.FindAction("Interact");
-            _sprintAction = InputSystem.actions.FindAction("Sprint");
-            _fireAction = InputSystem.actions.FindAction("Fire");
-            _reloadAction = InputSystem.actions.FindAction("Reload");
-            _dashAction = InputSystem.actions.FindAction("Dash");
-            _nextWeaponAction = InputSystem.actions.FindAction("NextWeapon");
-            _previousWeaponAction = InputSystem.actions.FindAction("PreviousWeapon");
+            _moveAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Move");
+            _jumpAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Jump");
+            _lookAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Look");
+            _interactAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Interact");
+            _sprintAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Sprint");
+            _fireAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Fire");
+            _reloadAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Reload");
+            _dashAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Dash");
+            _nextWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("NextWeapon");
+            _previousWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("PreviousWeapon");
 
             _jumpAction.performed += OnJump;
             _interactAction.performed += OnInteract;

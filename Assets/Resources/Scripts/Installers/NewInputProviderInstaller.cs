@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.InputSystem;
 
 namespace scrbyy.FpsTemplate.Installers
 {

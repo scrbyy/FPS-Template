@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using scrbyy.FpsTemplate.Characters.Damage;
 
 
-namespace scrbyy.FpsTemplate.World.DamageZone
+namespace scrbyy.FpsTemplate.World.Traps
 {
     [RequireComponent(typeof(Collider))]
     public class DamageZone : MonoBehaviour

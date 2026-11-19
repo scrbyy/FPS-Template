@@ -1,4 +1,4 @@
-﻿namespace scrbyy.FpsTemplate.World.DamageZone
+﻿namespace scrbyy.FpsTemplate.World.Traps
 {
     public enum DamageZoneType
     {

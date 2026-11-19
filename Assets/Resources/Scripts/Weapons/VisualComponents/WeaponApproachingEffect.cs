@@ -1,7 +1,7 @@
 using Zenject;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Input;
+using scrbyy.FpsTemplate.InputSystem;
 using scrbyy.FpsTemplate.Characters.Player.Movement;
 using scrbyy.FpsTemplate.Characters.Player.Camera.Effects;
 

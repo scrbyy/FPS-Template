@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace scrbyy.FpsTemplate.Input
+namespace scrbyy.FpsTemplate.InputSystem
 {
     public interface IWeaponInputProvider
     {
