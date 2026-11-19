@@ -3,7 +3,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
 
-namespace scrbyy.FpsTemplate.Services.MonoInstallers
+namespace scrbyy.FpsTemplate.Services.Installers
 {
     public class SphereGroundCheckerInstaller : MonoInstaller
     {

@@ -1,8 +1,9 @@
 ﻿using Zenject;
 using UnityEngine;
-using scrbyy.FpsTemplate.Characters.Player.Movement;
 
-namespace scrbyy.FpsTemplate.Services.MonoInstallers
+using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions;
+
+namespace scrbyy.FpsTemplate.Services.Installers
 {
     public class CollisionHandlerInstaller : MonoInstaller
     {

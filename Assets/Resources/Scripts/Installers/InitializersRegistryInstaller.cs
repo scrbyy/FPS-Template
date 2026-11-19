@@ -2,7 +2,7 @@
 
 using scrbyy.FpsTemplate.Weapons.Initializers;
 
-namespace scrbyy.FpsTemplate.Services.MonoInstallers
+namespace scrbyy.FpsTemplate.Services.Installers
 {
     public class InitializersRegistryInstaller : MonoInstaller
     {
