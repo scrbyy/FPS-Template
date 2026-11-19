@@ -1,31 +1,34 @@
 ﻿using UnityEngine;
 
-public class RaycastMethod : IAttackMethod
+namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    private Transform _origin;
-    private float _distance;
-    private LayerMask _ignoreLayer;
-
-    private RaycastHit _hit;
-    private HitData _hitData;
-
-    public RaycastMethod(Transform origin, float distance, LayerMask ignoreLayer)
+    public class RaycastMethod : IAttackMethod
     {
-        _origin = origin;
-        _distance = distance;
-        _ignoreLayer = ignoreLayer;
-    }
+        private Transform _origin;
+        private float _distance;
+        private LayerMask _ignoreLayer;
 
-    public HitData Execute()
-    {
-        _hitData.Origin = _origin.position;
-        if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance, ~_ignoreLayer))
+        private RaycastHit _hit;
+        private HitData _hitData;
+
+        public RaycastMethod(Transform origin, float distance, LayerMask ignoreLayer)
         {
-            _hitData.IsHit = true;
-            _hitData.SetData(_hit);
+            _origin = origin;
+            _distance = distance;
+            _ignoreLayer = ignoreLayer;
         }
-        else _hitData.IsHit = false;
 
-        return _hitData;
+        public HitData Execute()
+        {
+            _hitData.Origin = _origin.position;
+            if (Physics.Raycast(_origin.position, _origin.forward, out _hit, _distance, ~_ignoreLayer))
+            {
+                _hitData.IsHit = true;
+                _hitData.SetData(_hit);
+            }
+            else _hitData.IsHit = false;
+
+            return _hitData;
+        }
     }
 }

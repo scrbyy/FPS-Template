@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public abstract class AttackMethodData
+namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    public abstract AttackType Type { get; }
+    public abstract class AttackMethodData
+    {
+        public abstract AttackType Type { get; }
 
-    public abstract IAttackMethod CreateMethod(Transform origin, DiContainer container);
+        public abstract IAttackMethod CreateMethod(Transform origin, DiContainer container);
+    }
 }

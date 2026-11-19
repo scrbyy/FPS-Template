@@ -2,16 +2,21 @@
 using UnityEngine;
 using Zenject;
 
-[Serializable]
-public class SpherecastMethodData : AttackMethodData
+namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    public override AttackType Type => AttackType.Spherecast;
 
-    [SerializeField] private float _distance;
-    [SerializeField] private float _radius;
-    [SerializeField] private LayerMask _ignoreLayer;
-    public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
+    [Serializable]
+    public class SpherecastMethodData : AttackMethodData
     {
-        return new SpherecastMethod(origin, _radius, _distance, _ignoreLayer);
+        public override AttackType Type => AttackType.Spherecast;
+
+        [SerializeField] private float _distance;
+        [SerializeField] private float _radius;
+        [SerializeField] private LayerMask _ignoreLayer;
+
+        public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
+        {
+            return new SpherecastMethod(origin, _radius, _distance, _ignoreLayer);
+        }
     }
 }

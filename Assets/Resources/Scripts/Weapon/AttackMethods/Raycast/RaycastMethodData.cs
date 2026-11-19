@@ -2,16 +2,19 @@
 using Zenject;
 using UnityEngine;
 
-[Serializable]
-public class RaycastMethodData : AttackMethodData
+namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    public override AttackType Type => AttackType.Raycast;
-
-    [SerializeField] private float _distance;
-    [SerializeField] private LayerMask _ignoreMask;
-
-    public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
+    [Serializable]
+    public class RaycastMethodData : AttackMethodData
     {
-        return new RaycastMethod(origin, _distance, _ignoreMask);
+        public override AttackType Type => AttackType.Raycast;
+
+        [SerializeField] private float _distance;
+        [SerializeField] private LayerMask _ignoreMask;
+
+        public override IAttackMethod CreateMethod(Transform origin, DiContainer container)
+        {
+            return new RaycastMethod(origin, _distance, _ignoreMask);
+        }
     }
 }

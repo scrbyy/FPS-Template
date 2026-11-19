@@ -1,33 +1,36 @@
 ﻿using UnityEngine;
 
-public class SpherecastMethod : IAttackMethod
+namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    private float _radius;
-    private Transform _origin;
-    private float _distance;
-    private LayerMask _ignoreLayer;
-
-    private HitData _hitData;
-    private RaycastHit _hit;
-
-    public SpherecastMethod(Transform origin, float radius, float distance, LayerMask ignoreLayer)
+    public class SpherecastMethod : IAttackMethod
     {
-        _origin = origin;
-        _radius = radius;
-        _distance = distance;
-        _ignoreLayer = ignoreLayer;
-    }
+        private float _radius;
+        private Transform _origin;
+        private float _distance;
+        private LayerMask _ignoreLayer;
 
-    public HitData Execute()
-    {
-        _hitData.Origin = _origin.position;
+        private HitData _hitData;
+        private RaycastHit _hit;
 
-        if(Physics.SphereCast(_origin.position, _radius, _origin.forward, out _hit, _distance, ~_ignoreLayer))
+        public SpherecastMethod(Transform origin, float radius, float distance, LayerMask ignoreLayer)
         {
-            _hitData.IsHit = true;
-            _hitData.SetData(_hit);
+            _origin = origin;
+            _radius = radius;
+            _distance = distance;
+            _ignoreLayer = ignoreLayer;
         }
-        else _hitData.IsHit = false;
-        return _hitData; 
+
+        public HitData Execute()
+        {
+            _hitData.Origin = _origin.position;
+
+            if (Physics.SphereCast(_origin.position, _radius, _origin.forward, out _hit, _distance, ~_ignoreLayer))
+            {
+                _hitData.IsHit = true;
+                _hitData.SetData(_hit);
+            }
+            else _hitData.IsHit = false;
+            return _hitData;
+        }
     }
 }

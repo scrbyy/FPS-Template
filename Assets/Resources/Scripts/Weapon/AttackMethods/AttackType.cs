@@ -1,6 +1,9 @@
-﻿public enum AttackType
+﻿namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    None,
-    Raycast,
-    Spherecast
+    public enum AttackType
+    {
+        None,
+        Raycast,
+        Spherecast
+    }
 }

@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public class AttackMethodFactory
+namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    private readonly DiContainer _container;
-
-    public AttackMethodFactory(DiContainer container)
+    public class AttackMethodFactory
     {
-        _container = container;
-    }
+        private readonly DiContainer _container;
 
-    public IAttackMethod Create(AttackMethodData data, Transform origin)
-    {
-        return data.CreateMethod(origin, _container);
+        public AttackMethodFactory(DiContainer container)
+        {
+            _container = container;
+        }
+
+        public IAttackMethod Create(AttackMethodData data, Transform origin)
+        {
+            return data.CreateMethod(origin, _container);
+        }
     }
 }

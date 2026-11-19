@@ -1,4 +1,7 @@
-﻿public interface IAttackMethod
+﻿namespace scrbyy.FpsTemplate.Weapon.AttackMethods
 {
-    public HitData Execute();
+    public interface IAttackMethod
+    {
+        public HitData Execute();
+    }
 }
