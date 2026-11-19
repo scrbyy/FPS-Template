@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class PauseState : IGameState
+namespace scrbyy.FpsTemplate.GameCycle
 {
-    public void Enter()
+    public class PauseState : IGameState
     {
-        CursorVisibility.Show();
-        Time.timeScale = 0f;
+        public void Enter()
+        {
+            CursorVisibility.Show();
+            Time.timeScale = 0f;
+        }
+        public void Exit() { }
     }
-    public void Exit() { }
 }

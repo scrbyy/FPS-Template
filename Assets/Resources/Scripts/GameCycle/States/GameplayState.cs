@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class GameplayState : IGameState
+namespace scrbyy.FpsTemplate.GameCycle
 {
-    public void Enter()
+    public class GameplayState : IGameState
     {
-        CursorVisibility.Hide();
-        Time.timeScale = 1.0f;
+        public void Enter()
+        {
+            CursorVisibility.Hide();
+            Time.timeScale = 1.0f;
+        }
+        public void Exit() { }
     }
-    public void Exit() { }
 }

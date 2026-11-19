@@ -1,5 +1,7 @@
-﻿using UnityEngine;
-using Zenject;
+﻿using Zenject;
+using UnityEngine;
+
+using scrbyy.FpsTemplate.GameCycle;
 
 public class GameFSMInstaller : MonoInstaller
 {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 using scrbyy.FpsTemplate.Interaction;
 
-namespace scrbyy.FpsTemplate.World.Interactible
+namespace scrbyy.FpsTemplate.World.Interactable
 {
     [RequireComponent(typeof(Collider))]
     public class OpenableDoor : MonoBehaviour, IInteractable
