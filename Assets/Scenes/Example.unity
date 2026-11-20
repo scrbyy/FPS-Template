@@ -34566,13 +34566,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  _minIntensity: 0.1
-  _maxIntensity: 1.1
-  _verticalIntensity: 0.03
-  _horizontalIntensity: 0.05
-  _intensityMultiplier: 0.25
-  _stepSpeedMultiplier: 7
-  _stepCurve:
+  _verticalBob: 0.02
+  _horizontalBob: 0.035
+  _bobScaleBySpeed: 0.225
+  _minBobScale: 0.25
+  _maxBobScale: 2
+  _stepShapeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -34587,8 +34586,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -34596,9 +34595,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseStepRate: 2.5
-  _minSpeedThreshold: 0.1
-  _resetTime: 0.125
+  _baseStepFrequency: 5
+  _speedStepFrequency: 6
+  _minMoveSpeed: 1
+  _fadeOutTime: 0.125
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
 MonoBehaviour:
@@ -43067,13 +43067,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2469137bfb1e9a64ebcb2e7bb4c9b744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraBobbing
-  _minIntensity: 0.1
-  _maxIntensity: 1.1
-  _verticalIntensity: 0.02
-  _horizontalIntensity: 0.015
-  _intensityMultiplier: 1
-  _stepSpeedMultiplier: 7
-  _stepCurve:
+  _verticalBob: 0.0175
+  _horizontalBob: 0.011
+  _bobScaleBySpeed: 0.7
+  _minBobScale: 0.25
+  _maxBobScale: 2
+  _stepShapeCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -43088,8 +43087,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -43097,9 +43096,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _baseStepRate: 1
-  _minSpeedThreshold: 0.1
-  _resetTime: 0.125
+  _baseStepFrequency: 2
+  _speedStepFrequency: 5
+  _minMoveSpeed: 0.15
+  _fadeOutTime: 0.2
   _characterEngine: {fileID: 755122330}
 --- !u!1 &1931220212
 GameObject:

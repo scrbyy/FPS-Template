@@ -10,93 +10,85 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
     [RequireComponent(typeof(PositionEffectHandler))]
     public class BobbingEffect : PositionEffect
     {
-        [Header("Intensity Limitations")]
-        [SerializeField] private float _minIntensity;
-        [SerializeField] private float _maxIntensity;
+        [Header("Amplitude & Shape")]
+        [SerializeField] private float _verticalBob = 0.035f;
+        [SerializeField] private float _horizontalBob = 0.022f;
+        [SerializeField] private float _bobScaleBySpeed = 0.7f;
+        [SerializeField] private float _minBobScale = 0.25f;
+        [SerializeField] private float _maxBobScale = 1.6f;
+        [SerializeField] private AnimationCurve _stepShapeCurve;
 
-        [Header("Intensity Settings")]
-        [SerializeField] private float _verticalIntensity;
-        [SerializeField] private float _horizontalIntensity;
+        [Header("Step Rhythm")]
+        [SerializeField] private float _baseStepFrequency = 6.5f;
+        [SerializeField] private float _speedStepFrequency = 4.5f;
 
-        [Header("Speed Modifiers")]
-        [SerializeField] private float _intensityMultiplier;
-        [SerializeField] private float _stepSpeedMultiplier;
+        [Header("Thresholds & Smoothing")]
+        [SerializeField] private float _minMoveSpeed = 0.15f;
+        [SerializeField] private float _fadeOutTime = 0.18f;
 
-        [Header("Bobbing Curve")]
-        [SerializeField] private AnimationCurve _stepCurve;
-
-        [Header("Dynamic Scaling")]
-        [SerializeField] private float _baseStepRate;
-
-        [Space]
-        [SerializeField] private float _minSpeedThreshold;
-
-        [Space]
-        [SerializeField] private float _resetTime;
-
-        [Header("References")]
+        [Header("Dependencies")]
         [SerializeField] private CharacterEngine _characterEngine;
 
         [Inject] private IGroundChecker _groundChecker;
         [Inject] private IMovementInputProvider _inputProvider;
 
-        private float _cycleTimer;
-        private Vector3 _currentCalculatedOffset;
-        private Vector3 _targetBobOffset;
-        private Vector3 _resetVelocity;
+        private float _stepCycleProgress;
+        private Vector3 _currentOffset;
+        private Vector3 _targetOffset;
+        private Vector3 _fadeVelocity;
 
         private const float HalfCycleMultiplier = 0.5f;
         private const float CurveNormalizationOffset = 0.5f;
         private const float CurveNormalizationScale = 2f;
 
-        public override Vector3 GetLocalOffset() => _currentCalculatedOffset;
+        public override Vector3 GetLocalOffset() => _currentOffset;
 
         private void LateUpdate()
         {
             if (!_characterEngine.IsImpulseActive)
             {
-                Vector2 inputMove = _inputProvider.MoveInput;
-                Vector3 worldVelocity = _characterEngine.Velocity;
-                float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
+                Vector2 moveInput = _inputProvider.MoveInput;
+                Vector3 velocity = _characterEngine.Velocity;
+                float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
 
-                bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _minSpeedThreshold;
-                bool canApplyEffect = isMoving && _groundChecker.IsGrounded && !_characterEngine.IsImpulseActive;
+                bool isMoving = moveInput != Vector2.zero && horizontalSpeed > _minMoveSpeed;
+                bool canBob = isMoving && _groundChecker.IsGrounded;
 
-                if (canApplyEffect)
+                if (canBob)
                 {
-                    float currentStepRate = _baseStepRate + (Mathf.Sqrt(horizontalSpeed) * _stepSpeedMultiplier);
-                    _cycleTimer += Time.deltaTime * currentStepRate;
+                    float stepFrequency = _baseStepFrequency + (Mathf.Sqrt(horizontalSpeed) * _speedStepFrequency);
+                    _stepCycleProgress += Time.deltaTime * stepFrequency;
 
-                    _targetBobOffset = CalculateBobbingTarget(horizontalSpeed);
+                    _targetOffset = CalculateTargetOffset(horizontalSpeed);
                 }
                 else
                 {
-                    _targetBobOffset = Vector3.zero;
-                    _cycleTimer = 0f;
+                    _targetOffset = Vector3.zero;
+                    _stepCycleProgress = 0f;
                 }
 
-                _currentCalculatedOffset = Vector3.SmoothDamp(
-                    _currentCalculatedOffset,
-                    _targetBobOffset,
-                    ref _resetVelocity,
-                    _resetTime
+                _currentOffset = Vector3.SmoothDamp(
+                    _currentOffset,
+                    _targetOffset,
+                    ref _fadeVelocity,
+                    _fadeOutTime
                 );
             }
         }
 
-        private Vector3 CalculateBobbingTarget(float speed)
+        private Vector3 CalculateTargetOffset(float speed)
         {
-            float waveX = Mathf.Sin(_cycleTimer * HalfCycleMultiplier);
-            float waveY = Mathf.Sin(_characterEngine.Velocity.magnitude > 0 ? _cycleTimer : 0);
+            float waveX = Mathf.Sin(_stepCycleProgress * HalfCycleMultiplier);
+            float waveY = Mathf.Sin(_characterEngine.Velocity.magnitude > 0 ? _stepCycleProgress : 0);
 
-            float normalizedCurveX = _stepCurve.Evaluate((waveX + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
-            float normalizedCurveY = _stepCurve.Evaluate((waveY + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
+            float normalizedCurveX = _stepShapeCurve.Evaluate((waveX + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
+            float normalizedCurveY = _stepShapeCurve.Evaluate((waveY + 1f) * CurveNormalizationOffset) * CurveNormalizationScale - 1f;
 
-            float speedFactor = Mathf.Clamp(speed * _intensityMultiplier, _minIntensity, _maxIntensity);
+            float bobScale = Mathf.Clamp(speed * _bobScaleBySpeed, _minBobScale, _maxBobScale);
 
             return new Vector3(
-                normalizedCurveX * _horizontalIntensity * speedFactor,
-                normalizedCurveY * _verticalIntensity * speedFactor,
+                normalizedCurveX * _horizontalBob * bobScale,
+                normalizedCurveY * _verticalBob * bobScale,
                 0
             );
         }
