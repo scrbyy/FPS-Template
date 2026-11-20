@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 using scrbyy.FpsTemplate.Weapons.Data.Interfaces;
-using scrbyy.FpsTemplate.Weapons.Data;
 
 namespace scrbyy.FpsTemplate.Weapons.Guns
 {

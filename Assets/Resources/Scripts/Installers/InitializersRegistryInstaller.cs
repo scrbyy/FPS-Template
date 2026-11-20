@@ -1,7 +1,7 @@
 ﻿using Zenject;
 
 using scrbyy.FpsTemplate.Weapons.Guns;
-using scrbyy.FpsTemplate.Weapons.Knife;
+using scrbyy.FpsTemplate.Weapons.Knifes;
 using scrbyy.FpsTemplate.Weapons.Initialization;
 
 namespace scrbyy.FpsTemplate.Installers

@@ -3,7 +3,7 @@
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
 using scrbyy.FpsTemplate.Weapons.Data.Interfaces;
 
-namespace scrbyy.FpsTemplate.Weapons.Knife
+namespace scrbyy.FpsTemplate.Weapons.Knifes
 {
     public class KnifeAttacker : WeaponAttacker
     {

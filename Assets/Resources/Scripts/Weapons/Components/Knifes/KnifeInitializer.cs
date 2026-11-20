@@ -2,7 +2,7 @@
 
 using scrbyy.FpsTemplate.Weapons.Initialization;
 
-namespace scrbyy.FpsTemplate.Weapons.Knife
+namespace scrbyy.FpsTemplate.Weapons.Knifes
 {
     public class KnifeInitializer : WeaponInitializer<Knife>
     {

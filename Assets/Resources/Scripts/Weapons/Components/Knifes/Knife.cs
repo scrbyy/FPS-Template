@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 using scrbyy.FpsTemplate.Weapons.AttackMethods;
 
-namespace scrbyy.FpsTemplate.Weapons.Knife
+namespace scrbyy.FpsTemplate.Weapons.Knifes
 {
     public class Knife : Weapon
     {

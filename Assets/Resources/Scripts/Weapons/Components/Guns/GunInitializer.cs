@@ -1,5 +1,6 @@
-﻿using scrbyy.FpsTemplate.Weapons.Initialization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using scrbyy.FpsTemplate.Weapons.Initialization;
 
 namespace scrbyy.FpsTemplate.Weapons.Guns
 {

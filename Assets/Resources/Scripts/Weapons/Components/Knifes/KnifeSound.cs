@@ -2,7 +2,7 @@
 
 using scrbyy.FpsTemplate.Weapons.Effects;
 
-namespace scrbyy.FpsTemplate.Weapons.Knife.Effects
+namespace scrbyy.FpsTemplate.Weapons.Knifes.Effects
 {
     public class KnifeSound : WeaponSound
     {
