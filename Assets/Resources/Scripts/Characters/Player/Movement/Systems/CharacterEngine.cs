@@ -21,6 +21,10 @@ namespace scrbyy.FpsTemplate.Characters.Player.Movement
         [SerializeField] private float _airAcceleration;
         [SerializeField] private float _airCap;
 
+        [Header("Impulse Speed Limits")]
+        [SerializeField] private float _maxGroundSpeed;
+        [SerializeField] private float _maxAirSpeed;
+
         [Header("Gravity")]
         [SerializeField] private float _gravityScale;
         [SerializeField] private float _downforce;
@@ -57,7 +61,7 @@ namespace scrbyy.FpsTemplate.Characters.Player.Movement
 
         public void AddImpulse(Vector3 impulse)
         {
-            _velocity += impulse;
+            _velocity = Vector3.ClampMagnitude(_velocity += impulse, _groundChecker.IsGrounded? _maxGroundSpeed : _maxAirSpeed);
             _isImpulseActive = true;
         }
 

@@ -6123,7 +6123,6 @@ MonoBehaviour:
   _tiltSmoothing: 8
   _minSpeedFactor: 0.1
   _maxSpeedFactor: 0.25
-  _speedThreshold: 0.1
   _referenceSpeed: 1
   _characterEngine: {fileID: 755122330}
 --- !u!43 &335527066
@@ -13053,7 +13052,7 @@ GameObject:
   - component: {fileID: 643286671}
   - component: {fileID: 643286670}
   - component: {fileID: 643286669}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16801,7 +16800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da85873a7909874a8ac7ff277249f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
-  _staminaCost: 0.1
+  _staminaCost: 0.25
   _characterEngine: {fileID: 755122330}
   _characterStamina: {fileID: 9949984}
 --- !u!114 &755122324
@@ -16816,8 +16815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2be61cee0b4dd2f4eaf53f357f2a41e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPhysics
-  _jumpForce: 1
-  _staminaCost: 1
+  _jumpForce: 1.25
+  _staminaCost: 5
   _inputBufferDuration: 0.1
   _coyoteTimeDuration: 0.1
   _characterEngine: {fileID: 755122330}
@@ -16835,9 +16834,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDashPhysical
   _airImpulse: 8
-  _groundImpulse: 12
+  _groundImpulse: 15
   _cooldown: 0.5
-  _dashStaminaCost: 5
+  _dashStaminaCost: 3
   _characterEngine: {fileID: 755122330}
   _characterStamina: {fileID: 9949984}
 --- !u!114 &755122328
@@ -16905,6 +16904,8 @@ MonoBehaviour:
   _movingThreshold: 1
   _airAcceleration: 20
   _airCap: 1
+  _maxGroundSpeed: 18
+  _maxAirSpeed: 18
   _gravityScale: 2
   _downforce: -2
   _speedProvider: {fileID: 755122332}
@@ -20920,7 +20921,7 @@ GameObject:
   - component: {fileID: 917482124}
   - component: {fileID: 917482123}
   - component: {fileID: 917482122}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27020,7 +27021,7 @@ GameObject:
   - component: {fileID: 1193911866}
   - component: {fileID: 1193911865}
   - component: {fileID: 1193911864}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27673,7 +27674,7 @@ Transform:
   m_GameObject: {fileID: 1193911863}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.5, y: 2.5, z: 14.5}
+  m_LocalPosition: {x: -24.5, y: 2.03, z: 13.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34597,7 +34598,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseStepFrequency: 5
   _speedStepFrequency: 6
-  _minMoveSpeed: 1
   _fadeOutTime: 0.125
   _characterEngine: {fileID: 755122330}
 --- !u!114 &1557150732
@@ -40219,7 +40219,7 @@ GameObject:
   - component: {fileID: 1805777767}
   - component: {fileID: 1805777766}
   - component: {fileID: 1805777765}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43098,7 +43098,6 @@ MonoBehaviour:
     m_RotationOrder: 4
   _baseStepFrequency: 2
   _speedStepFrequency: 5
-  _minMoveSpeed: 0.15
   _fadeOutTime: 0.2
   _characterEngine: {fileID: 755122330}
 --- !u!1 &1931220212
