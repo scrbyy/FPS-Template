@@ -17,7 +17,6 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
         [SerializeField] private float _maxSpeedFactor;
 
         [Header("Dynamic Scaling")]
-        [SerializeField] private float _speedThreshold;
         [SerializeField] private float _referenceSpeed;
 
 
@@ -35,8 +34,7 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
             Vector3 worldVelocity = _characterEngine.Velocity;
             float horizontalSpeed = new Vector3(worldVelocity.x, 0, worldVelocity.z).magnitude;
 
-            bool isMoving = inputMove != Vector2.zero && horizontalSpeed > _speedThreshold;
-            bool canApplyEffect = isMoving && _groundCheck.IsGrounded && !_characterEngine.IsImpulseActive;
+            bool canApplyEffect = _characterEngine.IsMoving() && _groundCheck.IsGrounded && !_characterEngine.IsImpulseActive;
 
             if (canApplyEffect)
             {

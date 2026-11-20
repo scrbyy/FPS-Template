@@ -11,20 +11,19 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
     public class BobbingEffect : PositionEffect
     {
         [Header("Amplitude & Shape")]
-        [SerializeField] private float _verticalBob = 0.035f;
-        [SerializeField] private float _horizontalBob = 0.022f;
-        [SerializeField] private float _bobScaleBySpeed = 0.7f;
-        [SerializeField] private float _minBobScale = 0.25f;
-        [SerializeField] private float _maxBobScale = 1.6f;
+        [SerializeField] private float _verticalBob;
+        [SerializeField] private float _horizontalBob;
+        [SerializeField] private float _bobScaleBySpeed;
+        [SerializeField] private float _minBobScale;
+        [SerializeField] private float _maxBobScale;
         [SerializeField] private AnimationCurve _stepShapeCurve;
 
         [Header("Step Rhythm")]
-        [SerializeField] private float _baseStepFrequency = 6.5f;
-        [SerializeField] private float _speedStepFrequency = 4.5f;
+        [SerializeField] private float _baseStepFrequency;
+        [SerializeField] private float _speedStepFrequency;
 
         [Header("Thresholds & Smoothing")]
-        [SerializeField] private float _minMoveSpeed = 0.15f;
-        [SerializeField] private float _fadeOutTime = 0.18f;
+        [SerializeField] private float _fadeOutTime;
 
         [Header("Dependencies")]
         [SerializeField] private CharacterEngine _characterEngine;
@@ -51,8 +50,7 @@ namespace scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects
                 Vector3 velocity = _characterEngine.Velocity;
                 float horizontalSpeed = new Vector3(velocity.x, 0, velocity.z).magnitude;
 
-                bool isMoving = moveInput != Vector2.zero && horizontalSpeed > _minMoveSpeed;
-                bool canBob = isMoving && _groundChecker.IsGrounded;
+                bool canBob = _characterEngine.IsMoving() && _groundChecker.IsGrounded;
 
                 if (canBob)
                 {
