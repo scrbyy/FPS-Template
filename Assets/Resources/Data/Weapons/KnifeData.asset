@@ -29,3 +29,4 @@ MonoBehaviour:
       m_Bits: 512
   _speedMultiplier: 1
   _openDelay: 0.25
+  _staminaCost: 5

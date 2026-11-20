@@ -18960,6 +18960,7 @@ MonoBehaviour:
   _data: {fileID: 11400000, guid: 5f6b9ea6783e70a418cc8797c03a5680, type: 2}
   _origin: {fileID: 330585546}
   _ownerSpeedHandler: {fileID: 755122332}
+  _characterStamina: {fileID: 9949984}
 --- !u!82 &848882175
 AudioSource:
   m_ObjectHideFlags: 0
