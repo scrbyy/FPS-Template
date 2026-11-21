@@ -24,7 +24,7 @@ namespace scrbyy.FpsTemplate.Weapons
 
         protected CancellationTokenSource _openCts;
         protected WeaponSpeedModifier _speedModifier;
-        protected WeaponAttacker _weaponAttacker;
+        protected WeaponAttacker _attacker;
 
         protected bool _isOpened;
 
@@ -57,12 +57,12 @@ namespace scrbyy.FpsTemplate.Weapons
         public virtual void Attack()
         {
             if (!_isOpened) return;
-            _weaponAttacker?.StartAttack().Forget();
+            _attacker?.StartAttack().Forget();
         }
 
         public virtual void StopAttack()
         {
-            _weaponAttacker?.StopAttack();
+            _attacker?.StopAttack();
             NotifyAttackStopped();
         }
 
@@ -78,19 +78,19 @@ namespace scrbyy.FpsTemplate.Weapons
 
         protected void SubscribeAttackerEvents()
         {
-            if (_weaponAttacker != null)
+            if (_attacker != null)
             {
-                _weaponAttacker.OnAttack += NotifyAttack;
-                _weaponAttacker.OnHit += HandleAttackerHit;
+                _attacker.OnAttack += NotifyAttack;
+                _attacker.OnHit += HandleAttackerHit;
             }
         }
 
         protected void UnsubscribeAttackerEvents()
         {
-            if (_weaponAttacker != null)
+            if (_attacker != null)
             {
-                _weaponAttacker.OnAttack -= NotifyAttack;
-                _weaponAttacker.OnHit -= HandleAttackerHit;
+                _attacker.OnAttack -= NotifyAttack;
+                _attacker.OnHit -= HandleAttackerHit;
             }
         }
 

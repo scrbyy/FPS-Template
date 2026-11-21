@@ -32,6 +32,6 @@ MonoBehaviour:
   _distanceDamageMultiplier: 0.95
   _damageDecreasingStep: 10
   _startAmmo: 30
-  _reserveAmmo: 9000
+  _reserveAmmo: 120
   _magazineSize: 30
   _reloadDuration: 1

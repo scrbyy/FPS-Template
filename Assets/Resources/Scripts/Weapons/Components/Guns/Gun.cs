@@ -22,25 +22,25 @@ namespace scrbyy.FpsTemplate.Weapons.Guns
         {
             base.Initialize();
 
-            if (!(_data is GunData gunData))
+            if (_data is not GunData gunData)
             {
                 Debug.LogError("Wrong data asset!");
                 return;
             }
 
-            if (_weaponAttacker == null && _reloader == null)
+            if (_attacker == null && _reloader == null)
             {
                 _reloader = new GunReloader(gunData);
-                _weaponAttacker = new GunAttacker(_origin, _reloader.CanShoot, gunData, gunData, _attackMethodFactory);
+                _attacker = new GunAttacker(_origin, _reloader.CanShoot, gunData, gunData, _attackMethodFactory);
             }
 
             _reloader.Initialize();
-            _weaponAttacker.Initialize();
+            _attacker.Initialize();
 
             _reloader.OnReloadEnd += NotifyUpdateAmmo;
-            _weaponAttacker.OnAttack += NotifyShoot;
-            _weaponAttacker.OnHit += HandleAttackerHit;
             _reloader.OnReloadStart += NotifyReloadStart;
+
+            SubscribeAttackerEvents();
 
             NotifyUpdateAmmo();
         }
@@ -56,28 +56,20 @@ namespace scrbyy.FpsTemplate.Weapons.Guns
                 _reloader.OnReloadStart -= NotifyReloadStart;
             }
 
-            if (_weaponAttacker != null)
+            if (_attacker != null)
             {
-                _weaponAttacker.Deinitialize();
-                _weaponAttacker.OnAttack -= NotifyShoot;
-                _weaponAttacker.OnHit -= HandleAttackerHit;
+                _attacker.Deinitialize();
+                UnsubscribeAttackerEvents();
             }
         }
 
         public void Reload()
         {
             if (!_isOpened) return;
-            if (!_weaponAttacker.IsAutoAttacking)
+            if (!_attacker.IsAutoAttacking)
             {
                 _reloader.Reload();
             }
-        }
-
-        private void NotifyShoot()
-        {
-            NotifyAttack();
-            _reloader.UseBullet();
-            NotifyUpdateAmmo();
         }
 
         private void NotifyUpdateAmmo()
