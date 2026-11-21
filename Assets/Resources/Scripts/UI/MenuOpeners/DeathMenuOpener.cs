@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace scrbyy.FpsTemplate.UI.MenuOpeners
 {
-    public class DeathMenuOpener : MenuOpener
+    public class DeathMenuOpener : PauseMenuOpener
     {
         [SerializeField] private CharacterHealth _playerHealth;
 
-        private void OnEnable()
+        protected override void Subscribe()
         {
             _playerHealth.OnValueExhausted += OpenMenu;
         }
 
-        private void OnDisable()
+        protected override void Unsubscribe()
         {
             _playerHealth.OnValueExhausted -= OpenMenu;
         }

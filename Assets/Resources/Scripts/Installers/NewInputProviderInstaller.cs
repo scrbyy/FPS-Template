@@ -2,6 +2,7 @@ using UnityEngine;
 using Zenject;
 
 using scrbyy.FpsTemplate.InputSystem;
+using scrbyy.FpsTemplate.Input.Interfaces;
 
 namespace scrbyy.FpsTemplate.Installers
 {
@@ -16,6 +17,7 @@ namespace scrbyy.FpsTemplate.Installers
             Container.Bind<IWeaponInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
             Container.Bind<ILoadoutInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
             Container.Bind<ILookInputProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
+            Container.Bind<IUIMenuProvider>().FromInstance(_inputProvider).AsSingle().NonLazy();
         }
     }
 }

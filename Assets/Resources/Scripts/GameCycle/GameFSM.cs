@@ -7,8 +7,10 @@ namespace scrbyy.FpsTemplate.GameCycle
 {
     public class GameFSM : MonoBehaviour
     {
-        private Dictionary<Type, IGameState> _states;
+        public event Action<IGameState> OnStateChanged;
         public IGameState CurrentState { get; private set; }
+
+        private Dictionary<Type, IGameState> _states;
 
         [Inject]
         private void Construct(List<IGameState> states)
@@ -38,6 +40,7 @@ namespace scrbyy.FpsTemplate.GameCycle
             CurrentState?.Exit();
             CurrentState = newState;
             CurrentState.Enter();
+            OnStateChanged?.Invoke(CurrentState);
         }
     }
 }

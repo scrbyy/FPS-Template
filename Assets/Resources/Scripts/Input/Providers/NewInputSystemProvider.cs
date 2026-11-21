@@ -1,10 +1,12 @@
-﻿using System;
+﻿using scrbyy.FpsTemplate.Input.Interfaces;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace scrbyy.FpsTemplate.InputSystem
 {
-    public class NewInputSystemProvider : MonoBehaviour, IWeaponInputProvider, IMovementInputProvider, ILookInputProvider, ILoadoutInputProvider, IInteractionInputProvider
+    public class NewInputSystemProvider : MonoBehaviour, IWeaponInputProvider, IMovementInputProvider, 
+        ILookInputProvider, ILoadoutInputProvider, IInteractionInputProvider, IUIMenuProvider
     {
         public Vector2 MoveInput => _moveAction.ReadValue<Vector2>();
 
@@ -24,6 +26,9 @@ namespace scrbyy.FpsTemplate.InputSystem
 
         public event Action OnInteractStarted;
 
+        public event Action OnDebugMenuToggled;
+        public event Action OnPauseMenuToggled;
+
         private InputAction _moveAction;
         private InputAction _jumpAction;
         private InputAction _lookAction;
@@ -34,6 +39,8 @@ namespace scrbyy.FpsTemplate.InputSystem
         private InputAction _dashAction;
         private InputAction _nextWeaponAction;
         private InputAction _previousWeaponAction;
+        private InputAction _debugMenuAction;
+        private InputAction _pauseMenuAction;
 
         private void Awake()
         {
@@ -47,6 +54,8 @@ namespace scrbyy.FpsTemplate.InputSystem
             _dashAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Dash");
             _nextWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("NextWeapon");
             _previousWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("PreviousWeapon");
+            _debugMenuAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("ToggleDebug");
+            _pauseMenuAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("TogglePause");
 
             _jumpAction.performed += OnJump;
             _interactAction.performed += OnInteract;
@@ -61,6 +70,9 @@ namespace scrbyy.FpsTemplate.InputSystem
 
             _fireAction.started += OnShootStart;
             _fireAction.canceled += OnShootCancel;
+
+            _debugMenuAction.performed += OnDebugMenu;
+            _pauseMenuAction.performed += OnPauseMenu;
         }
 
         private void OnDestroy()
@@ -78,6 +90,9 @@ namespace scrbyy.FpsTemplate.InputSystem
 
             _fireAction.started -= OnShootStart;
             _fireAction.canceled -= OnShootCancel;
+
+            _debugMenuAction.performed -= OnDebugMenu;
+            _pauseMenuAction.performed -= OnPauseMenu;
         }
 
         private void OnJump(InputAction.CallbackContext ctx) => OnJumpStarted?.Invoke();
@@ -99,5 +114,9 @@ namespace scrbyy.FpsTemplate.InputSystem
         private void OnShootStart(InputAction.CallbackContext ctx) => OnShootStarted?.Invoke();
 
         private void OnShootCancel(InputAction.CallbackContext ctx) => OnShootReleased?.Invoke();
+
+        private void OnDebugMenu(InputAction.CallbackContext ctx) => OnDebugMenuToggled?.Invoke();
+
+        private void OnPauseMenu(InputAction.CallbackContext ctx) => OnPauseMenuToggled?.Invoke();
     }
 }
