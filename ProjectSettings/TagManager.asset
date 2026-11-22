@@ -15,7 +15,7 @@ TagManager:
   - 
   - Weapons
   - Player
-  - InteractionObject
+  - Interactable
   - Enemy
   - Ground
   - 

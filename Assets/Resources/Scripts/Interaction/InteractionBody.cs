@@ -9,7 +9,7 @@ namespace scrbyy.FpsTemplate.Interaction
     {
         [Header("Ray Settings")]
         [SerializeField] private float _distance;
-        [SerializeField] private LayerMask _mask;
+        [SerializeField] private LayerMask _interactibleMmask;
         [SerializeField] private Transform _rayOrigin;
 
         [Inject] private IInteractionInputProvider _inputProvider;
@@ -18,7 +18,7 @@ namespace scrbyy.FpsTemplate.Interaction
 
         private void CheckInteraction()
         {
-            if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _mask))
+            if (Physics.Raycast(_rayOrigin.position, _rayOrigin.forward, out _hit, _distance, _interactibleMmask))
             {
                 if(_hit.collider.gameObject.TryGetComponent<IInteractable>(out IInteractable interactionObject))
                 {

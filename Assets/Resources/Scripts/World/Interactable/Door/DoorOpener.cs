@@ -1,16 +1,15 @@
 using System.Collections;
 using UnityEngine;
 
-using scrbyy.FpsTemplate.Interaction;
-
-namespace scrbyy.FpsTemplate.World.Interactable
+namespace scrbyy.FpsTemplate.World.Interactable.Door
 {
-    [RequireComponent(typeof(Collider))]
-    public class OpenableDoor : MonoBehaviour, IInteractable
+    public class DoorOpener : MonoBehaviour
     {
-        [SerializeField] private Transform _doorTransform;
         [SerializeField] private float _openAngle;
         [SerializeField] private float _openTime;
+
+        [Header("References")]
+        [SerializeField] private Transform _doorTransform;
 
         private float _closedAngleY;
         private float _openedAngleY;
@@ -24,7 +23,7 @@ namespace scrbyy.FpsTemplate.World.Interactable
             _openedAngleY = _closedAngleY + _openAngle;
         }
 
-        public void Interact()
+        public void Toggle()
         {
             if (_openCoroutine != null) return;
 
