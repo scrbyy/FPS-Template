@@ -72,6 +72,28 @@ namespace scrbyy.FpsTemplate.Weapons.Guns
             }
         }
 
+        protected override void SubscribeAttackerEvents()
+        {
+            if (_attacker != null && _reloader != null)
+            {
+                _attacker.OnAttack += NotifyAttack;
+                _attacker.OnAttack += _reloader.UseBullet;
+                _attacker.OnAttack += NotifyUpdateAmmo;
+                _attacker.OnHit += HandleAttackerHit;
+            }
+        }
+
+        protected override void UnsubscribeAttackerEvents()
+        {
+            if (_attacker != null && _reloader != null)
+            {
+                _attacker.OnAttack -= NotifyAttack;
+                _attacker.OnAttack -= _reloader.UseBullet;
+                _attacker.OnAttack -= NotifyUpdateAmmo;
+                _attacker.OnHit -= HandleAttackerHit;
+            }
+        }
+
         private void NotifyUpdateAmmo()
         {
             OnAmmoChanged?.Invoke(_reloader.CurrentAmmo, _reloader.ReserveAmmo);

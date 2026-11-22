@@ -76,7 +76,7 @@ namespace scrbyy.FpsTemplate.Weapons
             catch (OperationCanceledException) { }
         }
 
-        protected void SubscribeAttackerEvents()
+        protected virtual void SubscribeAttackerEvents()
         {
             if (_attacker != null)
             {
@@ -85,7 +85,7 @@ namespace scrbyy.FpsTemplate.Weapons
             }
         }
 
-        protected void UnsubscribeAttackerEvents()
+        protected virtual void UnsubscribeAttackerEvents()
         {
             if (_attacker != null)
             {
