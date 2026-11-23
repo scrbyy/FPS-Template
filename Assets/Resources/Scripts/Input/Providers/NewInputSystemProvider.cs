@@ -49,7 +49,7 @@ namespace scrbyy.FpsTemplate.InputSystem
             _lookAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Look");
             _interactAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Interact");
             _sprintAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Sprint");
-            _fireAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Fire");
+            _fireAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Attack");
             _reloadAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Reload");
             _dashAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Dash");
             _nextWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("NextWeapon");
