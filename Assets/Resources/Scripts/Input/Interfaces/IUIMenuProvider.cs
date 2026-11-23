@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace scrbyy.FpsTemplate.Input.Interfaces
+namespace scrbyy.FpsTemplate.InputSystem.Interfaces
 {
     public interface IUIMenuProvider
     {

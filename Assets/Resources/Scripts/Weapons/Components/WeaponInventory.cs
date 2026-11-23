@@ -3,7 +3,7 @@ using Zenject;
 using UnityEngine;
 using System.Collections.Generic;
 
-using scrbyy.FpsTemplate.InputSystem;
+using scrbyy.FpsTemplate.InputSystem.Interfaces;
 using scrbyy.FpsTemplate.Weapons.Initialization;
 
 namespace scrbyy.FpsTemplate.Weapons

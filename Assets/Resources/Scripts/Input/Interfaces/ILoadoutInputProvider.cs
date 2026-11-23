@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace scrbyy.FpsTemplate.InputSystem
+namespace scrbyy.FpsTemplate.InputSystem.Interfaces
 {
     public interface ILoadoutInputProvider
     {

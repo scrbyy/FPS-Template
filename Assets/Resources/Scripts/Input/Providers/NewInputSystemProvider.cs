@@ -1,16 +1,18 @@
-﻿using scrbyy.FpsTemplate.Input.Interfaces;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
+using scrbyy.FpsTemplate.InputSystem.Interfaces;
+using Zenject;
 
 namespace scrbyy.FpsTemplate.InputSystem
 {
     public class NewInputSystemProvider : MonoBehaviour, IWeaponInputProvider, IMovementInputProvider, 
         ILookInputProvider, ILoadoutInputProvider, IInteractionInputProvider, IUIMenuProvider
     {
-        public Vector2 MoveInput => _moveAction.ReadValue<Vector2>();
+        public Vector2 MoveInput => _inputActions?.Player.Move.ReadValue<Vector2>() ?? Vector2.zero;
 
-        public Vector2 LookInput => _lookAction.ReadValue<Vector2>();
+        public Vector2 LookInput => _inputActions?.Player.Look.ReadValue<Vector2>() ?? Vector2.zero;
 
         public event Action OnShootReleased;
         public event Action OnShootStarted;
@@ -29,70 +31,46 @@ namespace scrbyy.FpsTemplate.InputSystem
         public event Action OnDebugMenuToggled;
         public event Action OnPauseMenuToggled;
 
-        private InputAction _moveAction;
-        private InputAction _jumpAction;
-        private InputAction _lookAction;
-        private InputAction _interactAction;
-        private InputAction _sprintAction;
-        private InputAction _fireAction;
-        private InputAction _reloadAction;
-        private InputAction _dashAction;
-        private InputAction _nextWeaponAction;
-        private InputAction _previousWeaponAction;
-        private InputAction _debugMenuAction;
-        private InputAction _pauseMenuAction;
+        [Inject] private InputActionsAsset _inputActions;
 
         private void Awake()
         {
-            _moveAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Move");
-            _jumpAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Jump");
-            _lookAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Look");
-            _interactAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Interact");
-            _sprintAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Sprint");
-            _fireAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Attack");
-            _reloadAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Reload");
-            _dashAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("Dash");
-            _nextWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("NextWeapon");
-            _previousWeaponAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("PreviousWeapon");
-            _debugMenuAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("ToggleDebug");
-            _pauseMenuAction = UnityEngine.InputSystem.InputSystem.actions.FindAction("TogglePause");
+            _inputActions.Player.Jump.performed += OnJump;
+            _inputActions.Player.Interact.performed += OnInteract;
+            _inputActions.Player.Reload.performed += OnReload;
+            _inputActions.Player.NextWeapon.performed += OnNextWeapon;
+            _inputActions.Player.PreviousWeapon.performed += OnPreviousWeapon;
 
-            _jumpAction.performed += OnJump;
-            _interactAction.performed += OnInteract;
-            _reloadAction.performed += OnReload;
-            _nextWeaponAction.performed += OnNextWeapon;
-            _previousWeaponAction.performed += OnPreviousWeapon;
+            _inputActions.Player.Sprint.started += OnSprintStart;
+            _inputActions.Player.Sprint.canceled += OnSprintCancel;
 
-            _sprintAction.started += OnSprintStart;
-            _sprintAction.canceled += OnSprintCancel;
+            _inputActions.Player.Dash.started += OnDashStart;
 
-            _dashAction.started += OnDashStart;
+            _inputActions.Player.Fire.started += OnShootStart;
+            _inputActions.Player.Fire.canceled += OnShootCancel;
 
-            _fireAction.started += OnShootStart;
-            _fireAction.canceled += OnShootCancel;
-
-            _debugMenuAction.performed += OnDebugMenu;
-            _pauseMenuAction.performed += OnPauseMenu;
+            _inputActions.Player.ToggleDebug.performed += OnDebugMenu;
+            _inputActions.Player.TogglePause.performed += OnPauseMenu;
         }
 
         private void OnDestroy()
         {
-            _jumpAction.performed -= OnJump;
-            _interactAction.performed -= OnInteract;
-            _reloadAction.performed -= OnReload;
-            _nextWeaponAction.performed -= OnNextWeapon;
-            _previousWeaponAction.performed -= OnPreviousWeapon;
+            _inputActions.Player.Jump.performed -= OnJump;
+            _inputActions.Player.Interact.performed -= OnInteract;
+            _inputActions.Player.Reload.performed -= OnReload;
+            _inputActions.Player.NextWeapon.performed -= OnNextWeapon;
+            _inputActions.Player.PreviousWeapon.performed -= OnPreviousWeapon;
 
-            _sprintAction.started -= OnSprintStart;
-            _sprintAction.canceled -= OnSprintCancel;
+            _inputActions.Player.Sprint.started -= OnSprintStart;
+            _inputActions.Player.Sprint.canceled -= OnSprintCancel;
 
-            _dashAction.started -= OnDashStart;
+            _inputActions.Player.Dash.started -= OnDashStart;
 
-            _fireAction.started -= OnShootStart;
-            _fireAction.canceled -= OnShootCancel;
+            _inputActions.Player.Fire.started -= OnShootStart;
+            _inputActions.Player.Fire.canceled -= OnShootCancel;
 
-            _debugMenuAction.performed -= OnDebugMenu;
-            _pauseMenuAction.performed -= OnPauseMenu;
+            _inputActions.Player.ToggleDebug.performed -= OnDebugMenu;
+            _inputActions.Player.TogglePause.performed -= OnPauseMenu;
         }
 
         private void OnJump(InputAction.CallbackContext ctx) => OnJumpStarted?.Invoke();

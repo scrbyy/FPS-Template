@@ -1,4 +1,5 @@
-﻿using scrbyy.FpsTemplate.Input.Interfaces;
+﻿using scrbyy.FpsTemplate.InputSystem;
+using scrbyy.FpsTemplate.InputSystem.Interfaces;
 using UnityEngine;
 using Zenject;
 
@@ -8,15 +9,18 @@ namespace scrbyy.FpsTemplate.GameCycle
     {
         [Inject] private GameFSM _gameFSM;
         [Inject] IUIMenuProvider _uiMenuProvider;
+        [Inject] private ActionMapChanger _actionMapChanger;
 
         public void Pause()
         {
             _gameFSM.SetState<PauseState>();
+            _actionMapChanger.SetUIActionMap();
         }
 
         public void Unpause()
         {
             _gameFSM.SetState<GameplayState>();
+            _actionMapChanger.SetPlayerActionMap();
         }
 
         private void OnEnable()

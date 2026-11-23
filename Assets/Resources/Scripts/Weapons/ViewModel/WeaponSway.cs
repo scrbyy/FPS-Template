@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-using scrbyy.FpsTemplate.InputSystem;
+using scrbyy.FpsTemplate.InputSystem.Interfaces;
 using scrbyy.FpsTemplate.Characters.Player.CameraSystem.Effects;
 
 namespace scrbyy.FpsTemplate.Weapons.ViewModel

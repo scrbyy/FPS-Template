@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace scrbyy.FpsTemplate.InputSystem
+namespace scrbyy.FpsTemplate.InputSystem.Interfaces
 {
     public interface IMovementInputProvider
     {

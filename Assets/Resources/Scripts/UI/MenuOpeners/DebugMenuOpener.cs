@@ -1,4 +1,4 @@
-﻿using scrbyy.FpsTemplate.Input.Interfaces;
+﻿using scrbyy.FpsTemplate.InputSystem.Interfaces;
 using Zenject;
 
 namespace scrbyy.FpsTemplate.UI.MenuOpeners

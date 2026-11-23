@@ -1,4 +1,4 @@
-﻿using scrbyy.FpsTemplate.InputSystem;
+﻿using scrbyy.FpsTemplate.InputSystem.Interfaces;
 
 using scrbyy.FpsTemplate.Weapons.Guns;
 

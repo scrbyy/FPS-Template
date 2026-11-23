@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-using scrbyy.FpsTemplate.InputSystem;
+using scrbyy.FpsTemplate.InputSystem.Interfaces;
 using scrbyy.FpsTemplate.Services;
 using scrbyy.FpsTemplate.Characters.Stats;
 using scrbyy.FpsTemplate.Characters.Player.Movement.Collisions.GroundChecker;
